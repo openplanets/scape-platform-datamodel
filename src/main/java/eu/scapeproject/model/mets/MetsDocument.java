@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import eu.scapeproject.model.Identifier;
 
@@ -28,7 +29,7 @@ public class MetsDocument {
     @XmlElement(name = "dmdSec", namespace = "http://www.loc.gov/METS/")
     private MetsDMDSec dmdSec;
     @XmlElement(name = "amdSec", namespace = "http://www.loc.gov/METS/")
-    private MetsAMDSec amdSec;
+    private List<MetsAMDSec> amdSecs;
     @XmlElement(name = "fileGrp", namespace = "http://www.loc.gov/METS/")
     private List<MetsFileGrp> fileGrps;
 
@@ -56,6 +57,10 @@ public class MetsDocument {
         return type;
     }
 
+    public List<MetsAMDSec> getAmdSecs() {
+        return amdSecs;
+    }
+
     public static class Builder {
         private String id;
         private String objId;
@@ -64,7 +69,7 @@ public class MetsDocument {
         private String profile;
         private List<MetsHeader> headers;
         private MetsDMDSec dmdSec;
-        private MetsAMDSec amdSec;
+        private List<MetsAMDSec> amdSecs;
         private List<MetsFileGrp> fileGrps;
 
         public Builder id(String id) {
@@ -102,8 +107,8 @@ public class MetsDocument {
             return this;
         }
 
-        public Builder amdSec(MetsAMDSec amdSec) {
-            this.amdSec = amdSec;
+        public Builder amdSecs(List<MetsAMDSec> amdSecs) {
+            this.amdSecs = amdSecs;
             return this;
         }
 
@@ -125,7 +130,7 @@ public class MetsDocument {
         this.profile = builder.profile;
         this.headers = builder.headers;
         this.dmdSec = builder.dmdSec;
-        this.amdSec = builder.amdSec;
+        this.amdSecs = builder.amdSecs;
         this.fileGrps = builder.fileGrps;
     }
 }

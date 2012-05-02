@@ -1,30 +1,157 @@
 package eu.scapeproject.model.metadata.mix;
 
-import eu.scapeproject.model.Identifier;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import eu.scapeproject.model.metadata.TechnicalMetadata;
 
+@XmlRootElement(name = "mdWrap")
 public class NisoMixMetadata extends TechnicalMetadata {
-
-    private int width;
-
-    private int height;
-    private Orientation orientation;
-    private String methodology;
-    private String colorspace;
-    private ColorProfile colorProfile;
-    private YCbCr yCrCb;
-    private ReferencedBlackWhite referencedBlackWhite;
-    private SpecialFormatCharacteristics specialFormatCharacteristics;
-    private ImageSource source;
-    private GeneralCaptureInformation generalCaptureInformation;
-    private ScannerCapture scannerCapture;
-    private DigitalCameraCapture digitalCameraCapture;
-    private SpacialMetrics spacialMetrics;
-    private ImageColorEncoding imageColorEncoding;
-    private TargetData targetData;
+    @XmlElement(name = "basicImageInformation", namespace = "http://www.loc.gov/mix/v10")
+    private BasicImageInformation basicImageInformation;
+    @XmlElement(name = "imageCaptureMetadata", namespace = "http://www.loc.gov/mix/v10")
+    private ImageCaptureMetadata imageCapture;
+    @XmlElement(name = "imageAssessmentMetadata", namespace = "http://www.loc.gov/mix/v10")
+    private ImageAssessmentMetadata imageAssessmentMetadata;
 
     public NisoMixMetadata() {
-        super(TechnicalMetadata.Type.NISO_MIX);
+        super(TechnicalMetadata.MetadataType.NISO_MIX);
+    }
+
+    private NisoMixMetadata(Builder builder) {
+        this();
+        PhotometricInterpretation pi = new PhotometricInterpretation.Builder()
+                .colorProfile(builder.colorProfile)
+                .colorSpace(builder.colorspace)
+                .specialFormatCharacteristics(builder.specialFormatCharacteristics)
+                .ybCbCr(builder.yCrCb)
+                .referencedBlackWhite(builder.referencedBlackWhite)
+                .build();
+        this.basicImageInformation = new BasicImageInformation(new BasicImageCharateristics(builder.width, builder.height, pi));
+        this.imageCapture = new ImageCaptureMetadata.Builder()
+                .orientation(builder.orientation)
+                .methodology(builder.methodology)
+                .scannerCapture(builder.scannerCapture)
+                .sourceInformation(builder.source)
+                .generalCaptureInformation(builder.generalCaptureInformation)
+                .digitalCameraCapture(builder.digitalCameraCapture)
+                .build();
+        this.imageAssessmentMetadata = new ImageAssessmentMetadata(builder.spacialMetrics, builder.imageColorEncoding, builder.targetData);
+    }
+
+    public ImageCaptureMetadata getImageCapture() {
+        return imageCapture;
+    }
+
+    public ImageAssessmentMetadata getImageAssessmentMetadata() {
+        return imageAssessmentMetadata;
+    }
+
+    public BasicImageInformation getBasicImageInformation() {
+        return basicImageInformation;
+    }
+
+    public static class Builder {
+        private int width;
+        private int height;
+        private Orientation orientation;
+        private String methodology;
+        private String colorspace;
+        private ColorProfile colorProfile;
+        private YCbCr yCrCb;
+        private ReferencedBlackWhite referencedBlackWhite;
+        private SpecialFormatCharacteristics specialFormatCharacteristics;
+        private SourceInformation source;
+        private GeneralCaptureInformation generalCaptureInformation;
+        private ScannerCapture scannerCapture;
+        private DigitalCameraCapture digitalCameraCapture;
+        private SpacialMetrics spacialMetrics;
+        private ImageColorEncoding imageColorEncoding;
+        private TargetData targetData;
+
+        public NisoMixMetadata build() {
+            return new NisoMixMetadata(this);
+        }
+
+        public Builder colorProfile(ColorProfile colorProfile) {
+            this.colorProfile = colorProfile;
+            return this;
+        }
+
+        public Builder colorspace(String colorspace) {
+            this.colorspace = colorspace;
+            return this;
+        }
+
+        public Builder digitalCameraCapture(DigitalCameraCapture digitalCameraCapture) {
+            this.digitalCameraCapture = digitalCameraCapture;
+            return this;
+        }
+
+        public Builder generalCaptureInformation(GeneralCaptureInformation generalCaptureInformation) {
+            this.generalCaptureInformation = generalCaptureInformation;
+            return this;
+        }
+
+        public Builder height(int height) {
+            this.height = height;
+            return this;
+        }
+
+        public Builder imageColorEncoding(ImageColorEncoding imageColorEncoding) {
+            this.imageColorEncoding = imageColorEncoding;
+            return this;
+        }
+
+        public Builder methodology(String methodology) {
+            this.methodology = methodology;
+            return this;
+        }
+
+        public Builder orientation(Orientation orientation) {
+            this.orientation = orientation;
+            return this;
+        }
+
+        public Builder referencedBlackWhite(ReferencedBlackWhite referencedBlackWhite) {
+            this.referencedBlackWhite = referencedBlackWhite;
+            return this;
+        }
+
+        public Builder scannerCapture(ScannerCapture scannerCapture) {
+            this.scannerCapture = scannerCapture;
+            return this;
+        }
+
+        public Builder source(SourceInformation source) {
+            this.source = source;
+            return this;
+        }
+
+        public Builder spacialMetrics(SpacialMetrics spacialMetrics) {
+            this.spacialMetrics = spacialMetrics;
+            return this;
+        }
+
+        public Builder specialFormatCharacteristics(SpecialFormatCharacteristics specialFormatCharacteristics) {
+            this.specialFormatCharacteristics = specialFormatCharacteristics;
+            return this;
+        }
+
+        public Builder targetData(TargetData targetData) {
+            this.targetData = targetData;
+            return this;
+        }
+
+        public Builder width(int width) {
+            this.width = width;
+            return this;
+        }
+
+        public Builder yCrCb(YCbCr yCrCb) {
+            this.yCrCb = yCrCb;
+            return this;
+        }
     }
 
     public enum Orientation {
@@ -55,5 +182,4 @@ public class NisoMixMetadata extends TechnicalMetadata {
             }
         }
     }
-
 }

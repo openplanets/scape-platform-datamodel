@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import eu.scapeproject.model.Agent;
-import eu.scapeproject.model.Entity;
+import eu.scapeproject.model.IntellectualEntity;
 import eu.scapeproject.model.Identifier;
 
 public class Event {
@@ -16,7 +16,7 @@ public class Event {
     private String detail;
     private List<Outcome> outcome = new ArrayList<Outcome>();
     private List<Agent> linkingAgents;
-    private List<Entity> linkingObjects;
+    private List<IntellectualEntity> linkingObjects;
 
     private Event(){
         super();
@@ -48,7 +48,7 @@ public class Event {
         return linkingAgents;
     }
 
-    public List<Entity> getLinkingObjects() {
+    public List<IntellectualEntity> getLinkingObjects() {
         return linkingObjects;
     }
 
@@ -67,7 +67,7 @@ public class Event {
         private String detail;
         private List<Outcome> outcome;
         private List<Agent> linkingAgents;
-        private List<Entity> linkingObjects;
+        private List<IntellectualEntity> linkingObjects;
 
         public Event build() {
             return new Event(this);
@@ -93,7 +93,7 @@ public class Event {
             return this;
         }
 
-        public Builder linkingObjects(List<Entity> linkingObjects) {
+        public Builder linkingObjects(List<IntellectualEntity> linkingObjects) {
             this.linkingObjects = linkingObjects;
             return this;
         }

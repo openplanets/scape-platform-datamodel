@@ -8,6 +8,7 @@ import java.util.List;
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
 import eu.scapeproject.model.metadata.RightsMetadata;
 import eu.scapeproject.model.metadata.TechnicalMetadata;
+import eu.scapeproject.model.metadata.dc.DCMetadata;
 import eu.scapeproject.model.metadata.mix.NisoMixMetadata;
 import eu.scapeproject.model.metadata.textmd.TextMDMetadata;
 import eu.scapeproject.model.metadata.textmd.TextMDMetadata.AltLanguage;
@@ -21,7 +22,7 @@ import eu.scapeproject.model.metadata.textmd.TextMDMetadata.MarkupBasis;
 public abstract class ValidationUtil {
     public static void validateTechMDRecord(TechnicalMetadata technical) {
         assertNotNull(technical);
-        if (technical.getType() == TechnicalMetadata.Type.TEXTMD) {
+        if (technical.getMetadataType() == TechnicalMetadata.MetadataType.TEXTMD) {
             TextMDMetadata textmd = (TextMDMetadata) technical;
             validateAltLanguages(textmd.getAltLanguage());
             validateCharacterInfos(textmd.getCharacterInfo());
@@ -33,8 +34,24 @@ public abstract class ValidationUtil {
             assertNoNulls(textmd.getProcessingNote());
             assertNoNulls(textmd.getTextNote());
             assertNoNulls(textmd.getViewingRequirements());
-        } else if (technical.getType() == TechnicalMetadata.Type.NISO_MIX) {
+        } else if (technical.getMetadataType() == TechnicalMetadata.MetadataType.NISO_MIX) {
             NisoMixMetadata niso = (NisoMixMetadata) technical;
+            assertNotNull(niso.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getColorProfile());
+            assertNotNull(niso.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getColorSpace());
+            assertNotNull(niso.getImageCapture().getDigitalCameraCapture());
+            assertNotNull(niso.getImageCapture().getGeneralCaptureInformation());
+            assertNotNull(niso.getBasicImageInformation().getBasicImageCharacteristics().getWidth());
+            assertNotNull(niso.getImageAssessmentMetadata().getImageColorEncoding());
+            assertNotNull(niso.getImageCapture().getMethodology());
+            assertNotNull(niso.getImageCapture().getOrientation());
+            assertNotNull(niso.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getReferencedBlackWhite());
+            assertNotNull(niso.getImageCapture().getScannerCapture());
+            assertNotNull(niso.getImageCapture().getSourceInformation());
+            assertNotNull(niso.getImageAssessmentMetadata().getSpacialMetrics());
+            assertNotNull(niso.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getSpecialFormatCharacteristics());
+            assertNotNull(niso.getImageAssessmentMetadata().getTargetData());
+            assertNotNull(niso.getBasicImageInformation().getBasicImageCharacteristics().getHeight());
+            assertNotNull(niso.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getYbCbCr());
         }
     }
 
@@ -134,21 +151,22 @@ public abstract class ValidationUtil {
 
     }
 
-    public static void validateDCRecord(DescriptiveMetadata desc) {
-        assertNotNull(desc);
-        assertTrue(desc.getConstributors().size() > 0);
-        assertTrue(desc.getCoverage().size() > 0);
-        assertTrue(desc.getCreator().size() > 0);
-        assertTrue(desc.getDate().size() > 0);
-        assertTrue(desc.getDescription().size() > 0);
-        assertTrue(desc.getFormat().size() > 0);
-        assertTrue(desc.getLanguage().size() > 0);
-        assertTrue(desc.getPublisher().size() > 0);
-        assertTrue(desc.getRelations().size() > 0);
-        assertTrue(desc.getRights().size() > 0);
-        assertTrue(desc.getSources().size() > 0);
-        assertTrue(desc.getSubject().size() > 0);
-        assertTrue(desc.getTitle().size() > 0);
-        assertTrue(desc.getType().size() > 0);
+    public static void validateDescriptiveMetadata(DescriptiveMetadata metadata) {
+        DCMetadata dc=(DCMetadata) metadata;
+        assertNotNull(dc.getDescription());
+        assertTrue(dc.getConstributors().size() > 0);
+        assertTrue(dc.getCoverage().size() > 0);
+        assertTrue(dc.getCreator().size() > 0);
+        assertTrue(dc.getDate().size() > 0);
+        assertTrue(dc.getDescription().size() > 0);
+        assertTrue(dc.getFormat().size() > 0);
+        assertTrue(dc.getLanguage().size() > 0);
+        assertTrue(dc.getPublisher().size() > 0);
+        assertTrue(dc.getRelations().size() > 0);
+        assertTrue(dc.getRights().size() > 0);
+        assertTrue(dc.getSources().size() > 0);
+        assertTrue(dc.getSubject().size() > 0);
+        assertTrue(dc.getTitle().size() > 0);
+        assertTrue(dc.getType().size() > 0);
     }
 }

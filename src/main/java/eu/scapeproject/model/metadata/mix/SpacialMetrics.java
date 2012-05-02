@@ -5,11 +5,37 @@ public class SpacialMetrics {
     private SamplingFrequencyUnit samplingFrequencyUnit;
     private double xSamplingFrequency;
     private double ySamplingFrequency;
-    
-    public enum SamplingFrequencyUnit{
-        NO_UNIT,INCH,CENTIMETERS;
+
+    public SpacialMetrics(SamplingFrequencyPane samplingFrequencyPane, SamplingFrequencyUnit samplingFrequencyUnit, double xSamplingFrequency,
+            double ySamplingFrequency) {
+        super();
+        this.samplingFrequencyPane = samplingFrequencyPane;
+        this.samplingFrequencyUnit = samplingFrequencyUnit;
+        this.xSamplingFrequency = xSamplingFrequency;
+        this.ySamplingFrequency = ySamplingFrequency;
     }
-    public enum SamplingFrequencyPane{
-        DEVICE_FOCAL_PLANE,OBJECT_PLANE,SOURCE_OBJECT_PLANE;
+
+    public SamplingFrequencyPane getSamplingFrequencyPane() {
+        return samplingFrequencyPane;
+    }
+
+    public SamplingFrequencyUnit getSamplingFrequencyUnit() {
+        return samplingFrequencyUnit;
+    }
+
+    public double getxSamplingFrequency() {
+        return xSamplingFrequency;
+    }
+
+    public double getySamplingFrequency() {
+        return ySamplingFrequency;
+    }
+
+    public enum SamplingFrequencyPane {
+        DEVICE_FOCAL_PLANE, OBJECT_PLANE, SOURCE_OBJECT_PLANE;
+    }
+
+    public enum SamplingFrequencyUnit {
+        NO_UNIT, INCH, CENTIMETERS;
     }
 }

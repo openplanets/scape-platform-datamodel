@@ -2,16 +2,18 @@ package eu.scapeproject.model;
 
 import java.util.UUID;
 
-public class UUIDIdentifier implements Identifier {
-    private String type = "UUID";
-    private UUID value;
+import javax.xml.bind.annotation.XmlRootElement;
+
+public class UUIDIdentifier extends Identifier {
 
     public UUIDIdentifier() {
-        this.value = UUID.randomUUID();
+        this.type = "UUID";
+        this.value = UUID.randomUUID().toString();
     }
 
     public UUIDIdentifier(UUID value) {
-        this.value = value;
+        this.type = "UUID";
+        this.value = value.toString();
     }
 
     public String getType() {

@@ -18,7 +18,9 @@ import eu.scapeproject.model.UUIDIdentifier;
 import eu.scapeproject.model.jaxb.MetsNamespacePrefixMapper;
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
 import eu.scapeproject.model.metadata.dc.DCMetadata;
+import eu.scapeproject.model.metadata.mix.NisoMixMetadata;
 import eu.scapeproject.model.metadata.premis.Event;
+import eu.scapeproject.model.metadata.textmd.TextMDMetadata;
 
 public class MetsFactory {
     private static final String SCAPE_PROFILE = "http://example.com/scape-mets-profile.xml";
@@ -27,7 +29,7 @@ public class MetsFactory {
 
     private MetsFactory() throws JAXBException {
         super();
-        JAXBContext ctx = JAXBContext.newInstance(MetsDocument.class);
+        JAXBContext ctx = JAXBContext.newInstance(MetsDocument.class,DCMetadata.class,TextMDMetadata.class,NisoMixMetadata.class);
         marshaller = ctx.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new MetsNamespacePrefixMapper());
@@ -44,10 +46,12 @@ public class MetsFactory {
         Identifier docId = new UUIDIdentifier();
         Identifier headerId=new UUIDIdentifier();
         List<Agent> agents=new ArrayList<Agent>();
+        List<MetsAMDSec> amdSecs=new ArrayList<MetsAMDSec>();
         DCMetadata dc=(DCMetadata) entity.getDescriptive();
         agents.addAll(dc.getConstributors());
         agents.addAll(dc.getCreator());
         for (Representation rep:entity.getRepresentations()){
+            amdSecs.add(new MetsAMDSec(new UUIDIdentifier().getValue(), rep.getTechnical()));
             for (Event e:rep.getProvenance()){
                 for (Agent a : e.getLinkingAgents()){
                     agents.add(a);
@@ -70,7 +74,7 @@ public class MetsFactory {
                 .objId(entity.getIdentifier().getValue())
                 .profile(SCAPE_PROFILE)
                 .dmdSec(createMetsDMDSec(entity.getDescriptive()))
-                .amdSec(new MetsAMDSec())
+                .amdSecs(amdSecs)
                 .fileGrps(Arrays.asList(new MetsFileGrp()))
                 .headers(Arrays.asList(hdrBuilder.build()))
                 .build();

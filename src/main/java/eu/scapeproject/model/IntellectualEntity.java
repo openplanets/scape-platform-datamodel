@@ -1,25 +1,30 @@
 package eu.scapeproject.model;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
 
 public class IntellectualEntity {
     private Identifier identifier;
+    private List<Identifier> alternativeIdentifiers;
     private DescriptiveMetadata descriptive;
-    private Set<Representation> representations;
+    private List<Representation> representations;
 
     private IntellectualEntity() {
         super();
     }
 
-    public IntellectualEntity(Identifier identifier, DescriptiveMetadata descriptive, Set<Representation> representations) {
+    public IntellectualEntity(Identifier identifier, List<Identifier> alternativeIdentifers, DescriptiveMetadata descriptive,
+            List<Representation> representations) {
         super();
         this.identifier = identifier;
         this.descriptive = descriptive;
         this.representations = representations;
+        this.alternativeIdentifiers = alternativeIdentifers;
+    }
+
+    public List<Identifier> getAlternativeIdentifiers() {
+        return alternativeIdentifiers;
     }
 
     public DescriptiveMetadata getDescriptive() {
@@ -30,7 +35,7 @@ public class IntellectualEntity {
         return identifier;
     }
 
-    public Set<Representation> getRepresentations() {
+    public List<Representation> getRepresentations() {
         return representations;
     }
 }

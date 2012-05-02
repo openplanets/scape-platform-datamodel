@@ -13,6 +13,8 @@ public class MetsNamespacePrefixMapper extends NamespacePrefixMapper {
             return "premis";
         }else if(namespaceUri.toLowerCase().equals("info:lc/xmlns/textmd-v3")){
             return "textmd";
+        }else if(namespaceUri.toLowerCase().equals("http://www.loc.gov/mix/v10")){
+            return "mix";
         }else{
             return suggestion;
         }

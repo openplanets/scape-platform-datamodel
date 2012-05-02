@@ -1,4 +1,3 @@
-
 package eu.scapeproject.model.metadata.textmd;
 
 import java.math.BigInteger;
@@ -15,20 +14,19 @@ import javax.xml.bind.annotation.XmlValue;
 
 import eu.scapeproject.model.metadata.TechnicalMetadata;
 
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "encoding",
-    "characterInfo",
-    "language",
-    "altLanguage",
-    "fontScript",
-    "markupBasis",
-    "markupLanguage",
-    "processingNote",
-    "printRequirements",
-    "viewingRequirements",
-    "textNote"
+        "encoding",
+        "characterInfo",
+        "language",
+        "altLanguage",
+        "fontScript",
+        "markupBasis",
+        "markupLanguage",
+        "processingNote",
+        "printRequirements",
+        "viewingRequirements",
+        "textNote"
 })
 @XmlRootElement(name = "textMD")
 public class TextMDMetadata extends TechnicalMetadata {
@@ -49,98 +47,24 @@ public class TextMDMetadata extends TechnicalMetadata {
     protected List<String> printRequirements;
     protected List<String> viewingRequirements;
     protected List<String> textNote;
-    
-    
-    
+
     public TextMDMetadata() {
-        super(TechnicalMetadata.Type.TEXTMD);
+        super(TechnicalMetadata.MetadataType.TEXTMD);
     }
 
-    /**
-     * Gets the value of the encoding property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the encoding property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getEncoding().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link TextMDMetadata.Encoding }
-     * 
-     * 
-     */
-    public List<TextMDMetadata.Encoding> getEncoding() {
-        if (encoding == null) {
-            encoding = new ArrayList<TextMDMetadata.Encoding>();
-        }
-        return this.encoding;
-    }
-
-    /**
-     * Gets the value of the characterInfo property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the characterInfo property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getCharacterInfo().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link TextMDMetadata.CharacterInfo }
-     * 
-     * 
-     */
-    public List<TextMDMetadata.CharacterInfo> getCharacterInfo() {
-        if (characterInfo == null) {
-            characterInfo = new ArrayList<TextMDMetadata.CharacterInfo>();
-        }
-        return this.characterInfo;
-    }
-
-    /**
-     * Gets the value of the language property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the language property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getLanguage().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link String }
-     * 
-     * 
-     */
-    public List<String> getLanguage() {
-        if (language == null) {
-            language = new ArrayList<String>();
-        }
-        return this.language;
+    private TextMDMetadata(Builder builder) {
+        this();
+        this.encoding = builder.encoding;
+        this.characterInfo = builder.characterInfo;
+        this.language = builder.language;
+        this.altLanguage = builder.altLanguage;
+        this.fontScript = builder.fontScript;
+        this.markupBasis = builder.markupBasis;
+        this.markupLanguage = builder.markupLanguage;
+        this.processingNote = builder.processingNote;
+        this.printRequirements = builder.printRequirements;
+        this.viewingRequirements = builder.viewingRequirements;
+        this.textNote = builder.textNote;
     }
 
     /**
@@ -173,6 +97,64 @@ public class TextMDMetadata extends TechnicalMetadata {
     }
 
     /**
+     * Gets the value of the characterInfo property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the characterInfo property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getCharacterInfo().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link TextMDMetadata.CharacterInfo }
+     * 
+     * 
+     */
+    public List<TextMDMetadata.CharacterInfo> getCharacterInfo() {
+        if (characterInfo == null) {
+            characterInfo = new ArrayList<TextMDMetadata.CharacterInfo>();
+        }
+        return this.characterInfo;
+    }
+
+    /**
+     * Gets the value of the encoding property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the encoding property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getEncoding().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link TextMDMetadata.Encoding }
+     * 
+     * 
+     */
+    public List<TextMDMetadata.Encoding> getEncoding() {
+        if (encoding == null) {
+            encoding = new ArrayList<TextMDMetadata.Encoding>();
+        }
+        return this.encoding;
+    }
+
+    /**
      * Gets the value of the fontScript property.
      * 
      * <p>
@@ -199,6 +181,35 @@ public class TextMDMetadata extends TechnicalMetadata {
             fontScript = new ArrayList<String>();
         }
         return this.fontScript;
+    }
+
+    /**
+     * Gets the value of the language property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the language property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getLanguage().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     * 
+     * 
+     */
+    public List<String> getLanguage() {
+        if (language == null) {
+            language = new ArrayList<String>();
+        }
+        return this.language;
     }
 
     /**
@@ -260,6 +271,35 @@ public class TextMDMetadata extends TechnicalMetadata {
     }
 
     /**
+     * Gets the value of the printRequirements property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the printRequirements property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getPrintRequirements().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     * 
+     * 
+     */
+    public List<String> getPrintRequirements() {
+        if (printRequirements == null) {
+            printRequirements = new ArrayList<String>();
+        }
+        return this.printRequirements;
+    }
+
+    /**
      * Gets the value of the processingNote property.
      * 
      * <p>
@@ -289,18 +329,18 @@ public class TextMDMetadata extends TechnicalMetadata {
     }
 
     /**
-     * Gets the value of the printRequirements property.
+     * Gets the value of the textNote property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the printRequirements property.
+     * This is why there is not a <CODE>set</CODE> method for the textNote property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getPrintRequirements().add(newItem);
+     *    getTextNote().add(newItem);
      * </pre>
      * 
      * 
@@ -310,11 +350,11 @@ public class TextMDMetadata extends TechnicalMetadata {
      * 
      * 
      */
-    public List<String> getPrintRequirements() {
-        if (printRequirements == null) {
-            printRequirements = new ArrayList<String>();
+    public List<String> getTextNote() {
+        if (textNote == null) {
+            textNote = new ArrayList<String>();
         }
-        return this.printRequirements;
+        return this.textNote;
     }
 
     /**
@@ -347,36 +387,6 @@ public class TextMDMetadata extends TechnicalMetadata {
     }
 
     /**
-     * Gets the value of the textNote property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the textNote property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getTextNote().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link String }
-     * 
-     * 
-     */
-    public List<String> getTextNote() {
-        if (textNote == null) {
-            textNote = new ArrayList<String>();
-        }
-        return this.textNote;
-    }
-
-
-    /**
      * <p>Java class for anonymous complex type.
      * 
      * <p>The following schema fragment specifies the expected content contained within this class.
@@ -395,7 +405,7 @@ public class TextMDMetadata extends TechnicalMetadata {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "value"
+            "value"
     })
     public static class AltLanguage {
 
@@ -403,30 +413,6 @@ public class TextMDMetadata extends TechnicalMetadata {
         protected String value;
         @XmlAttribute(name = "authority")
         protected String authority;
-
-        /**
-         * Gets the value of the value property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getValue() {
-            return value;
-        }
-
-        /**
-         * Sets the value of the value property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setValue(String value) {
-            this.value = value;
-        }
 
         /**
          * Gets the value of the authority property.
@@ -441,6 +427,18 @@ public class TextMDMetadata extends TechnicalMetadata {
         }
 
         /**
+         * Gets the value of the value property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getValue() {
+            return value;
+        }
+
+        /**
          * Sets the value of the authority property.
          * 
          * @param value
@@ -452,16 +450,100 @@ public class TextMDMetadata extends TechnicalMetadata {
             this.authority = value;
         }
 
+        /**
+         * Sets the value of the value property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setValue(String value) {
+            this.value = value;
+        }
+
     }
 
+    public static class Builder {
+        private List<TextMDMetadata.Encoding> encoding;
+        private List<TextMDMetadata.CharacterInfo> characterInfo;
+        private List<String> language;
+        private List<TextMDMetadata.AltLanguage> altLanguage;
+        private List<String> fontScript;
+        private List<TextMDMetadata.MarkupBasis> markupBasis;
+        private List<TextMDMetadata.MarkupLanguage> markupLanguage;
+        private List<String> processingNote;
+        private List<String> printRequirements;
+        private List<String> viewingRequirements;
+        private List<String> textNote;
+
+        public Builder altLanguage(List<TextMDMetadata.AltLanguage> altLanguage) {
+            this.altLanguage = altLanguage;
+            return this;
+        }
+
+        public TextMDMetadata build() {
+            return new TextMDMetadata(this);
+        }
+
+        public Builder characterInfo(List<TextMDMetadata.CharacterInfo> characterInfo) {
+            this.characterInfo = characterInfo;
+            return this;
+        }
+
+        public Builder encoding(List<TextMDMetadata.Encoding> encoding) {
+            this.encoding = encoding;
+            return this;
+        }
+
+        public Builder fontScript(List<String> fontScript) {
+            this.fontScript = fontScript;
+            return this;
+        }
+
+        public Builder language(List<String> language) {
+            this.language = language;
+            return this;
+        }
+
+        public Builder markupBasis(List<TextMDMetadata.MarkupBasis> markupBasis) {
+            this.markupBasis = markupBasis;
+            return this;
+        }
+
+        public Builder markupLanguage(List<TextMDMetadata.MarkupLanguage> markupLanguage) {
+            this.markupLanguage = markupLanguage;
+            return this;
+        }
+
+        public Builder printRequirements(List<String> printRequirements) {
+            this.printRequirements = printRequirements;
+            return this;
+        }
+
+        public Builder processingNote(List<String> processingNote) {
+            this.processingNote = processingNote;
+            return this;
+        }
+
+        public Builder textNote(List<String> textNote) {
+            this.textNote = textNote;
+            return this;
+        }
+
+        public Builder viewingRequirements(List<String> viewingRequirements) {
+            this.viewingRequirements = viewingRequirements;
+            return this;
+        }
+    }
 
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "charset",
-        "byteOrder",
-        "byteSize",
-        "characterSize",
-        "linebreak"
+            "charset",
+            "byteOrder",
+            "byteSize",
+            "characterSize",
+            "linebreak"
     })
     public static class CharacterInfo {
 
@@ -476,30 +558,6 @@ public class TextMDMetadata extends TechnicalMetadata {
         protected String linebreak;
 
         /**
-         * Gets the value of the charset property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getCharset() {
-            return charset;
-        }
-
-        /**
-         * Sets the value of the charset property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setCharset(String value) {
-            this.charset = value;
-        }
-
-        /**
          * Gets the value of the byteOrder property.
          * 
          * @return
@@ -509,18 +567,6 @@ public class TextMDMetadata extends TechnicalMetadata {
          */
         public String getByteOrder() {
             return byteOrder;
-        }
-
-        /**
-         * Sets the value of the byteOrder property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setByteOrder(String value) {
-            this.byteOrder = value;
         }
 
         /**
@@ -536,18 +582,6 @@ public class TextMDMetadata extends TechnicalMetadata {
         }
 
         /**
-         * Sets the value of the byteSize property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link TextMDMetadata.CharacterInfo.ByteSize }
-         *     
-         */
-        public void setByteSize(TextMDMetadata.CharacterInfo.ByteSize value) {
-            this.byteSize = value;
-        }
-
-        /**
          * Gets the value of the characterSize property.
          * 
          * @return
@@ -560,15 +594,15 @@ public class TextMDMetadata extends TechnicalMetadata {
         }
 
         /**
-         * Sets the value of the characterSize property.
+         * Gets the value of the charset property.
          * 
-         * @param value
-         *     allowed object is
-         *     {@link TextMDMetadata.CharacterInfo.CharacterSize }
+         * @return
+         *     possible object is
+         *     {@link String }
          *     
          */
-        public void setCharacterSize(TextMDMetadata.CharacterInfo.CharacterSize value) {
-            this.characterSize = value;
+        public String getCharset() {
+            return charset;
         }
 
         /**
@@ -584,6 +618,54 @@ public class TextMDMetadata extends TechnicalMetadata {
         }
 
         /**
+         * Sets the value of the byteOrder property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setByteOrder(String value) {
+            this.byteOrder = value;
+        }
+
+        /**
+         * Sets the value of the byteSize property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link TextMDMetadata.CharacterInfo.ByteSize }
+         *     
+         */
+        public void setByteSize(TextMDMetadata.CharacterInfo.ByteSize value) {
+            this.byteSize = value;
+        }
+
+        /**
+         * Sets the value of the characterSize property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link TextMDMetadata.CharacterInfo.CharacterSize }
+         *     
+         */
+        public void setCharacterSize(TextMDMetadata.CharacterInfo.CharacterSize value) {
+            this.characterSize = value;
+        }
+
+        /**
+         * Sets the value of the charset property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setCharset(String value) {
+            this.charset = value;
+        }
+
+        /**
          * Sets the value of the linebreak property.
          * 
          * @param value
@@ -594,7 +676,6 @@ public class TextMDMetadata extends TechnicalMetadata {
         public void setLinebreak(String value) {
             this.linebreak = value;
         }
-
 
         /**
          * <p>Java class for anonymous complex type.
@@ -614,7 +695,7 @@ public class TextMDMetadata extends TechnicalMetadata {
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
-            "value"
+                "value"
         })
         public static class ByteSize {
 
@@ -647,7 +728,6 @@ public class TextMDMetadata extends TechnicalMetadata {
 
         }
 
-
         /**
          * <p>Java class for anonymous complex type.
          * 
@@ -667,7 +747,7 @@ public class TextMDMetadata extends TechnicalMetadata {
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
-            "value"
+                "value"
         })
         public static class CharacterSize {
 
@@ -675,30 +755,6 @@ public class TextMDMetadata extends TechnicalMetadata {
             protected String value;
             @XmlAttribute(name = "encoding")
             protected String encoding;
-
-            /**
-             * Gets the value of the value property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
-            public String getValue() {
-                return value;
-            }
-
-            /**
-             * Sets the value of the value property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
-            public void setValue(String value) {
-                this.value = value;
-            }
 
             /**
              * Gets the value of the encoding property.
@@ -713,6 +769,18 @@ public class TextMDMetadata extends TechnicalMetadata {
             }
 
             /**
+             * Gets the value of the value property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link String }
+             *     
+             */
+            public String getValue() {
+                return value;
+            }
+
+            /**
              * Sets the value of the encoding property.
              * 
              * @param value
@@ -724,16 +792,27 @@ public class TextMDMetadata extends TechnicalMetadata {
                 this.encoding = value;
             }
 
+            /**
+             * Sets the value of the value property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *     
+             */
+            public void setValue(String value) {
+                this.value = value;
+            }
+
         }
 
     }
 
-
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "encodingPlatform",
-        "encodingSoftware",
-        "encodingAgent"
+            "encodingPlatform",
+            "encodingSoftware",
+            "encodingAgent"
     })
     public static class Encoding {
 
@@ -745,6 +824,35 @@ public class TextMDMetadata extends TechnicalMetadata {
         protected List<TextMDMetadata.Encoding.EncodingAgent> encodingAgent;
         @XmlAttribute(name = "QUALITY")
         protected String quality;
+
+        /**
+         * Gets the value of the encodingAgent property.
+         * 
+         * <p>
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a <CODE>set</CODE> method for the encodingAgent property.
+         * 
+         * <p>
+         * For example, to add a new item, do as follows:
+         * <pre>
+         *    getEncodingAgent().add(newItem);
+         * </pre>
+         * 
+         * 
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link TextMDMetadata.Encoding.EncodingAgent }
+         * 
+         * 
+         */
+        public List<TextMDMetadata.Encoding.EncodingAgent> getEncodingAgent() {
+            if (encodingAgent == null) {
+                encodingAgent = new ArrayList<TextMDMetadata.Encoding.EncodingAgent>();
+            }
+            return this.encodingAgent;
+        }
 
         /**
          * Gets the value of the encodingPlatform property.
@@ -805,35 +913,6 @@ public class TextMDMetadata extends TechnicalMetadata {
         }
 
         /**
-         * Gets the value of the encodingAgent property.
-         * 
-         * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the encodingAgent property.
-         * 
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getEncodingAgent().add(newItem);
-         * </pre>
-         * 
-         * 
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link TextMDMetadata.Encoding.EncodingAgent }
-         * 
-         * 
-         */
-        public List<TextMDMetadata.Encoding.EncodingAgent> getEncodingAgent() {
-            if (encodingAgent == null) {
-                encodingAgent = new ArrayList<TextMDMetadata.Encoding.EncodingAgent>();
-            }
-            return this.encodingAgent;
-        }
-
-        /**
          * Gets the value of the quality property.
          * 
          * @return
@@ -856,7 +935,6 @@ public class TextMDMetadata extends TechnicalMetadata {
         public void setQUALITY(String value) {
             this.quality = value;
         }
-
 
         /**
          * <p>Java class for anonymous complex type.
@@ -886,7 +964,7 @@ public class TextMDMetadata extends TechnicalMetadata {
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
-            "value"
+                "value"
         })
         public static class EncodingAgent {
 
@@ -894,30 +972,6 @@ public class TextMDMetadata extends TechnicalMetadata {
             protected String value;
             @XmlAttribute(name = "role", required = true)
             protected String role;
-
-            /**
-             * Gets the value of the value property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
-            public String getValue() {
-                return value;
-            }
-
-            /**
-             * Sets the value of the value property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
-            public void setValue(String value) {
-                this.value = value;
-            }
 
             /**
              * Gets the value of the role property.
@@ -932,6 +986,18 @@ public class TextMDMetadata extends TechnicalMetadata {
             }
 
             /**
+             * Gets the value of the value property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link String }
+             *     
+             */
+            public String getValue() {
+                return value;
+            }
+
+            /**
              * Sets the value of the role property.
              * 
              * @param value
@@ -943,8 +1009,19 @@ public class TextMDMetadata extends TechnicalMetadata {
                 this.role = value;
             }
 
-        }
+            /**
+             * Sets the value of the value property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *     
+             */
+            public void setValue(String value) {
+                this.value = value;
+            }
 
+        }
 
         /**
          * <p>Java class for anonymous complex type.
@@ -973,7 +1050,7 @@ public class TextMDMetadata extends TechnicalMetadata {
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
-            "value"
+                "value"
         })
         public static class EncodingPlatform {
 
@@ -981,30 +1058,6 @@ public class TextMDMetadata extends TechnicalMetadata {
             protected String value;
             @XmlAttribute(name = "linebreak")
             protected String linebreak;
-
-            /**
-             * Gets the value of the value property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
-            public String getValue() {
-                return value;
-            }
-
-            /**
-             * Sets the value of the value property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
-            public void setValue(String value) {
-                this.value = value;
-            }
 
             /**
              * Gets the value of the linebreak property.
@@ -1019,6 +1072,18 @@ public class TextMDMetadata extends TechnicalMetadata {
             }
 
             /**
+             * Gets the value of the value property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link String }
+             *     
+             */
+            public String getValue() {
+                return value;
+            }
+
+            /**
              * Sets the value of the linebreak property.
              * 
              * @param value
@@ -1030,8 +1095,19 @@ public class TextMDMetadata extends TechnicalMetadata {
                 this.linebreak = value;
             }
 
-        }
+            /**
+             * Sets the value of the value property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *     
+             */
+            public void setValue(String value) {
+                this.value = value;
+            }
 
+        }
 
         /**
          * <p>Java class for anonymous complex type.
@@ -1052,7 +1128,7 @@ public class TextMDMetadata extends TechnicalMetadata {
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
-            "value"
+                "value"
         })
         public static class EncodingSoftware {
 
@@ -1074,18 +1150,6 @@ public class TextMDMetadata extends TechnicalMetadata {
             }
 
             /**
-             * Sets the value of the value property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
-            public void setValue(String value) {
-                this.value = value;
-            }
-
-            /**
              * Gets the value of the version property.
              * 
              * @return
@@ -1095,6 +1159,18 @@ public class TextMDMetadata extends TechnicalMetadata {
              */
             public String getVersion() {
                 return version;
+            }
+
+            /**
+             * Sets the value of the value property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *     
+             */
+            public void setValue(String value) {
+                this.value = value;
             }
 
             /**
@@ -1112,7 +1188,6 @@ public class TextMDMetadata extends TechnicalMetadata {
         }
 
     }
-
 
     /**
      * <p>Java class for anonymous complex type.
@@ -1133,7 +1208,7 @@ public class TextMDMetadata extends TechnicalMetadata {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "value"
+            "value"
     })
     public static class MarkupBasis {
 
@@ -1155,18 +1230,6 @@ public class TextMDMetadata extends TechnicalMetadata {
         }
 
         /**
-         * Sets the value of the value property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setValue(String value) {
-            this.value = value;
-        }
-
-        /**
          * Gets the value of the version property.
          * 
          * @return
@@ -1176,6 +1239,18 @@ public class TextMDMetadata extends TechnicalMetadata {
          */
         public String getVersion() {
             return version;
+        }
+
+        /**
+         * Sets the value of the value property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setValue(String value) {
+            this.value = value;
         }
 
         /**
@@ -1191,7 +1266,6 @@ public class TextMDMetadata extends TechnicalMetadata {
         }
 
     }
-
 
     /**
      * <p>Java class for anonymous complex type.
@@ -1212,7 +1286,7 @@ public class TextMDMetadata extends TechnicalMetadata {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "value"
+            "value"
     })
     public static class MarkupLanguage {
 
@@ -1234,18 +1308,6 @@ public class TextMDMetadata extends TechnicalMetadata {
         }
 
         /**
-         * Sets the value of the value property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setValue(String value) {
-            this.value = value;
-        }
-
-        /**
          * Gets the value of the version property.
          * 
          * @return
@@ -1255,6 +1317,18 @@ public class TextMDMetadata extends TechnicalMetadata {
          */
         public String getVersion() {
             return version;
+        }
+
+        /**
+         * Sets the value of the value property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setValue(String value) {
+            this.value = value;
         }
 
         /**
@@ -1270,5 +1344,4 @@ public class TextMDMetadata extends TechnicalMetadata {
         }
 
     }
-
 }

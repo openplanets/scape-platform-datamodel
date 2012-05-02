@@ -1,6 +1,14 @@
 package eu.scapeproject.model;
 
-public interface Identifier {
-    public String getType();
-    public String getValue();
+public abstract class Identifier {
+    protected String type;
+    protected String value;
+
+    public String getType() {
+        return type;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }
