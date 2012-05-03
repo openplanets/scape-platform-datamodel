@@ -1,0 +1,27 @@
+SCAPE Data transfer objects
+===========================
+This is the implementation of the Scape Digital Object Model, for exchanging data in the SCAPE platform. It is built on top of various metadata standards like textmd, NISO/MIX and PREMIS.
+
+                +-----------------------+
+                |  Intellectual Entity  |
+                +-----------------------+
+                1/                    \1
+                /                      \
+              1/                        \*
+     +--------------+            +------------------+
+     |   Desc. MD   |            |  Representation  |
+     +--------------+            +------------------+
+                                 1/                \1
+                                 /                  \
+                               1/                    \*
+                       +-----------------+      +----------+
+                       |  Adm. Metadata  |      |   File   |
+                       +-----------------+      +----------+
+                                                          \1
+                                                           \
+                                                            \*
+                                                       +-------------+
+                                                       |  Bitstream  |
+                                                       +-------------+
+
+                                              
