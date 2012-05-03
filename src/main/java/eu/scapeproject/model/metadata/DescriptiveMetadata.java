@@ -1,7 +1,11 @@
 package eu.scapeproject.model.metadata;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlSeeAlso;
 
+import eu.scapeproject.model.metadata.dc.DCMetadata;
+
+@XmlSeeAlso({DCMetadata.class})
 public class DescriptiveMetadata {
     @XmlAttribute(name="type")
     public MetadataType metadataType;

@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import eu.scapeproject.model.jaxb.MetsWrapAdapter;
+import eu.scapeproject.model.jaxb.MetsWrapDMDAdapter;
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
 
 @XmlRootElement(name = "dmdSec")
@@ -22,8 +23,8 @@ public class MetsDMDSec {
     private Date created;
     @XmlAttribute(name="status")
     private String status;
-    @XmlElement(name="mdWrap")
-    @XmlJavaTypeAdapter(MetsWrapAdapter.class)
+    @XmlElement(name="mdWrap",namespace="http://www.loc.gov/METS/")
+    @XmlJavaTypeAdapter(MetsWrapDMDAdapter.class)
     private DescriptiveMetadata metadata;
 
     private MetsDMDSec(){

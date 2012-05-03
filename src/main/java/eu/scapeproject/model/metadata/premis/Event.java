@@ -5,23 +5,34 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import eu.scapeproject.model.Agent;
 import eu.scapeproject.model.IntellectualEntity;
 import eu.scapeproject.model.Identifier;
 
+@XmlRootElement(name = "event", namespace = "info:lc/xmlns/premis-v2")
 public class Event {
+    @XmlElement(name = "identifier", namespace = "http://www.loc.gov/standards/premis")
     private Identifier identifier;
+    @XmlElement(name = "type", namespace = "http://www.loc.gov/standards/premis")
     private String type;
+    @XmlElement(name = "dateTime", namespace = "http://www.loc.gov/standards/premis")
     private Date dateTime;
+    @XmlElement(name = "detail", namespace = "http://www.loc.gov/standards/premis")
     private String detail;
+    @XmlElement(name = "outcome", namespace = "http://www.loc.gov/standards/premis")
     private List<Outcome> outcome = new ArrayList<Outcome>();
+    @XmlElement(name = "linkingAgent", namespace = "http://www.loc.gov/standards/premis")
     private List<Agent> linkingAgents;
+    @XmlElement(name = "linkingObject", namespace = "http://www.loc.gov/standards/premis")
     private List<IntellectualEntity> linkingObjects;
 
-    private Event(){
+    private Event() {
         super();
     }
-    
+
     private Event(Builder builder) {
         this.identifier = builder.identifier;
         this.type = builder.type;
@@ -109,9 +120,16 @@ public class Event {
         }
     }
 
-    public class Detail {
+    @XmlRootElement(name="detail",namespace="http://www.loc.gov/standards/premis")
+    public static class Detail {
+        @XmlElement(name="note",namespace="http://www.loc.gov/standards/premis")
         private String note;
+        @XmlElement(name="extension",namespace="http://www.loc.gov/standards/premis")
         private String extension;
+
+        private Detail() {
+            super();
+        }
 
         public Detail(String note, String extension) {
             this.note = note;
@@ -119,9 +137,15 @@ public class Event {
         }
     }
 
-    public class Outcome {
+    public static class Outcome {
+        @XmlElement(name="outcome",namespace="http://www.loc.gov/standards/premis")
         private String outcome;
+        @XmlElement(name="outcomeDetail",namespace="http://www.loc.gov/standards/premis")
         private List<Detail> details = new ArrayList<Event.Detail>();
+
+        private Outcome() {
+            super();
+        }
 
         public Outcome(String outcome, Detail... details) {
             this.outcome = outcome;

@@ -10,17 +10,23 @@ import org.apache.commons.lang3.RandomStringUtils;
 import eu.scapeproject.model.jaxb.MetsWrapAdapter.MetsWrapper;
 import eu.scapeproject.model.metadata.dc.DCMetadata;
 import eu.scapeproject.model.metadata.mix.NisoMixMetadata;
+import eu.scapeproject.model.metadata.premis.PremisProvenanceMetadata;
+import eu.scapeproject.model.metadata.premis.PremisRightsMetadata;
 import eu.scapeproject.model.metadata.textmd.TextMDMetadata;
 
 public class MetsWrapAdapter extends XmlAdapter<MetsWrapper, Object> {
     @Override
     public MetsWrapper marshal(Object v) throws Exception {
         if (v instanceof NisoMixMetadata) {
-            return new MetsWrapper("niso/mix", "text/xml",RandomStringUtils.randomAlphabetic(16), v);
+            return new MetsWrapper(new WrappedObject("niso/mix", "text/xml", RandomStringUtils.randomAlphabetic(16), v));
         } else if (v instanceof TextMDMetadata) {
-            return new MetsWrapper("textmd", "text/xml",RandomStringUtils.randomAlphabetic(16), v);
+            return new MetsWrapper(new WrappedObject("textmd", "text/xml", RandomStringUtils.randomAlphabetic(16), v));
         } else if (v instanceof DCMetadata) {
-            return new MetsWrapper("dc", "text/xml",RandomStringUtils.randomAlphabetic(16), v);
+            return new MetsWrapper(new WrappedObject("dc", "text/xml", RandomStringUtils.randomAlphabetic(16), v));
+        } else if (v instanceof PremisProvenanceMetadata) {
+            return new MetsWrapper(new WrappedObject("premis", "text/xml", RandomStringUtils.randomAlphabetic(16), v));
+        }else if (v instanceof PremisRightsMetadata){
+            return new MetsWrapper(new WrappedObject("premis","text/xml",RandomStringUtils.randomAlphabetic(16),v));
         } else {
             return null;
         }
@@ -33,28 +39,42 @@ public class MetsWrapAdapter extends XmlAdapter<MetsWrapper, Object> {
         return null;
     }
 
-    @XmlRootElement(name = "mdWrap", namespace = "http://www.loc.gov/METS/")
+    @XmlRootElement(name = "metswrapper")
     public static class MetsWrapper {
+        @XmlElement(name = "mdWrap", namespace = "http://www.loc.gov/METS/")
+        private WrappedObject wrapper;
+
+        private MetsWrapper() {
+            super();
+        }
+
+        public MetsWrapper(WrappedObject wrapped) {
+            super();
+            this.wrapper = wrapped;
+        }
+    }
+
+    @XmlRootElement(name = "mdWrap")
+    public static class WrappedObject {
         @XmlAttribute(name = "mdtype", namespace = "http://www.loc.gov/METS/")
         private String type;
         @XmlAttribute(name = "mimetype", namespace = "http://www.loc.gov/METS/")
         private String mimeType;
         @XmlAttribute(name = "label", namespace = "http://www.loc.gov/METS/")
         private String label;
-        @XmlElement(name = "xmlData", namespace = "http://www.loc.gov/METS/")
+        @XmlElement(name = "xmldata", namespace = "http://www.loc.gov/METS/")
         private Object wrapped;
 
-        private MetsWrapper(){
+        private WrappedObject() {
             super();
         }
-        
-        public MetsWrapper(String type, String mimeType, String label, Object wrapped) {
+
+        public WrappedObject(String type, String mimeType, String label, Object wrapped) {
             super();
             this.type = type;
             this.mimeType = mimeType;
-            this.wrapped = wrapped;
             this.label = label;
+            this.wrapped = wrapped;
         }
-
     }
 }

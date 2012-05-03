@@ -1,18 +1,16 @@
 package eu.scapeproject.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
+import eu.scapeproject.model.metadata.ProvenanceMetadata;
 import eu.scapeproject.model.metadata.RightsMetadata;
 import eu.scapeproject.model.metadata.TechnicalMetadata;
-import eu.scapeproject.model.metadata.premis.Event;
 
 public class Representation {
     private DescriptiveMetadata source;
-    private List<Event> provenance;
+    private ProvenanceMetadata provenance;
     private TechnicalMetadata technical;
     private RightsMetadata rights;
     private Set<File> files;
@@ -33,7 +31,7 @@ public class Representation {
         return files;
     }
 
-    public List<Event> getProvenance() {
+    public ProvenanceMetadata getProvenance() {
         return provenance;
     }
 
@@ -51,7 +49,7 @@ public class Representation {
 
     public static class Builder {
         private DescriptiveMetadata source;
-        private List<Event> provenance = new ArrayList<Event>();
+        private ProvenanceMetadata provenance;
         private TechnicalMetadata technical;
         private RightsMetadata rights;
         private Set<File> files = new HashSet<File>();
@@ -65,13 +63,8 @@ public class Representation {
             return this;
         }
 
-        public Builder provenance(Event event) {
-            this.provenance.add(event);
-            return this;
-        }
-
-        public Builder provenance(List<Event> events) {
-            this.provenance.addAll(events);
+        public Builder provenance(ProvenanceMetadata provenance) {
+            this.provenance=provenance;
             return this;
         }
 

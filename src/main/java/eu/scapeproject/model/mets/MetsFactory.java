@@ -20,6 +20,8 @@ import eu.scapeproject.model.metadata.DescriptiveMetadata;
 import eu.scapeproject.model.metadata.dc.DCMetadata;
 import eu.scapeproject.model.metadata.mix.NisoMixMetadata;
 import eu.scapeproject.model.metadata.premis.Event;
+import eu.scapeproject.model.metadata.premis.PremisProvenanceMetadata;
+import eu.scapeproject.model.metadata.premis.PremisRightsMetadata;
 import eu.scapeproject.model.metadata.textmd.TextMDMetadata;
 
 public class MetsFactory {
@@ -29,7 +31,7 @@ public class MetsFactory {
 
     private MetsFactory() throws JAXBException {
         super();
-        JAXBContext ctx = JAXBContext.newInstance(MetsDocument.class,DCMetadata.class,TextMDMetadata.class,NisoMixMetadata.class);
+        JAXBContext ctx = JAXBContext.newInstance(MetsDocument.class,DCMetadata.class,TextMDMetadata.class,NisoMixMetadata.class,PremisProvenanceMetadata.class,PremisRightsMetadata.class);
         marshaller = ctx.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new MetsNamespacePrefixMapper());
@@ -51,10 +53,12 @@ public class MetsFactory {
         agents.addAll(dc.getConstributors());
         agents.addAll(dc.getCreator());
         for (Representation rep:entity.getRepresentations()){
-            amdSecs.add(new MetsAMDSec(new UUIDIdentifier().getValue(), rep.getTechnical()));
-            for (Event e:rep.getProvenance()){
-                for (Agent a : e.getLinkingAgents()){
-                    agents.add(a);
+            amdSecs.add(new MetsAMDSec(new UUIDIdentifier().getValue(), rep.getTechnical(),rep.getProvenance(),rep.getSource(),rep.getRights()));
+            if (rep.getProvenance() instanceof PremisProvenanceMetadata){
+                for (Event e : ((PremisProvenanceMetadata)rep.getProvenance()).getEvents()){
+                    for (Agent a : e.getLinkingAgents()){
+                        agents.add(a);
+                    }
                 }
             }
         }

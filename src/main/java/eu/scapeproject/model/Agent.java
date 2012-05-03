@@ -4,19 +4,19 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "agent")
+@XmlRootElement(name = "agent",namespace="http://www.loc.gov/standards/premis")
 public class Agent {
-    @XmlElement(name = "name")
+    @XmlElement(name = "name",namespace="http://www.loc.gov/standards/premis")
     private String name;
-    @XmlElement(name = "note")
+    @XmlElement(name = "note",namespace="http://www.loc.gov/standards/premis")
     private String note;
-    @XmlAttribute(name = "role")
+    @XmlAttribute(name = "role",namespace="http://www.loc.gov/standards/premis")
     private String role;
-    @XmlAttribute(name = "type")
+    @XmlAttribute(name = "type",namespace="http://www.loc.gov/standards/premis")
     private String type;
-    @XmlAttribute(name = "otherrole")
+    @XmlAttribute(name = "otherrole",namespace="http://www.loc.gov/standards/premis")
     private String otherRole;
-    @XmlAttribute(name = "othertype")
+    @XmlAttribute(name = "othertype",namespace="http://www.loc.gov/standards/premis")
     private String otherType;
 
     private Agent() {

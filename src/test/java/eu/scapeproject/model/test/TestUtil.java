@@ -11,9 +11,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang3.RandomStringUtils;
-
-import com.sun.xml.bind.v2.runtime.output.Encoded;
+import static org.apache.commons.lang3.RandomStringUtils.*;
 
 import eu.scapeproject.model.Agent;
 import eu.scapeproject.model.Identifier;
@@ -21,6 +19,8 @@ import eu.scapeproject.model.IntellectualEntity;
 import eu.scapeproject.model.Representation;
 import eu.scapeproject.model.UUIDIdentifier;
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
+import eu.scapeproject.model.metadata.ProvenanceMetadata;
+import eu.scapeproject.model.metadata.RightsMetadata;
 import eu.scapeproject.model.metadata.TechnicalMetadata;
 import eu.scapeproject.model.metadata.dc.DCMetadata;
 import eu.scapeproject.model.metadata.mix.ColorProfile;
@@ -35,8 +35,6 @@ import eu.scapeproject.model.metadata.mix.ImageColorEncoding.ExtraSamples;
 import eu.scapeproject.model.metadata.mix.ImageColorEncoding.GrayResponseUnit;
 import eu.scapeproject.model.metadata.mix.ImageData;
 import eu.scapeproject.model.metadata.mix.ImageData.ExposureProgram;
-import eu.scapeproject.model.metadata.mix.SourceInformation;
-import eu.scapeproject.model.metadata.mix.SourceInformation.SourceDimension;
 import eu.scapeproject.model.metadata.mix.JPEG2000FormatCharacteristics;
 import eu.scapeproject.model.metadata.mix.MRSIDFormatCharacteristics;
 import eu.scapeproject.model.metadata.mix.NisoMixMetadata;
@@ -44,6 +42,8 @@ import eu.scapeproject.model.metadata.mix.NisoMixMetadata.Orientation;
 import eu.scapeproject.model.metadata.mix.ReferencedBlackWhite;
 import eu.scapeproject.model.metadata.mix.ScannerCapture;
 import eu.scapeproject.model.metadata.mix.ScannerCapture.ScannerSensor;
+import eu.scapeproject.model.metadata.mix.SourceInformation;
+import eu.scapeproject.model.metadata.mix.SourceInformation.SourceDimension;
 import eu.scapeproject.model.metadata.mix.SpacialMetrics;
 import eu.scapeproject.model.metadata.mix.SpacialMetrics.SamplingFrequencyPane;
 import eu.scapeproject.model.metadata.mix.SpacialMetrics.SamplingFrequencyUnit;
@@ -52,9 +52,18 @@ import eu.scapeproject.model.metadata.mix.TargetData;
 import eu.scapeproject.model.metadata.mix.TargetData.TargetType;
 import eu.scapeproject.model.metadata.mix.YCbCr;
 import eu.scapeproject.model.metadata.mix.YCbCr.YCbCrSubSampling.SubSampling;
+import eu.scapeproject.model.metadata.premis.CopyRightInformation;
 import eu.scapeproject.model.metadata.premis.Event;
+import eu.scapeproject.model.metadata.premis.GrantedRights;
+import eu.scapeproject.model.metadata.premis.LicenseInformtion;
+import eu.scapeproject.model.metadata.premis.LinkingAgent;
+import eu.scapeproject.model.metadata.premis.LinkingObject;
+import eu.scapeproject.model.metadata.premis.PremisProvenanceMetadata;
+import eu.scapeproject.model.metadata.premis.PremisRightsMetadata;
+import eu.scapeproject.model.metadata.premis.RightsStatement;
+import eu.scapeproject.model.metadata.premis.StatuteInformation;
+import eu.scapeproject.model.metadata.premis.TermOfGrant;
 import eu.scapeproject.model.metadata.textmd.TextMDMetadata;
-import eu.scapeproject.model.metadata.textmd.TextMDMetadata.Encoding;
 
 public abstract class TestUtil {
 
@@ -62,13 +71,13 @@ public abstract class TestUtil {
     public static final DateFormat dateFormatter = new SimpleDateFormat("d-M-y hh:mm:ss");
 
     public static IntellectualEntity createRandomEntity() {
-        return new IntellectualEntity(new UUIDIdentifier(),createRandomIdentifiers(), createRandomDescriptive(), createRandomRepresentations());
+        return new IntellectualEntity(new UUIDIdentifier(), createRandomIdentifiers(), createRandomDescriptive(), createRandomRepresentations());
     }
 
     private static List<Identifier> createRandomIdentifiers() {
-        List<Identifier> identifiers=new ArrayList<Identifier>();
-        int amount=rand.nextInt(2) + 1;
-        for (int i=0;i<amount;i++){
+        List<Identifier> identifiers = new ArrayList<Identifier>();
+        int amount = rand.nextInt(2) + 1;
+        for (int i = 0; i < amount; i++) {
             identifiers.add(new UUIDIdentifier());
         }
         return identifiers;
@@ -94,9 +103,10 @@ public abstract class TestUtil {
     private static Representation createRandomRepresentation(TechnicalMetadata.MetadataType type) {
         Representation.Builder b = new Representation.Builder()
                 .technical(createRandomTechnicalMetadata())
-                .provenance(createRandomEvents())
+                .provenance(createRandomProvenance())
                 .source(createRandomDescriptive())
-                .provenance(createRandomEvents());
+                .rights(createRandomRights())
+                .provenance(createRandomProvenance());
         switch (type) {
         case NISO_MIX:
             b.technical(createRandomNisoMixMetadata());
@@ -108,14 +118,87 @@ public abstract class TestUtil {
         return b.build();
     }
 
+    private static RightsMetadata createRandomRights() {
+        int num=rand.nextInt(3)+1;
+        List<RightsStatement> statements=new ArrayList<RightsStatement>();
+        while (num-- > 0){
+            RightsStatement st=new RightsStatement.Builder()
+                .licenseInformation(createRandomLicenseInformation())
+                .copyrightInformation(createRandomCopyrightInformation())
+                .linkingAgents(createRandomLinkingAgents())
+                .linkingObjects(createRandomLinkingObjects())
+                .rightsBasis(randomAlphabetic(16))
+                .rightsGranted(createRandomRightsGranted())
+                .rightsStatementIdentifier(new UUIDIdentifier())
+                .statuteInformation(createRandomStatuteInfomation())
+                .build();
+            statements.add(st);
+        }
+        return new PremisRightsMetadata(statements);
+    }
+
+    private static List<StatuteInformation> createRandomStatuteInfomation() {
+        List<StatuteInformation> si=new ArrayList<StatuteInformation>();
+        int num=rand.nextInt(2) + 1;
+        while (num--  > 0){
+            si.add(new StatuteInformation(randomAlphabetic(2), randomAlphabetic(16),new Date(),Arrays.asList(randomAlphabetic(16))));
+        }
+        return si;
+    }
+
+    private static List<GrantedRights> createRandomRightsGranted() {
+        List<GrantedRights> grantedRights=new ArrayList<GrantedRights>();
+        int num=rand.nextInt(2) + 1;
+        while (num--  > 0){
+            grantedRights.add(new GrantedRights(randomAlphabetic(4), "", createRandomTermOfGrant(), Arrays.asList(randomAlphabetic(16))));
+        }
+        return grantedRights;
+    }
+
+    private static TermOfGrant createRandomTermOfGrant() {
+        return new TermOfGrant(new Date(), new Date());
+    }
+
+    private static List<LinkingObject> createRandomLinkingObjects() {
+        List<LinkingObject> objs=new ArrayList<LinkingObject>();
+        int num=rand.nextInt(2) + 1;
+        while (num--  > 0){
+            objs.add(new LinkingObject(new UUIDIdentifier(), Arrays.asList("SOURCE")));
+            
+        }
+        return objs;
+    }
+
+    private static List<LinkingAgent> createRandomLinkingAgents() {
+        List<LinkingAgent> agents=new ArrayList<LinkingAgent>();
+        int num=rand.nextInt(2) + 1;
+        while (num--  > 0){
+            agents.add(new LinkingAgent(new UUIDIdentifier(), Arrays.asList("USER")));
+            
+        }
+        return agents;
+    }
+
+    private static CopyRightInformation createRandomCopyrightInformation() {
+        return new CopyRightInformation(randomAlphabetic(2), new Date(), Arrays.asList(randomAlphabetic(16)));
+    }
+
+    private static LicenseInformtion createRandomLicenseInformation() {
+        return new LicenseInformtion(new UUIDIdentifier(), randomAlphabetic(16), Arrays.asList(randomAlphabetic(16)));
+    }
+
+    private static ProvenanceMetadata createRandomProvenance() {
+        return new PremisProvenanceMetadata(createRandomEvents());
+    }
+
     private static TechnicalMetadata createRandomTechnicalMetadata() {
-        GeneralCaptureInformation cap=new GeneralCaptureInformation(new Date(), CaptureDevice.DIGITAL_STILL_CAMERA,Arrays.asList("Camera"));
+        GeneralCaptureInformation cap = new GeneralCaptureInformation(new Date(), CaptureDevice.DIGITAL_STILL_CAMERA, Arrays.asList("Camera"));
         return new NisoMixMetadata.Builder()
-            .width(800)
-            .height(600)
-            .orientation(Orientation.NORMAL)
-            .generalCaptureInformation(cap)
-            .build();
+                .width(800)
+                .height(600)
+                .orientation(Orientation.NORMAL)
+                .generalCaptureInformation(cap)
+                .build();
     }
 
     private static TechnicalMetadata createRandomNisoMixMetadata() {
@@ -127,7 +210,7 @@ public abstract class TestUtil {
                 .digitalCameraCapture(createRandomDigitalCameraCapture())
                 .generalCaptureInformation(createGeneralCaptureInformation())
                 .imageColorEncoding(createRandomImageColorEncoding())
-                .methodology(RandomStringUtils.randomAlphabetic(16))
+                .methodology(randomAlphabetic(16))
                 .orientation(Orientation.NORMAL)
                 .referencedBlackWhite(new ReferencedBlackWhite(new double[] { 0d, 0d, 0d }, new double[] { 256d, 256d, 256d }))
                 .scannerCapture(createRandomScannerCapture())
@@ -155,10 +238,10 @@ public abstract class TestUtil {
 
     private static TargetData createRandomTargetData() {
         return new TargetData(Arrays.asList(TargetType.EXTERNAL),
-                Arrays.asList(new TargetData.TargetId(RandomStringUtils.randomAlphabetic(16), RandomStringUtils.randomAlphabetic(16),
-                        RandomStringUtils.randomNumeric(2), RandomStringUtils.randomAlphabetic(16))),
-                Arrays.asList(URI.create("http.//example.com/" + RandomStringUtils.randomAlphabetic(16))),
-                Arrays.asList(URI.create("http.//example.com/" + RandomStringUtils.randomAlphabetic(16))));
+                Arrays.asList(new TargetData.TargetId(randomAlphabetic(16), randomAlphabetic(16),
+                        randomNumeric(2), randomAlphabetic(16))),
+                Arrays.asList(URI.create("http.//example.com/" + randomAlphabetic(16))),
+                Arrays.asList(URI.create("http.//example.com/" + randomAlphabetic(16))));
     }
 
     private static SourceInformation createRandomImageSource() {
@@ -178,22 +261,22 @@ public abstract class TestUtil {
     private static ScannerCapture createRandomScannerCapture() {
         return new ScannerCapture.Builder()
                 .maximumOpticalResolution("1200x1200")
-                .scannerManufacturer(RandomStringUtils.randomAlphabetic(16))
-                .scannerModelName(RandomStringUtils.randomAlphabetic(16))
-                .scannerModelNumber(RandomStringUtils.randomNumeric(16))
-                .scannerModelSerialNo(RandomStringUtils.randomNumeric(16))
+                .scannerManufacturer(randomAlphabetic(16))
+                .scannerModelName(randomAlphabetic(16))
+                .scannerModelNumber(randomNumeric(16))
+                .scannerModelSerialNo(randomNumeric(16))
                 .scannerSensor(ScannerSensor.MONOCHROME_LINEAR)
-                .scanningSoftwareName(RandomStringUtils.randomAlphabetic(16))
-                .scanningSoftwareVersionNo(RandomStringUtils.randomNumeric(3))
+                .scanningSoftwareName(randomAlphabetic(16))
+                .scanningSoftwareVersionNo(randomNumeric(3))
                 .build();
     }
 
     private static ImageColorEncoding createRandomImageColorEncoding() {
         return new ImageColorEncoding.Builder()
                 .bitsPerSampleUnit(BitsPerSampleUnit.INTEGER)
-                .bitsPerSampleValue(RandomStringUtils.randomNumeric(2))
-                .colorMapReference(URI.create("http://example.com/" + RandomStringUtils.randomAlphabetic(16)))
-                .embeddedColorMap(RandomStringUtils.randomAlphabetic(16).getBytes())
+                .bitsPerSampleValue(randomNumeric(2))
+                .colorMapReference(URI.create("http://example.com/" + randomAlphabetic(16)))
+                .embeddedColorMap(randomAlphabetic(16).getBytes())
                 .extraSamples(ExtraSamples.UNSPECIFIED_DATA)
                 .grayResponseCurve((short) rand.nextInt())
                 .grayResponseUnit(GrayResponseUnit.TENTH_OF_A_UNIT)
@@ -208,11 +291,11 @@ public abstract class TestUtil {
 
     private static DigitalCameraCapture createRandomDigitalCameraCapture() {
         return new DigitalCameraCapture.Builder()
-                .digitalCameraManufacturer(RandomStringUtils.randomAlphabetic(16))
-                .digitalCameraModelName(RandomStringUtils.randomAlphabetic(16))
-                .digitalCameraModelNumber(RandomStringUtils.randomNumeric(2))
-                .digitalCameraModelSerialNo(RandomStringUtils.randomNumeric(16))
-                .digitalCameraSensor(RandomStringUtils.randomAlphabetic(16))
+                .digitalCameraManufacturer(randomAlphabetic(16))
+                .digitalCameraModelName(randomAlphabetic(16))
+                .digitalCameraModelNumber(randomNumeric(2))
+                .digitalCameraModelSerialNo(randomNumeric(16))
+                .digitalCameraSensor(randomAlphabetic(16))
                 .imageData(createRandomImageData())
                 .gpsData(createRandomGPSData())
                 .build();
@@ -220,7 +303,7 @@ public abstract class TestUtil {
 
     private static GPSData createRandomGPSData() {
         return new GPSData.Builder()
-                .gpsAreaInformation(RandomStringUtils.randomAlphanumeric(16))
+                .gpsAreaInformation(randomAlphanumeric(16))
                 .gpsDateStamp(dateFormatter.format(new Date(Math.abs(rand.nextLong()))))
                 .gpsDestBearing(rand.nextDouble() * 360)
                 .gpsDestBearingRef(GPSData.GPSDirectionRef.MAGNETIC_DIRECTION)
@@ -248,7 +331,7 @@ public abstract class TestUtil {
                 .gpsTimeStamp(String.valueOf(Math.abs(rand.nextLong())))
                 .gpsTrack(rand.nextDouble() * 360)
                 .gpsTrackRef(GPSData.GPSDirectionRef.MAGNETIC_DIRECTION)
-                .gpsVersionId(RandomStringUtils.randomNumeric(3))
+                .gpsVersionId(randomNumeric(3))
                 .build();
     }
 
@@ -285,10 +368,10 @@ public abstract class TestUtil {
     private static ColorProfile createRandomColorProfile() {
         switch (rand.nextInt(2) + 1) {
         case 0:
-            return new ColorProfile(new ColorProfile.ICCProfile(RandomStringUtils.randomAlphabetic(16), "version 0.1-TEST", "http://example.com/"
-                    + RandomStringUtils.randomAlphabetic(16)));
+            return new ColorProfile(new ColorProfile.ICCProfile(randomAlphabetic(16), "version 0.1-TEST", "http://example.com/"
+                    + randomAlphabetic(16)));
         case 1:
-            return new ColorProfile(new ColorProfile.LocalProfile("version 0.1-TEST", "file://" + RandomStringUtils.randomAlphabetic(16)));
+            return new ColorProfile(new ColorProfile.LocalProfile("version 0.1-TEST", "file://" + randomAlphabetic(16)));
         case 2:
             return new ColorProfile(new ColorProfile.EmbeddedProfile(
                     Base64.encodeBase64String("An embedded Color profile looks different than this string".getBytes())));
@@ -327,7 +410,7 @@ public abstract class TestUtil {
         }
         max = rnd.nextInt(9) + 1;
         for (int i = 0; i < max; i++) {
-            builder.coverage(RandomStringUtils.randomAlphabetic(16));
+            builder.coverage(randomAlphabetic(16));
         }
         max = rnd.nextInt(9) + 1;
         for (int i = 0; i < max; i++) {
@@ -343,51 +426,51 @@ public abstract class TestUtil {
         }
         max = rnd.nextInt(9) + 1;
         for (int i = 0; i < max; i++) {
-            builder.description(RandomStringUtils.randomAlphabetic(16));
+            builder.description(randomAlphabetic(16));
         }
         max = rnd.nextInt(9) + 1;
         for (int i = 0; i < max; i++) {
-            builder.format(RandomStringUtils.randomAlphabetic(16));
+            builder.format(randomAlphabetic(16));
         }
         max = rnd.nextInt(9) + 1;
         for (int i = 0; i < max; i++) {
-            builder.language(RandomStringUtils.randomAlphabetic(16));
+            builder.language(randomAlphabetic(16));
         }
         max = rnd.nextInt(9) + 1;
         for (int i = 0; i < max; i++) {
-            builder.publisher(RandomStringUtils.randomAlphabetic(16));
+            builder.publisher(randomAlphabetic(16));
         }
         max = rnd.nextInt(9) + 1;
         for (int i = 0; i < max; i++) {
-            builder.relations(RandomStringUtils.randomAlphabetic(16));
+            builder.relations(randomAlphabetic(16));
         }
         max = rnd.nextInt(9) + 1;
         for (int i = 0; i < max; i++) {
-            builder.rights(RandomStringUtils.randomAlphabetic(16));
+            builder.rights(randomAlphabetic(16));
         }
         max = rnd.nextInt(9) + 1;
         for (int i = 0; i < max; i++) {
-            builder.sources(RandomStringUtils.randomAlphabetic(16));
+            builder.sources(randomAlphabetic(16));
         }
         max = rnd.nextInt(9) + 1;
         for (int i = 0; i < max; i++) {
-            builder.subject(RandomStringUtils.randomAlphabetic(16));
+            builder.subject(randomAlphabetic(16));
         }
         max = rnd.nextInt(9) + 1;
         for (int i = 0; i < max; i++) {
-            builder.title(RandomStringUtils.randomAlphabetic(16));
+            builder.title(randomAlphabetic(16));
         }
         for (int i = 0; i < max; i++) {
-            builder.type(RandomStringUtils.randomAlphabetic(16));
+            builder.type(randomAlphabetic(16));
         }
         return builder.build();
     }
 
     private static Agent createRandomAgent() {
         return new Agent.Builder()
-                .name("Agent-" + RandomStringUtils.randomAlphabetic(16))
+                .name("Agent-" + randomAlphabetic(16))
                 .note("no notes")
-                .role("Role-" + RandomStringUtils.randomAlphabetic(16))
+                .role("Role-" + randomAlphabetic(16))
                 .type("INDIVIDUAL")
                 .build();
     }
