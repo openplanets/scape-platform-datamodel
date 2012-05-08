@@ -14,6 +14,7 @@ import org.apache.commons.codec.binary.Base64;
 import static org.apache.commons.lang3.RandomStringUtils.*;
 
 import eu.scapeproject.model.Agent;
+import eu.scapeproject.model.File;
 import eu.scapeproject.model.Identifier;
 import eu.scapeproject.model.IntellectualEntity;
 import eu.scapeproject.model.Representation;
@@ -106,6 +107,7 @@ public abstract class TestUtil {
                 .provenance(createRandomProvenance())
                 .source(createRandomDescriptive())
                 .rights(createRandomRights())
+                .files(createRandomFiles())
                 .provenance(createRandomProvenance());
         switch (type) {
         case NISO_MIX:
@@ -118,38 +120,51 @@ public abstract class TestUtil {
         return b.build();
     }
 
+    private static List<File> createRandomFiles() {
+        int num = rand.nextInt(3) + 1;
+        List<File> files = new ArrayList<File>(num);
+        while (num-- > 0) {
+            File f = new File.Builder()
+                    .technical(createRandomTechnicalMetadata())
+                    .uri(Arrays.asList(URI.create("http://example.com/" + randomAlphabetic(16))))
+                    .build();
+            files.add(f);
+        }
+        return files;
+    }
+
     private static RightsMetadata createRandomRights() {
-        int num=rand.nextInt(3)+1;
-        List<RightsStatement> statements=new ArrayList<RightsStatement>();
-        while (num-- > 0){
-            RightsStatement st=new RightsStatement.Builder()
-                .licenseInformation(createRandomLicenseInformation())
-                .copyrightInformation(createRandomCopyrightInformation())
-                .linkingAgents(createRandomLinkingAgents())
-                .linkingObjects(createRandomLinkingObjects())
-                .rightsBasis(randomAlphabetic(16))
-                .rightsGranted(createRandomRightsGranted())
-                .rightsStatementIdentifier(new UUIDIdentifier())
-                .statuteInformation(createRandomStatuteInfomation())
-                .build();
+        int num = rand.nextInt(3) + 1;
+        List<RightsStatement> statements = new ArrayList<RightsStatement>();
+        while (num-- > 0) {
+            RightsStatement st = new RightsStatement.Builder()
+                    .licenseInformation(createRandomLicenseInformation())
+                    .copyrightInformation(createRandomCopyrightInformation())
+                    .linkingAgents(createRandomLinkingAgents())
+                    .linkingObjects(createRandomLinkingObjects())
+                    .rightsBasis(randomAlphabetic(16))
+                    .rightsGranted(createRandomRightsGranted())
+                    .rightsStatementIdentifier(new UUIDIdentifier())
+                    .statuteInformation(createRandomStatuteInfomation())
+                    .build();
             statements.add(st);
         }
         return new PremisRightsMetadata(statements);
     }
 
     private static List<StatuteInformation> createRandomStatuteInfomation() {
-        List<StatuteInformation> si=new ArrayList<StatuteInformation>();
-        int num=rand.nextInt(2) + 1;
-        while (num--  > 0){
-            si.add(new StatuteInformation(randomAlphabetic(2), randomAlphabetic(16),new Date(),Arrays.asList(randomAlphabetic(16))));
+        List<StatuteInformation> si = new ArrayList<StatuteInformation>();
+        int num = rand.nextInt(2) + 1;
+        while (num-- > 0) {
+            si.add(new StatuteInformation(randomAlphabetic(2), randomAlphabetic(16), new Date(), Arrays.asList(randomAlphabetic(16))));
         }
         return si;
     }
 
     private static List<GrantedRights> createRandomRightsGranted() {
-        List<GrantedRights> grantedRights=new ArrayList<GrantedRights>();
-        int num=rand.nextInt(2) + 1;
-        while (num--  > 0){
+        List<GrantedRights> grantedRights = new ArrayList<GrantedRights>();
+        int num = rand.nextInt(2) + 1;
+        while (num-- > 0) {
             grantedRights.add(new GrantedRights(randomAlphabetic(4), "", createRandomTermOfGrant(), Arrays.asList(randomAlphabetic(16))));
         }
         return grantedRights;
@@ -160,21 +175,21 @@ public abstract class TestUtil {
     }
 
     private static List<LinkingObject> createRandomLinkingObjects() {
-        List<LinkingObject> objs=new ArrayList<LinkingObject>();
-        int num=rand.nextInt(2) + 1;
-        while (num--  > 0){
+        List<LinkingObject> objs = new ArrayList<LinkingObject>();
+        int num = rand.nextInt(2) + 1;
+        while (num-- > 0) {
             objs.add(new LinkingObject(new UUIDIdentifier(), Arrays.asList("SOURCE")));
-            
+
         }
         return objs;
     }
 
     private static List<LinkingAgent> createRandomLinkingAgents() {
-        List<LinkingAgent> agents=new ArrayList<LinkingAgent>();
-        int num=rand.nextInt(2) + 1;
-        while (num--  > 0){
+        List<LinkingAgent> agents = new ArrayList<LinkingAgent>();
+        int num = rand.nextInt(2) + 1;
+        while (num-- > 0) {
             agents.add(new LinkingAgent(new UUIDIdentifier(), Arrays.asList("USER")));
-            
+
         }
         return agents;
     }

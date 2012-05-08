@@ -1,6 +1,7 @@
 package eu.scapeproject.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
@@ -58,8 +59,13 @@ public class Representation {
             return new Representation(this);
         }
 
-        public Builder files(File file) {
+        public Builder file(File file) {
             this.files.add(file);
+            return this;
+        }
+
+        public Builder files(List<File> files) {
+            this.files.addAll(files);
             return this;
         }
 

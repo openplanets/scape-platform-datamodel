@@ -1,16 +1,19 @@
 package eu.scapeproject.model.mets;
 
 import java.io.OutputStream;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.filechooser.FileSystemView;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import eu.scapeproject.model.Agent;
+import eu.scapeproject.model.File;
 import eu.scapeproject.model.Identifier;
 import eu.scapeproject.model.IntellectualEntity;
 import eu.scapeproject.model.Representation;
@@ -45,14 +48,18 @@ public class MetsFactory {
     }
 
     public void serialize(IntellectualEntity entity, OutputStream out) throws JAXBException {
-        Identifier docId = new UUIDIdentifier();
-        Identifier headerId=new UUIDIdentifier();
-        List<Agent> agents=new ArrayList<Agent>();
-        List<MetsAMDSec> amdSecs=new ArrayList<MetsAMDSec>();
+        final Identifier docId = new UUIDIdentifier();
+        final Identifier headerId=new UUIDIdentifier();
+        final List<Agent> agents=new ArrayList<Agent>();
+        final List<MetsAMDSec> amdSecs=new ArrayList<MetsAMDSec>();
+        final List<MetsFileGrp> fileGroups=new ArrayList<MetsFileGrp>();
+        final List<MetsDiv> divisions=new ArrayList<MetsDiv>();
+        
         DCMetadata dc=(DCMetadata) entity.getDescriptive();
         agents.addAll(dc.getConstributors());
         agents.addAll(dc.getCreator());
         for (Representation rep:entity.getRepresentations()){
+                
             amdSecs.add(new MetsAMDSec(new UUIDIdentifier().getValue(), rep.getTechnical(),rep.getProvenance(),rep.getSource(),rep.getRights()));
             if (rep.getProvenance() instanceof PremisProvenanceMetadata){
                 for (Event e : ((PremisProvenanceMetadata)rep.getProvenance()).getEvents()){
@@ -61,6 +68,36 @@ public class MetsFactory {
                     }
                 }
             }
+            final List<MetsFile> files=new ArrayList<MetsFile>();
+            final List<MetsFilePtr> pointers=new ArrayList<MetsFilePtr>();
+            for (File f:rep.getFiles()){
+                List<MetsFileLocation> locations=new ArrayList<MetsFileLocation>();
+                for (URI uri:f.getUris()){
+                    MetsFileLocation loc=new MetsFileLocation.Builder(new UUIDIdentifier().getValue())
+                    .href(uri)
+                    .build();
+                    locations.add(loc);
+                }
+                MetsFile file=new MetsFile.Builder(new UUIDIdentifier().getValue())
+                    .fileLocations(locations)
+                    .build();
+                files.add(file);
+                
+                MetsFilePtr p=new MetsFilePtr.Builder()
+                    .fileId(file.getId())
+                    .id(new UUIDIdentifier().getValue())
+                    .build();
+                pointers.add(p);
+            }
+            MetsDiv div=new MetsDiv.Builder()
+                .filePointers(pointers)
+                .type("section")
+                .build();
+            MetsFileGrp group=new MetsFileGrp.Builder(new UUIDIdentifier().getValue())
+                .files(files)
+                .build();
+            fileGroups.add(group);
+            divisions.add(div);
         }
 
         MetsHeader.Builder hdrBuilder=new MetsHeader.Builder(headerId.getValue())
@@ -72,6 +109,11 @@ public class MetsFactory {
         }
         hdrBuilder.alternativeIdentifiers(alternativeIdentifiers);
         
+        MetsStructMap structMap=new MetsStructMap.Builder()
+            .divisions(divisions)
+            .id(new UUIDIdentifier().getValue())
+            .build();
+        
         MetsDocument doc = new MetsDocument.Builder()
                 .id(docId.getValue())
                 .label(dc.getTitle().get(0))
@@ -79,7 +121,8 @@ public class MetsFactory {
                 .profile(SCAPE_PROFILE)
                 .dmdSec(createMetsDMDSec(entity.getDescriptive()))
                 .amdSecs(amdSecs)
-                .fileGrps(Arrays.asList(new MetsFileGrp()))
+                .fileSecs(Arrays.asList(new MetsFileSec(new UUIDIdentifier().getValue(),fileGroups)))
+                .structMaps(Arrays.asList(structMap))
                 .headers(Arrays.asList(hdrBuilder.build()))
                 .build();
         marshaller.marshal(doc, out);

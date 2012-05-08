@@ -30,11 +30,34 @@ public class MetsDocument {
     private MetsDMDSec dmdSec;
     @XmlElement(name = "amdSec", namespace = "http://www.loc.gov/METS/")
     private List<MetsAMDSec> amdSecs;
-    @XmlElement(name = "fileGrp", namespace = "http://www.loc.gov/METS/")
-    private List<MetsFileGrp> fileGrps;
+    @XmlElement(name = "fileSec", namespace = "http://www.loc.gov/METS/")
+    private List<MetsFileSec> fileSecs;
+    @XmlElement(name = "structMap", namespace = "http://www.loc.gov/METS/")
+    private List<MetsStructMap> structMaps;
 
     private MetsDocument() {
         super();
+    }
+
+    private MetsDocument(Builder builder) {
+        this.id = builder.id;
+        this.objId = builder.objId;
+        this.label = builder.label;
+        this.type = builder.type;
+        this.profile = builder.profile;
+        this.headers = builder.headers;
+        this.dmdSec = builder.dmdSec;
+        this.amdSecs = builder.amdSecs;
+        this.fileSecs = builder.fileSecs;
+        this.structMaps=builder.structMaps;
+    }
+
+    public List<MetsStructMap> getStructMaps() {
+        return structMaps;
+    }
+
+    public List<MetsAMDSec> getAmdSecs() {
+        return amdSecs;
     }
 
     public String getId() {
@@ -57,8 +80,16 @@ public class MetsDocument {
         return type;
     }
 
-    public List<MetsAMDSec> getAmdSecs() {
-        return amdSecs;
+    public List<MetsFileSec> getFileSecs() {
+        return fileSecs;
+    }
+
+    public MetsDMDSec getDmdSec() {
+        return dmdSec;
+    }
+
+    public List<MetsHeader> getHeaders() {
+        return headers;
     }
 
     public static class Builder {
@@ -70,30 +101,25 @@ public class MetsDocument {
         private List<MetsHeader> headers;
         private MetsDMDSec dmdSec;
         private List<MetsAMDSec> amdSecs;
-        private List<MetsFileGrp> fileGrps;
+        private List<MetsFileSec> fileSecs;
+        private List<MetsStructMap> structMaps;
 
-        public Builder id(String id) {
-            this.id = id;
+        public Builder amdSecs(List<MetsAMDSec> amdSecs) {
+            this.amdSecs = amdSecs;
             return this;
         }
 
-        public Builder objId(String objId) {
-            this.objId = objId;
+        public MetsDocument build() {
+            return new MetsDocument(this);
+        }
+
+        public Builder dmdSec(MetsDMDSec dmdSec) {
+            this.dmdSec = dmdSec;
             return this;
         }
 
-        public Builder label(String label) {
-            this.label = label;
-            return this;
-        }
-
-        public Builder type(String type) {
-            this.type = type;
-            return this;
-        }
-
-        public Builder profile(String profile) {
-            this.profile = profile;
+        public Builder fileSecs(List<MetsFileSec> fileSecs) {
+            this.fileSecs = fileSecs;
             return this;
         }
 
@@ -102,35 +128,34 @@ public class MetsDocument {
             return this;
         }
 
-        public Builder dmdSec(MetsDMDSec dmdSec) {
-            this.dmdSec = dmdSec;
+        public Builder structMaps(List<MetsStructMap> structMaps) {
+            this.structMaps=structMaps;
             return this;
         }
 
-        public Builder amdSecs(List<MetsAMDSec> amdSecs) {
-            this.amdSecs = amdSecs;
+        public Builder id(String id) {
+            this.id = id;
             return this;
         }
 
-        public Builder fileGrps(List<MetsFileGrp> fileGrps) {
-            this.fileGrps = fileGrps;
+        public Builder label(String label) {
+            this.label = label;
             return this;
         }
 
-        public MetsDocument build() {
-            return new MetsDocument(this);
+        public Builder objId(String objId) {
+            this.objId = objId;
+            return this;
         }
-    }
 
-    private MetsDocument(Builder builder) {
-        this.id = builder.id;
-        this.objId = builder.objId;
-        this.label = builder.label;
-        this.type = builder.type;
-        this.profile = builder.profile;
-        this.headers = builder.headers;
-        this.dmdSec = builder.dmdSec;
-        this.amdSecs = builder.amdSecs;
-        this.fileGrps = builder.fileGrps;
+        public Builder profile(String profile) {
+            this.profile = profile;
+            return this;
+        }
+
+        public Builder type(String type) {
+            this.type = type;
+            return this;
+        }
     }
 }
