@@ -4,6 +4,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import eu.scapeproject.dto.mets.MetsAgent;
+
 @XmlRootElement(name = "agent",namespace="http://www.loc.gov/standards/premis")
 public class Agent {
     @XmlElement(name = "name",namespace="http://www.loc.gov/standards/premis")
@@ -98,4 +100,5 @@ public class Agent {
         this.otherRole = builder.otherRole;
         this.otherType = builder.otherType;
     }
+
 }

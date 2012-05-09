@@ -1,6 +1,7 @@
 package eu.scapeproject.model;
 
-public abstract class Identifier {
+
+public abstract class Identifier{
     protected String type;
     protected String value;
 
