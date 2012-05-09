@@ -25,6 +25,8 @@ import eu.scapeproject.dto.mets.MetsFilePtr;
 import eu.scapeproject.dto.mets.MetsFileSec;
 import eu.scapeproject.dto.mets.MetsHeader;
 import eu.scapeproject.dto.mets.MetsMDWrap;
+import eu.scapeproject.dto.mets.MetsRightsMD;
+import eu.scapeproject.dto.mets.MetsSourceMD;
 import eu.scapeproject.dto.mets.MetsStructMap;
 import eu.scapeproject.dto.mets.MetsTechMD;
 import eu.scapeproject.model.Agent;
@@ -106,9 +108,19 @@ public class MetsFactory {
                     .id(new UUIDIdentifier().getValue())
                     .metadataWrapper(new MetsMDWrap(rep.getTechnical()))
                     .build();
+            final MetsSourceMD sourceMD = new MetsSourceMD.Builder()
+                    .id(new UUIDIdentifier().getValue())
+                    .metadataWrapper(new MetsMDWrap(rep.getSource()))
+                    .build();
+            final MetsRightsMD rightsMD = new MetsRightsMD.Builder()
+                    .id(new UUIDIdentifier().getValue())
+                    .metadataWrapper(new MetsMDWrap(rep.getRights()))
+                    .build();
             final MetsAMDSec amdSec = new MetsAMDSec.Builder()
                     .provenanceMetadata(digiProvMd)
                     .technicalMetadata(techMd)
+                    .rightsMetadata(rightsMD)
+                    .sourceMetadata(sourceMD)
                     .build();
             amdSecs.add(amdSec);
             if (rep.getProvenance() instanceof PremisProvenanceMetadata) {
