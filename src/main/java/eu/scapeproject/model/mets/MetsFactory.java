@@ -46,12 +46,12 @@ import eu.scapeproject.model.metadata.textmd.TextMDMetadata;
 
 public class MetsFactory {
     private static final String SCAPE_PROFILE = "http://example.com/scape-mets-profile.xml";
-    private Marshaller marshaller;
+    private final Marshaller marshaller;
     private static MetsFactory INSTANCE;
 
     private MetsFactory() throws JAXBException {
         super();
-        JAXBContext ctx = JAXBContext.newInstance(MetsDocument.class, DCMetadata.class, TextMDMetadata.class, NisoMixMetadata.class,
+        final JAXBContext ctx = JAXBContext.newInstance(MetsDocument.class, DCMetadata.class, TextMDMetadata.class, NisoMixMetadata.class,
                 PremisProvenanceMetadata.class, PremisRightsMetadata.class);
         marshaller = ctx.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -66,6 +66,8 @@ public class MetsFactory {
     }
 
     public void serialize(final IntellectualEntity entity, final OutputStream out) throws JAXBException {
+        //TODO: still have split up this ugly monstrous method into multiple methods
+        // It's not 1970 and we're not coding in c ;) 
         final Identifier docId = new UUIDIdentifier();
         final Identifier headerId = new UUIDIdentifier();
         final List<MetsAgent> agents = new ArrayList<MetsAgent>();
@@ -74,8 +76,8 @@ public class MetsFactory {
         final List<MetsDiv> divisions = new ArrayList<MetsDiv>();
 
         final DCMetadata dc = (DCMetadata) entity.getDescriptive();
-        for (Agent contributor : dc.getConstributors()) {
-            MetsAgent agent = new MetsAgent.Builder()
+        for (final Agent contributor : dc.getConstributors()) {
+            final MetsAgent agent = new MetsAgent.Builder()
                     .id(new UUIDIdentifier().getValue())
                     .name(contributor.getName())
                     .role(contributor.getRole())
@@ -86,8 +88,8 @@ public class MetsFactory {
                     .build();
             agents.add(agent);
         }
-        for (Agent creator : dc.getCreator()) {
-            MetsAgent agent = new MetsAgent.Builder()
+        for (final Agent creator : dc.getCreator()) {
+            final MetsAgent agent = new MetsAgent.Builder()
                     .id(new UUIDIdentifier().getValue())
                     .name(creator.getName())
                     .role(creator.getRole())
@@ -124,9 +126,9 @@ public class MetsFactory {
                     .build();
             amdSecs.add(amdSec);
             if (rep.getProvenance() instanceof PremisProvenanceMetadata) {
-                for (Event e : ((PremisProvenanceMetadata) rep.getProvenance()).getEvents()) {
-                    for (Agent a : e.getLinkingAgents()) {
-                        MetsAgent agent = new MetsAgent.Builder()
+                for (final Event e : ((PremisProvenanceMetadata) rep.getProvenance()).getEvents()) {
+                    for (final Agent a : e.getLinkingAgents()) {
+                        final MetsAgent agent = new MetsAgent.Builder()
                                 .id(new UUIDIdentifier().getValue())
                                 .name(a.getName())
                                 .role(a.getRole())
@@ -141,51 +143,51 @@ public class MetsFactory {
             }
             final List<MetsFile> files = new ArrayList<MetsFile>();
             final List<MetsFilePtr> pointers = new ArrayList<MetsFilePtr>();
-            for (File f : rep.getFiles()) {
-                List<MetsFileLocation> locations = new ArrayList<MetsFileLocation>();
-                for (URI uri : f.getUris()) {
+            for (final File f : rep.getFiles()) {
+                final List<MetsFileLocation> locations = new ArrayList<MetsFileLocation>();
+                for (final URI uri : f.getUris()) {
                     MetsFileLocation loc = new MetsFileLocation.Builder(new UUIDIdentifier().getValue())
                             .href(uri)
                             .build();
                     locations.add(loc);
                 }
-                MetsFile file = new MetsFile.Builder(new UUIDIdentifier().getValue())
+                final MetsFile file = new MetsFile.Builder(new UUIDIdentifier().getValue())
                         .fileLocations(locations)
                         .build();
                 files.add(file);
 
-                MetsFilePtr p = new MetsFilePtr.Builder()
+                final MetsFilePtr p = new MetsFilePtr.Builder()
                         .fileId(file.getId())
                         .id(new UUIDIdentifier().getValue())
                         .build();
                 pointers.add(p);
             }
-            MetsDiv div = new MetsDiv.Builder()
+            final MetsDiv div = new MetsDiv.Builder()
                     .filePointers(pointers)
                     .type("section")
                     .build();
-            MetsFileGrp group = new MetsFileGrp.Builder(new UUIDIdentifier().getValue())
+            final MetsFileGrp group = new MetsFileGrp.Builder(new UUIDIdentifier().getValue())
                     .files(files)
                     .build();
             fileGroups.add(group);
             divisions.add(div);
         }
 
-        MetsHeader.Builder hdrBuilder = new MetsHeader.Builder(headerId.getValue())
+        final MetsHeader.Builder hdrBuilder = new MetsHeader.Builder(headerId.getValue())
                 .createdDate(new Date())
                 .agents(agents);
-        List<MetsAlternativeIdentifer> alternativeIdentifiers = new ArrayList<MetsAlternativeIdentifer>();
-        for (Identifier i : entity.getAlternativeIdentifiers()) {
+        final List<MetsAlternativeIdentifer> alternativeIdentifiers = new ArrayList<MetsAlternativeIdentifer>();
+        for (final Identifier i : entity.getAlternativeIdentifiers()) {
             alternativeIdentifiers.add(new MetsAlternativeIdentifer(i.getType(), i.getValue()));
         }
         hdrBuilder.alternativeIdentifiers(alternativeIdentifiers);
 
-        MetsStructMap structMap = new MetsStructMap.Builder()
+        final MetsStructMap structMap = new MetsStructMap.Builder()
                 .divisions(divisions)
                 .id(new UUIDIdentifier().getValue())
                 .build();
 
-        MetsDocument doc = new MetsDocument.Builder()
+        final MetsDocument doc = new MetsDocument.Builder()
                 .id(docId.getValue())
                 .label(dc.getTitle().get(0))
                 .objId(entity.getIdentifier().getValue())
@@ -199,11 +201,11 @@ public class MetsFactory {
         marshaller.marshal(doc, out);
     }
 
-    private MetsDMDSec createMetsDMDSec(DescriptiveMetadata metadata) {
-        String dmdId = new UUIDIdentifier().getValue();
-        String admId = new UUIDIdentifier().getValue();
-        DCMetadata dc = (DCMetadata) metadata;
-        Date created = dc.getDate().get(0);
+    private MetsDMDSec createMetsDMDSec(final DescriptiveMetadata metadata) {
+        final String dmdId = new UUIDIdentifier().getValue();
+        final String admId = new UUIDIdentifier().getValue();
+        final DCMetadata dc = (DCMetadata) metadata;
+        final Date created = dc.getDate().get(0);
         return new MetsDMDSec.Builder(dmdId)
                 .admId(admId)
                 .created(created)
