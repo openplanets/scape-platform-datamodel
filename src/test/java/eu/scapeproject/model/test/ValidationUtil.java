@@ -11,28 +11,25 @@ import eu.scapeproject.model.metadata.TechnicalMetadata;
 import eu.scapeproject.model.metadata.dc.DCMetadata;
 import eu.scapeproject.model.metadata.mix.NisoMixMetadata;
 import eu.scapeproject.model.metadata.textmd.TextMDMetadata;
-import eu.scapeproject.model.metadata.textmd.TextMDMetadata.AltLanguage;
 import eu.scapeproject.model.metadata.textmd.TextMDMetadata.CharacterInfo;
 import eu.scapeproject.model.metadata.textmd.TextMDMetadata.Encoding;
 import eu.scapeproject.model.metadata.textmd.TextMDMetadata.Encoding.EncodingAgent;
 import eu.scapeproject.model.metadata.textmd.TextMDMetadata.Encoding.EncodingPlatform;
-import eu.scapeproject.model.metadata.textmd.TextMDMetadata.Encoding.EncodingSoftware;
-import eu.scapeproject.model.metadata.textmd.TextMDMetadata.MarkupBasis;
 
 public abstract class ValidationUtil {
     public static void validateTechMDRecord(TechnicalMetadata technical) {
         assertNotNull(technical);
         if (technical.getMetadataType() == TechnicalMetadata.MetadataType.TEXTMD) {
             TextMDMetadata textmd = (TextMDMetadata) technical;
-            validateAltLanguages(textmd.getAltLanguage());
-            validateCharacterInfos(textmd.getCharacterInfo());
-            validateMarkupBases(textmd.getMarkupBasis());
-            validateEncodings(textmd.getEncoding());
-            assertNoNulls(textmd.getFontScript());
-            assertNoNulls(textmd.getLanguage());
+            validateAltLanguages(textmd.getAltLanguages());
+            validateCharacterInfos(textmd.getCharacterInfos());
+            validateEncodings(textmd.getEncodings());
+            assertNoNulls(textmd.getMarkupBases());
+            assertNoNulls(textmd.getFontScripts());
+            assertNoNulls(textmd.getLanguages());
             assertNoNulls(textmd.getPrintRequirements());
-            assertNoNulls(textmd.getProcessingNote());
-            assertNoNulls(textmd.getTextNote());
+            assertNoNulls(textmd.getProcessingNotes());
+            assertNoNulls(textmd.getTextNotes());
             assertNoNulls(textmd.getViewingRequirements());
         } else if (technical.getMetadataType() == TechnicalMetadata.MetadataType.NISO_MIX) {
             NisoMixMetadata niso = (NisoMixMetadata) technical;
@@ -55,17 +52,6 @@ public abstract class ValidationUtil {
         }
     }
 
-    private static void validateMarkupBases(List<MarkupBasis> markupBases) {
-        for (MarkupBasis b: markupBases){
-            validateMarkupBasis(b);
-        }
-    }
-
-    private static void validateMarkupBasis(MarkupBasis b) {
-        assertNotNull(b.getValue());
-        assertNotNull(b.getVersion());
-    }
-
     private static void validateCharacterInfos(List<CharacterInfo> characterInfos) {
         for (CharacterInfo ci:characterInfos){
             validateCharacterInfo(ci);
@@ -74,27 +60,23 @@ public abstract class ValidationUtil {
 
     private static void validateCharacterInfo(CharacterInfo ci) {
         assertNotNull(ci.getByteOrder());
-        assertNotNull(ci.getByteSize().getValue());
-        assertNotNull(ci.getCharacterSize().getEncoding());
-        assertNotNull(ci.getCharacterSize().getValue());
-        assertNotNull(ci.getCharset());
-        assertNotNull(ci.getLinebreak());
+        assertNotNull(ci.getByteSize());
+        assertNotNull(ci.getCharacterSize());
+        assertNotNull(ci.getCharSet());
+        assertNotNull(ci.getLineBreak());
     }
 
-    private static void validateAltLanguages(List<AltLanguage> altLanguages) {
-        for (AltLanguage lang : altLanguages) {
-            validateAltLanguage(lang);
+    private static void validateAltLanguages(List<String> altLanguages) {
+        for (String lang:altLanguages){
+            assertNotNull(lang);
+            assertTrue(lang.length() == 2);
         }
 
     }
 
-    private static void validateAltLanguage(AltLanguage lang) {
-        assertNotNull(lang.getAuthority());
-        assertNotNull(lang.getValue());
-    }
 
-    private static void assertNoNulls(List<String> fontScript) {
-        for (String s : fontScript) {
+    private static void assertNoNulls(List<String> strings) {
+        for (String s : strings) {
             assertNotNull(s);
         }
     }
@@ -106,23 +88,11 @@ public abstract class ValidationUtil {
     }
 
     public static void validateEncoding(Encoding enc) {
-        validateEncodingAgents(enc.getEncodingAgent());
-        validateEncodingPlatforms(enc.getEncodingPlatform());
-        validateEncodingSoftwares(enc.getEncodingSoftware());
-        assertNotNull(enc.getQUALITY());
+        validateEncodingAgent(enc.getAgent());
+        validateEncodingPlatform(enc.getPlatform());
+        assertNotNull(enc.getSoftware());
     }
 
-    public static void validateEncodingSoftwares(List<EncodingSoftware> encodingSoftwares) {
-        for (EncodingSoftware es : encodingSoftwares) {
-            validateEncodingSoftware(es);
-        }
-    }
-
-    public static void validateEncodingSoftware(EncodingSoftware es) {
-        assertNotNull(es.getVersion());
-        assertNotNull(es.getValue());
-
-    }
 
     public static void validateEncodingPlatforms(List<EncodingPlatform> encodingPlatforms) {
         for (EncodingPlatform pl : encodingPlatforms) {
@@ -131,8 +101,7 @@ public abstract class ValidationUtil {
     }
 
     public static void validateEncodingPlatform(EncodingPlatform pl) {
-        assertNotNull(pl.getLinebreak());
-        assertNotNull(pl.getValue());
+        assertNotNull(pl.getLineBreak());
 
     }
 
@@ -144,7 +113,6 @@ public abstract class ValidationUtil {
 
     public static void validateEncodingAgent(EncodingAgent ag) {
         assertNotNull(ag.getRole());
-        assertNotNull(ag.getValue());
     }
 
     public static void validateRightsRecord(RightsMetadata rights) {

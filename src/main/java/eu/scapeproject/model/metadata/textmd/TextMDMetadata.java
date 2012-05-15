@@ -1,484 +1,116 @@
 package eu.scapeproject.model.metadata.textmd;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
 
 import eu.scapeproject.model.metadata.TechnicalMetadata;
 
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-        "encoding",
-        "characterInfo",
-        "language",
-        "altLanguage",
-        "fontScript",
-        "markupBasis",
-        "markupLanguage",
-        "processingNote",
-        "printRequirements",
-        "viewingRequirements",
-        "textNote"
-})
-@XmlRootElement(name = "textMD")
+@XmlRootElement(name = "textMD", namespace = "info:lc/xmlns/textmd-v3")
 public class TextMDMetadata extends TechnicalMetadata {
+    @XmlElement(name = "encoding", namespace = "info:lc/xmlns/textmd-v3")
+    private List<Encoding> encodings;
+    @XmlElement(name = "character_info", namespace = "info:lc/xmlns/textmd-v3")
+    private List<CharacterInfo> characterInfos;
+    @XmlElement(name = "language", namespace = "info:lc/xmlns/textmd-v3")
+    private List<String> languages;
+    @XmlElement(name = "alt_language", namespace = "info:lc/xmlns/textmd-v3")
+    private List<String> altLanguages;
+    @XmlElement(name = "font_script", namespace = "info:lc/xmlns/textmd-v3")
+    private List<String> fontScripts;
+    @XmlElement(name = "markup_basis", namespace = "info:lc/xmlns/textmd-v3")
+    private List<String> markupBases;
+    @XmlElement(name = "markup_language", namespace = "info:lc/xmlns/textmd-v3")
+    private List<String> markupLanguages;
+    @XmlElement(name = "processingNote", namespace = "info:lc/xmlns/textmd-v3")
+    private List<String> processingNotes;
+    @XmlElement(name = "printRequirements", namespace = "info:lc/xmlns/textmd-v3")
+    private List<String> printRequirements;
+    @XmlElement(name = "viewingRequirements", namespace = "info:lc/xmlns/textmd-v3")
+    private List<String> viewingRequirements;
+    @XmlElement(name = "textNote", namespace = "info:lc/xmlns/textmd-v3")
+    private List<String> textNotes;
 
-    protected List<TextMDMetadata.Encoding> encoding;
-    @XmlElement(name = "character_info")
-    protected List<TextMDMetadata.CharacterInfo> characterInfo;
-    protected List<String> language;
-    @XmlElement(name = "alt_language")
-    protected List<TextMDMetadata.AltLanguage> altLanguage;
-    @XmlElement(name = "font_script")
-    protected List<String> fontScript;
-    @XmlElement(name = "markup_basis")
-    protected List<TextMDMetadata.MarkupBasis> markupBasis;
-    @XmlElement(name = "markup_language")
-    protected List<TextMDMetadata.MarkupLanguage> markupLanguage;
-    protected List<String> processingNote;
-    protected List<String> printRequirements;
-    protected List<String> viewingRequirements;
-    protected List<String> textNote;
+    private TextMDMetadata() {
+        super(MetadataType.TEXTMD);
+    }
 
-    public TextMDMetadata() {
-        super(TechnicalMetadata.MetadataType.TEXTMD);
+    public List<Encoding> getEncodings() {
+        return encodings;
+    }
+
+    public List<CharacterInfo> getCharacterInfos() {
+        return characterInfos;
+    }
+
+    public List<String> getLanguages() {
+        return languages;
+    }
+
+    public List<String> getAltLanguages() {
+        return altLanguages;
+    }
+
+    public List<String> getFontScripts() {
+        return fontScripts;
+    }
+
+    public List<String> getMarkupBases() {
+        return markupBases;
+    }
+
+    public List<String> getMarkupLanguages() {
+        return markupLanguages;
+    }
+
+    public List<String> getProcessingNotes() {
+        return processingNotes;
+    }
+
+    public List<String> getPrintRequirements() {
+        return printRequirements;
+    }
+
+    public List<String> getViewingRequirements() {
+        return viewingRequirements;
+    }
+
+    public List<String> getTextNotes() {
+        return textNotes;
     }
 
     private TextMDMetadata(Builder builder) {
         this();
-        this.encoding = builder.encoding;
-        this.characterInfo = builder.characterInfo;
-        this.language = builder.language;
-        this.altLanguage = builder.altLanguage;
-        this.fontScript = builder.fontScript;
-        this.markupBasis = builder.markupBasis;
-        this.markupLanguage = builder.markupLanguage;
-        this.processingNote = builder.processingNote;
+        this.encodings = builder.encodings;
+        this.characterInfos = builder.characterInfos;
+        this.languages = builder.languages;
+        this.altLanguages = builder.altLanguages;
+        this.fontScripts = builder.fontScripts;
+        this.markupBases = builder.markupBases;
+        this.markupLanguages = builder.markupLanguages;
+        this.processingNotes = builder.processingNotes;
         this.printRequirements = builder.printRequirements;
         this.viewingRequirements = builder.viewingRequirements;
-        this.textNote = builder.textNote;
-    }
-
-    /**
-     * Gets the value of the altLanguage property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the altLanguage property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getAltLanguage().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link TextMDMetadata.AltLanguage }
-     * 
-     * 
-     */
-    public List<TextMDMetadata.AltLanguage> getAltLanguage() {
-        if (altLanguage == null) {
-            altLanguage = new ArrayList<TextMDMetadata.AltLanguage>();
-        }
-        return this.altLanguage;
-    }
-
-    /**
-     * Gets the value of the characterInfo property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the characterInfo property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getCharacterInfo().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link TextMDMetadata.CharacterInfo }
-     * 
-     * 
-     */
-    public List<TextMDMetadata.CharacterInfo> getCharacterInfo() {
-        if (characterInfo == null) {
-            characterInfo = new ArrayList<TextMDMetadata.CharacterInfo>();
-        }
-        return this.characterInfo;
-    }
-
-    /**
-     * Gets the value of the encoding property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the encoding property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getEncoding().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link TextMDMetadata.Encoding }
-     * 
-     * 
-     */
-    public List<TextMDMetadata.Encoding> getEncoding() {
-        if (encoding == null) {
-            encoding = new ArrayList<TextMDMetadata.Encoding>();
-        }
-        return this.encoding;
-    }
-
-    /**
-     * Gets the value of the fontScript property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the fontScript property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getFontScript().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link String }
-     * 
-     * 
-     */
-    public List<String> getFontScript() {
-        if (fontScript == null) {
-            fontScript = new ArrayList<String>();
-        }
-        return this.fontScript;
-    }
-
-    /**
-     * Gets the value of the language property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the language property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getLanguage().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link String }
-     * 
-     * 
-     */
-    public List<String> getLanguage() {
-        if (language == null) {
-            language = new ArrayList<String>();
-        }
-        return this.language;
-    }
-
-    /**
-     * Gets the value of the markupBasis property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the markupBasis property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getMarkupBasis().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link TextMDMetadata.MarkupBasis }
-     * 
-     * 
-     */
-    public List<TextMDMetadata.MarkupBasis> getMarkupBasis() {
-        if (markupBasis == null) {
-            markupBasis = new ArrayList<TextMDMetadata.MarkupBasis>();
-        }
-        return this.markupBasis;
-    }
-
-    /**
-     * Gets the value of the markupLanguage property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the markupLanguage property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getMarkupLanguage().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link TextMDMetadata.MarkupLanguage }
-     * 
-     * 
-     */
-    public List<TextMDMetadata.MarkupLanguage> getMarkupLanguage() {
-        if (markupLanguage == null) {
-            markupLanguage = new ArrayList<TextMDMetadata.MarkupLanguage>();
-        }
-        return this.markupLanguage;
-    }
-
-    /**
-     * Gets the value of the printRequirements property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the printRequirements property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getPrintRequirements().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link String }
-     * 
-     * 
-     */
-    public List<String> getPrintRequirements() {
-        if (printRequirements == null) {
-            printRequirements = new ArrayList<String>();
-        }
-        return this.printRequirements;
-    }
-
-    /**
-     * Gets the value of the processingNote property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the processingNote property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getProcessingNote().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link String }
-     * 
-     * 
-     */
-    public List<String> getProcessingNote() {
-        if (processingNote == null) {
-            processingNote = new ArrayList<String>();
-        }
-        return this.processingNote;
-    }
-
-    /**
-     * Gets the value of the textNote property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the textNote property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getTextNote().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link String }
-     * 
-     * 
-     */
-    public List<String> getTextNote() {
-        if (textNote == null) {
-            textNote = new ArrayList<String>();
-        }
-        return this.textNote;
-    }
-
-    /**
-     * Gets the value of the viewingRequirements property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the viewingRequirements property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getViewingRequirements().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link String }
-     * 
-     * 
-     */
-    public List<String> getViewingRequirements() {
-        if (viewingRequirements == null) {
-            viewingRequirements = new ArrayList<String>();
-        }
-        return this.viewingRequirements;
-    }
-
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
-     * <pre>
-     * &lt;complexType>
-     *   &lt;simpleContent>
-     *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-     *       &lt;attribute name="authority" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *     &lt;/extension>
-     *   &lt;/simpleContent>
-     * &lt;/complexType>
-     * </pre>
-     * 
-     * 
-     */
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
-    public static class AltLanguage {
-
-        @XmlValue
-        protected String value;
-        @XmlAttribute(name = "authority")
-        protected String authority;
-
-        /**
-         * Gets the value of the authority property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getAuthority() {
-            return authority;
-        }
-
-        /**
-         * Gets the value of the value property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getValue() {
-            return value;
-        }
-
-        /**
-         * Sets the value of the authority property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setAuthority(String value) {
-            this.authority = value;
-        }
-
-        /**
-         * Sets the value of the value property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setValue(String value) {
-            this.value = value;
-        }
-
+        this.textNotes = builder.textNotes;
     }
 
     public static class Builder {
-        private List<TextMDMetadata.Encoding> encoding;
-        private List<TextMDMetadata.CharacterInfo> characterInfo;
-        private List<String> language;
-        private List<TextMDMetadata.AltLanguage> altLanguage;
-        private List<String> fontScript;
-        private List<TextMDMetadata.MarkupBasis> markupBasis;
-        private List<TextMDMetadata.MarkupLanguage> markupLanguage;
-        private List<String> processingNote;
+        private List<Encoding> encodings;
+        private List<CharacterInfo> characterInfos;
+        private List<String> languages;
+        private List<String> altLanguages;
+        private List<String> fontScripts;
+        private List<String> markupBases;
+        private List<String> markupLanguages;
+        private List<String> processingNotes;
         private List<String> printRequirements;
         private List<String> viewingRequirements;
-        private List<String> textNote;
+        private List<String> textNotes;
 
-        public Builder altLanguage(List<TextMDMetadata.AltLanguage> altLanguage) {
-            this.altLanguage = altLanguage;
+        public Builder altLanguages(List<String> altLanguages) {
+            this.altLanguages = altLanguages;
             return this;
         }
 
@@ -486,33 +118,33 @@ public class TextMDMetadata extends TechnicalMetadata {
             return new TextMDMetadata(this);
         }
 
-        public Builder characterInfo(List<TextMDMetadata.CharacterInfo> characterInfo) {
-            this.characterInfo = characterInfo;
+        public Builder characterInfos(List<CharacterInfo> characterInfos) {
+            this.characterInfos = characterInfos;
             return this;
         }
 
-        public Builder encoding(List<TextMDMetadata.Encoding> encoding) {
-            this.encoding = encoding;
+        public Builder encodings(List<Encoding> encodings) {
+            this.encodings = encodings;
             return this;
         }
 
-        public Builder fontScript(List<String> fontScript) {
-            this.fontScript = fontScript;
+        public Builder fontScripts(List<String> fontScripts) {
+            this.fontScripts = fontScripts;
             return this;
         }
 
-        public Builder language(List<String> language) {
-            this.language = language;
+        public Builder languages(List<String> languages) {
+            this.languages = languages;
             return this;
         }
 
-        public Builder markupBasis(List<TextMDMetadata.MarkupBasis> markupBasis) {
-            this.markupBasis = markupBasis;
+        public Builder markupBases(List<String> markupBases) {
+            this.markupBases = markupBases;
             return this;
         }
 
-        public Builder markupLanguage(List<TextMDMetadata.MarkupLanguage> markupLanguage) {
-            this.markupLanguage = markupLanguage;
+        public Builder markupLanguages(List<String> markupLanguages) {
+            this.markupLanguages = markupLanguages;
             return this;
         }
 
@@ -521,13 +153,13 @@ public class TextMDMetadata extends TechnicalMetadata {
             return this;
         }
 
-        public Builder processingNote(List<String> processingNote) {
-            this.processingNote = processingNote;
+        public Builder processingNotes(List<String> processingNotes) {
+            this.processingNotes = processingNotes;
             return this;
         }
 
-        public Builder textNote(List<String> textNote) {
-            this.textNote = textNote;
+        public Builder textNotes(List<String> textNotes) {
+            this.textNotes = textNotes;
             return this;
         }
 
@@ -537,811 +169,173 @@ public class TextMDMetadata extends TechnicalMetadata {
         }
     }
 
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "charset",
-            "byteOrder",
-            "byteSize",
-            "characterSize",
-            "linebreak"
-    })
+    @XmlRootElement(name = "character_info", namespace = "info:lc/xmlns/textmd-v3")
     public static class CharacterInfo {
+        @XmlElement(name = "charset", namespace = "info:lc/xmlns/textmd-v3")
+        private Charset charSet;
+        @XmlElement(name = "byte_order", namespace = "info:lc/xmlns/textmd-v3")
+        private ByteOrder byteOrder;
+        @XmlElement(name = "byte_size", namespace = "info:lc/xmlns/textmd-v3")
+        private int byteSize;
+        @XmlElement(name = "character_size", namespace = "info:lc/xmlns/textmd-v3")
+        private String characterSize;
+        @XmlElement(name = "line_break", namespace = "info:lc/xmlns/textmd-v3")
+        private LineBreak lineBreak;
 
-        protected String charset;
-        @XmlElement(name = "byte_order", required = true)
-        protected String byteOrder;
-        @XmlElement(name = "byte_size", required = true)
-        protected TextMDMetadata.CharacterInfo.ByteSize byteSize;
-        @XmlElement(name = "character_size", required = true)
-        protected TextMDMetadata.CharacterInfo.CharacterSize characterSize;
-        @XmlElement(required = true)
-        protected String linebreak;
+        private CharacterInfo() {
+            super();
+        }
 
-        /**
-         * Gets the value of the byteOrder property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getByteOrder() {
+        private CharacterInfo(Builder b) {
+            this.byteOrder = b.byteOrder;
+            this.byteSize = b.byteSize;
+            this.characterSize = b.characterSize;
+            this.charSet = b.charSet;
+            this.lineBreak = b.lineBreak;
+        }
+
+        public ByteOrder getByteOrder() {
             return byteOrder;
         }
 
-        /**
-         * Gets the value of the byteSize property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link TextMDMetadata.CharacterInfo.ByteSize }
-         *     
-         */
-        public TextMDMetadata.CharacterInfo.ByteSize getByteSize() {
+        public int getByteSize() {
             return byteSize;
         }
 
-        /**
-         * Gets the value of the characterSize property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link TextMDMetadata.CharacterInfo.CharacterSize }
-         *     
-         */
-        public TextMDMetadata.CharacterInfo.CharacterSize getCharacterSize() {
+        public String getCharacterSize() {
             return characterSize;
         }
 
-        /**
-         * Gets the value of the charset property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getCharset() {
-            return charset;
+        public Charset getCharSet() {
+            return charSet;
         }
 
-        /**
-         * Gets the value of the linebreak property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getLinebreak() {
-            return linebreak;
+        public LineBreak getLineBreak() {
+            return lineBreak;
         }
 
-        /**
-         * Sets the value of the byteOrder property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setByteOrder(String value) {
-            this.byteOrder = value;
-        }
+        public static class Builder {
+            private Charset charSet;
+            private ByteOrder byteOrder;
+            private int byteSize;
+            private String characterSize;
+            private LineBreak lineBreak;
 
-        /**
-         * Sets the value of the byteSize property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link TextMDMetadata.CharacterInfo.ByteSize }
-         *     
-         */
-        public void setByteSize(TextMDMetadata.CharacterInfo.ByteSize value) {
-            this.byteSize = value;
-        }
-
-        /**
-         * Sets the value of the characterSize property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link TextMDMetadata.CharacterInfo.CharacterSize }
-         *     
-         */
-        public void setCharacterSize(TextMDMetadata.CharacterInfo.CharacterSize value) {
-            this.characterSize = value;
-        }
-
-        /**
-         * Sets the value of the charset property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setCharset(String value) {
-            this.charset = value;
-        }
-
-        /**
-         * Sets the value of the linebreak property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setLinebreak(String value) {
-            this.linebreak = value;
-        }
-
-        /**
-         * <p>Java class for anonymous complex type.
-         * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
-         * <pre>
-         * &lt;complexType>
-         *   &lt;simpleContent>
-         *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>integer">
-         *     &lt;/extension>
-         *   &lt;/simpleContent>
-         * &lt;/complexType>
-         * </pre>
-         * 
-         * 
-         */
-        @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-                "value"
-        })
-        public static class ByteSize {
-
-            @XmlValue
-            protected BigInteger value;
-
-            /**
-             * Gets the value of the value property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link BigInteger }
-             *     
-             */
-            public BigInteger getValue() {
-                return value;
+            public Builder byteOrder(ByteOrder order) {
+                this.byteOrder = order;
+                return this;
             }
 
-            /**
-             * Sets the value of the value property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link BigInteger }
-             *     
-             */
-            public void setValue(BigInteger value) {
-                this.value = value;
+            public Builder byteSize(int size) {
+                this.byteSize = size;
+                return this;
             }
 
+            public Builder characterSize(String characterSize) {
+                this.characterSize = characterSize;
+                return this;
+            }
+
+            public Builder charset(Charset charset) {
+                this.charSet = charset;
+                return this;
+            }
+
+            public Builder lineBreak(LineBreak lineBreak) {
+                this.lineBreak = lineBreak;
+                return this;
+            }
+
+            public CharacterInfo build() {
+                return new CharacterInfo(this);
+            }
         }
 
-        /**
-         * <p>Java class for anonymous complex type.
-         * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
-         * <pre>
-         * &lt;complexType>
-         *   &lt;simpleContent>
-         *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-         *       &lt;attribute name="encoding" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *     &lt;/extension>
-         *   &lt;/simpleContent>
-         * &lt;/complexType>
-         * </pre>
-         * 
-         * 
-         */
-        @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-                "value"
-        })
-        public static class CharacterSize {
+        public enum ByteOrder {
+            LITTLE_ENDIAN, BIG_ENDIAN, MIDDLE_ENDIAN;
+        }
 
-            @XmlValue
-            protected String value;
-            @XmlAttribute(name = "encoding")
-            protected String encoding;
-
-            /**
-             * Gets the value of the encoding property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
-            public String getEncoding() {
-                return encoding;
-            }
-
-            /**
-             * Gets the value of the value property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
-            public String getValue() {
-                return value;
-            }
-
-            /**
-             * Sets the value of the encoding property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
-            public void setEncoding(String value) {
-                this.encoding = value;
-            }
-
-            /**
-             * Sets the value of the value property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
-            public void setValue(String value) {
-                this.value = value;
-            }
-
+        public enum Charset {
+            ANSI_X3_4_1968, ISO_10646_UTF_1, ISO_646_BASIC_1983, INVARIANT, ISO_646_IRV_1983, BS_4730, NATS_SEFI, NATS_SEFI_ADD, NATS_DANO, NATS_DANO_ADD, SEN_850200_B, SEN_850200_C, KS_C_5601_1987, ISO_2022_KR, EUC_KR, ISO_2022_JP, ISO_2022_JP_2, ISO_2022_CN, ISO_2022_CN_EXT, JIS_C6220_1969_JP, JIS_C6220_1969_RO, IT, PT, ES, GREEK7_OLD, LATIN_GREEK, DIN_66003, NF_Z_62_010_1973, LATIN_GREEK_1, ISO_5427, JIS_C6226_1978, BS_VIEWDATA, INIS, INIS_8, INIS_CYRILLIC, ISO_5427_1981, ISO_5428_1980, GB_1988_80, GB_2312_80, NS_4551_1, NS_4551_2, NF_Z_62_010, VIDEOTEX_SUPPL, PT2, ES2, MSZ_7795_3, JIS_C6226_1983, GREEK7, ASMO_449, ISO_IR_90, JIS_C6229_1984_A, JIS_C6229_1984_B, JIS_C6229_1984_B_ADD, JIS_C6229_1984_HAND, JIS_C6229_1984_HAND_ADD, JIS_C6229_1984_KANA, ISO_2033_1983, ANSI_X3_110_1983, ISO_8859_1_1987, ISO_8859_2_1987, ISO_8859_3_1988, ISO_8859_4_1988, T_61_7BIT, ECMA_CYRILLIC, CSA_Z243_4_1985_1, CSA_Z243_4_1985_2, CSA_Z243_4_1985_GR, ISO_8859_6_1987, ISO_8859_6_E, ISO_8859_6_I, ISO_8859_7_1987, T_101_G2, ISO_8859_8_1988, ISO_8859_8_E, ISO_8859_8_I, CSN_369103, JUS_I_B1_002, ISO_6937_2_ADD, IEC_P27_1, ISO_8859_5_1988, JUS_I_B1_003_SERB, JUS_I_B1_003_MAC, ISO_8859_9_1989, GREEK_CCITT, NC_NC00_10_81, ISO_6937_2_25, GOST_19768_74, ISO_8859_SUPP, ISO_10367_BOX, ISO_8859_10, LATIN_LAP, JIS_X0212_1990, DS_2089, US_DK, DK_US, JIS_X0201, KSC5636, ISO_10646_UCS_2, ISO_10646_UCS_4, DEC_MCS, HP_ROMAN8, MACINTOSH, IBM037, IBM038, IBM273, IBM274, IBM275, IBM277, IBM278, IBM280, IBM281, IBM284, IBM285, IBM290, IBM297, IBM420, IBM423, IBM424, IBM437, IBM500, IBM775, IBM850, IBM851, IBM852, IBM855, IBM857, IBM860, IBM861, IBM862, IBM863, IBM864, IBM865, IBM866, IBM869, IBM870, IBM871, IBM880, IBM891, IBM903, IBM904, IBM905, IBM918, IBM1026, EBCDIC_AT_DE, EBCDIC_AT_DE_A, EBCDIC_CA_FR, EBCDIC_DK_NO, EBCDIC_DK_NO_A, EBCDIC_FI_SE, EBCDIC_FI_SE_A, EBCDIC_FR, EBCDIC_IT, EBCDIC_PT, EBCDIC_ES, EBCDIC_ES_A, EBCDIC_ES_S, EBCDIC_UK, EBCDIC_US, UNKNOWN_8BIT, MNEMONIC, MNEM, VISCII, VIQR, KOI8_R, KOI8_U, IBM00858, IBM00924, IBM01140, IBM01141, IBM01142, IBM01143, IBM01144, IBM01145, IBM01146, IBM01147, IBM01148, IBM01149, BIG5_HKSCS, UNICODE_1_1, SCSU, UTF_7, UTF_16BE, UTF_16LE, UTF_16, CESU_8, UTF_32, UTF_32BE, UTF_32LE, UNICODE_1_1_UTF_7, UTF_8, ISO_8859_13, ISO_8859_14, ISO_8859_15, ISO_8859_16, JIS_ENCODING, SHIFT_JIS, EXTENDED_UNIX_CODE_PACKED_FORMAT_FOR_JAPANESE, EXTENDED_UNIX_CODE_FIXED_WIDTH_FOR_JAPANESE, ISO_10646_UCS_BASIC, ISO_10646_UNICODE_LATIN1, ISO_10646_J_1, ISO_UNICODE_IBM_1268, ISO_UNICODE_IBM_1276, ISO_UNICODE_IBM_1264, ISO_UNICODE_IBM_1265, ISO_8859_1_WINDOWS_3_0_LATIN_1, ISO_8859_1_WINDOWS_3_1_LATIN_1, ISO_8859_2_WINDOWS_LATIN_2, ISO_8859_9_WINDOWS_LATIN_5, ADOBE_STANDARD_ENCODING, VENTURA_US, VENTURA_INTERNATIONAL, PC8_DANISH_NORWEGIAN, PC8_TURKISH, IBM_SYMBOLS, IBM_THAI, HP_LEGAL, HP_PI_FONT, HP_MATH8, ADOBE_SYMBOL_ENCODING, HP_DESKTOP, VENTURA_MATH, MICROSOFT_PUBLISHING, WINDOWS_31J, GB2312, BIG5, WINDOWS_1250, WINDOWS_1251, WINDOWS_1252, WINDOWS_1253, WINDOWS_1254, WINDOWS_1255, WINDOWS_1256, WINDOWS_1257, WINDOWS_1258, TIS_620, HZ_GB_2312;
         }
 
     }
 
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "encodingPlatform",
-            "encodingSoftware",
-            "encodingAgent"
-    })
+    @XmlRootElement(name = "encoding", namespace = "info:lc/xmlns/textmd-v3")
     public static class Encoding {
+        @XmlElement(name = "encoding_platform", namespace = "info:lc/xmlns/textmd-v3")
+        private EncodingPlatform platform;
+        @XmlElement(name = "encoding_software", namespace = "info:lc/xmlns/textmd-v3")
+        private List<String> software;
+        @XmlElement(name = "encoding_agent", namespace = "info:lc/xmlns/textmd-v3")
+        private EncodingAgent agent;
 
-        @XmlElement(name = "encoding_platform")
-        protected List<TextMDMetadata.Encoding.EncodingPlatform> encodingPlatform;
-        @XmlElement(name = "encoding_software")
-        protected List<TextMDMetadata.Encoding.EncodingSoftware> encodingSoftware;
-        @XmlElement(name = "encoding_agent")
-        protected List<TextMDMetadata.Encoding.EncodingAgent> encodingAgent;
-        @XmlAttribute(name = "QUALITY")
-        protected String quality;
-
-        /**
-         * Gets the value of the encodingAgent property.
-         * 
-         * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the encodingAgent property.
-         * 
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getEncodingAgent().add(newItem);
-         * </pre>
-         * 
-         * 
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link TextMDMetadata.Encoding.EncodingAgent }
-         * 
-         * 
-         */
-        public List<TextMDMetadata.Encoding.EncodingAgent> getEncodingAgent() {
-            if (encodingAgent == null) {
-                encodingAgent = new ArrayList<TextMDMetadata.Encoding.EncodingAgent>();
-            }
-            return this.encodingAgent;
+        private Encoding() {
+            super();
         }
 
-        /**
-         * Gets the value of the encodingPlatform property.
-         * 
-         * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the encodingPlatform property.
-         * 
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getEncodingPlatform().add(newItem);
-         * </pre>
-         * 
-         * 
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link TextMDMetadata.Encoding.EncodingPlatform }
-         * 
-         * 
-         */
-        public List<TextMDMetadata.Encoding.EncodingPlatform> getEncodingPlatform() {
-            if (encodingPlatform == null) {
-                encodingPlatform = new ArrayList<TextMDMetadata.Encoding.EncodingPlatform>();
-            }
-            return this.encodingPlatform;
+        public Encoding(EncodingPlatform platform, List<String> software, EncodingAgent agent) {
+            super();
+            this.platform = platform;
+            this.software = software;
+            this.agent = agent;
         }
 
-        /**
-         * Gets the value of the encodingSoftware property.
-         * 
-         * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the encodingSoftware property.
-         * 
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getEncodingSoftware().add(newItem);
-         * </pre>
-         * 
-         * 
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link TextMDMetadata.Encoding.EncodingSoftware }
-         * 
-         * 
-         */
-        public List<TextMDMetadata.Encoding.EncodingSoftware> getEncodingSoftware() {
-            if (encodingSoftware == null) {
-                encodingSoftware = new ArrayList<TextMDMetadata.Encoding.EncodingSoftware>();
-            }
-            return this.encodingSoftware;
+        public EncodingAgent getAgent() {
+            return agent;
         }
 
-        /**
-         * Gets the value of the quality property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getQUALITY() {
-            return quality;
+        public EncodingPlatform getPlatform() {
+            return platform;
         }
 
-        /**
-         * Sets the value of the quality property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setQUALITY(String value) {
-            this.quality = value;
+        public List<String> getSoftware() {
+            return software;
         }
 
-        /**
-         * <p>Java class for anonymous complex type.
-         * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
-         * <pre>
-         * &lt;complexType>
-         *   &lt;simpleContent>
-         *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-         *       &lt;attribute name="role" use="required">
-         *         &lt;simpleType>
-         *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-         *             &lt;enumeration value="OCR"/>
-         *             &lt;enumeration value="TRANSCRIBER"/>
-         *             &lt;enumeration value="MARKUP"/>
-         *             &lt;enumeration value="EDITOR"/>
-         *           &lt;/restriction>
-         *         &lt;/simpleType>
-         *       &lt;/attribute>
-         *     &lt;/extension>
-         *   &lt;/simpleContent>
-         * &lt;/complexType>
-         * </pre>
-         * 
-         * 
-         */
-        @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-                "value"
-        })
+        @XmlRootElement(name = "encoding_agent", namespace = "info:lc/xmlns/textmd-v3")
         public static class EncodingAgent {
+            @XmlElement(name = "role", namespace = "info:lc/xmlns/textmd-v3")
+            private Role role;
 
-            @XmlValue
-            protected String value;
-            @XmlAttribute(name = "role", required = true)
-            protected String role;
+            private EncodingAgent() {
+                super();
+            }
 
-            /**
-             * Gets the value of the role property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
-            public String getRole() {
+            public EncodingAgent(Role role) {
+                this.role = role;
+            }
+
+            public Role getRole() {
                 return role;
             }
 
-            /**
-             * Gets the value of the value property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
-            public String getValue() {
-                return value;
+            public enum Role {
+                OCR, TRANSCRIBER, MARKUP, EDITOR;
             }
-
-            /**
-             * Sets the value of the role property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
-            public void setRole(String value) {
-                this.role = value;
-            }
-
-            /**
-             * Sets the value of the value property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
-            public void setValue(String value) {
-                this.value = value;
-            }
-
         }
 
-        /**
-         * <p>Java class for anonymous complex type.
-         * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
-         * <pre>
-         * &lt;complexType>
-         *   &lt;simpleContent>
-         *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-         *       &lt;attribute name="linebreak">
-         *         &lt;simpleType>
-         *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
-         *             &lt;enumeration value="CR"/>
-         *             &lt;enumeration value="CR/LF"/>
-         *             &lt;enumeration value="LF"/>
-         *           &lt;/restriction>
-         *         &lt;/simpleType>
-         *       &lt;/attribute>
-         *     &lt;/extension>
-         *   &lt;/simpleContent>
-         * &lt;/complexType>
-         * </pre>
-         * 
-         * 
-         */
-        @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-                "value"
-        })
+        @XmlRootElement(name = "encoding_platform")
         public static class EncodingPlatform {
+            @XmlElement(name = "line_break", namespace = "info:lc/xmlns/textmd-v3")
+            private LineBreak lineBreak;
 
-            @XmlValue
-            protected String value;
-            @XmlAttribute(name = "linebreak")
-            protected String linebreak;
-
-            /**
-             * Gets the value of the linebreak property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
-            public String getLinebreak() {
-                return linebreak;
+            private EncodingPlatform() {
+                super();
             }
 
-            /**
-             * Gets the value of the value property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
-            public String getValue() {
-                return value;
+            public EncodingPlatform(LineBreak lineBreak) {
+                this.lineBreak = lineBreak;
             }
 
-            /**
-             * Sets the value of the linebreak property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
-            public void setLinebreak(String value) {
-                this.linebreak = value;
+            public LineBreak getLineBreak() {
+                return lineBreak;
             }
-
-            /**
-             * Sets the value of the value property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
-            public void setValue(String value) {
-                this.value = value;
-            }
-
         }
-
-        /**
-         * <p>Java class for anonymous complex type.
-         * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
-         * <pre>
-         * &lt;complexType>
-         *   &lt;simpleContent>
-         *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-         *       &lt;attribute name="version" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *     &lt;/extension>
-         *   &lt;/simpleContent>
-         * &lt;/complexType>
-         * </pre>
-         * 
-         * 
-         */
-        @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-                "value"
-        })
-        public static class EncodingSoftware {
-
-            @XmlValue
-            protected String value;
-            @XmlAttribute(name = "version")
-            protected String version;
-
-            /**
-             * Gets the value of the value property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
-            public String getValue() {
-                return value;
-            }
-
-            /**
-             * Gets the value of the version property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
-            public String getVersion() {
-                return version;
-            }
-
-            /**
-             * Sets the value of the value property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
-            public void setValue(String value) {
-                this.value = value;
-            }
-
-            /**
-             * Sets the value of the version property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
-            public void setVersion(String value) {
-                this.version = value;
-            }
-
-        }
-
     }
 
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
-     * <pre>
-     * &lt;complexType>
-     *   &lt;simpleContent>
-     *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-     *       &lt;attribute name="version" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *     &lt;/extension>
-     *   &lt;/simpleContent>
-     * &lt;/complexType>
-     * </pre>
-     * 
-     * 
-     */
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
-    public static class MarkupBasis {
-
-        @XmlValue
-        protected String value;
-        @XmlAttribute(name = "version")
-        protected String version;
-
-        /**
-         * Gets the value of the value property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getValue() {
-            return value;
-        }
-
-        /**
-         * Gets the value of the version property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getVersion() {
-            return version;
-        }
-
-        /**
-         * Sets the value of the value property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setValue(String value) {
-            this.value = value;
-        }
-
-        /**
-         * Sets the value of the version property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setVersion(String value) {
-            this.version = value;
-        }
-
-    }
-
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
-     * <pre>
-     * &lt;complexType>
-     *   &lt;simpleContent>
-     *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-     *       &lt;attribute name="version" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *     &lt;/extension>
-     *   &lt;/simpleContent>
-     * &lt;/complexType>
-     * </pre>
-     * 
-     * 
-     */
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-            "value"
-    })
-    public static class MarkupLanguage {
-
-        @XmlValue
-        protected String value;
-        @XmlAttribute(name = "version")
-        protected String version;
-
-        /**
-         * Gets the value of the value property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getValue() {
-            return value;
-        }
-
-        /**
-         * Gets the value of the version property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getVersion() {
-            return version;
-        }
-
-        /**
-         * Sets the value of the value property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setValue(String value) {
-            this.value = value;
-        }
-
-        /**
-         * Sets the value of the version property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setVersion(String value) {
-            this.version = value;
-        }
-
+    @XmlEnum
+    public enum LineBreak {
+        CR, LF, CR_LF;
     }
 }
