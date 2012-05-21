@@ -8,7 +8,7 @@ import eu.scapeproject.model.metadata.TechnicalMetadata;
 
 public class File {
     private TechnicalMetadata technical;
-    private Set<BitStream> bitStreams;
+    private List<BitStream> bitStreams;
     private List<URI> uris;
 
     private File() {
@@ -21,7 +21,7 @@ public class File {
         this.uris = builder.uris;
     }
 
-    public Set<BitStream> getBitStreams() {
+    public List<BitStream> getBitStreams() {
         return bitStreams;
     }
 
@@ -35,10 +35,10 @@ public class File {
 
     public static class Builder {
         private TechnicalMetadata technical;
-        private Set<BitStream> bitStreams;
+        private List<BitStream> bitStreams;
         private List<URI> uris;
 
-        public Builder bitStreams(Set<BitStream> bitStreams) {
+        public Builder bitStreams(List<BitStream> bitStreams) {
             this.bitStreams = bitStreams;
             return this;
         }

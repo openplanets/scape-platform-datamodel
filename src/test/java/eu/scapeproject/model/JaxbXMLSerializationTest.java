@@ -1,5 +1,7 @@
 package eu.scapeproject.model;
 
+import java.io.FileOutputStream;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
@@ -24,7 +26,8 @@ public class JaxbXMLSerializationTest {
     @Test
     public void testEntitySerialization1() throws Exception{
         IntellectualEntity entity=TestUtil.createRandomEntity();
-        MetsFactory.getInstance().serialize(entity, System.out);
+        FileOutputStream out=new FileOutputStream("target/entity_serialization_test.xml");
+        MetsFactory.getInstance().serialize(entity, out);
     }
     
     @Test

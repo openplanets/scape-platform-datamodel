@@ -13,10 +13,13 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.apache.commons.codec.binary.Base64;
 
 import eu.scapeproject.model.Agent;
+import eu.scapeproject.model.BitStream;
+import eu.scapeproject.model.BitStream.Type;
 import eu.scapeproject.model.File;
 import eu.scapeproject.model.Identifier;
 import eu.scapeproject.model.IntellectualEntity;
@@ -174,10 +177,24 @@ public abstract class TestUtil {
             File f = new File.Builder()
                     .technical(createRandomTechnicalMetadata())
                     .uri(Arrays.asList(URI.create("http://example.com/" + randomAlphabetic(16))))
+                    .bitStreams(createRandomBitStreams())
                     .build();
             files.add(f);
         }
         return files;
+    }
+
+    private static List<BitStream> createRandomBitStreams() {
+        List<BitStream> bitStreams=new ArrayList<BitStream>();
+        int max=rand.nextInt(2) + 1;
+        while (max-- > 0){
+          bitStreams.add(createRandomBitStream());  
+        }
+        return bitStreams;
+    }
+
+    private static BitStream createRandomBitStream() {
+        return new BitStream(randomAlphabetic(16),Type.STREAM,createRandomTechnicalMetadata());
     }
 
     public static RightsMetadata createRandomRights() {
