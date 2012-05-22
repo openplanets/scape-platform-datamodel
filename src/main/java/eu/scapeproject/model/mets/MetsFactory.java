@@ -231,13 +231,19 @@ public class MetsFactory {
                         .admId(fileTechMD.getId())
                         .build();
 
-                final MetsDiv fileDiv = new MetsDiv.Builder()
+                final MetsDiv.Builder fileDivBuilder = new MetsDiv.Builder()
                         .id(new UUIDIdentifier().getValue())
                         .admId(fileBuilderId)
                         .addSubDiv(fileTechDiv)
-                        .type("File")
-                        .build();
-                divBuilder.addSubDiv(fileDiv);
+                        .type("File");
+                
+                final MetsFilePtr filePtr=new MetsFilePtr.Builder()
+                    .id(new UUIDIdentifier().getValue())
+                    .fileId(fileBuilderId)
+                    .build();
+                fileDivBuilder.addFilePointer(filePtr);
+
+                divBuilder.addSubDiv(fileDivBuilder.build());
                 
                 for (BitStream bs:f.getBitStreams()){
                     final MetsTechMD bsTechMd=new MetsTechMD.Builder()
