@@ -6,9 +6,10 @@ import eu.scapeproject.model.metadata.audiomd.AudioMDMetadata;
 import eu.scapeproject.model.metadata.fits.FitsMetadata;
 import eu.scapeproject.model.metadata.mix.NisoMixMetadata;
 import eu.scapeproject.model.metadata.textmd.TextMDMetadata;
+import eu.scapeproject.model.metadata.videomd.VideoMDMetadata;
 
 
-@XmlSeeAlso({NisoMixMetadata.class,FitsMetadata.class,TextMDMetadata.class, AudioMDMetadata.class})
+@XmlSeeAlso({NisoMixMetadata.class,FitsMetadata.class,TextMDMetadata.class, AudioMDMetadata.class, VideoMDMetadata.class})
 public abstract class TechnicalMetadata {
     protected MetadataType metadataType;
 

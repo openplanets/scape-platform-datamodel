@@ -21,6 +21,8 @@ public class MetsNamespacePrefixMapper extends NamespacePrefixMapper {
             return "fits";
         }else if(namespaceUri.toLowerCase().equals("http://www.loc.gov/amd/")){
             return "amd";
+        }else if (namespaceUri.toLowerCase().equals("http://www.loc.gov/videomd/")){
+            return "vmd";
         }else{
             return suggestion;
         }
