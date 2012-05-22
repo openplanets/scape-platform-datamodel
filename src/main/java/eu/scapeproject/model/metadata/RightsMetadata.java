@@ -6,12 +6,9 @@ import eu.scapeproject.model.metadata.premis.PremisRightsMetadata;
 
 @XmlSeeAlso({ PremisRightsMetadata.class })
 public abstract class RightsMetadata {
-    public enum Type {
-        PREMIS;
-    }
-
     private Type type;
 
+    @SuppressWarnings("unused")
     private RightsMetadata(){
         super();
     }
@@ -23,5 +20,9 @@ public abstract class RightsMetadata {
 
     public Type getType() {
         return type;
+    }
+
+    public enum Type {
+        PREMIS;
     }
 }

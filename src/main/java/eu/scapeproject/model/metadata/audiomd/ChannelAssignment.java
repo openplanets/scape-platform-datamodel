@@ -10,13 +10,22 @@ public class ChannelAssignment {
     @XmlElement(name="maplocation",namespace="http://www.loc.gov/AMD/")
     private String mapLocation;
     
+    @SuppressWarnings("unused")
     private ChannelAssignment(){
         super();
     }
-
+    
     public ChannelAssignment(int channelNum, String mapLocation) {
         super();
         this.channelNum = channelNum;
         this.mapLocation = mapLocation;
+    }
+
+    public int getChannelNum() {
+        return channelNum;
+    }
+
+    public String getMapLocation() {
+        return mapLocation;
     }
 }

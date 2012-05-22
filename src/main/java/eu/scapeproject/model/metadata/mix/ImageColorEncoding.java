@@ -142,6 +142,26 @@ public class ImageColorEncoding {
         private String primaryChromaticieGreenY;
         private String primaryChromaticiesBlueX;
         private String primaryChromaticiesBlueY;
+        public String getPrimaryChromaticieGreenY() {
+            return primaryChromaticieGreenY;
+        }
+        public String getPrimaryChromaticiesBlueX() {
+            return primaryChromaticiesBlueX;
+        }
+        public String getPrimaryChromaticiesBlueY() {
+            return primaryChromaticiesBlueY;
+        }
+        public String getPrimaryChromaticiesGreenX() {
+            return primaryChromaticiesGreenX;
+        }
+        public String getPrimaryChromaticiesRedX() {
+            return primaryChromaticiesRedX;
+        }
+        public String getPrimaryChromaticiesRedY() {
+            return primaryChromaticiesRedY;
+        }
+        
+        
     }
 
     public static class WhitePoint {

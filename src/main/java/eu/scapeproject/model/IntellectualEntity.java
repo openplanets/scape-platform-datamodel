@@ -10,6 +10,7 @@ public class IntellectualEntity {
     private DescriptiveMetadata descriptive;
     private List<Representation> representations;
 
+    @SuppressWarnings("unused")
     private IntellectualEntity() {
         super();
     }

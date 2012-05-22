@@ -5,6 +5,7 @@ public class ImageAssessmentMetadata {
     private ImageColorEncoding imageColorEncoding;
     private TargetData targetData;
     
+    @SuppressWarnings("unused")
     private ImageAssessmentMetadata(){
         super();
     }
@@ -16,12 +17,12 @@ public class ImageAssessmentMetadata {
         this.targetData = targetData;
     }
 
-    public SpacialMetrics getSpacialMetrics() {
-        return spacialMetrics;
-    }
-
     public ImageColorEncoding getImageColorEncoding() {
         return imageColorEncoding;
+    }
+
+    public SpacialMetrics getSpacialMetrics() {
+        return spacialMetrics;
     }
 
     public TargetData getTargetData() {

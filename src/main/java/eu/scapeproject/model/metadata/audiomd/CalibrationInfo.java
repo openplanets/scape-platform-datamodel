@@ -58,6 +58,11 @@ public class CalibrationInfo {
         private List<String> calibrationTimeStamps;
         private List<String> calibrationTrackTypes;
 
+        public Builder(String id) {
+            super();
+            this.id=id;
+        }
+
         public CalibrationInfo build() {
             return new CalibrationInfo(this);
         }
@@ -76,14 +81,9 @@ public class CalibrationInfo {
             this.calibrationTimeStamps = calibrationTimeStamps;
             return this;
         }
-
         public Builder calibrationTrackTypes(List<String> calibrationTrackTypes) {
             this.calibrationTrackTypes = calibrationTrackTypes;
             return this;
-        }
-        public Builder(String id) {
-            super();
-            this.id=id;
         }
     }
 }

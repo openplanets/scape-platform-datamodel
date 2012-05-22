@@ -4,8 +4,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import eu.scapeproject.dto.mets.MetsAgent;
-
 @XmlRootElement(name = "agent",namespace="http://www.loc.gov/standards/premis")
 public class Agent {
     @XmlElement(name = "name",namespace="http://www.loc.gov/standards/premis")
@@ -25,16 +23,17 @@ public class Agent {
         super();
     }
 
+    private Agent(Builder builder) {
+        this.name = builder.name;
+        this.note = builder.note;
+        this.role = builder.role;
+        this.type = builder.type;
+        this.otherRole = builder.otherRole;
+        this.otherType = builder.otherType;
+    }
+
     public String getName() {
         return name;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public String getType() {
-        return type;
     }
 
     public String getNote() {
@@ -49,6 +48,14 @@ public class Agent {
         return otherType;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public String getType() {
+        return type;
+    }
+
     public static class Builder {
         private String name;
         private String note;
@@ -57,6 +64,10 @@ public class Agent {
         private String otherRole;
         private String otherType;
 
+        public Agent build() {
+            return new Agent(this);
+        }
+
         public Builder name(String name) {
             this.name = name;
             return this;
@@ -64,16 +75,6 @@ public class Agent {
 
         public Builder note(String note) {
             this.note = note;
-            return this;
-        }
-
-        public Builder role(String role) {
-            this.role = role;
-            return this;
-        }
-
-        public Builder type(String type) {
-            this.type = type;
             return this;
         }
 
@@ -87,18 +88,15 @@ public class Agent {
             return this;
         }
 
-        public Agent build() {
-            return new Agent(this);
+        public Builder role(String role) {
+            this.role = role;
+            return this;
         }
-    }
 
-    private Agent(Builder builder) {
-        this.name = builder.name;
-        this.note = builder.note;
-        this.role = builder.role;
-        this.type = builder.type;
-        this.otherRole = builder.otherRole;
-        this.otherType = builder.otherType;
+        public Builder type(String type) {
+            this.type = type;
+            return this;
+        }
     }
 
 }

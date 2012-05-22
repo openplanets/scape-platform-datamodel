@@ -12,6 +12,7 @@ public class FitsIdentification {
     @XmlElement(name = "status", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
     private FitsStatus status;
 
+    @SuppressWarnings("unused")
     private FitsIdentification() {
         super();
     }

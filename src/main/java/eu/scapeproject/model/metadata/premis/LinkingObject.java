@@ -14,6 +14,7 @@ public class LinkingObject {
     @XmlElement(name="linkingObjectRole",namespace="http://www.loc.gov/standards/premis")
     private List<String> linkingObjectRole;
 
+    @SuppressWarnings("unused")
     private LinkingObject() {
         super();
     }

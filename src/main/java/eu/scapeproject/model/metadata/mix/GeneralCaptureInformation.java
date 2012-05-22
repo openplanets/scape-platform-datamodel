@@ -7,8 +7,9 @@ public class GeneralCaptureInformation {
     private Date dateTimeCreated;
     private List<String> imageProducers;
     private CaptureDevice captureDevice;
-    
-    private GeneralCaptureInformation(){
+
+    @SuppressWarnings("unused")
+    private GeneralCaptureInformation() {
         super();
     }
 
@@ -17,6 +18,18 @@ public class GeneralCaptureInformation {
         this.dateTimeCreated = dateTimeCreated;
         this.imageProducers = imageProducers;
         this.captureDevice = captureDevice;
+    }
+
+    public CaptureDevice getCaptureDevice() {
+        return captureDevice;
+    }
+
+    public Date getDateTimeCreated() {
+        return dateTimeCreated;
+    }
+
+    public List<String> getImageProducers() {
+        return imageProducers;
     }
 
     public enum CaptureDevice {

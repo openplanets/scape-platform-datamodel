@@ -100,6 +100,122 @@ public class GPSData {
         this.gpsDifferential = builder.gpsDifferential;
     }
 
+    public String getGpsAreaInformation() {
+        return gpsAreaInformation;
+    }
+
+    public String getGpsDateStamp() {
+        return gpsDateStamp;
+    }
+
+    public double getGpsDestBearing() {
+        return gpsDestBearing;
+    }
+
+    public GPSDirectionRef getGpsDestBearingRef() {
+        return gpsDestBearingRef;
+    }
+
+    public double getGpsDestDistance() {
+        return gpsDestDistance;
+    }
+
+    public GPSDistanceUnitRef getGpsDestDistanceRef() {
+        return gpsDestDistanceRef;
+    }
+
+    public String getGpsDestLatitude() {
+        return gpsDestLatitude;
+    }
+
+    public GPSLatitudeRef getGpsDestLatitudeRef() {
+        return gpsDestLatitudeRef;
+    }
+
+    public String getGpsDestLongitude() {
+        return gpsDestLongitude;
+    }
+
+    public GPSLongitudeRef getGpsDestLongitudeRef() {
+        return gpsDestLongitudeRef;
+    }
+
+    public GPSDifferential getGpsDifferential() {
+        return gpsDifferential;
+    }
+
+    public double getGpsDOP() {
+        return gpsDOP;
+    }
+
+    public double getGpsImageDirection() {
+        return gpsImageDirection;
+    }
+
+    public GPSDirectionRef getGpsImageDirectionRef() {
+        return gpsImageDirectionRef;
+    }
+
+    public double getGpsLatitude() {
+        return gpsLatitude;
+    }
+
+    public GPSLatitudeRef getGpsLatitudeRef() {
+        return gpsLatitudeRef;
+    }
+
+    public double getGpsLongitude() {
+        return gpsLongitude;
+    }
+
+    public GPSLongitudeRef getGpsLongitudeRef() {
+        return gpsLongitudeRef;
+    }
+
+    public String getGpsMapDatum() {
+        return gpsMapDatum;
+    }
+
+    public GPSMeasureMode getGpsMeasureMode() {
+        return gpsMeasureMode;
+    }
+
+    public String getGpsProcessingMethod() {
+        return gpsProcessingMethod;
+    }
+
+    public String getGpsSatellites() {
+        return gpsSatellites;
+    }
+
+    public double getGpsSpeed() {
+        return gpsSpeed;
+    }
+
+    public GPSDistanceUnitRef getGpsSpeedRef() {
+        return gpsSpeedRef;
+    }
+
+    public GPSStatus getGpsStatus() {
+        return gpsStatus;
+    }
+
+    public String getGpsTimeStamp() {
+        return gpsTimeStamp;
+    }
+
+    public double getGpsTrack() {
+        return gpsTrack;
+    }
+
+    public GPSDirectionRef getGpsTrackRef() {
+        return gpsTrackRef;
+    }
+
+    public String getGpsVersionId() {
+        return gpsVersionId;
+    }
+
     public static class Builder {
         private String gpsVersionId;
         private GPSLatitudeRef gpsLatitudeRef;
@@ -180,11 +296,6 @@ public class GPSData {
             return this;
         }
 
-        public Builder gpsLongitude(double gpsLongitude) {
-            this.gpsLongitude = gpsLongitude;
-            return this;
-        }
-
         public Builder gpsDestLongitudeRef(GPSLongitudeRef gpsDestLongitudeRef) {
             this.gpsDestLongitudeRef = gpsDestLongitudeRef;
             return this;
@@ -217,6 +328,11 @@ public class GPSData {
 
         public Builder gpsLatitudeRef(GPSLatitudeRef gpsLatitudeRef) {
             this.gpsLatitudeRef = gpsLatitudeRef;
+            return this;
+        }
+
+        public Builder gpsLongitude(double gpsLongitude) {
+            this.gpsLongitude = gpsLongitude;
             return this;
         }
 

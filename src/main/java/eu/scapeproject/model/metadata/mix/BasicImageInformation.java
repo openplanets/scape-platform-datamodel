@@ -8,6 +8,7 @@ public class BasicImageInformation {
     @XmlElement(name="basicImageCharacteristics",namespace="http://www.loc.gov/mix/v10")
     private BasicImageCharateristics basicImageCharacteristics;
 
+    @SuppressWarnings("unused")
     private BasicImageInformation() {
         super();
     }

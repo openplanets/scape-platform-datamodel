@@ -226,6 +226,7 @@ public class FitsFileInfo {
         @XmlValue
         private String value;
 
+        @SuppressWarnings("unused")
         private FileInfoElement() {
             super();
         }

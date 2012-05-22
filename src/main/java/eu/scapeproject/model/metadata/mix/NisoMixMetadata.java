@@ -39,16 +39,16 @@ public class NisoMixMetadata extends TechnicalMetadata {
         this.imageAssessmentMetadata = new ImageAssessmentMetadata(builder.spacialMetrics, builder.imageColorEncoding, builder.targetData);
     }
 
-    public ImageCaptureMetadata getImageCapture() {
-        return imageCapture;
+    public BasicImageInformation getBasicImageInformation() {
+        return basicImageInformation;
     }
 
     public ImageAssessmentMetadata getImageAssessmentMetadata() {
         return imageAssessmentMetadata;
     }
 
-    public BasicImageInformation getBasicImageInformation() {
-        return basicImageInformation;
+    public ImageCaptureMetadata getImageCapture() {
+        return imageCapture;
     }
 
     public static class Builder {

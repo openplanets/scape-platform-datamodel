@@ -2,7 +2,6 @@ package eu.scapeproject.model;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Set;
 
 import eu.scapeproject.model.metadata.TechnicalMetadata;
 

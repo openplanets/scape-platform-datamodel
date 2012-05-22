@@ -14,6 +14,7 @@ public class LinkingAgent {
     @XmlElement(name = "linkingAgentRole", namespace = "http://www.loc.gov/standards/premis")
     private List<String> linkingAgentRole;
 
+    @SuppressWarnings("unused")
     private LinkingAgent() {
         super();
     }

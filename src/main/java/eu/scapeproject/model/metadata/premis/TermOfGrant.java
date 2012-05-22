@@ -12,6 +12,7 @@ public class TermOfGrant {
     @XmlElement(name="endDate",namespace="http://www.loc.gov/standards/premis")
     private Date endDate;
 
+    @SuppressWarnings("unused")
     private TermOfGrant() {
         super();
     }
@@ -22,12 +23,12 @@ public class TermOfGrant {
         this.endDate = endDate;
     }
 
-    public Date getStartDate() {
-        return startDate;
-    }
-
     public Date getEndDate() {
         return endDate;
+    }
+
+    public Date getStartDate() {
+        return startDate;
     }
 
 }

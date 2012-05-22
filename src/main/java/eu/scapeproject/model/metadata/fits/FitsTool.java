@@ -12,18 +12,7 @@ public class FitsTool {
     @XmlElement(name = "valid", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
     private String valid;
 
-    public String getMessage() {
-        return message;
-    }
-
-    public String getWellFormed() {
-        return wellFormed;
-    }
-
-    public String getValid() {
-        return valid;
-    }
-
+    @SuppressWarnings("unused")
     private FitsTool() {
         super();
     }
@@ -33,6 +22,18 @@ public class FitsTool {
         this.message = message;
         this.wellFormed = wellFormed;
         this.valid = valid;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getValid() {
+        return valid;
+    }
+
+    public String getWellFormed() {
+        return wellFormed;
     }
 
 }

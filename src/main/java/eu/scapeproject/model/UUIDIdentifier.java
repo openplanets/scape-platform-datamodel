@@ -2,8 +2,6 @@ package eu.scapeproject.model;
 
 import java.util.UUID;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 public class UUIDIdentifier extends Identifier {
 
     public UUIDIdentifier() {

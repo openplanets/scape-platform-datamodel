@@ -27,12 +27,12 @@ public class BasicImageCharateristics {
         return height;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
     public PhotometricInterpretation getPhotometricInterpretation() {
         return photometricInterpretation;
+    }
+
+    public int getWidth() {
+        return width;
     }
 
 }

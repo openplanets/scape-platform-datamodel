@@ -16,6 +16,7 @@ public class GrantedRights {
     @XmlElement(name = "rightsGrantedNotes", namespace = "http://www.loc.gov/standards/premis")
     private List<String> rightsGrantedNotes;
 
+    @SuppressWarnings("unused")
     private GrantedRights() {
         super();
     }

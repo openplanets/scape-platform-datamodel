@@ -7,25 +7,21 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="audioMD",namespace="http://www.loc.gov/AMD/")
+@XmlRootElement(name = "audioMD", namespace = "http://www.loc.gov/AMD/")
 public class Audio {
-    @XmlEnum
-    public enum AnalogDigitalFlag {
-        ANALOG, PHYS_DIGITAL, FILE_DIGITAL;
-    }
-    @XmlAttribute(name="id",namespace="http://www.loc.gov/AMD/")
+    @XmlAttribute(name = "id", namespace = "http://www.loc.gov/AMD/")
     private String id;
-    @XmlElement(name="filedata",namespace="http://www.loc.gov/AMD/")
-    private List<FileData> fileData;
-    @XmlElement(name="physicaldata",namespace="http://www.loc.gov/AMD/")
-    private List<PhysicalData> physicalData;
-    @XmlElement(name="audioinfo",namespace="http://www.loc.gov/AMD/")
-    private List<AudioInfo> audioInfos;
-    @XmlElement(name="calibrateinfo",namespace="http://www.loc.gov/AMD/")
-    private List<CalibrationInfo> calibrateInfos;
-    @XmlElement(name="analogdigitalflag",namespace="http://www.loc.gov/AMD/")
-    private AnalogDigitalFlag analogDigitalFlag;
 
+    @XmlElement(name = "filedata", namespace = "http://www.loc.gov/AMD/")
+    private List<FileData> fileData;
+    @XmlElement(name = "physicaldata", namespace = "http://www.loc.gov/AMD/")
+    private List<PhysicalData> physicalData;
+    @XmlElement(name = "audioinfo", namespace = "http://www.loc.gov/AMD/")
+    private List<AudioInfo> audioInfos;
+    @XmlElement(name = "calibrateinfo", namespace = "http://www.loc.gov/AMD/")
+    private List<CalibrationInfo> calibrateInfos;
+    @XmlElement(name = "analogdigitalflag", namespace = "http://www.loc.gov/AMD/")
+    private AnalogDigitalFlag analogDigitalFlag;
     private Audio() {
         super();
     }
@@ -37,6 +33,35 @@ public class Audio {
         this.fileData = b.fileData;
         this.id = b.id;
         this.physicalData = b.physicalData;
+    }
+
+    public AnalogDigitalFlag getAnalogDigitalFlag() {
+        return analogDigitalFlag;
+    }
+
+    public List<AudioInfo> getAudioInfos() {
+        return audioInfos;
+    }
+
+    public List<CalibrationInfo> getCalibrateInfos() {
+        return calibrateInfos;
+    }
+
+    public List<FileData> getFileData() {
+        return fileData;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public List<PhysicalData> getPhysicalData() {
+        return physicalData;
+    }
+
+    @XmlEnum
+    public enum AnalogDigitalFlag {
+        ANALOG, PHYS_DIGITAL, FILE_DIGITAL;
     }
 
     public static class Builder {
@@ -52,13 +77,8 @@ public class Audio {
             this.id = id;
         }
 
-        public Builder fileData(List<FileData> fileData) {
-            this.fileData = fileData;
-            return this;
-        }
-
-        public Builder physicalData(List<PhysicalData> physicalData) {
-            this.physicalData = physicalData;
+        public Builder analogDigitalFlag(AnalogDigitalFlag analogDigitalFlag) {
+            this.analogDigitalFlag = analogDigitalFlag;
             return this;
         }
 
@@ -67,18 +87,23 @@ public class Audio {
             return this;
         }
 
+        public Audio build() {
+            return new Audio(this);
+        }
+
         public Builder calibrateInfos(List<CalibrationInfo> calibrateInfos) {
             this.calibrateInfos = calibrateInfos;
             return this;
         }
 
-        public Builder analogDigitalFlag(AnalogDigitalFlag analogDigitalFlag) {
-            this.analogDigitalFlag = analogDigitalFlag;
+        public Builder fileData(List<FileData> fileData) {
+            this.fileData = fileData;
             return this;
         }
-        
-        public Audio build(){
-            return new Audio(this);
+
+        public Builder physicalData(List<PhysicalData> physicalData) {
+            this.physicalData = physicalData;
+            return this;
         }
 
     }

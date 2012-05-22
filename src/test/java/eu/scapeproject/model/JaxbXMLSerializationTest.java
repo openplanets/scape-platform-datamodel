@@ -26,13 +26,14 @@ public class JaxbXMLSerializationTest {
     @Test
     public void testEntitySerialization1() throws Exception{
         IntellectualEntity entity=TestUtil.createRandomEntity();
-        FileOutputStream out=new FileOutputStream("target/entity_serialization_test.xml");
+        FileOutputStream out=new FileOutputStream("target/mets_entity_1.xml");
         MetsFactory.getInstance().serialize(entity, out);
     }
     
     @Test
     public void testFitsSerialization() throws Exception{
         FitsMetadata md=TestUtil.createRandomFitsMetadata();
-        marshaller.marshal(md, System.out);
+        FileOutputStream out=new FileOutputStream("target/fits_1.xml");
+        marshaller.marshal(md, out);
     }
 }

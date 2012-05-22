@@ -10,6 +10,7 @@ public class DescriptiveMetadata {
     @XmlAttribute(name="type")
     public MetadataType metadataType;
 
+    @SuppressWarnings("unused")
     private DescriptiveMetadata() {
         super();
     }

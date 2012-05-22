@@ -9,8 +9,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import eu.scapeproject.model.Agent;
-import eu.scapeproject.model.IntellectualEntity;
 import eu.scapeproject.model.Identifier;
+import eu.scapeproject.model.IntellectualEntity;
 
 @XmlRootElement(name = "event", namespace = "info:lc/xmlns/premis-v2")
 public class Event {
@@ -120,13 +120,14 @@ public class Event {
         }
     }
 
-    @XmlRootElement(name="detail",namespace="http://www.loc.gov/standards/premis")
+    @XmlRootElement(name = "detail", namespace = "http://www.loc.gov/standards/premis")
     public static class Detail {
-        @XmlElement(name="note",namespace="http://www.loc.gov/standards/premis")
+        @XmlElement(name = "note", namespace = "http://www.loc.gov/standards/premis")
         private String note;
-        @XmlElement(name="extension",namespace="http://www.loc.gov/standards/premis")
+        @XmlElement(name = "extension", namespace = "http://www.loc.gov/standards/premis")
         private String extension;
 
+        @SuppressWarnings("unused")
         private Detail() {
             super();
         }
@@ -135,14 +136,24 @@ public class Event {
             this.note = note;
             this.extension = extension;
         }
+
+        public String getExtension() {
+            return extension;
+        }
+
+        public String getNote() {
+            return note;
+        }
+
     }
 
     public static class Outcome {
-        @XmlElement(name="outcome",namespace="http://www.loc.gov/standards/premis")
+        @XmlElement(name = "outcome", namespace = "http://www.loc.gov/standards/premis")
         private String outcome;
-        @XmlElement(name="outcomeDetail",namespace="http://www.loc.gov/standards/premis")
+        @XmlElement(name = "outcomeDetail", namespace = "http://www.loc.gov/standards/premis")
         private List<Detail> details = new ArrayList<Event.Detail>();
 
+        @SuppressWarnings("unused")
         private Outcome() {
             super();
         }
@@ -151,5 +162,14 @@ public class Event {
             this.outcome = outcome;
             this.details = Arrays.asList(details);
         }
+
+        public List<Detail> getDetails() {
+            return details;
+        }
+
+        public String getOutcome() {
+            return outcome;
+        }
+
     }
 }

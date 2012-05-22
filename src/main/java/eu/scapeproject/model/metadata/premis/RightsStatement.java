@@ -16,7 +16,7 @@ public class RightsStatement {
     @XmlElement(name="copyrightInformation",namespace="http://www.loc.gov/standards/premis")
     private CopyRightInformation copyrightInformation;
     @XmlElement(name="licenseInformation",namespace="http://www.loc.gov/standards/premis")
-    private LicenseInformtion licenseInformation;
+    private LicenseInformation licenseInformation;
     @XmlElement(name="statuteInformation",namespace="http://www.loc.gov/standards/premis")
     private List<StatuteInformation> statuteInformation;
     @XmlElement(name="rightsGranted",namespace="http://www.loc.gov/standards/premis")
@@ -45,7 +45,7 @@ public class RightsStatement {
         return copyrightInformation;
     }
 
-    public LicenseInformtion getLicenseInformation() {
+    public LicenseInformation getLicenseInformation() {
         return licenseInformation;
     }
 
@@ -77,7 +77,7 @@ public class RightsStatement {
         private Identifier rightsStatementIdentifier;
         private String rightsBasis;
         private CopyRightInformation copyrightInformation;
-        private LicenseInformtion licenseInformation;
+        private LicenseInformation licenseInformation;
         private List<StatuteInformation> statuteInformation;
         private List<GrantedRights> rightsGranted;
         private List<LinkingObject> linkingObjects;
@@ -92,7 +92,7 @@ public class RightsStatement {
             return this;
         }
 
-        public Builder licenseInformation(LicenseInformtion licenseInformation) {
+        public Builder licenseInformation(LicenseInformation licenseInformation) {
             this.licenseInformation = licenseInformation;
             return this;
         }

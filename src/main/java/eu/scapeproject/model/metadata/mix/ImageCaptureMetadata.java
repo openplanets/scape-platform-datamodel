@@ -69,6 +69,11 @@ public class ImageCaptureMetadata {
             return new ImageCaptureMetadata(this);
         }
 
+        public Builder digitalCameraCapture(DigitalCameraCapture digitalCameraCapture){
+            this.digitalCameraCapture=digitalCameraCapture;
+            return this;
+        }
+
         public Builder generalCaptureInformation(GeneralCaptureInformation generalCaptureInformation) {
             this.generalCaptureInformation = generalCaptureInformation;
             return this;
@@ -88,14 +93,9 @@ public class ImageCaptureMetadata {
             this.scannerCapture = scannerCapture;
             return this;
         }
-
+        
         public Builder sourceInformation(SourceInformation sourceInformation) {
             this.sourceInformation = sourceInformation;
-            return this;
-        }
-        
-        public Builder digitalCameraCapture(DigitalCameraCapture digitalCameraCapture){
-            this.digitalCameraCapture=digitalCameraCapture;
             return this;
         }
     }

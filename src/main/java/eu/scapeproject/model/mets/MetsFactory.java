@@ -30,7 +30,6 @@ import eu.scapeproject.dto.mets.MetsSourceMD;
 import eu.scapeproject.dto.mets.MetsStream;
 import eu.scapeproject.dto.mets.MetsStructMap;
 import eu.scapeproject.dto.mets.MetsTechMD;
-import eu.scapeproject.dto.mets.MetsDiv.Builder;
 import eu.scapeproject.model.Agent;
 import eu.scapeproject.model.BitStream;
 import eu.scapeproject.model.File;
@@ -40,7 +39,6 @@ import eu.scapeproject.model.Representation;
 import eu.scapeproject.model.UUIDIdentifier;
 import eu.scapeproject.model.jaxb.MetsNamespacePrefixMapper;
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
-import eu.scapeproject.model.metadata.TechnicalMetadata;
 import eu.scapeproject.model.metadata.dc.DCMetadata;
 import eu.scapeproject.model.metadata.mix.NisoMixMetadata;
 import eu.scapeproject.model.metadata.premis.Event;
@@ -53,6 +51,13 @@ public class MetsFactory {
     private final Marshaller marshaller;
     private static MetsFactory INSTANCE;
 
+    public static MetsFactory getInstance() throws JAXBException {
+        if (INSTANCE == null) {
+            INSTANCE = new MetsFactory();
+        }
+        return INSTANCE;
+    }
+
     private MetsFactory() throws JAXBException {
         super();
         final JAXBContext ctx = JAXBContext.newInstance(MetsDocument.class, DCMetadata.class, TextMDMetadata.class, NisoMixMetadata.class,
@@ -62,11 +67,16 @@ public class MetsFactory {
         marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new MetsNamespacePrefixMapper());
     }
 
-    public static MetsFactory getInstance() throws JAXBException {
-        if (INSTANCE == null) {
-            INSTANCE = new MetsFactory();
-        }
-        return INSTANCE;
+    private MetsDMDSec createMetsDMDSec(final DescriptiveMetadata metadata) {
+        final String dmdId = new UUIDIdentifier().getValue();
+        final String admId = new UUIDIdentifier().getValue();
+        final DCMetadata dc = (DCMetadata) metadata;
+        final Date created = dc.getDate().get(0);
+        return new MetsDMDSec.Builder(dmdId)
+                .admId(admId)
+                .created(created)
+                .metadataWrapper(new MetsMDWrap(metadata))
+                .build();
     }
 
     public void serialize(final IntellectualEntity entity, final OutputStream out) throws JAXBException {
@@ -275,17 +285,5 @@ public class MetsFactory {
                 .headers(Arrays.asList(hdrBuilder.build()))
                 .build();
         marshaller.marshal(doc, out);
-    }
-
-    private MetsDMDSec createMetsDMDSec(final DescriptiveMetadata metadata) {
-        final String dmdId = new UUIDIdentifier().getValue();
-        final String admId = new UUIDIdentifier().getValue();
-        final DCMetadata dc = (DCMetadata) metadata;
-        final Date created = dc.getDate().get(0);
-        return new MetsDMDSec.Builder(dmdId)
-                .admId(admId)
-                .created(created)
-                .metadataWrapper(new MetsMDWrap(metadata))
-                .build();
     }
 }

@@ -5,18 +5,22 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="soundchannelmap",namespace="http://www.loc.gov/AMD/")
+@XmlRootElement(name = "soundchannelmap", namespace = "http://www.loc.gov/AMD/")
 public class SoundChannelMap {
-    @XmlElement(name="channelassignment",namespace="http://www.loc.gov/AMD/")
+    @XmlElement(name = "channelassignment", namespace = "http://www.loc.gov/AMD/")
     private List<ChannelAssignment> channelAssignments;
 
-    private SoundChannelMap(){
+    @SuppressWarnings("unused")
+    private SoundChannelMap() {
         super();
     }
-    
+
     public SoundChannelMap(List<ChannelAssignment> channelAssignments) {
         super();
         this.channelAssignments = channelAssignments;
     }
 
+    public List<ChannelAssignment> getChannelAssignments() {
+        return channelAssignments;
+    }
 }

@@ -37,50 +37,6 @@ public class TextMDMetadata extends TechnicalMetadata {
         super(MetadataType.TEXTMD);
     }
 
-    public List<Encoding> getEncodings() {
-        return encodings;
-    }
-
-    public List<CharacterInfo> getCharacterInfos() {
-        return characterInfos;
-    }
-
-    public List<String> getLanguages() {
-        return languages;
-    }
-
-    public List<String> getAltLanguages() {
-        return altLanguages;
-    }
-
-    public List<String> getFontScripts() {
-        return fontScripts;
-    }
-
-    public List<String> getMarkupBases() {
-        return markupBases;
-    }
-
-    public List<String> getMarkupLanguages() {
-        return markupLanguages;
-    }
-
-    public List<String> getProcessingNotes() {
-        return processingNotes;
-    }
-
-    public List<String> getPrintRequirements() {
-        return printRequirements;
-    }
-
-    public List<String> getViewingRequirements() {
-        return viewingRequirements;
-    }
-
-    public List<String> getTextNotes() {
-        return textNotes;
-    }
-
     private TextMDMetadata(Builder builder) {
         this();
         this.encodings = builder.encodings;
@@ -94,6 +50,50 @@ public class TextMDMetadata extends TechnicalMetadata {
         this.printRequirements = builder.printRequirements;
         this.viewingRequirements = builder.viewingRequirements;
         this.textNotes = builder.textNotes;
+    }
+
+    public List<String> getAltLanguages() {
+        return altLanguages;
+    }
+
+    public List<CharacterInfo> getCharacterInfos() {
+        return characterInfos;
+    }
+
+    public List<Encoding> getEncodings() {
+        return encodings;
+    }
+
+    public List<String> getFontScripts() {
+        return fontScripts;
+    }
+
+    public List<String> getLanguages() {
+        return languages;
+    }
+
+    public List<String> getMarkupBases() {
+        return markupBases;
+    }
+
+    public List<String> getMarkupLanguages() {
+        return markupLanguages;
+    }
+
+    public List<String> getPrintRequirements() {
+        return printRequirements;
+    }
+
+    public List<String> getProcessingNotes() {
+        return processingNotes;
+    }
+
+    public List<String> getTextNotes() {
+        return textNotes;
+    }
+
+    public List<String> getViewingRequirements() {
+        return viewingRequirements;
     }
 
     public static class Builder {
@@ -221,6 +221,10 @@ public class TextMDMetadata extends TechnicalMetadata {
             private String characterSize;
             private LineBreak lineBreak;
 
+            public CharacterInfo build() {
+                return new CharacterInfo(this);
+            }
+
             public Builder byteOrder(ByteOrder order) {
                 this.byteOrder = order;
                 return this;
@@ -245,10 +249,6 @@ public class TextMDMetadata extends TechnicalMetadata {
                 this.lineBreak = lineBreak;
                 return this;
             }
-
-            public CharacterInfo build() {
-                return new CharacterInfo(this);
-            }
         }
 
         public enum ByteOrder {
@@ -270,6 +270,7 @@ public class TextMDMetadata extends TechnicalMetadata {
         @XmlElement(name = "encoding_agent", namespace = "info:lc/xmlns/textmd-v3")
         private EncodingAgent agent;
 
+        @SuppressWarnings("unused")
         private Encoding() {
             super();
         }
@@ -298,6 +299,7 @@ public class TextMDMetadata extends TechnicalMetadata {
             @XmlElement(name = "role", namespace = "info:lc/xmlns/textmd-v3")
             private Role role;
 
+            @SuppressWarnings("unused")
             private EncodingAgent() {
                 super();
             }
@@ -320,6 +322,7 @@ public class TextMDMetadata extends TechnicalMetadata {
             @XmlElement(name = "line_break", namespace = "info:lc/xmlns/textmd-v3")
             private LineBreak lineBreak;
 
+            @SuppressWarnings("unused")
             private EncodingPlatform() {
                 super();
             }

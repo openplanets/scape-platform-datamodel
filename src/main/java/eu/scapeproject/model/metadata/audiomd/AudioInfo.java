@@ -25,12 +25,21 @@ public class AudioInfo {
         super();
     }
 
-    public String getId() {
-        return id;
+    private AudioInfo(Builder builder) {
+        this.id = builder.id;
+        this.durations = builder.durations;
+        this.notes = builder.notes;
+        this.numChannnels = builder.numChannnels;
+        this.soundChannelMaps = builder.soundChannelMaps;
+        this.soundFields = builder.soundFields;
     }
 
     public List<String> getDurations() {
         return durations;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public List<String> getNotes() {
@@ -47,15 +56,6 @@ public class AudioInfo {
 
     public List<String> getSoundFields() {
         return soundFields;
-    }
-
-    private AudioInfo(Builder builder) {
-        this.id = builder.id;
-        this.durations = builder.durations;
-        this.notes = builder.notes;
-        this.numChannnels = builder.numChannnels;
-        this.soundChannelMaps = builder.soundChannelMaps;
-        this.soundFields = builder.soundFields;
     }
 
     public static class Builder {

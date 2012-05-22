@@ -12,6 +12,7 @@ import eu.scapeproject.model.metadata.textmd.TextMDMetadata;
 public abstract class TechnicalMetadata {
     protected MetadataType metadataType;
 
+    @SuppressWarnings("unused")
     private TechnicalMetadata(){
         super();
     }
@@ -20,11 +21,11 @@ public abstract class TechnicalMetadata {
         this.metadataType = type;
     }
 
-    public enum MetadataType {
-        TEXTMD, NISO_MIX, FITS,AUDIOMD,VIDEOMD;
-    }
-
     public MetadataType getMetadataType() {
         return metadataType;
+    }
+
+    public enum MetadataType {
+        TEXTMD, NISO_MIX, FITS,AUDIOMD,VIDEOMD;
     }
 }

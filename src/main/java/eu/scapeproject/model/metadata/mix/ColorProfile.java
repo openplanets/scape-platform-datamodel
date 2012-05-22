@@ -5,6 +5,11 @@ public class ColorProfile {
     private LocalProfile localProfile;
     private EmbeddedProfile embeddedProfile;
 
+    public ColorProfile(EmbeddedProfile embeddedProfile) {
+        super();
+        this.embeddedProfile = embeddedProfile;
+    }
+
     public ColorProfile(ICCProfile iccProfile) {
         super();
         this.iccProfile = iccProfile;
@@ -15,8 +20,19 @@ public class ColorProfile {
         this.localProfile = localProfile;
     }
 
-    public ColorProfile(EmbeddedProfile embeddedProfile) {
-        super();
+    public EmbeddedProfile getEmbeddedProfile() {
+        return embeddedProfile;
+    }
+
+    public ICCProfile getIccProfile() {
+        return iccProfile;
+    }
+
+    public LocalProfile getLocalProfile() {
+        return localProfile;
+    }
+
+    public void setEmbeddedProfile(EmbeddedProfile embeddedProfile) {
         this.embeddedProfile = embeddedProfile;
     }
 
@@ -28,8 +44,18 @@ public class ColorProfile {
         this.localProfile = localProfile;
     }
 
-    public void setEmbeddedProfile(EmbeddedProfile embeddedProfile) {
-        this.embeddedProfile = embeddedProfile;
+    public static class EmbeddedProfile {
+
+        private String base64EncodedProfile;
+
+        public EmbeddedProfile(String base64EncodedProfile) {
+            super();
+            this.base64EncodedProfile = base64EncodedProfile;
+        }
+
+        public String getBase64EncodedProfile() {
+            return base64EncodedProfile;
+        }
     }
 
     public static class ICCProfile {
@@ -48,12 +74,12 @@ public class ColorProfile {
             return iccProfileName;
         }
 
-        public String getIccProfileVersion() {
-            return iccProfileVersion;
-        }
-
         public String getIccProfileUrl() {
             return iccProfileUrl;
+        }
+
+        public String getIccProfileVersion() {
+            return iccProfileVersion;
         }
     }
 
@@ -67,26 +93,12 @@ public class ColorProfile {
             this.localProfileUrl = localProfileUrl;
         }
 
-        public String getLocalProfileVersion() {
-            return localProfileVersion;
-        }
-
         public String getLocalProfileUrl() {
             return localProfileUrl;
         }
-    }
 
-    public static class EmbeddedProfile {
-
-        public EmbeddedProfile(String base64EncodedProfile) {
-            super();
-            this.base64EncodedProfile = base64EncodedProfile;
-        }
-
-        private String base64EncodedProfile;
-
-        public String getBase64EncodedProfile() {
-            return base64EncodedProfile;
+        public String getLocalProfileVersion() {
+            return localProfileVersion;
         }
     }
 }

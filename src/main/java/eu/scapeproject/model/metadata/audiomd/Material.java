@@ -46,6 +46,46 @@ public class Material {
         this.usedSides = builder.usedSides;
     }
 
+    public List<String> getActiveLayers() {
+        return activeLayers;
+    }
+
+    public List<String> getBaseMaterials() {
+        return baseMaterials;
+    }
+
+    public List<String> getBinders() {
+        return binders;
+    }
+
+    public List<String> getDiscSurfaces() {
+        return discSurfaces;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public List<String> getMethods() {
+        return methods;
+    }
+
+    public List<String> getOxides() {
+        return oxides;
+    }
+
+    public List<String> getReflectiveLayers() {
+        return reflectiveLayers;
+    }
+
+    public List<String> getStockBrands() {
+        return stockBrands;
+    }
+
+    public List<String> getUsedSides() {
+        return usedSides;
+    }
+
     public static class Builder {
         private final String id;
         private List<String> baseMaterials;

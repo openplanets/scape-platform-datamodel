@@ -17,6 +17,7 @@ public class StatuteInformation {
     @XmlElement(name = "statuteNotes", namespace = "http://www.loc.gov/standards/premis")
     private List<String> statuteNotes;
 
+    @SuppressWarnings("unused")
     private StatuteInformation() {
         super();
     }
@@ -29,16 +30,16 @@ public class StatuteInformation {
         this.statuteNotes = statuteNotes;
     }
 
-    public String getStatuteJurisdiction() {
-        return statuteJurisdiction;
-    }
-
     public String getStatuteCitation() {
         return statuteCitation;
     }
 
     public Date getStatuteInformationDeterminationDate() {
         return statuteInformationDeterminationDate;
+    }
+
+    public String getStatuteJurisdiction() {
+        return statuteJurisdiction;
     }
 
     public List<String> getStatuteNotes() {

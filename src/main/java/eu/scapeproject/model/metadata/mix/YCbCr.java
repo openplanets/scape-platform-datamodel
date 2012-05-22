@@ -32,7 +32,7 @@ public class YCbCr {
 
         public enum SubSampling {
             EQUAL_SIZE, HALF_SIZE, QUARTER_SIZE;
-            private SubSampling fromValue(short value) {
+            public SubSampling fromValue(short value) {
                 switch (value) {
                 case 1:
                     return EQUAL_SIZE;
