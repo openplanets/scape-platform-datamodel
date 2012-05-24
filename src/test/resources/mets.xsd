@@ -1221,7 +1221,7 @@ TCF.
 							</xsd:annotation>
 							<xsd:complexType>
 								<xsd:sequence>
-									<xsd:any namespace="##any" maxOccurs="unbounded" processContents="lax"/>
+									<xsd:any namespace="##any" maxOccurs="unbounded" processContents="skip"/>
 								</xsd:sequence>
 							</xsd:complexType>
 						</xsd:element>

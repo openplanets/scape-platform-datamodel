@@ -2,10 +2,11 @@ package eu.scapeproject.model.metadata;
 
 import javax.xml.bind.annotation.XmlSeeAlso;
 
+import eu.scapeproject.dto.mets.MetsMetadata;
 import eu.scapeproject.model.metadata.premis.PremisRightsMetadata;
 
 @XmlSeeAlso({ PremisRightsMetadata.class })
-public abstract class RightsMetadata {
+public abstract class RightsMetadata  extends MetsMetadata{
     private Type type;
 
     @SuppressWarnings("unused")

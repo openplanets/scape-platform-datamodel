@@ -8,10 +8,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.namespace.QName;
 
 import eu.scapeproject.dto.mets.MetsAMDSec;
 import eu.scapeproject.dto.mets.MetsAgent;
@@ -27,6 +25,7 @@ import eu.scapeproject.dto.mets.MetsFilePtr;
 import eu.scapeproject.dto.mets.MetsFileSec;
 import eu.scapeproject.dto.mets.MetsHeader;
 import eu.scapeproject.dto.mets.MetsMDWrap;
+import eu.scapeproject.dto.mets.MetsMetadata;
 import eu.scapeproject.dto.mets.MetsRightsMD;
 import eu.scapeproject.dto.mets.MetsSourceMD;
 import eu.scapeproject.dto.mets.MetsStream;
@@ -74,7 +73,8 @@ public class MetsFactory {
                 PremisProvenanceMetadata.class,
                 PremisRightsMetadata.class,
                 AudioMDMetadata.class,
-                VideoMDMetadata.class);
+                VideoMDMetadata.class,
+                FitsMetadata.class);
         marshaller = ctx.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new MetsNamespacePrefixMapper());
@@ -306,7 +306,7 @@ public class MetsFactory {
         marshaller.marshal(doc, out);
     }
 
-    private MetsMDWrap getWrapper(Object data) {
+    private MetsMDWrap getWrapper(MetsMetadata data) {
         MetsMDWrap.Builder builder = new MetsMDWrap.Builder(new MetsXMLData(data));
         if (data instanceof DCMetadata) {
             builder.mdType("DC");

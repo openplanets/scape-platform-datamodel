@@ -1,11 +1,13 @@
 package eu.scapeproject.model.metadata;
 
+import eu.scapeproject.dto.mets.MetsMetadata;
 
 
 
 
 
-public class DescriptiveMetadata{
+
+public class DescriptiveMetadata extends MetsMetadata{
 
     public DescriptiveMetadata() {
         super();
