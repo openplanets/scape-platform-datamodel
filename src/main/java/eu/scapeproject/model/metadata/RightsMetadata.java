@@ -9,7 +9,7 @@ public abstract class RightsMetadata {
     private Type type;
 
     @SuppressWarnings("unused")
-    private RightsMetadata(){
+    private RightsMetadata() {
         super();
     }
 

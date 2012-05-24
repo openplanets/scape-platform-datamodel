@@ -8,8 +8,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.namespace.QName;
 
 import eu.scapeproject.dto.mets.MetsAMDSec;
 import eu.scapeproject.dto.mets.MetsAgent;
@@ -30,6 +32,7 @@ import eu.scapeproject.dto.mets.MetsSourceMD;
 import eu.scapeproject.dto.mets.MetsStream;
 import eu.scapeproject.dto.mets.MetsStructMap;
 import eu.scapeproject.dto.mets.MetsTechMD;
+import eu.scapeproject.dto.mets.MetsXMLData;
 import eu.scapeproject.model.Agent;
 import eu.scapeproject.model.BitStream;
 import eu.scapeproject.model.File;
@@ -39,12 +42,15 @@ import eu.scapeproject.model.Representation;
 import eu.scapeproject.model.UUIDIdentifier;
 import eu.scapeproject.model.jaxb.MetsNamespacePrefixMapper;
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
+import eu.scapeproject.model.metadata.audiomd.AudioMDMetadata;
 import eu.scapeproject.model.metadata.dc.DCMetadata;
+import eu.scapeproject.model.metadata.fits.FitsMetadata;
 import eu.scapeproject.model.metadata.mix.NisoMixMetadata;
 import eu.scapeproject.model.metadata.premis.Event;
 import eu.scapeproject.model.metadata.premis.PremisProvenanceMetadata;
 import eu.scapeproject.model.metadata.premis.PremisRightsMetadata;
 import eu.scapeproject.model.metadata.textmd.TextMDMetadata;
+import eu.scapeproject.model.metadata.videomd.VideoMDMetadata;
 
 public class MetsFactory {
     private static final String SCAPE_PROFILE = "http://example.com/scape-mets-profile.xml";
@@ -60,8 +66,15 @@ public class MetsFactory {
 
     private MetsFactory() throws JAXBException {
         super();
-        final JAXBContext ctx = JAXBContext.newInstance(MetsDocument.class, DCMetadata.class, TextMDMetadata.class, NisoMixMetadata.class,
-                PremisProvenanceMetadata.class, PremisRightsMetadata.class);
+        final JAXBContext ctx = JAXBContext.newInstance(
+                MetsDocument.class,
+                DCMetadata.class,
+                TextMDMetadata.class,
+                NisoMixMetadata.class,
+                PremisProvenanceMetadata.class,
+                PremisRightsMetadata.class,
+                AudioMDMetadata.class,
+                VideoMDMetadata.class);
         marshaller = ctx.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new MetsNamespacePrefixMapper());
@@ -75,7 +88,7 @@ public class MetsFactory {
         return new MetsDMDSec.Builder(dmdId)
                 .admId(admId)
                 .created(created)
-                .metadataWrapper(new MetsMDWrap(metadata))
+                .metadataWrapper(getWrapper(metadata))
                 .build();
     }
 
@@ -114,31 +127,31 @@ public class MetsFactory {
                     .build();
             agents.add(agent);
         }
-        
-        final MetsDMDSec dmdSec=createMetsDMDSec(entity.getDescriptive());
-                
-        MetsDiv.Builder entityDivBuilder=new MetsDiv.Builder()
-            .id(new UUIDIdentifier().getValue())
-            .dmdId(dmdSec.getId())
-            .label(dc.getTitle().get(0))
-            .type("IntellectualEntity");
-            
+
+        final MetsDMDSec dmdSec = createMetsDMDSec(entity.getDescriptive());
+
+        MetsDiv.Builder entityDivBuilder = new MetsDiv.Builder()
+                .id(new UUIDIdentifier().getValue())
+                .dmdId(dmdSec.getId())
+                .label(dc.getTitle().get(0))
+                .type("IntellectualEntity");
+
         for (final Representation rep : entity.getRepresentations()) {
             final MetsDigiProvMD digiProvMd = new MetsDigiProvMD.Builder()
                     .id(new UUIDIdentifier().getValue())
-                    .metadataWrapper(new MetsMDWrap(rep.getProvenance()))
+                    .metadataWrapper(getWrapper(rep.getProvenance()))
                     .build();
             final MetsTechMD techMd = new MetsTechMD.Builder()
                     .id(new UUIDIdentifier().getValue())
-                    .metadataWrapper(new MetsMDWrap(rep.getTechnical()))
+                    .metadataWrapper(getWrapper(rep.getTechnical()))
                     .build();
             final MetsSourceMD sourceMD = new MetsSourceMD.Builder()
                     .id(new UUIDIdentifier().getValue())
-                    .metadataWrapper(new MetsMDWrap(rep.getSource()))
+                    .metadataWrapper(getWrapper(rep.getSource()))
                     .build();
             final MetsRightsMD rightsMD = new MetsRightsMD.Builder()
                     .id(new UUIDIdentifier().getValue())
-                    .metadataWrapper(new MetsMDWrap(rep.getRights()))
+                    .metadataWrapper(getWrapper(rep.getRights()))
                     .build();
             final MetsAMDSec entityAmdSec = new MetsAMDSec.Builder()
                     .provenanceMetadata(digiProvMd)
@@ -174,10 +187,10 @@ public class MetsFactory {
                     .addSubDiv(rightsDiv)
                     .addSubDiv(digiProvDiv)
                     .addSubDiv(sourceDiv);
-            
+
             amdSecs.add(entityAmdSec);
             entityDivBuilder.admId(entityAmdSec.getId());
-            
+
             if (rep.getProvenance() instanceof PremisProvenanceMetadata) {
                 for (final Event e : ((PremisProvenanceMetadata) rep.getProvenance()).getEvents()) {
                     for (final Agent a : e.getLinkingAgents()) {
@@ -204,7 +217,7 @@ public class MetsFactory {
                             .build();
                     locations.add(loc);
                 }
-                String fileBuilderId=new UUIDIdentifier().getValue();
+                String fileBuilderId = new UUIDIdentifier().getValue();
                 final MetsFile.Builder fileBuilder = new MetsFile.Builder(fileBuilderId)
                         .fileLocations(locations);
 
@@ -216,7 +229,7 @@ public class MetsFactory {
 
                 final MetsTechMD fileTechMD = new MetsTechMD.Builder()
                         .id(new UUIDIdentifier().getValue())
-                        .metadataWrapper(new MetsMDWrap(f.getTechnical()))
+                        .metadataWrapper(getWrapper(f.getTechnical()))
                         .build();
 
                 final MetsAMDSec fileAmdSec = new MetsAMDSec.Builder()
@@ -224,7 +237,7 @@ public class MetsFactory {
                         .technicalMetadata(fileTechMD)
                         .build();
                 amdSecs.add(fileAmdSec);
-                
+
                 final MetsDiv fileTechDiv = new MetsDiv.Builder()
                         .id(new UUIDIdentifier().getValue())
                         .type("techMD")
@@ -236,26 +249,26 @@ public class MetsFactory {
                         .admId(fileBuilderId)
                         .addSubDiv(fileTechDiv)
                         .type("File");
-                
-                final MetsFilePtr filePtr=new MetsFilePtr.Builder()
-                    .id(new UUIDIdentifier().getValue())
-                    .fileId(fileBuilderId)
-                    .build();
+
+                final MetsFilePtr filePtr = new MetsFilePtr.Builder()
+                        .id(new UUIDIdentifier().getValue())
+                        .fileId(fileBuilderId)
+                        .build();
                 fileDivBuilder.addFilePointer(filePtr);
 
                 divBuilder.addSubDiv(fileDivBuilder.build());
-                
-                for (BitStream bs:f.getBitStreams()){
-                    final MetsTechMD bsTechMd=new MetsTechMD.Builder()
-                        .id(new UUIDIdentifier().getValue())
-                        .metadataWrapper(new MetsMDWrap(bs.getTechnical()))
-                        .build();
-                    final MetsStream stream=new MetsStream.Builder()
-                        .amdMdId(bsTechMd.getId())
-                        .build();
+
+                for (BitStream bs : f.getBitStreams()) {
+                    final MetsTechMD bsTechMd = new MetsTechMD.Builder()
+                            .id(new UUIDIdentifier().getValue())
+                            .metadataWrapper(getWrapper(bs.getTechnical()))
+                            .build();
+                    final MetsStream stream = new MetsStream.Builder()
+                            .amdMdId(bsTechMd.getId())
+                            .build();
                     fileBuilder.addStream(stream);
                 }
-                
+
                 files.add(fileBuilder.build());
             }
             final MetsFileGrp group = new MetsFileGrp.Builder(new UUIDIdentifier().getValue())
@@ -291,5 +304,29 @@ public class MetsFactory {
                 .headers(Arrays.asList(hdrBuilder.build()))
                 .build();
         marshaller.marshal(doc, out);
+    }
+
+    private MetsMDWrap getWrapper(Object data) {
+        MetsMDWrap.Builder builder = new MetsMDWrap.Builder(new MetsXMLData(data));
+        if (data instanceof DCMetadata) {
+            builder.mdType("DC");
+        } else if (data instanceof VideoMDMetadata) {
+            builder.mdType("OTHER");
+            builder.otherMdType("VIDEOMD");
+        } else if (data instanceof AudioMDMetadata) {
+            builder.mdType("OTHER");
+            builder.otherMdType("AudioMD");
+        } else if (data instanceof TextMDMetadata) {
+            builder.mdType("TEXTMD");
+        } else if (data instanceof NisoMixMetadata) {
+            builder.mdType("NISOIMG");
+        } else if (data instanceof PremisProvenanceMetadata) {
+            builder.mdType("PREMIS:EVENT");
+        } else if (data instanceof PremisRightsMetadata) {
+            builder.mdType("PREMIS:RIGHTS");
+        } else if (data instanceof FitsMetadata) {
+            builder.mdType("PREMIS:RIGHTS");
+        }
+        return builder.build();
     }
 }

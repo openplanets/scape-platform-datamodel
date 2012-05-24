@@ -42,7 +42,7 @@ public class DCMetadata extends DescriptiveMetadata {
     private List<String> rights;
 
     private DCMetadata() {
-        super(DescriptiveMetadata.MetadataType.DC);
+        super();
     }
 
     private DCMetadata(Builder builder) {

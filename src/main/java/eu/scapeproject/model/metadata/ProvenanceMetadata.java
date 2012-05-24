@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import eu.scapeproject.model.metadata.premis.PremisProvenanceMetadata;
 
 @XmlSeeAlso({ PremisProvenanceMetadata.class })
-public abstract class ProvenanceMetadata {
+public abstract class ProvenanceMetadata{
     private String type;
 
     @SuppressWarnings("unused")

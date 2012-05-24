@@ -11,7 +11,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Audio {
     @XmlAttribute(name = "id", namespace = "http://www.loc.gov/AMD/")
     private String id;
-
     @XmlElement(name = "filedata", namespace = "http://www.loc.gov/AMD/")
     private List<FileData> fileData;
     @XmlElement(name = "physicaldata", namespace = "http://www.loc.gov/AMD/")

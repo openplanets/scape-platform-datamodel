@@ -23,6 +23,10 @@ public class MetsNamespacePrefixMapper extends NamespacePrefixMapper {
             return "amd";
         }else if (namespaceUri.toLowerCase().equals("http://www.loc.gov/videomd/")){
             return "vmd";
+        }else if(namespaceUri.toLowerCase().equals("http://www.scapeproject.eu/mets/wrapper")){
+            return "scape";
+        }else if(namespaceUri.toLowerCase().equals("http://www.w3.org/2001/xmlschema-instance")){
+            return "xsi";
         }else{
             return suggestion;
         }

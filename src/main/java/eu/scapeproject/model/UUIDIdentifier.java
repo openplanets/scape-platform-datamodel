@@ -19,6 +19,6 @@ public class UUIDIdentifier extends Identifier {
     }
 
     public String getValue() {
-        return value.toString();
+        return this.type + "-" + value.toString();
     }
 }

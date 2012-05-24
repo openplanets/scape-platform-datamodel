@@ -1,5 +1,6 @@
 package eu.scapeproject.model;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 import javax.xml.bind.JAXBContext;
@@ -12,6 +13,7 @@ import eu.scapeproject.model.jaxb.MetsNamespacePrefixMapper;
 import eu.scapeproject.model.metadata.fits.FitsMetadata;
 import eu.scapeproject.model.mets.MetsFactory;
 import eu.scapeproject.model.test.TestUtil;
+import eu.scapeproject.model.test.ValidationUtil;
 
 public class JaxbXMLSerializationTest {
     private static Marshaller marshaller;
@@ -25,9 +27,11 @@ public class JaxbXMLSerializationTest {
     
     @Test
     public void testEntitySerialization1() throws Exception{
+        java.io.File xmlFile=new java.io.File("target/mets_entity_1.xml");
         IntellectualEntity entity=TestUtil.createRandomEntity();
-        FileOutputStream out=new FileOutputStream("target/mets_entity_1.xml");
+        FileOutputStream out=new FileOutputStream(xmlFile);
         MetsFactory.getInstance().serialize(entity, out);
+        ValidationUtil.validateXML(new FileInputStream(xmlFile),this.getClass().getClassLoader().getResourceAsStream("mets.xsd"));
     }
     
     @Test

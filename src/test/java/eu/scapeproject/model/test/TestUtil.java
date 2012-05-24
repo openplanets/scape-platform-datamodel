@@ -133,7 +133,7 @@ public abstract class TestUtil {
         return new Agent.Builder()
                 .name("Agent-" + randomAlphabetic(16))
                 .note("no notes")
-                .role("Role-" + randomAlphabetic(16))
+                .role("OTHER")
                 .type("INDIVIDUAL")
                 .build();
     }

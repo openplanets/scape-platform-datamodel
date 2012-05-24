@@ -3,7 +3,16 @@ package eu.scapeproject.model.test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
+
+import javax.xml.XMLConstants;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
 import eu.scapeproject.model.metadata.RightsMetadata;
@@ -44,7 +53,14 @@ public abstract class ValidationUtil {
             validateCharacterInfo(ci);
         }
     }
-
+    
+    public static void validateXML(InputStream metsIn,InputStream schemaIn) throws Exception{
+        SchemaFactory fac=SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        Schema s=fac.newSchema(new StreamSource(schemaIn));
+        Validator validator=s.newValidator();
+        validator.validate(new StreamSource(metsIn));
+    }
+    
 
     public static void validateDescriptiveMetadata(DescriptiveMetadata metadata) {
         DCMetadata dc=(DCMetadata) metadata;
