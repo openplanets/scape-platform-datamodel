@@ -5,10 +5,16 @@ import java.util.List;
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
 
 public class IntellectualEntity {
+
+    public enum LifeCycleState {
+        INGEST, INGESTED, PROCESSING, DELETED;
+    }
+
     private Identifier identifier;
     private List<Identifier> alternativeIdentifiers;
     private DescriptiveMetadata descriptive;
     private List<Representation> representations;
+    private LifeCycleState lifeCycleState;
 
     @SuppressWarnings("unused")
     private IntellectualEntity() {
@@ -22,6 +28,14 @@ public class IntellectualEntity {
         this.descriptive = descriptive;
         this.representations = representations;
         this.alternativeIdentifiers = alternativeIdentifers;
+    }
+
+    public void setLifeCycleState(LifeCycleState lifeCycleState) {
+        this.lifeCycleState = lifeCycleState;
+    }
+
+    public LifeCycleState getLifeCycleState() {
+        return lifeCycleState;
     }
 
     public List<Identifier> getAlternativeIdentifiers() {
