@@ -3,10 +3,16 @@ package eu.scapeproject.model;
 import eu.scapeproject.model.metadata.TechnicalMetadata;
 
 public class BitStream {
-    private String title;
-    private Type type;
-    private TechnicalMetadata technical;
+    private final String title;
+    private final Type type;
+    private final TechnicalMetadata technical;
 
+    private BitStream(){
+        this.title=null;
+        this.type=null;
+        this.technical=null;
+    }
+    
     public BitStream(String title, Type type, TechnicalMetadata technical) {
         super();
         this.title = title;
@@ -24,18 +30,6 @@ public class BitStream {
 
     public Type getType() {
         return type;
-    }
-
-    public void setTechnical(TechnicalMetadata technical) {
-        this.technical = technical;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
     }
 
     public enum Type {

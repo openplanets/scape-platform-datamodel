@@ -7,20 +7,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "agent",namespace="http://www.loc.gov/standards/premis")
 public class Agent {
     @XmlElement(name = "name",namespace="http://www.loc.gov/standards/premis")
-    private String name;
+    private final String name;
     @XmlElement(name = "note",namespace="http://www.loc.gov/standards/premis")
-    private String note;
+    private final String note;
     @XmlAttribute(name = "role",namespace="http://www.loc.gov/standards/premis")
-    private String role;
+    private final String role;
     @XmlAttribute(name = "type",namespace="http://www.loc.gov/standards/premis")
-    private String type;
+    private final String type;
     @XmlAttribute(name = "otherrole",namespace="http://www.loc.gov/standards/premis")
-    private String otherRole;
+    private final String otherRole;
     @XmlAttribute(name = "othertype",namespace="http://www.loc.gov/standards/premis")
-    private String otherType;
+    private final String otherType;
 
     private Agent() {
         super();
+        this.name=null;
+        this.note=null;
+        this.role=null;
+        this.type=null;
+        this.otherRole=null;
+        this.otherType=null;
     }
 
     private Agent(Builder builder) {

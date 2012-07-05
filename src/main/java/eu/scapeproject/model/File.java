@@ -6,12 +6,14 @@ import java.util.List;
 import eu.scapeproject.model.metadata.TechnicalMetadata;
 
 public class File {
-    private TechnicalMetadata technical;
-    private List<BitStream> bitStreams;
-    private List<URI> uris;
+    private final TechnicalMetadata technical;
+    private final List<BitStream> bitStreams;
+    private final List<URI> uris;
 
     private File() {
-        super();
+        this.technical=null;
+        this.bitStreams=null;
+        this.uris=null;
     }
 
     private File(Builder builder) {

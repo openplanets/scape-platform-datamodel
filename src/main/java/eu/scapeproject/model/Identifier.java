@@ -1,9 +1,19 @@
 package eu.scapeproject.model;
 
+public abstract class Identifier {
+    protected final String type;
+    protected final String value;
 
-public abstract class Identifier{
-    protected String type;
-    protected String value;
+    private Identifier() {
+        this.type = null;
+        this.value = null;
+    }
+
+    protected Identifier(String type, String value) {
+        super();
+        this.type = type;
+        this.value = value;
+    }
 
     public String getType() {
         return type;

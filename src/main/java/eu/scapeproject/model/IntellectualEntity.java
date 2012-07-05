@@ -6,35 +6,32 @@ import eu.scapeproject.model.metadata.DescriptiveMetadata;
 
 public class IntellectualEntity {
 
-    public enum LifeCycleState {
-        INGEST, INGESTED, PROCESSING, DELETED;
-    }
-
-    private Identifier identifier;
-    private List<Identifier> alternativeIdentifiers;
-    private DescriptiveMetadata descriptive;
-    private List<Representation> representations;
-    private LifeCycleState lifeCycleState;
+    private final Identifier identifier;
+    private final List<Identifier> alternativeIdentifiers;
+    private final DescriptiveMetadata descriptive;
+    private final List<Representation> representations;
+    private final LifecycleState lifeCycleState;
 
     @SuppressWarnings("unused")
     private IntellectualEntity() {
         super();
+        this.identifier=null;
+        this.alternativeIdentifiers=null;
+        this.descriptive=null;
+        this.representations=null;
+        this.lifeCycleState=null;
     }
 
-    public IntellectualEntity(Identifier identifier, List<Identifier> alternativeIdentifers, DescriptiveMetadata descriptive,
-            List<Representation> representations) {
-        super();
-        this.identifier = identifier;
-        this.descriptive = descriptive;
-        this.representations = representations;
-        this.alternativeIdentifiers = alternativeIdentifers;
+    public IntellectualEntity(Builder builder) {
+        this.identifier=builder.identifier;
+        this.alternativeIdentifiers=builder.alternativeIdentifiers;
+        this.descriptive=builder.descriptive;
+        this.representations=builder.representations;
+        this.lifeCycleState=builder.lifecycleState;
     }
 
-    public void setLifeCycleState(LifeCycleState lifeCycleState) {
-        this.lifeCycleState = lifeCycleState;
-    }
 
-    public LifeCycleState getLifeCycleState() {
+    public LifecycleState getLifecycleState() {
         return lifeCycleState;
     }
 
@@ -53,4 +50,39 @@ public class IntellectualEntity {
     public List<Representation> getRepresentations() {
         return representations;
     }
+    
+    public static class Builder{
+        private Identifier identifier;
+        private List<Identifier> alternativeIdentifiers;
+        private DescriptiveMetadata descriptive;
+        private List<Representation> representations;
+        private LifecycleState lifecycleState;
+        
+        public Builder identifier(Identifier identifier){
+            this.identifier=identifier;
+            return this;
+        }
+        
+        public Builder alternaticeIdentifiers(List<Identifier> alternativeIdentifiers){
+            this.alternativeIdentifiers=alternativeIdentifiers;
+            return this;
+        }
+        public Builder descriptive(DescriptiveMetadata descriptive){
+            this.descriptive=descriptive;
+            return this;
+        }
+        public Builder representations(List<Representation> representations){
+            this.representations=representations;
+            return this;
+        }
+        public Builder lifecycleState(LifecycleState state){
+            this.lifecycleState=state;
+            return this;
+        }
+
+        public IntellectualEntity build() {
+            return new IntellectualEntity(this);
+        }
+    }
+
 }

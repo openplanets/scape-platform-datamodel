@@ -18,6 +18,11 @@ public class Representation {
 
     private Representation() {
         super();
+        this.source = null;
+        this.provenance = null;
+        this.technical = null;
+        this.rights = null;
+        this.files = null;
     }
 
     private Representation(Builder builder) {
@@ -70,7 +75,7 @@ public class Representation {
         }
 
         public Builder provenance(ProvenanceMetadata provenance) {
-            this.provenance=provenance;
+            this.provenance = provenance;
             return this;
         }
 

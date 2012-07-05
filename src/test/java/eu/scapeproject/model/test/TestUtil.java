@@ -412,7 +412,12 @@ public abstract class TestUtil {
     }
 
     public static IntellectualEntity createRandomEntity() {
-        return new IntellectualEntity(new UUIDIdentifier(), createRandomIdentifiers(), createRandomDescriptive(), createRandomRepresentations());
+        return new IntellectualEntity.Builder()
+                .identifier(new UUIDIdentifier())
+                .alternaticeIdentifiers(createRandomIdentifiers())
+                .descriptive(createRandomDescriptive())
+                .representations(createRandomRepresentations())
+                .build();
     }
 
     public static Event createRandomEvent() {
