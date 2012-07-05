@@ -20,6 +20,6 @@ public abstract class Identifier {
     }
 
     public String getValue() {
-        return value;
+        return type + "-" + value;
     }
 }

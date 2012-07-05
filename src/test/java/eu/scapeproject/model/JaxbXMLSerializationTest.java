@@ -31,7 +31,7 @@ public class JaxbXMLSerializationTest {
         IntellectualEntity entity=TestUtil.createRandomEntity();
         FileOutputStream out=new FileOutputStream(xmlFile);
         MetsFactory.getInstance().serialize(entity, out);
-//        ValidationUtil.validateXML(new FileInputStream(xmlFile),this.getClass().getClassLoader().getResourceAsStream("mets.xsd"));
+        ValidationUtil.validateXML(new FileInputStream(xmlFile),this.getClass().getClassLoader().getResourceAsStream("mets.xsd"));
     }
     
     @Test

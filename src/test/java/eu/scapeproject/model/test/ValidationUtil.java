@@ -14,6 +14,10 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
 import eu.scapeproject.model.metadata.RightsMetadata;
 import eu.scapeproject.model.metadata.TechnicalMetadata;
@@ -58,6 +62,23 @@ public abstract class ValidationUtil {
         SchemaFactory fac=SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         Schema s=fac.newSchema(new StreamSource(schemaIn));
         Validator validator=s.newValidator();
+        ErrorHandler h=new ErrorHandler() {
+            @Override
+            public void warning(SAXParseException exception) throws SAXException {
+                exception.printStackTrace();
+            }
+            
+            @Override
+            public void fatalError(SAXParseException exception) throws SAXException {
+                exception.printStackTrace();
+            }
+            
+            @Override
+            public void error(SAXParseException exception) throws SAXException {
+                exception.printStackTrace();
+            }
+        };
+        validator.setErrorHandler(h);
         validator.validate(new StreamSource(metsIn));
     }
     
