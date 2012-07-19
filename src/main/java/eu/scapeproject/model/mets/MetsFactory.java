@@ -85,8 +85,8 @@ public class MetsFactory {
     }
 
     private MetsDMDSec createMetsDMDSec(final DescriptiveMetadata metadata) {
-        final String dmdId = new UUIDIdentifier().getValue();
-        final String admId = new UUIDIdentifier().getValue();
+        final String dmdId = "dmd-" + new UUIDIdentifier().getValue();
+        final String admId = "adm-" + new UUIDIdentifier().getValue();
         final DCMetadata dc = (DCMetadata) metadata;
         final Date created = dc.getDate().get(0);
         return new MetsDMDSec.Builder(dmdId)
@@ -300,7 +300,7 @@ public class MetsFactory {
             }
         }
 
-        final MetsHeader.Builder hdrBuilder = new MetsHeader.Builder(headerId.getValue())
+        final MetsHeader.Builder hdrBuilder = new MetsHeader.Builder("hdr-" + headerId.getValue())
                 .createdDate(new Date())
                 .agents(agents);
         if (entity.getAlternativeIdentifiers() != null){
