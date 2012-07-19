@@ -11,4 +11,8 @@ public class UUIDIdentifier extends Identifier {
     public UUIDIdentifier(UUID value) {
         super("UUID",value.toString());
     }
+    
+    public UUIDIdentifier(String value){
+        super("UUID",value);
+    }
 }
