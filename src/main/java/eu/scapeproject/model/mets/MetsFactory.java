@@ -203,7 +203,7 @@ public class MetsFactory {
                 final MetsDiv.Builder divBuilder = new MetsDiv.Builder()
                         .id(new UUIDIdentifier().getValue())
                         .type("Representation")
-                        .label("Representation of Intellectuall entity " + entity.getIdentifier().getValue())
+                        .label("Representation of Intellectual entity " + entity.getIdentifier().getValue())
                         .addSubDiv(techDiv)
                         .addSubDiv(rightsDiv)
                         .addSubDiv(digiProvDiv)
