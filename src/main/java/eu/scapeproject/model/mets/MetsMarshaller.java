@@ -57,6 +57,7 @@ import eu.scapeproject.model.metadata.premis.PremisProvenanceMetadata;
 import eu.scapeproject.model.metadata.premis.PremisRightsMetadata;
 import eu.scapeproject.model.metadata.textmd.TextMDMetadata;
 import eu.scapeproject.model.metadata.videomd.VideoMDMetadata;
+import eu.scapeproject.model.util.MetsUtil;
 
 public class MetsMarshaller {
 	private static final String SCAPE_PROFILE = "http://example.com/scape-mets-profile.xml";
@@ -89,21 +90,13 @@ public class MetsMarshaller {
 		unmarshaller = ctx.createUnmarshaller();
 	}
 
-	private MetsDMDSec createMetsDMDSec(final DescriptiveMetadata metadata) {
-		final String dmdId = "dmd-" + new UUIDIdentifier().getValue();
-		final String admId = "adm-" + new UUIDIdentifier().getValue();
-		final DCMetadata dc = (DCMetadata) metadata;
-		final Date created = dc.getDate().get(0);
-		return new MetsDMDSec.Builder(dmdId)
-				.admId(admId)
-				.created(created)
-				.metadataWrapper(getWrapper(metadata))
-				.build();
-	}
-
 	public void serialize(Object subject,OutputStream out) throws SerializationException{
 		if (subject instanceof IntellectualEntity) {
-			serializeEntity((IntellectualEntity) subject,out);
+			try {
+				serializeEntity((IntellectualEntity) subject,out);
+			} catch (JAXBException e) {
+				throw new SerializationException(e);
+			}
 		}else  {
 			throw new SerializationException("unable to serialize objects of type " + subject.getClass());
 		}
@@ -118,11 +111,13 @@ public class MetsMarshaller {
 	}
 	
 	private IntellectualEntity deserializeEntity(InputStream in) {
-		return null;
+		IntellectualEntity.Builder entityBuilder=new IntellectualEntity.Builder();
+		return entityBuilder.build();
 	}
 
-	private void serializeEntity(IntellectualEntity entity,OutputStream out){
-		
+	private void serializeEntity(IntellectualEntity entity,OutputStream out) throws JAXBException{
+		MetsDocument doc=MetsUtil.convertEntity(entity);
+		marshaller.marshal(doc, out);
 	}
 	
 //	public IntellectualEntity deserialize(final InputStream in) throws Exception {
@@ -182,36 +177,6 @@ public class MetsMarshaller {
 //		final List<MetsAMDSec> amdSecs = new ArrayList<MetsAMDSec>();
 //		final List<MetsFileGrp> fileGroups = new ArrayList<MetsFileGrp>();
 //
-//		final DCMetadata dc = (DCMetadata) entity.getDescriptive();
-//		if (dc.getConstributors() != null) {
-//			for (final Agent contributor : dc.getConstributors()) {
-//				final MetsAgent agent = new MetsAgent.Builder()
-//						.id(new UUIDIdentifier().getValue())
-//						.name(contributor.getName())
-//						.role(contributor.getRole())
-//						.otherRole(contributor.getOtherRole())
-//						.type(contributor.getType())
-//						.otherType(contributor.getOtherType())
-//						.note(contributor.getNote())
-//						.build();
-//				agents.add(agent);
-//			}
-//		}
-//		if (dc.getCreator() != null) {
-//			for (final Agent creator : dc.getCreator()) {
-//				final MetsAgent agent = new MetsAgent.Builder()
-//						.id(new UUIDIdentifier().getValue())
-//						.name(creator.getName())
-//						.role(creator.getRole())
-//						.otherRole(creator.getOtherRole())
-//						.type(creator.getType())
-//						.otherType(creator.getOtherType())
-//						.note(creator.getNote())
-//						.build();
-//				agents.add(agent);
-//			}
-//		}
-//		final MetsDMDSec dmdSec = createMetsDMDSec(entity.getDescriptive());
 //
 //		MetsDiv.Builder entityDivBuilder = new MetsDiv.Builder()
 //				.id(new UUIDIdentifier().getValue())
@@ -397,28 +362,5 @@ public class MetsMarshaller {
 //		marshaller.marshal(doc, out);
 //	}
 
-	private MetsMDWrap getWrapper(MetsMetadata data) {
-		MetsMDWrap.Builder builder = new MetsMDWrap.Builder(new MetsXMLData(data));
-		if (data instanceof DCMetadata) {
-			builder.mdType("DC");
-		} else if (data instanceof VideoMDMetadata) {
-			builder.mdType("OTHER");
-			builder.otherMdType("VIDEOMD");
-		} else if (data instanceof AudioMDMetadata) {
-			builder.mdType("OTHER");
-			builder.otherMdType("AudioMD");
-		} else if (data instanceof TextMDMetadata) {
-			builder.mdType("TEXTMD");
-		} else if (data instanceof NisoMixMetadata) {
-			builder.mdType("NISOIMG");
-		} else if (data instanceof PremisProvenanceMetadata) {
-			builder.mdType("PREMIS:EVENT");
-		} else if (data instanceof PremisRightsMetadata) {
-			builder.mdType("PREMIS:RIGHTS");
-		} else if (data instanceof FitsMetadata) {
-			builder.mdType("PREMIS:RIGHTS");
-		}
-		return builder.build();
-	}
 	
 }
