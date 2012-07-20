@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import eu.scapeproject.model.jaxb.MetsNamespacePrefixMapper;
 import eu.scapeproject.model.metadata.fits.FitsMetadata;
-import eu.scapeproject.model.mets.MetsFactory;
+import eu.scapeproject.model.mets.MetsMarshaller;
 import eu.scapeproject.model.test.TestUtil;
 import eu.scapeproject.model.test.ValidationUtil;
 
@@ -30,7 +30,7 @@ public class JaxbXMLSerializationTest {
         java.io.File xmlFile=new java.io.File("target/mets_entity_1.xml");
         IntellectualEntity entity=TestUtil.createRandomEntity();
         FileOutputStream out=new FileOutputStream(xmlFile);
-        MetsFactory.getInstance().serialize(entity, out);
+        MetsMarshaller.getInstance().serialize(entity, out);
         ValidationUtil.validateXML(new FileInputStream(xmlFile),this.getClass().getClassLoader().getResourceAsStream("mets.xsd"));
     }
     
