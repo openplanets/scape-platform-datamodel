@@ -8,6 +8,12 @@ import eu.scapeproject.model.metadata.DescriptiveMetadata;
 import eu.scapeproject.model.metadata.ProvenanceMetadata;
 import eu.scapeproject.model.metadata.RightsMetadata;
 import eu.scapeproject.model.metadata.TechnicalMetadata;
+import eu.scapeproject.model.metadata.audiomd.AudioMDMetadata;
+import eu.scapeproject.model.metadata.dc.DCMetadata;
+import eu.scapeproject.model.metadata.fits.FitsMetadata;
+import eu.scapeproject.model.metadata.mix.NisoMixMetadata;
+import eu.scapeproject.model.metadata.premis.PremisProvenanceMetadata;
+import eu.scapeproject.model.metadata.textmd.TextMDMetadata;
 
 public class Representation {
     private DescriptiveMetadata source;
@@ -59,6 +65,38 @@ public class Representation {
         private TechnicalMetadata technical;
         private RightsMetadata rights;
         private Set<File> files = new HashSet<File>();
+        
+        public Builder(){
+        	super();
+        }
+        
+        public Builder(Representation r){
+        	if (r.getSource() !=null){
+        		this.source = new DCMetadata.Builder((DCMetadata) source).build();
+        	}
+        	if (r.getProvenance() !=null){
+        		this.provenance = new PremisProvenanceMetadata.Builder((PremisProvenanceMetadata) r.getProvenance()).build();
+        	}
+        	if (r.getTechnical() != null){
+        		if (r.getTechnical() instanceof NisoMixMetadata){
+        			this.technical = new NisoMixMetadata.Builder((NisoMixMetadata) r.getTechnical()).build();
+        		}else if (r.getTechnical() instanceof TextMDMetadata){
+        			this.technical = new TextMDMetadata.Builder((TextMDMetadata) r.getTechnical()).build();
+        		}else if (r.getTechnical() instanceof AudioMDMetadata){
+        			this.technical = new AudioMDMetadata.Builder((AudioMDMetadata) r.getTechnical()).build();
+        		}else if (r.getTechnical() instanceof FitsMetadata){
+        			this.technical = new FitsMetadata.Builder((FitsMetadata) r.getTechnical()).build();
+        		}
+        	}
+        	
+        	//TODO: deep copy
+        	if (r.getRights() != null){
+        		this.rights=r.rights;
+        	}
+        	if (r.getFiles() != null){
+        		this.files=r.files;
+        	}
+        }
 
         public Representation build() {
             return new Representation(this);

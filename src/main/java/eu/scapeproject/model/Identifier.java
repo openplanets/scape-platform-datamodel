@@ -9,7 +9,7 @@ public abstract class Identifier {
         this.value = null;
     }
 
-    protected Identifier(String type, String value) {
+    public Identifier(String type, String value) {
         super();
         this.type = type;
         this.value = value;
@@ -22,4 +22,5 @@ public abstract class Identifier {
     public String getValue() {
         return value;
     }
+    
 }

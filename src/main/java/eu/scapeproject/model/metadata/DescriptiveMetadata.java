@@ -7,7 +7,7 @@ import eu.scapeproject.dto.mets.MetsMetadata;
 
 
 
-public class DescriptiveMetadata extends MetsMetadata{
+public abstract class DescriptiveMetadata extends MetsMetadata{
 
     public DescriptiveMetadata() {
         super();
@@ -16,5 +16,5 @@ public class DescriptiveMetadata extends MetsMetadata{
     public enum MetadataType {
         DC;
     }
-
+    
 }

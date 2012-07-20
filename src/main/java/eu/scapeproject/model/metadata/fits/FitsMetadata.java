@@ -74,6 +74,21 @@ public class FitsMetadata extends TechnicalMetadata {
         private String version;
         private String timeStamp;
 
+        public Builder(){
+        	super();
+        }
+        
+        public Builder(FitsMetadata orig){
+        	// TODO: deep copy
+        	this.identification=orig.identification;
+        	this.fileInfo=orig.fileInfo;
+        	this.fileStatus=orig.fileStatus;
+        	this.metadata=orig.metadata;
+        	this.toolOutput=orig.toolOutput;
+        	this.version=orig.version;
+        	this.timeStamp=orig.timeStamp;
+        }
+        
         public FitsMetadata build() {
             return new FitsMetadata(this);
         }

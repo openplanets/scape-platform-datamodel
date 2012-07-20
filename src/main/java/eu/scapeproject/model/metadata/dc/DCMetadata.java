@@ -1,6 +1,7 @@
 package eu.scapeproject.model.metadata.dc;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -118,7 +119,7 @@ public class DCMetadata extends DescriptiveMetadata {
     public List<String> getType() {
         return types;
     }
-
+    
     public static class Builder {
         private List<Date> dates = new ArrayList<Date>();
         private List<String> titles = new ArrayList<String>();
@@ -135,6 +136,27 @@ public class DCMetadata extends DescriptiveMetadata {
         private List<Agent> constributors = new ArrayList<Agent>();;
         private List<String> rights = new ArrayList<String>();;
 
+        public Builder() {
+        	super();
+		}
+        
+        public Builder(DCMetadata md){
+        	//TODO:deep copy
+        	this.dates=md.getDate();
+        	this.titles=md.getTitle();
+        	this.creators=md.getCreator();
+        	this.descriptions=md.getDescription();
+        	this.formats=md.getFormat();
+        	this.languages=md.getLanguage();
+        	this.publishers=md.getPublisher();
+        	this.subjects=md.getSubject();
+        	this.types=md.getType();
+        	this.sources=md.getSources();
+        	this.relations=md.getRelations();
+        	this.constributors=md.getConstributors();
+        	this.rights=md.getRights();
+        }
+        
         public DCMetadata build() {
             return new DCMetadata(this);
         }

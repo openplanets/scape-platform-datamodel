@@ -33,4 +33,5 @@ public class LifecycleState {
     public String getDetails() {
         return details;
     }
+    
 }

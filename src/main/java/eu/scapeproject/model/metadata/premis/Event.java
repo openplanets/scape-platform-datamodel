@@ -79,6 +79,40 @@ public class Event {
         private List<Outcome> outcome;
         private List<Agent> linkingAgents;
         private List<IntellectualEntity> linkingObjects;
+        
+        public Builder(){
+        	super();
+        }
+        
+        public Builder(Event ev){
+        	this.identifier = new Identifier(new String(ev.identifier.getType()),new String(ev.getIdentifier().getValue())) {};
+        	this.type = new String(ev.type);
+        	this.dateTime = new Date(ev.getDateTime().getTime());
+        	this.detail = new String(ev.detail);
+        	if (ev.outcome != null){
+        		this.outcome = new ArrayList<Event.Outcome>();
+        		for (Outcome oc:ev.outcome){
+        			Detail[] details=new Detail[oc.getDetails().size()];
+        			for (int i=0;i<oc.getDetails().size();i++){
+        				Detail d=oc.getDetails().get(i);
+        				details[i] = new Detail(new String(d.note), new String(d.extension));
+        			}
+        			this.outcome.add(new Outcome(new String(oc.outcome),details));
+        		}
+        	}
+        	if (ev.linkingAgents != null){
+        		this.linkingAgents = new ArrayList<Agent>();
+        		for (Agent la:ev.linkingAgents){
+        			this.linkingAgents.add(new Agent.Builder(la).build());
+        		}
+        	}
+        	if (ev.linkingObjects != null){
+        		this.linkingObjects = new ArrayList<IntellectualEntity>();
+        		for (IntellectualEntity lo:ev.linkingObjects){
+        			this.linkingObjects.add(new IntellectualEntity.Builder(lo).build());
+        		}
+        	}
+        }
 
         public Event build() {
             return new Event(this);

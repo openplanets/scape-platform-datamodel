@@ -1,5 +1,6 @@
 package eu.scapeproject.model.metadata.mix;
 
+import javax.print.attribute.standard.OrientationRequested;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -69,7 +70,31 @@ public class NisoMixMetadata extends TechnicalMetadata {
         private ImageColorEncoding imageColorEncoding;
         private TargetData targetData;
 
-        public NisoMixMetadata build() {
+        public Builder(NisoMixMetadata technical) {
+        	this.width = technical.getBasicImageInformation().getBasicImageCharacteristics().getWidth();
+        	this.height = technical.getBasicImageInformation().getBasicImageCharacteristics().getHeight();
+        	this.orientation = technical.getImageCapture().getOrientation();
+        	this.methodology = new String(technical.getImageCapture().getMethodology());
+        	this.colorspace = new String(technical.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getColorSpace());
+        	// TODO: Deep copy necessary?
+        	this.colorProfile = technical.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getColorProfile();
+        	this.yCrCb = technical.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getYbCbCr();
+        	this.referencedBlackWhite = technical.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getReferencedBlackWhite();
+        	this.specialFormatCharacteristics = technical.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getSpecialFormatCharacteristics();
+        	this.source = technical.getImageCapture().getSourceInformation();
+        	this.generalCaptureInformation = technical.getImageCapture().getGeneralCaptureInformation();
+        	this.scannerCapture = technical.getImageCapture().getScannerCapture();
+        	this.digitalCameraCapture = technical.getImageCapture().getDigitalCameraCapture();
+        	this.spacialMetrics = technical.getImageAssessmentMetadata().getSpacialMetrics();
+        	this.imageColorEncoding = technical.getImageAssessmentMetadata().getImageColorEncoding();
+        	this.targetData = technical.getImageAssessmentMetadata().getTargetData();
+        }
+        
+        public Builder(){
+        	super();
+        }
+
+		public NisoMixMetadata build() {
             return new NisoMixMetadata(this);
         }
 

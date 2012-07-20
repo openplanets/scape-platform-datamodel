@@ -172,7 +172,10 @@ public abstract class TestUtil {
                 .fileData(createRandomFileDatas())
                 .physicalData(createRanomdPhysicalDatas())
                 .build();
-        return new AudioMDMetadata(audioMD, audioSrc);
+        return new AudioMDMetadata.Builder()
+        	.audioMd(audioMD)
+        	.audioSrc(audioSrc)
+        	.build();
     }
 
     public static BitStream createRandomBitStream() {

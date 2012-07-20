@@ -69,6 +69,19 @@ public class Agent {
         private String type;
         private String otherRole;
         private String otherType;
+        
+        public Builder(){
+        	super();
+        }
+        
+        public Builder(Agent orig){
+        	this.name=new String(orig.name);
+        	this.note=new String(orig.note);
+        	this.role=new String(orig.role);
+        	this.type=new String(orig.type);
+        	this.otherRole=new String(orig.otherRole);
+        	this.otherType=new String(orig.otherType);
+        }
 
         public Agent build() {
             return new Agent(this);
