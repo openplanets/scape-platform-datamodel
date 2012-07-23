@@ -7,13 +7,16 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import eu.scapeproject.model.Agent;
+import eu.scapeproject.model.jaxb.DateAdapter;
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
 
 @XmlRootElement(name="dublin-core")
 public class DCMetadata extends DescriptiveMetadata {
     @XmlElement(name="date",namespace="http://purl.org/dc/elements/1.1/")
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private List<Date> dates;
     @XmlElement(name="title",namespace="http://purl.org/dc/elements/1.1/")
     private List<String> titles;
@@ -120,6 +123,109 @@ public class DCMetadata extends DescriptiveMetadata {
         return types;
     }
     
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((contributors == null) ? 0 : contributors.hashCode());
+        result = prime * result + ((coverages == null) ? 0 : coverages.hashCode());
+        result = prime * result + ((creators == null) ? 0 : creators.hashCode());
+        result = prime * result + ((dates == null) ? 0 : dates.hashCode());
+        result = prime * result + ((descriptions == null) ? 0 : descriptions.hashCode());
+        result = prime * result + ((formats == null) ? 0 : formats.hashCode());
+        result = prime * result + ((languages == null) ? 0 : languages.hashCode());
+        result = prime * result + ((publishers == null) ? 0 : publishers.hashCode());
+        result = prime * result + ((relations == null) ? 0 : relations.hashCode());
+        result = prime * result + ((rights == null) ? 0 : rights.hashCode());
+        result = prime * result + ((sources == null) ? 0 : sources.hashCode());
+        result = prime * result + ((subjects == null) ? 0 : subjects.hashCode());
+        result = prime * result + ((titles == null) ? 0 : titles.hashCode());
+        result = prime * result + ((types == null) ? 0 : types.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DCMetadata other = (DCMetadata) obj;
+        if (contributors == null) {
+            if (other.contributors != null)
+                return false;
+        } else if (!contributors.equals(other.contributors))
+            return false;
+        if (coverages == null) {
+            if (other.coverages != null)
+                return false;
+        } else if (!coverages.equals(other.coverages))
+            return false;
+        if (creators == null) {
+            if (other.creators != null)
+                return false;
+        } else if (!creators.equals(other.creators))
+            return false;
+        if (dates == null) {
+            if (other.dates != null)
+                return false;
+        } else if (!dates.equals(other.dates))
+            return false;
+        if (descriptions == null) {
+            if (other.descriptions != null)
+                return false;
+        } else if (!descriptions.equals(other.descriptions))
+            return false;
+        if (formats == null) {
+            if (other.formats != null)
+                return false;
+        } else if (!formats.equals(other.formats))
+            return false;
+        if (languages == null) {
+            if (other.languages != null)
+                return false;
+        } else if (!languages.equals(other.languages))
+            return false;
+        if (publishers == null) {
+            if (other.publishers != null)
+                return false;
+        } else if (!publishers.equals(other.publishers))
+            return false;
+        if (relations == null) {
+            if (other.relations != null)
+                return false;
+        } else if (!relations.equals(other.relations))
+            return false;
+        if (rights == null) {
+            if (other.rights != null)
+                return false;
+        } else if (!rights.equals(other.rights))
+            return false;
+        if (sources == null) {
+            if (other.sources != null)
+                return false;
+        } else if (!sources.equals(other.sources))
+            return false;
+        if (subjects == null) {
+            if (other.subjects != null)
+                return false;
+        } else if (!subjects.equals(other.subjects))
+            return false;
+        if (titles == null) {
+            if (other.titles != null)
+                return false;
+        } else if (!titles.equals(other.titles))
+            return false;
+        if (types == null) {
+            if (other.types != null)
+                return false;
+        } else if (!types.equals(other.types))
+            return false;
+        return true;
+    }
+
     public static class Builder {
         private List<Date> dates = new ArrayList<Date>();
         private List<String> titles = new ArrayList<String>();

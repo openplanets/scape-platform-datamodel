@@ -104,6 +104,103 @@ public class VideoFormat {
         return version;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((annotation == null) ? 0 : annotation.hashCode());
+        result = prime * result + ((commercialName == null) ? 0 : commercialName.hashCode());
+        result = prime * result + ((creatorApp == null) ? 0 : creatorApp.hashCode());
+        result = prime * result + ((creatorLib == null) ? 0 : creatorLib.hashCode());
+        result = prime * result + ((creatorLibDate == null) ? 0 : creatorLibDate.hashCode());
+        result = prime * result + ((creatorLibSettings == null) ? 0 : creatorLibSettings.hashCode());
+        result = prime * result + ((encodingDate == null) ? 0 : encodingDate.hashCode());
+        result = prime * result + ((mimeType == null) ? 0 : mimeType.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((profile == null) ? 0 : profile.hashCode());
+        result = prime * result + ((settings == null) ? 0 : settings.hashCode());
+        result = prime * result + ((taggedDate == null) ? 0 : taggedDate.hashCode());
+        result = prime * result + ((version == null) ? 0 : version.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        VideoFormat other = (VideoFormat) obj;
+        if (annotation == null) {
+            if (other.annotation != null)
+                return false;
+        } else if (!annotation.equals(other.annotation))
+            return false;
+        if (commercialName == null) {
+            if (other.commercialName != null)
+                return false;
+        } else if (!commercialName.equals(other.commercialName))
+            return false;
+        if (creatorApp == null) {
+            if (other.creatorApp != null)
+                return false;
+        } else if (!creatorApp.equals(other.creatorApp))
+            return false;
+        if (creatorLib == null) {
+            if (other.creatorLib != null)
+                return false;
+        } else if (!creatorLib.equals(other.creatorLib))
+            return false;
+        if (creatorLibDate == null) {
+            if (other.creatorLibDate != null)
+                return false;
+        } else if (!creatorLibDate.equals(other.creatorLibDate))
+            return false;
+        if (creatorLibSettings == null) {
+            if (other.creatorLibSettings != null)
+                return false;
+        } else if (!creatorLibSettings.equals(other.creatorLibSettings))
+            return false;
+        if (encodingDate == null) {
+            if (other.encodingDate != null)
+                return false;
+        } else if (!encodingDate.equals(other.encodingDate))
+            return false;
+        if (mimeType == null) {
+            if (other.mimeType != null)
+                return false;
+        } else if (!mimeType.equals(other.mimeType))
+            return false;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        if (profile == null) {
+            if (other.profile != null)
+                return false;
+        } else if (!profile.equals(other.profile))
+            return false;
+        if (settings == null) {
+            if (other.settings != null)
+                return false;
+        } else if (!settings.equals(other.settings))
+            return false;
+        if (taggedDate == null) {
+            if (other.taggedDate != null)
+                return false;
+        } else if (!taggedDate.equals(other.taggedDate))
+            return false;
+        if (version == null) {
+            if (other.version != null)
+                return false;
+        } else if (!version.equals(other.version))
+            return false;
+        return true;
+    }
+
     public static class Builder {
         private String annotation;
         private String creatorApp;

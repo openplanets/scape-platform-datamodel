@@ -57,6 +57,70 @@ public class ScannerCapture {
         return scanningSoftwareVersionNo;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((maximumOpticalResolution == null) ? 0 : maximumOpticalResolution.hashCode());
+        result = prime * result + ((scannerManufacturer == null) ? 0 : scannerManufacturer.hashCode());
+        result = prime * result + ((scannerModelName == null) ? 0 : scannerModelName.hashCode());
+        result = prime * result + ((scannerModelNumber == null) ? 0 : scannerModelNumber.hashCode());
+        result = prime * result + ((scannerModelSerialNo == null) ? 0 : scannerModelSerialNo.hashCode());
+        result = prime * result + ((scannerSensor == null) ? 0 : scannerSensor.hashCode());
+        result = prime * result + ((scanningSoftwareName == null) ? 0 : scanningSoftwareName.hashCode());
+        result = prime * result + ((scanningSoftwareVersionNo == null) ? 0 : scanningSoftwareVersionNo.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ScannerCapture other = (ScannerCapture) obj;
+        if (maximumOpticalResolution == null) {
+            if (other.maximumOpticalResolution != null)
+                return false;
+        } else if (!maximumOpticalResolution.equals(other.maximumOpticalResolution))
+            return false;
+        if (scannerManufacturer == null) {
+            if (other.scannerManufacturer != null)
+                return false;
+        } else if (!scannerManufacturer.equals(other.scannerManufacturer))
+            return false;
+        if (scannerModelName == null) {
+            if (other.scannerModelName != null)
+                return false;
+        } else if (!scannerModelName.equals(other.scannerModelName))
+            return false;
+        if (scannerModelNumber == null) {
+            if (other.scannerModelNumber != null)
+                return false;
+        } else if (!scannerModelNumber.equals(other.scannerModelNumber))
+            return false;
+        if (scannerModelSerialNo == null) {
+            if (other.scannerModelSerialNo != null)
+                return false;
+        } else if (!scannerModelSerialNo.equals(other.scannerModelSerialNo))
+            return false;
+        if (scannerSensor != other.scannerSensor)
+            return false;
+        if (scanningSoftwareName == null) {
+            if (other.scanningSoftwareName != null)
+                return false;
+        } else if (!scanningSoftwareName.equals(other.scanningSoftwareName))
+            return false;
+        if (scanningSoftwareVersionNo == null) {
+            if (other.scanningSoftwareVersionNo != null)
+                return false;
+        } else if (!scanningSoftwareVersionNo.equals(other.scanningSoftwareVersionNo))
+            return false;
+        return true;
+    }
+
     public static class Builder {
         private String scannerManufacturer;
         private String scannerModelName;

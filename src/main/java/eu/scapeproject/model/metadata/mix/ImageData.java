@@ -198,6 +198,118 @@ public class ImageData {
         FRONT_LIGHT, BACK_LIGHT_1, BACK_LIGHT_2;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        long temp;
+        temp = Double.doubleToLongBits(apertureValue);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + ((autoFocus == null) ? 0 : autoFocus.hashCode());
+        result = prime * result + ((backLight == null) ? 0 : backLight.hashCode());
+        temp = Double.doubleToLongBits(brightnessValue);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + cfaPattern;
+        result = prime * result + ((exifVersion == null) ? 0 : exifVersion.hashCode());
+        temp = Double.doubleToLongBits(exposeBiasValue);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(exposureIndex);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + ((exposureProgram == null) ? 0 : exposureProgram.hashCode());
+        temp = Double.doubleToLongBits(exposureTime);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(fNumber);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + ((flash == null) ? 0 : flash.hashCode());
+        temp = Double.doubleToLongBits(flashEnergy);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(focalLength);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + isoSpeedRatings;
+        result = prime * result + ((lightSource == null) ? 0 : lightSource.hashCode());
+        temp = Double.doubleToLongBits(maxApertureValue);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + ((meteringMode == null) ? 0 : meteringMode.hashCode());
+        temp = Double.doubleToLongBits(oECF);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + ((sensingMode == null) ? 0 : sensingMode.hashCode());
+        temp = Double.doubleToLongBits(shutterSpeedValue);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + ((spectralSensitivity == null) ? 0 : spectralSensitivity.hashCode());
+        temp = Double.doubleToLongBits(subjectDistance);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(xPrintAspectRatio);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(yPrintAspectRatio);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ImageData other = (ImageData) obj;
+        if (Double.doubleToLongBits(apertureValue) != Double.doubleToLongBits(other.apertureValue))
+            return false;
+        if (autoFocus != other.autoFocus)
+            return false;
+        if (backLight != other.backLight)
+            return false;
+        if (Double.doubleToLongBits(brightnessValue) != Double.doubleToLongBits(other.brightnessValue))
+            return false;
+        if (cfaPattern != other.cfaPattern)
+            return false;
+        if (exifVersion != other.exifVersion)
+            return false;
+        if (Double.doubleToLongBits(exposeBiasValue) != Double.doubleToLongBits(other.exposeBiasValue))
+            return false;
+        if (Double.doubleToLongBits(exposureIndex) != Double.doubleToLongBits(other.exposureIndex))
+            return false;
+        if (exposureProgram != other.exposureProgram)
+            return false;
+        if (Double.doubleToLongBits(exposureTime) != Double.doubleToLongBits(other.exposureTime))
+            return false;
+        if (Double.doubleToLongBits(fNumber) != Double.doubleToLongBits(other.fNumber))
+            return false;
+        if (flash != other.flash)
+            return false;
+        if (Double.doubleToLongBits(flashEnergy) != Double.doubleToLongBits(other.flashEnergy))
+            return false;
+        if (Double.doubleToLongBits(focalLength) != Double.doubleToLongBits(other.focalLength))
+            return false;
+        if (isoSpeedRatings != other.isoSpeedRatings)
+            return false;
+        if (lightSource != other.lightSource)
+            return false;
+        if (Double.doubleToLongBits(maxApertureValue) != Double.doubleToLongBits(other.maxApertureValue))
+            return false;
+        if (meteringMode != other.meteringMode)
+            return false;
+        if (Double.doubleToLongBits(oECF) != Double.doubleToLongBits(other.oECF))
+            return false;
+        if (sensingMode != other.sensingMode)
+            return false;
+        if (Double.doubleToLongBits(shutterSpeedValue) != Double.doubleToLongBits(other.shutterSpeedValue))
+            return false;
+        if (spectralSensitivity == null) {
+            if (other.spectralSensitivity != null)
+                return false;
+        } else if (!spectralSensitivity.equals(other.spectralSensitivity))
+            return false;
+        if (Double.doubleToLongBits(subjectDistance) != Double.doubleToLongBits(other.subjectDistance))
+            return false;
+        if (Double.doubleToLongBits(xPrintAspectRatio) != Double.doubleToLongBits(other.xPrintAspectRatio))
+            return false;
+        if (Double.doubleToLongBits(yPrintAspectRatio) != Double.doubleToLongBits(other.yPrintAspectRatio))
+            return false;
+        return true;
+    }
+
     public static class Builder {
         private double fNumber;
         private double exposureTime;

@@ -164,6 +164,151 @@ public class FileData {
         return wordSizes;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((audiBlockSizes == null) ? 0 : audiBlockSizes.hashCode());
+        result = prime * result + ((audioDataEncodings == null) ? 0 : audioDataEncodings.hashCode());
+        result = prime * result + ((bitsPerSamples == null) ? 0 : bitsPerSamples.hashCode());
+        result = prime * result + ((byteOrders == null) ? 0 : byteOrders.hashCode());
+        result = prime * result + ((compression == null) ? 0 : compression.hashCode());
+        result = prime * result + ((dataRateModes == null) ? 0 : dataRateModes.hashCode());
+        result = prime * result + ((dataRates == null) ? 0 : dataRates.hashCode());
+        result = prime * result + ((firstSampleOffsets == null) ? 0 : firstSampleOffsets.hashCode());
+        result = prime * result + ((firstValidByteBlocks == null) ? 0 : firstValidByteBlocks.hashCode());
+        result = prime * result + ((formatLocations == null) ? 0 : formatLocations.hashCode());
+        result = prime * result + ((formatNames == null) ? 0 : formatNames.hashCode());
+        result = prime * result + ((formatVersions == null) ? 0 : formatVersions.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((lastValidByteBlocks == null) ? 0 : lastValidByteBlocks.hashCode());
+        result = prime * result + ((messageDigest == null) ? 0 : messageDigest.hashCode());
+        result = prime * result + ((numSampleFrames == null) ? 0 : numSampleFrames.hashCode());
+        result = prime * result + ((otherUses == null) ? 0 : otherUses.hashCode());
+        result = prime * result + ((samplingFrequencies == null) ? 0 : samplingFrequencies.hashCode());
+        result = prime * result + ((securities == null) ? 0 : securities.hashCode());
+        result = prime * result + ((uses == null) ? 0 : uses.hashCode());
+        result = prime * result + ((wordSizes == null) ? 0 : wordSizes.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        FileData other = (FileData) obj;
+        if (audiBlockSizes == null) {
+            if (other.audiBlockSizes != null)
+                return false;
+        } else if (!audiBlockSizes.equals(other.audiBlockSizes))
+            return false;
+        if (audioDataEncodings == null) {
+            if (other.audioDataEncodings != null)
+                return false;
+        } else if (!audioDataEncodings.equals(other.audioDataEncodings))
+            return false;
+        if (bitsPerSamples == null) {
+            if (other.bitsPerSamples != null)
+                return false;
+        } else if (!bitsPerSamples.equals(other.bitsPerSamples))
+            return false;
+        if (byteOrders == null) {
+            if (other.byteOrders != null)
+                return false;
+        } else if (!byteOrders.equals(other.byteOrders))
+            return false;
+        if (compression == null) {
+            if (other.compression != null)
+                return false;
+        } else if (!compression.equals(other.compression))
+            return false;
+        if (dataRateModes == null) {
+            if (other.dataRateModes != null)
+                return false;
+        } else if (!dataRateModes.equals(other.dataRateModes))
+            return false;
+        if (dataRates == null) {
+            if (other.dataRates != null)
+                return false;
+        } else if (!dataRates.equals(other.dataRates))
+            return false;
+        if (firstSampleOffsets == null) {
+            if (other.firstSampleOffsets != null)
+                return false;
+        } else if (!firstSampleOffsets.equals(other.firstSampleOffsets))
+            return false;
+        if (firstValidByteBlocks == null) {
+            if (other.firstValidByteBlocks != null)
+                return false;
+        } else if (!firstValidByteBlocks.equals(other.firstValidByteBlocks))
+            return false;
+        if (formatLocations == null) {
+            if (other.formatLocations != null)
+                return false;
+        } else if (!formatLocations.equals(other.formatLocations))
+            return false;
+        if (formatNames == null) {
+            if (other.formatNames != null)
+                return false;
+        } else if (!formatNames.equals(other.formatNames))
+            return false;
+        if (formatVersions == null) {
+            if (other.formatVersions != null)
+                return false;
+        } else if (!formatVersions.equals(other.formatVersions))
+            return false;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (lastValidByteBlocks == null) {
+            if (other.lastValidByteBlocks != null)
+                return false;
+        } else if (!lastValidByteBlocks.equals(other.lastValidByteBlocks))
+            return false;
+        if (messageDigest == null) {
+            if (other.messageDigest != null)
+                return false;
+        } else if (!messageDigest.equals(other.messageDigest))
+            return false;
+        if (numSampleFrames == null) {
+            if (other.numSampleFrames != null)
+                return false;
+        } else if (!numSampleFrames.equals(other.numSampleFrames))
+            return false;
+        if (otherUses == null) {
+            if (other.otherUses != null)
+                return false;
+        } else if (!otherUses.equals(other.otherUses))
+            return false;
+        if (samplingFrequencies == null) {
+            if (other.samplingFrequencies != null)
+                return false;
+        } else if (!samplingFrequencies.equals(other.samplingFrequencies))
+            return false;
+        if (securities == null) {
+            if (other.securities != null)
+                return false;
+        } else if (!securities.equals(other.securities))
+            return false;
+        if (uses == null) {
+            if (other.uses != null)
+                return false;
+        } else if (!uses.equals(other.uses))
+            return false;
+        if (wordSizes == null) {
+            if (other.wordSizes != null)
+                return false;
+        } else if (!wordSizes.equals(other.wordSizes))
+            return false;
+        return true;
+    }
+
     public static class Builder {
         private final String id;
         private List<Integer> audiBlockSizes;

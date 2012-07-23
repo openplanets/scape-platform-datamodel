@@ -76,6 +76,67 @@ public class Dimension {
         return width;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + Float.floatToIntBits(depth);
+        result = prime * result + Float.floatToIntBits(diameter);
+        result = prime * result + ((gauge == null) ? 0 : gauge.hashCode());
+        result = prime * result + Float.floatToIntBits(height);
+        result = prime * result + ((length == null) ? 0 : length.hashCode());
+        result = prime * result + ((note == null) ? 0 : note.hashCode());
+        result = prime * result + ((thickness == null) ? 0 : thickness.hashCode());
+        result = prime * result + ((units == null) ? 0 : units.hashCode());
+        result = prime * result + Float.floatToIntBits(width);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Dimension other = (Dimension) obj;
+        if (Float.floatToIntBits(depth) != Float.floatToIntBits(other.depth))
+            return false;
+        if (Float.floatToIntBits(diameter) != Float.floatToIntBits(other.diameter))
+            return false;
+        if (gauge == null) {
+            if (other.gauge != null)
+                return false;
+        } else if (!gauge.equals(other.gauge))
+            return false;
+        if (Float.floatToIntBits(height) != Float.floatToIntBits(other.height))
+            return false;
+        if (length == null) {
+            if (other.length != null)
+                return false;
+        } else if (!length.equals(other.length))
+            return false;
+        if (note == null) {
+            if (other.note != null)
+                return false;
+        } else if (!note.equals(other.note))
+            return false;
+        if (thickness == null) {
+            if (other.thickness != null)
+                return false;
+        } else if (!thickness.equals(other.thickness))
+            return false;
+        if (units == null) {
+            if (other.units != null)
+                return false;
+        } else if (!units.equals(other.units))
+            return false;
+        if (Float.floatToIntBits(width) != Float.floatToIntBits(other.width))
+            return false;
+        return true;
+    }
+
     public static class Builder {
         private float depth;
         private float diameter;

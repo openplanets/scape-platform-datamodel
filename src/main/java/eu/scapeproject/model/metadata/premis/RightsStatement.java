@@ -73,6 +73,73 @@ public class RightsStatement {
         return statuteInformation;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((copyrightInformation == null) ? 0 : copyrightInformation.hashCode());
+        result = prime * result + ((licenseInformation == null) ? 0 : licenseInformation.hashCode());
+        result = prime * result + ((linkingObjects == null) ? 0 : linkingObjects.hashCode());
+        result = prime * result + ((linkingagents == null) ? 0 : linkingagents.hashCode());
+        result = prime * result + ((rightsBasis == null) ? 0 : rightsBasis.hashCode());
+        result = prime * result + ((rightsGranted == null) ? 0 : rightsGranted.hashCode());
+        result = prime * result + ((rightsStatementIdentifier == null) ? 0 : rightsStatementIdentifier.hashCode());
+        result = prime * result + ((statuteInformation == null) ? 0 : statuteInformation.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        RightsStatement other = (RightsStatement) obj;
+        if (copyrightInformation == null) {
+            if (other.copyrightInformation != null)
+                return false;
+        } else if (!copyrightInformation.equals(other.copyrightInformation))
+            return false;
+        if (licenseInformation == null) {
+            if (other.licenseInformation != null)
+                return false;
+        } else if (!licenseInformation.equals(other.licenseInformation))
+            return false;
+        if (linkingObjects == null) {
+            if (other.linkingObjects != null)
+                return false;
+        } else if (!linkingObjects.equals(other.linkingObjects))
+            return false;
+        if (linkingagents == null) {
+            if (other.linkingagents != null)
+                return false;
+        } else if (!linkingagents.equals(other.linkingagents))
+            return false;
+        if (rightsBasis == null) {
+            if (other.rightsBasis != null)
+                return false;
+        } else if (!rightsBasis.equals(other.rightsBasis))
+            return false;
+        if (rightsGranted == null) {
+            if (other.rightsGranted != null)
+                return false;
+        } else if (!rightsGranted.equals(other.rightsGranted))
+            return false;
+        if (rightsStatementIdentifier == null) {
+            if (other.rightsStatementIdentifier != null)
+                return false;
+        } else if (!rightsStatementIdentifier.equals(other.rightsStatementIdentifier))
+            return false;
+        if (statuteInformation == null) {
+            if (other.statuteInformation != null)
+                return false;
+        } else if (!statuteInformation.equals(other.statuteInformation))
+            return false;
+        return true;
+    }
+
     public static class Builder {
         private Identifier rightsStatementIdentifier;
         private String rightsBasis;

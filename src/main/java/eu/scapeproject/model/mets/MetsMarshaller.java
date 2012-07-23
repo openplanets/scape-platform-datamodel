@@ -110,9 +110,18 @@ public class MetsMarshaller {
 		}
 	}
 	
-	private IntellectualEntity deserializeEntity(InputStream in) {
-		IntellectualEntity.Builder entityBuilder=new IntellectualEntity.Builder();
-		return entityBuilder.build();
+	private IntellectualEntity deserializeEntity(InputStream in) throws SerializationException{
+		try {
+            MetsDocument doc=(MetsDocument) unmarshaller.unmarshal(in);
+            IntellectualEntity.Builder entityBuilder=new IntellectualEntity.Builder()
+                .identifier(new UUIDIdentifier(doc.getObjId()))
+                .descriptive((DescriptiveMetadata) doc.getDmdSec().getMetadataWrapper().getXmlData().getData())
+                .representations(MetsUtil.getRepresentations(doc))
+                .alternativeIdentifiers(MetsUtil.getAlternativeIdentifiers(doc.getHeaders()));
+            return entityBuilder.build();
+        } catch (JAXBException e) {
+            throw new SerializationException(e);
+        }
 	}
 
 	private void serializeEntity(IntellectualEntity entity,OutputStream out) throws JAXBException{

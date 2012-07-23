@@ -64,6 +64,67 @@ public class FitsIdentity {
         return versions;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((externalIdentifiers == null) ? 0 : externalIdentifiers.hashCode());
+        result = prime * result + ((format == null) ? 0 : format.hashCode());
+        result = prime * result + ((mimeType == null) ? 0 : mimeType.hashCode());
+        result = prime * result + ((tool == null) ? 0 : tool.hashCode());
+        result = prime * result + ((toolName == null) ? 0 : toolName.hashCode());
+        result = prime * result + ((toolVersion == null) ? 0 : toolVersion.hashCode());
+        result = prime * result + ((versions == null) ? 0 : versions.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        FitsIdentity other = (FitsIdentity) obj;
+        if (externalIdentifiers == null) {
+            if (other.externalIdentifiers != null)
+                return false;
+        } else if (!externalIdentifiers.equals(other.externalIdentifiers))
+            return false;
+        if (format == null) {
+            if (other.format != null)
+                return false;
+        } else if (!format.equals(other.format))
+            return false;
+        if (mimeType == null) {
+            if (other.mimeType != null)
+                return false;
+        } else if (!mimeType.equals(other.mimeType))
+            return false;
+        if (tool == null) {
+            if (other.tool != null)
+                return false;
+        } else if (!tool.equals(other.tool))
+            return false;
+        if (toolName == null) {
+            if (other.toolName != null)
+                return false;
+        } else if (!toolName.equals(other.toolName))
+            return false;
+        if (toolVersion == null) {
+            if (other.toolVersion != null)
+                return false;
+        } else if (!toolVersion.equals(other.toolVersion))
+            return false;
+        if (versions == null) {
+            if (other.versions != null)
+                return false;
+        } else if (!versions.equals(other.versions))
+            return false;
+        return true;
+    }
+
     public static class Builder {
         private List<FitsTool> tool;
         private List<Version> versions;

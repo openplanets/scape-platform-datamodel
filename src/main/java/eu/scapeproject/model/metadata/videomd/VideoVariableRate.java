@@ -48,6 +48,48 @@ public class VideoVariableRate {
         return unit;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + Float.floatToIntBits(maximum);
+        result = prime * result + Float.floatToIntBits(minimum);
+        result = prime * result + ((mode == null) ? 0 : mode.hashCode());
+        result = prime * result + Float.floatToIntBits(nominal);
+        result = prime * result + ((unit == null) ? 0 : unit.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        VideoVariableRate other = (VideoVariableRate) obj;
+        if (Float.floatToIntBits(maximum) != Float.floatToIntBits(other.maximum))
+            return false;
+        if (Float.floatToIntBits(minimum) != Float.floatToIntBits(other.minimum))
+            return false;
+        if (mode == null) {
+            if (other.mode != null)
+                return false;
+        } else if (!mode.equals(other.mode))
+            return false;
+        if (Float.floatToIntBits(nominal) != Float.floatToIntBits(other.nominal))
+            return false;
+        if (unit == null) {
+            if (other.unit != null)
+                return false;
+        } else if (!unit.equals(other.unit))
+            return false;
+        return true;
+    }
+
+
+
     public static class Builder {
         private float maximum;
         private float minimum;

@@ -120,6 +120,115 @@ public class FitsFileInfo {
         return size;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((copyRightBasis == null) ? 0 : copyRightBasis.hashCode());
+        result = prime * result + ((copyRightNote == null) ? 0 : copyRightNote.hashCode());
+        result = prime * result + ((created == null) ? 0 : created.hashCode());
+        result = prime * result + ((creatingApplicationName == null) ? 0 : creatingApplicationName.hashCode());
+        result = prime * result + ((creatingApplicationVersion == null) ? 0 : creatingApplicationVersion.hashCode());
+        result = prime * result + ((creatingOs == null) ? 0 : creatingOs.hashCode());
+        result = prime * result + ((fileName == null) ? 0 : fileName.hashCode());
+        result = prime * result + ((filePath == null) ? 0 : filePath.hashCode());
+        result = prime * result + ((fsLastModified == null) ? 0 : fsLastModified.hashCode());
+        result = prime * result + ((inhibitorTarget == null) ? 0 : inhibitorTarget.hashCode());
+        result = prime * result + ((inhibitorType == null) ? 0 : inhibitorType.hashCode());
+        result = prime * result + ((lastModified == null) ? 0 : lastModified.hashCode());
+        result = prime * result + ((md5Checksum == null) ? 0 : md5Checksum.hashCode());
+        result = prime * result + ((rightsBasis == null) ? 0 : rightsBasis.hashCode());
+        result = prime * result + ((size == null) ? 0 : size.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        FitsFileInfo other = (FitsFileInfo) obj;
+        if (copyRightBasis == null) {
+            if (other.copyRightBasis != null)
+                return false;
+        } else if (!copyRightBasis.equals(other.copyRightBasis))
+            return false;
+        if (copyRightNote == null) {
+            if (other.copyRightNote != null)
+                return false;
+        } else if (!copyRightNote.equals(other.copyRightNote))
+            return false;
+        if (created == null) {
+            if (other.created != null)
+                return false;
+        } else if (!created.equals(other.created))
+            return false;
+        if (creatingApplicationName == null) {
+            if (other.creatingApplicationName != null)
+                return false;
+        } else if (!creatingApplicationName.equals(other.creatingApplicationName))
+            return false;
+        if (creatingApplicationVersion == null) {
+            if (other.creatingApplicationVersion != null)
+                return false;
+        } else if (!creatingApplicationVersion.equals(other.creatingApplicationVersion))
+            return false;
+        if (creatingOs == null) {
+            if (other.creatingOs != null)
+                return false;
+        } else if (!creatingOs.equals(other.creatingOs))
+            return false;
+        if (fileName == null) {
+            if (other.fileName != null)
+                return false;
+        } else if (!fileName.equals(other.fileName))
+            return false;
+        if (filePath == null) {
+            if (other.filePath != null)
+                return false;
+        } else if (!filePath.equals(other.filePath))
+            return false;
+        if (fsLastModified == null) {
+            if (other.fsLastModified != null)
+                return false;
+        } else if (!fsLastModified.equals(other.fsLastModified))
+            return false;
+        if (inhibitorTarget == null) {
+            if (other.inhibitorTarget != null)
+                return false;
+        } else if (!inhibitorTarget.equals(other.inhibitorTarget))
+            return false;
+        if (inhibitorType == null) {
+            if (other.inhibitorType != null)
+                return false;
+        } else if (!inhibitorType.equals(other.inhibitorType))
+            return false;
+        if (lastModified == null) {
+            if (other.lastModified != null)
+                return false;
+        } else if (!lastModified.equals(other.lastModified))
+            return false;
+        if (md5Checksum == null) {
+            if (other.md5Checksum != null)
+                return false;
+        } else if (!md5Checksum.equals(other.md5Checksum))
+            return false;
+        if (rightsBasis == null) {
+            if (other.rightsBasis != null)
+                return false;
+        } else if (!rightsBasis.equals(other.rightsBasis))
+            return false;
+        if (size == null) {
+            if (other.size != null)
+                return false;
+        } else if (!size.equals(other.size))
+            return false;
+        return true;
+    }
+
     public static class Builder {
         private FileInfoElement filePath;
         private FileInfoElement fileName;

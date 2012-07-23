@@ -99,7 +99,92 @@ public class TextMDMetadata extends TechnicalMetadata {
 		return viewingRequirements;
 	}
 
-	public static class Builder {
+	@Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((altLanguages == null) ? 0 : altLanguages.hashCode());
+        result = prime * result + ((characterInfos == null) ? 0 : characterInfos.hashCode());
+        result = prime * result + ((encodings == null) ? 0 : encodings.hashCode());
+        result = prime * result + ((fontScripts == null) ? 0 : fontScripts.hashCode());
+        result = prime * result + ((languages == null) ? 0 : languages.hashCode());
+        result = prime * result + ((markupBases == null) ? 0 : markupBases.hashCode());
+        result = prime * result + ((markupLanguages == null) ? 0 : markupLanguages.hashCode());
+        result = prime * result + ((printRequirements == null) ? 0 : printRequirements.hashCode());
+        result = prime * result + ((processingNotes == null) ? 0 : processingNotes.hashCode());
+        result = prime * result + ((textNotes == null) ? 0 : textNotes.hashCode());
+        result = prime * result + ((viewingRequirements == null) ? 0 : viewingRequirements.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        TextMDMetadata other = (TextMDMetadata) obj;
+        if (altLanguages == null) {
+            if (other.altLanguages != null)
+                return false;
+        } else if (!altLanguages.equals(other.altLanguages))
+            return false;
+        if (characterInfos == null) {
+            if (other.characterInfos != null)
+                return false;
+        } else if (!characterInfos.equals(other.characterInfos))
+            return false;
+        if (encodings == null) {
+            if (other.encodings != null)
+                return false;
+        } else if (!encodings.equals(other.encodings))
+            return false;
+        if (fontScripts == null) {
+            if (other.fontScripts != null)
+                return false;
+        } else if (!fontScripts.equals(other.fontScripts))
+            return false;
+        if (languages == null) {
+            if (other.languages != null)
+                return false;
+        } else if (!languages.equals(other.languages))
+            return false;
+        if (markupBases == null) {
+            if (other.markupBases != null)
+                return false;
+        } else if (!markupBases.equals(other.markupBases))
+            return false;
+        if (markupLanguages == null) {
+            if (other.markupLanguages != null)
+                return false;
+        } else if (!markupLanguages.equals(other.markupLanguages))
+            return false;
+        if (printRequirements == null) {
+            if (other.printRequirements != null)
+                return false;
+        } else if (!printRequirements.equals(other.printRequirements))
+            return false;
+        if (processingNotes == null) {
+            if (other.processingNotes != null)
+                return false;
+        } else if (!processingNotes.equals(other.processingNotes))
+            return false;
+        if (textNotes == null) {
+            if (other.textNotes != null)
+                return false;
+        } else if (!textNotes.equals(other.textNotes))
+            return false;
+        if (viewingRequirements == null) {
+            if (other.viewingRequirements != null)
+                return false;
+        } else if (!viewingRequirements.equals(other.viewingRequirements))
+            return false;
+        return true;
+    }
+
+    public static class Builder {
 		private List<Encoding> encodings;
 		private List<CharacterInfo> characterInfos;
 		private List<String> languages;

@@ -144,6 +144,129 @@ public class VideoFileData extends MediaDataType {
         return tracks;
     }
 
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + ((bitsPerSample == null) ? 0 : bitsPerSample.hashCode());
+        result = prime * result + ((byteOrder == null) ? 0 : byteOrder.hashCode());
+        result = prime * result + ((color == null) ? 0 : color.hashCode());
+        result = prime * result + ((comressions == null) ? 0 : comressions.hashCode());
+        result = prime * result + ((dataRateMode == null) ? 0 : dataRateMode.hashCode());
+        result = prime * result + ((dataRateUnit == null) ? 0 : dataRateUnit.hashCode());
+        result = prime * result + ((formats == null) ? 0 : formats.hashCode());
+        result = prime * result + ((frame == null) ? 0 : frame.hashCode());
+        result = prime * result + ((frameRate == null) ? 0 : frameRate.hashCode());
+        result = prime * result + ((locations == null) ? 0 : locations.hashCode());
+        result = prime * result + ((messageDigest == null) ? 0 : messageDigest.hashCode());
+        result = prime * result + ((otherColor == null) ? 0 : otherColor.hashCode());
+        result = prime * result + ((sampleRate == null) ? 0 : sampleRate.hashCode());
+        result = prime * result + ((sampling == null) ? 0 : sampling.hashCode());
+        result = prime * result + ((signalFormat == null) ? 0 : signalFormat.hashCode());
+        result = prime * result + ((sound == null) ? 0 : sound.hashCode());
+        result = prime * result + ((tracks == null) ? 0 : tracks.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        VideoFileData other = (VideoFileData) obj;
+        if (bitsPerSample == null) {
+            if (other.bitsPerSample != null)
+                return false;
+        } else if (!bitsPerSample.equals(other.bitsPerSample))
+            return false;
+        if (byteOrder == null) {
+            if (other.byteOrder != null)
+                return false;
+        } else if (!byteOrder.equals(other.byteOrder))
+            return false;
+        if (color == null) {
+            if (other.color != null)
+                return false;
+        } else if (!color.equals(other.color))
+            return false;
+        if (comressions == null) {
+            if (other.comressions != null)
+                return false;
+        } else if (!comressions.equals(other.comressions))
+            return false;
+        if (dataRateMode == null) {
+            if (other.dataRateMode != null)
+                return false;
+        } else if (!dataRateMode.equals(other.dataRateMode))
+            return false;
+        if (dataRateUnit == null) {
+            if (other.dataRateUnit != null)
+                return false;
+        } else if (!dataRateUnit.equals(other.dataRateUnit))
+            return false;
+        if (formats == null) {
+            if (other.formats != null)
+                return false;
+        } else if (!formats.equals(other.formats))
+            return false;
+        if (frame == null) {
+            if (other.frame != null)
+                return false;
+        } else if (!frame.equals(other.frame))
+            return false;
+        if (frameRate == null) {
+            if (other.frameRate != null)
+                return false;
+        } else if (!frameRate.equals(other.frameRate))
+            return false;
+        if (locations == null) {
+            if (other.locations != null)
+                return false;
+        } else if (!locations.equals(other.locations))
+            return false;
+        if (messageDigest == null) {
+            if (other.messageDigest != null)
+                return false;
+        } else if (!messageDigest.equals(other.messageDigest))
+            return false;
+        if (otherColor == null) {
+            if (other.otherColor != null)
+                return false;
+        } else if (!otherColor.equals(other.otherColor))
+            return false;
+        if (sampleRate == null) {
+            if (other.sampleRate != null)
+                return false;
+        } else if (!sampleRate.equals(other.sampleRate))
+            return false;
+        if (sampling == null) {
+            if (other.sampling != null)
+                return false;
+        } else if (!sampling.equals(other.sampling))
+            return false;
+        if (signalFormat == null) {
+            if (other.signalFormat != null)
+                return false;
+        } else if (!signalFormat.equals(other.signalFormat))
+            return false;
+        if (sound == null) {
+            if (other.sound != null)
+                return false;
+        } else if (!sound.equals(other.sound))
+            return false;
+        if (tracks == null) {
+            if (other.tracks != null)
+                return false;
+        } else if (!tracks.equals(other.tracks))
+            return false;
+        return true;
+    }
+
+
     public static class Builder {
         private List<Integer> bitsPerSample;
         private List<Integer> byteOrder;

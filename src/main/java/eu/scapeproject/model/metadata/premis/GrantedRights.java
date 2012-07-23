@@ -44,4 +44,49 @@ public class GrantedRights {
     public TermOfGrant getTermOfGrant() {
         return termOfGrant;
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((act == null) ? 0 : act.hashCode());
+        result = prime * result + ((restriction == null) ? 0 : restriction.hashCode());
+        result = prime * result + ((rightsGrantedNotes == null) ? 0 : rightsGrantedNotes.hashCode());
+        result = prime * result + ((termOfGrant == null) ? 0 : termOfGrant.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        GrantedRights other = (GrantedRights) obj;
+        if (act == null) {
+            if (other.act != null)
+                return false;
+        } else if (!act.equals(other.act))
+            return false;
+        if (restriction == null) {
+            if (other.restriction != null)
+                return false;
+        } else if (!restriction.equals(other.restriction))
+            return false;
+        if (rightsGrantedNotes == null) {
+            if (other.rightsGrantedNotes != null)
+                return false;
+        } else if (!rightsGrantedNotes.equals(other.rightsGrantedNotes))
+            return false;
+        if (termOfGrant == null) {
+            if (other.termOfGrant != null)
+                return false;
+        } else if (!termOfGrant.equals(other.termOfGrant))
+            return false;
+        return true;
+    }
+    
+    
 }

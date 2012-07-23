@@ -62,6 +62,63 @@ public class Agent {
         return type;
     }
 
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((note == null) ? 0 : note.hashCode());
+        result = prime * result + ((otherRole == null) ? 0 : otherRole.hashCode());
+        result = prime * result + ((otherType == null) ? 0 : otherType.hashCode());
+        result = prime * result + ((role == null) ? 0 : role.hashCode());
+        result = prime * result + ((type == null) ? 0 : type.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Agent other = (Agent) obj;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        if (note == null) {
+            if (other.note != null)
+                return false;
+        } else if (!note.equals(other.note))
+            return false;
+        if (otherRole == null) {
+            if (other.otherRole != null)
+                return false;
+        } else if (!otherRole.equals(other.otherRole))
+            return false;
+        if (otherType == null) {
+            if (other.otherType != null)
+                return false;
+        } else if (!otherType.equals(other.otherType))
+            return false;
+        if (role == null) {
+            if (other.role != null)
+                return false;
+        } else if (!role.equals(other.role))
+            return false;
+        if (type == null) {
+            if (other.type != null)
+                return false;
+        } else if (!type.equals(other.type))
+            return false;
+        return true;
+    }
+
+
     public static class Builder {
         private String name;
         private String note;

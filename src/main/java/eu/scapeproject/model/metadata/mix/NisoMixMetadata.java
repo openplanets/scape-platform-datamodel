@@ -52,6 +52,43 @@ public class NisoMixMetadata extends TechnicalMetadata {
         return imageCapture;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((basicImageInformation == null) ? 0 : basicImageInformation.hashCode());
+        result = prime * result + ((imageAssessmentMetadata == null) ? 0 : imageAssessmentMetadata.hashCode());
+        result = prime * result + ((imageCapture == null) ? 0 : imageCapture.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        NisoMixMetadata other = (NisoMixMetadata) obj;
+        if (basicImageInformation == null) {
+            if (other.basicImageInformation != null)
+                return false;
+        } else if (!basicImageInformation.equals(other.basicImageInformation))
+            return false;
+        if (imageAssessmentMetadata == null) {
+            if (other.imageAssessmentMetadata != null)
+                return false;
+        } else if (!imageAssessmentMetadata.equals(other.imageAssessmentMetadata))
+            return false;
+        if (imageCapture == null) {
+            if (other.imageCapture != null)
+                return false;
+        } else if (!imageCapture.equals(other.imageCapture))
+            return false;
+        return true;
+    }
+
     public static class Builder {
         private int width;
         private int height;

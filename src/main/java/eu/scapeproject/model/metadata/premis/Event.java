@@ -71,6 +71,67 @@ public class Event {
         return type;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((dateTime == null) ? 0 : dateTime.hashCode());
+        result = prime * result + ((detail == null) ? 0 : detail.hashCode());
+        result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
+        result = prime * result + ((linkingAgents == null) ? 0 : linkingAgents.hashCode());
+        result = prime * result + ((linkingObjects == null) ? 0 : linkingObjects.hashCode());
+        result = prime * result + ((outcome == null) ? 0 : outcome.hashCode());
+        result = prime * result + ((type == null) ? 0 : type.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Event other = (Event) obj;
+        if (dateTime == null) {
+            if (other.dateTime != null)
+                return false;
+        } else if (!dateTime.equals(other.dateTime))
+            return false;
+        if (detail == null) {
+            if (other.detail != null)
+                return false;
+        } else if (!detail.equals(other.detail))
+            return false;
+        if (identifier == null) {
+            if (other.identifier != null)
+                return false;
+        } else if (!identifier.equals(other.identifier))
+            return false;
+        if (linkingAgents == null) {
+            if (other.linkingAgents != null)
+                return false;
+        } else if (!linkingAgents.equals(other.linkingAgents))
+            return false;
+        if (linkingObjects == null) {
+            if (other.linkingObjects != null)
+                return false;
+        } else if (!linkingObjects.equals(other.linkingObjects))
+            return false;
+        if (outcome == null) {
+            if (other.outcome != null)
+                return false;
+        } else if (!outcome.equals(other.outcome))
+            return false;
+        if (type == null) {
+            if (other.type != null)
+                return false;
+        } else if (!type.equals(other.type))
+            return false;
+        return true;
+    }
+
     public static class Builder {
         private Identifier identifier;
         private String type;

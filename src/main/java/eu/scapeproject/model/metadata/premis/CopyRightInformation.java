@@ -38,6 +38,45 @@ public class CopyRightInformation {
     public Date getCopyrightStatusDeterminationDate() {
         return copyrightStatusDeterminationDate;
     }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((copyrightJurisdiction == null) ? 0 : copyrightJurisdiction.hashCode());
+        result = prime * result + ((copyrightNote == null) ? 0 : copyrightNote.hashCode());
+        result = prime * result + ((copyrightStatusDeterminationDate == null) ? 0 : copyrightStatusDeterminationDate.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        CopyRightInformation other = (CopyRightInformation) obj;
+        if (copyrightJurisdiction == null) {
+            if (other.copyrightJurisdiction != null)
+                return false;
+        } else if (!copyrightJurisdiction.equals(other.copyrightJurisdiction))
+            return false;
+        if (copyrightNote == null) {
+            if (other.copyrightNote != null)
+                return false;
+        } else if (!copyrightNote.equals(other.copyrightNote))
+            return false;
+        if (copyrightStatusDeterminationDate == null) {
+            if (other.copyrightStatusDeterminationDate != null)
+                return false;
+        } else if (!copyrightStatusDeterminationDate.equals(other.copyrightStatusDeterminationDate))
+            return false;
+        return true;
+    }
+
+
 
     public enum CopyrightStatus {
         COPYRIGHTED, PUBLIC_DOMAIN, UNKNOWN;

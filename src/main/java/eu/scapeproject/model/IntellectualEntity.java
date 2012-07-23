@@ -33,7 +33,7 @@ public class IntellectualEntity {
 		this.representations = builder.representations;
 		this.lifeCycleState = builder.lifecycleState;
 	}
-
+	
 	public LifecycleState getLifecycleState() {
 		return lifeCycleState;
 	}
@@ -54,7 +54,56 @@ public class IntellectualEntity {
 		return representations;
 	}
 
-	public static class Builder {
+	@Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((alternativeIdentifiers == null) ? 0 : alternativeIdentifiers.hashCode());
+        result = prime * result + ((descriptive == null) ? 0 : descriptive.hashCode());
+        result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
+        result = prime * result + ((lifeCycleState == null) ? 0 : lifeCycleState.hashCode());
+        result = prime * result + ((representations == null) ? 0 : representations.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        IntellectualEntity other = (IntellectualEntity) obj;
+        if (alternativeIdentifiers == null) {
+            if (other.alternativeIdentifiers != null)
+                return false;
+        } else if (!alternativeIdentifiers.equals(other.alternativeIdentifiers))
+            return false;
+        if (descriptive == null) {
+            if (other.descriptive != null)
+                return false;
+        } else if (!descriptive.equals(other.descriptive))
+            return false;
+        if (identifier == null) {
+            if (other.identifier != null)
+                return false;
+        } else if (!identifier.equals(other.identifier))
+            return false;
+        if (lifeCycleState == null) {
+            if (other.lifeCycleState != null)
+                return false;
+        } else if (!lifeCycleState.equals(other.lifeCycleState))
+            return false;
+        if (representations == null) {
+            if (other.representations != null)
+                return false;
+        } else if (!representations.equals(other.representations))
+            return false;
+        return true;
+    }
+
+    public static class Builder {
 		private Identifier identifier;
 		private List<Identifier> alternativeIdentifiers;
 		private DescriptiveMetadata descriptive;
@@ -90,7 +139,7 @@ public class IntellectualEntity {
 			return this;
 		}
 
-		public Builder alternaticeIdentifiers(List<Identifier> alternativeIdentifiers) {
+		public Builder alternativeIdentifiers(List<Identifier> alternativeIdentifiers) {
 			this.alternativeIdentifiers = alternativeIdentifiers;
 			return this;
 		}

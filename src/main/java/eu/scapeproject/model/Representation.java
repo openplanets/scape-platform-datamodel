@@ -59,6 +59,55 @@ public class Representation {
         return technical;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((files == null) ? 0 : files.hashCode());
+        result = prime * result + ((provenance == null) ? 0 : provenance.hashCode());
+        result = prime * result + ((rights == null) ? 0 : rights.hashCode());
+        result = prime * result + ((source == null) ? 0 : source.hashCode());
+        result = prime * result + ((technical == null) ? 0 : technical.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Representation other = (Representation) obj;
+        if (files == null) {
+            if (other.files != null)
+                return false;
+        } else if (!files.equals(other.files))
+            return false;
+        if (provenance == null) {
+            if (other.provenance != null)
+                return false;
+        } else if (!provenance.equals(other.provenance))
+            return false;
+        if (rights == null) {
+            if (other.rights != null)
+                return false;
+        } else if (!rights.equals(other.rights))
+            return false;
+        if (source == null) {
+            if (other.source != null)
+                return false;
+        } else if (!source.equals(other.source))
+            return false;
+        if (technical == null) {
+            if (other.technical != null)
+                return false;
+        } else if (!technical.equals(other.technical))
+            return false;
+        return true;
+    }
+
     public static class Builder {
         private DescriptiveMetadata source;
         private ProvenanceMetadata provenance;

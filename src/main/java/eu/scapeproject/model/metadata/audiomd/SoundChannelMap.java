@@ -23,4 +23,30 @@ public class SoundChannelMap {
     public List<ChannelAssignment> getChannelAssignments() {
         return channelAssignments;
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((channelAssignments == null) ? 0 : channelAssignments.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SoundChannelMap other = (SoundChannelMap) obj;
+        if (channelAssignments == null) {
+            if (other.channelAssignments != null)
+                return false;
+        } else if (!channelAssignments.equals(other.channelAssignments))
+            return false;
+        return true;
+    }
+    
 }

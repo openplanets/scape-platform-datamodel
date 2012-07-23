@@ -417,7 +417,7 @@ public abstract class TestUtil {
     public static IntellectualEntity createRandomEntity() {
         return new IntellectualEntity.Builder()
                 .identifier(new UUIDIdentifier())
-                .alternaticeIdentifiers(createRandomIdentifiers())
+                .alternativeIdentifiers(createRandomIdentifiers())
                 .descriptive(createRandomDescriptive())
                 .representations(createRandomRepresentations())
                 .build();
@@ -484,7 +484,7 @@ public abstract class TestUtil {
         while (num-- > 0) {
             File f = new File.Builder()
                     .technical(createRandomTechnicalMetadata())
-                    .uri(Arrays.asList(URI.create("http://example.com/" + randomAlphabetic(16))))
+                    .uri(URI.create("http://example.com/" + randomAlphabetic(16)))
                     .bitStreams(createRandomBitStreams())
                     .build();
             files.add(f);

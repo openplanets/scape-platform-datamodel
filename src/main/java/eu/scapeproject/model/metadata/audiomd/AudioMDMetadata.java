@@ -32,7 +32,38 @@ public class AudioMDMetadata extends TechnicalMetadata {
 		return audioSrc;
 	}
 
-	public static class Builder {
+	@Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((audioMD == null) ? 0 : audioMD.hashCode());
+        result = prime * result + ((audioSrc == null) ? 0 : audioSrc.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        AudioMDMetadata other = (AudioMDMetadata) obj;
+        if (audioMD == null) {
+            if (other.audioMD != null)
+                return false;
+        } else if (!audioMD.equals(other.audioMD))
+            return false;
+        if (audioSrc == null) {
+            if (other.audioSrc != null)
+                return false;
+        } else if (!audioSrc.equals(other.audioSrc))
+            return false;
+        return true;
+    }
+
+    public static class Builder {
 		private Audio audioMd;
 		private Audio audioSrc;
 

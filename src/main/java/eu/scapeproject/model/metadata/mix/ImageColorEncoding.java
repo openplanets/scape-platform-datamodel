@@ -1,6 +1,7 @@
 package eu.scapeproject.model.metadata.mix;
 
 import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
 
 public class ImageColorEncoding {
@@ -64,6 +65,61 @@ public class ImageColorEncoding {
 
     public enum BitsPerSampleUnit {
         FLOAT, INTEGER;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((bitsPerSampleUnit == null) ? 0 : bitsPerSampleUnit.hashCode());
+        result = prime * result + ((bitsPerSampleValue == null) ? 0 : bitsPerSampleValue.hashCode());
+        result = prime * result + ((colorMapReference == null) ? 0 : colorMapReference.hashCode());
+        result = prime * result + Arrays.hashCode(embeddedColorMap);
+        result = prime * result + ((extraSamples == null) ? 0 : extraSamples.hashCode());
+        result = prime * result + grayResponseCurve;
+        result = prime * result + ((grayResponseUnit == null) ? 0 : grayResponseUnit.hashCode());
+        result = prime * result + samplesPerPixel;
+        result = prime * result + ((whitePoints == null) ? 0 : whitePoints.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ImageColorEncoding other = (ImageColorEncoding) obj;
+        if (bitsPerSampleUnit != other.bitsPerSampleUnit)
+            return false;
+        if (bitsPerSampleValue == null) {
+            if (other.bitsPerSampleValue != null)
+                return false;
+        } else if (!bitsPerSampleValue.equals(other.bitsPerSampleValue))
+            return false;
+        if (colorMapReference == null) {
+            if (other.colorMapReference != null)
+                return false;
+        } else if (!colorMapReference.equals(other.colorMapReference))
+            return false;
+        if (!Arrays.equals(embeddedColorMap, other.embeddedColorMap))
+            return false;
+        if (extraSamples != other.extraSamples)
+            return false;
+        if (grayResponseCurve != other.grayResponseCurve)
+            return false;
+        if (grayResponseUnit != other.grayResponseUnit)
+            return false;
+        if (samplesPerPixel != other.samplesPerPixel)
+            return false;
+        if (whitePoints == null) {
+            if (other.whitePoints != null)
+                return false;
+        } else if (!whitePoints.equals(other.whitePoints))
+            return false;
+        return true;
     }
 
     public static class Builder {

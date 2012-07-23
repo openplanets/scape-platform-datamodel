@@ -32,4 +32,36 @@ public class LinkingObject {
     public List<String> getLinkingObjectRole() {
         return linkingObjectRole;
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((linkingObjectIdentifier == null) ? 0 : linkingObjectIdentifier.hashCode());
+        result = prime * result + ((linkingObjectRole == null) ? 0 : linkingObjectRole.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        LinkingObject other = (LinkingObject) obj;
+        if (linkingObjectIdentifier == null) {
+            if (other.linkingObjectIdentifier != null)
+                return false;
+        } else if (!linkingObjectIdentifier.equals(other.linkingObjectIdentifier))
+            return false;
+        if (linkingObjectRole == null) {
+            if (other.linkingObjectRole != null)
+                return false;
+        } else if (!linkingObjectRole.equals(other.linkingObjectRole))
+            return false;
+        return true;
+    }
+    
 }

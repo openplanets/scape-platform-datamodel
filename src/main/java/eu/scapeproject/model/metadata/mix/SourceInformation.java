@@ -61,6 +61,61 @@ public class SourceInformation {
         return sourceZDimension;
     }
 
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((sourceIdentifiers == null) ? 0 : sourceIdentifiers.hashCode());
+        result = prime * result + ((sourceType == null) ? 0 : sourceType.hashCode());
+        result = prime * result + ((sourceXDiemnsionUnit == null) ? 0 : sourceXDiemnsionUnit.hashCode());
+        long temp;
+        temp = Double.doubleToLongBits(sourceXDimension);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + ((sourceYDiemnsionUnit == null) ? 0 : sourceYDiemnsionUnit.hashCode());
+        temp = Double.doubleToLongBits(sourceYDimension);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + ((sourceZDiemnsionUnit == null) ? 0 : sourceZDiemnsionUnit.hashCode());
+        temp = Double.doubleToLongBits(sourceZDimension);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SourceInformation other = (SourceInformation) obj;
+        if (sourceIdentifiers == null) {
+            if (other.sourceIdentifiers != null)
+                return false;
+        } else if (!sourceIdentifiers.equals(other.sourceIdentifiers))
+            return false;
+        if (sourceType == null) {
+            if (other.sourceType != null)
+                return false;
+        } else if (!sourceType.equals(other.sourceType))
+            return false;
+        if (sourceXDiemnsionUnit != other.sourceXDiemnsionUnit)
+            return false;
+        if (Double.doubleToLongBits(sourceXDimension) != Double.doubleToLongBits(other.sourceXDimension))
+            return false;
+        if (sourceYDiemnsionUnit != other.sourceYDiemnsionUnit)
+            return false;
+        if (Double.doubleToLongBits(sourceYDimension) != Double.doubleToLongBits(other.sourceYDimension))
+            return false;
+        if (sourceZDiemnsionUnit != other.sourceZDiemnsionUnit)
+            return false;
+        if (Double.doubleToLongBits(sourceZDimension) != Double.doubleToLongBits(other.sourceZDimension))
+            return false;
+        return true;
+    }
+
+
     public static class Builder {
         private String sourceType;
         private List<? extends Identifier> sourceIdentifiers;

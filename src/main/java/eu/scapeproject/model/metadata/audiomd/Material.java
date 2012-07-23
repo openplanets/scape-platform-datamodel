@@ -86,6 +86,85 @@ public class Material {
         return usedSides;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((activeLayers == null) ? 0 : activeLayers.hashCode());
+        result = prime * result + ((baseMaterials == null) ? 0 : baseMaterials.hashCode());
+        result = prime * result + ((binders == null) ? 0 : binders.hashCode());
+        result = prime * result + ((discSurfaces == null) ? 0 : discSurfaces.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((methods == null) ? 0 : methods.hashCode());
+        result = prime * result + ((oxides == null) ? 0 : oxides.hashCode());
+        result = prime * result + ((reflectiveLayers == null) ? 0 : reflectiveLayers.hashCode());
+        result = prime * result + ((stockBrands == null) ? 0 : stockBrands.hashCode());
+        result = prime * result + ((usedSides == null) ? 0 : usedSides.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Material other = (Material) obj;
+        if (activeLayers == null) {
+            if (other.activeLayers != null)
+                return false;
+        } else if (!activeLayers.equals(other.activeLayers))
+            return false;
+        if (baseMaterials == null) {
+            if (other.baseMaterials != null)
+                return false;
+        } else if (!baseMaterials.equals(other.baseMaterials))
+            return false;
+        if (binders == null) {
+            if (other.binders != null)
+                return false;
+        } else if (!binders.equals(other.binders))
+            return false;
+        if (discSurfaces == null) {
+            if (other.discSurfaces != null)
+                return false;
+        } else if (!discSurfaces.equals(other.discSurfaces))
+            return false;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (methods == null) {
+            if (other.methods != null)
+                return false;
+        } else if (!methods.equals(other.methods))
+            return false;
+        if (oxides == null) {
+            if (other.oxides != null)
+                return false;
+        } else if (!oxides.equals(other.oxides))
+            return false;
+        if (reflectiveLayers == null) {
+            if (other.reflectiveLayers != null)
+                return false;
+        } else if (!reflectiveLayers.equals(other.reflectiveLayers))
+            return false;
+        if (stockBrands == null) {
+            if (other.stockBrands != null)
+                return false;
+        } else if (!stockBrands.equals(other.stockBrands))
+            return false;
+        if (usedSides == null) {
+            if (other.usedSides != null)
+                return false;
+        } else if (!usedSides.equals(other.usedSides))
+            return false;
+        return true;
+    }
+
     public static class Builder {
         private final String id;
         private List<String> baseMaterials;

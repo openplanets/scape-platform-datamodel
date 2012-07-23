@@ -11,6 +11,35 @@ public class YCbCr {
     public YCbCrSubSampling getyCbCrSubSmapling() {
         return yCbCrSubSmapling;
     }
+    
+    
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((yCbCrSubSmapling == null) ? 0 : yCbCrSubSmapling.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        YCbCr other = (YCbCr) obj;
+        if (yCbCrSubSmapling == null) {
+            if (other.yCbCrSubSmapling != null)
+                return false;
+        } else if (!yCbCrSubSmapling.equals(other.yCbCrSubSmapling))
+            return false;
+        return true;
+    }
+
+
 
     public static class YCbCrSubSampling {
         private SubSampling horiz;;
@@ -28,6 +57,31 @@ public class YCbCr {
 
         public SubSampling getVert() {
             return vert;
+        }
+        
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((horiz == null) ? 0 : horiz.hashCode());
+            result = prime * result + ((vert == null) ? 0 : vert.hashCode());
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+            YCbCrSubSampling other = (YCbCrSubSampling) obj;
+            if (horiz != other.horiz)
+                return false;
+            if (vert != other.vert)
+                return false;
+            return true;
         }
 
         public enum SubSampling {

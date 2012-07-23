@@ -39,6 +39,55 @@ public class PhotometricInterpretation {
         return ybCbCr;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((colorProfile == null) ? 0 : colorProfile.hashCode());
+        result = prime * result + ((colorSpace == null) ? 0 : colorSpace.hashCode());
+        result = prime * result + ((referencedBlackWhite == null) ? 0 : referencedBlackWhite.hashCode());
+        result = prime * result + ((specialFormatCharacteristics == null) ? 0 : specialFormatCharacteristics.hashCode());
+        result = prime * result + ((ybCbCr == null) ? 0 : ybCbCr.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        PhotometricInterpretation other = (PhotometricInterpretation) obj;
+        if (colorProfile == null) {
+            if (other.colorProfile != null)
+                return false;
+        } else if (!colorProfile.equals(other.colorProfile))
+            return false;
+        if (colorSpace == null) {
+            if (other.colorSpace != null)
+                return false;
+        } else if (!colorSpace.equals(other.colorSpace))
+            return false;
+        if (referencedBlackWhite == null) {
+            if (other.referencedBlackWhite != null)
+                return false;
+        } else if (!referencedBlackWhite.equals(other.referencedBlackWhite))
+            return false;
+        if (specialFormatCharacteristics == null) {
+            if (other.specialFormatCharacteristics != null)
+                return false;
+        } else if (!specialFormatCharacteristics.equals(other.specialFormatCharacteristics))
+            return false;
+        if (ybCbCr == null) {
+            if (other.ybCbCr != null)
+                return false;
+        } else if (!ybCbCr.equals(other.ybCbCr))
+            return false;
+        return true;
+    }
+
     public static class Builder {
         private String colorSpace;
         private ColorProfile colorProfile;

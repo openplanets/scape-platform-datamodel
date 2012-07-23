@@ -62,6 +62,67 @@ public class DigitalCameraCapture {
         return imageData;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((digitalCameraManufacturer == null) ? 0 : digitalCameraManufacturer.hashCode());
+        result = prime * result + ((digitalCameraModelName == null) ? 0 : digitalCameraModelName.hashCode());
+        result = prime * result + ((digitalCameraModelNumber == null) ? 0 : digitalCameraModelNumber.hashCode());
+        result = prime * result + ((digitalCameraModelSerialNo == null) ? 0 : digitalCameraModelSerialNo.hashCode());
+        result = prime * result + ((digitalCameraSensor == null) ? 0 : digitalCameraSensor.hashCode());
+        result = prime * result + ((gpsData == null) ? 0 : gpsData.hashCode());
+        result = prime * result + ((imageData == null) ? 0 : imageData.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DigitalCameraCapture other = (DigitalCameraCapture) obj;
+        if (digitalCameraManufacturer == null) {
+            if (other.digitalCameraManufacturer != null)
+                return false;
+        } else if (!digitalCameraManufacturer.equals(other.digitalCameraManufacturer))
+            return false;
+        if (digitalCameraModelName == null) {
+            if (other.digitalCameraModelName != null)
+                return false;
+        } else if (!digitalCameraModelName.equals(other.digitalCameraModelName))
+            return false;
+        if (digitalCameraModelNumber == null) {
+            if (other.digitalCameraModelNumber != null)
+                return false;
+        } else if (!digitalCameraModelNumber.equals(other.digitalCameraModelNumber))
+            return false;
+        if (digitalCameraModelSerialNo == null) {
+            if (other.digitalCameraModelSerialNo != null)
+                return false;
+        } else if (!digitalCameraModelSerialNo.equals(other.digitalCameraModelSerialNo))
+            return false;
+        if (digitalCameraSensor == null) {
+            if (other.digitalCameraSensor != null)
+                return false;
+        } else if (!digitalCameraSensor.equals(other.digitalCameraSensor))
+            return false;
+        if (gpsData == null) {
+            if (other.gpsData != null)
+                return false;
+        } else if (!gpsData.equals(other.gpsData))
+            return false;
+        if (imageData == null) {
+            if (other.imageData != null)
+                return false;
+        } else if (!imageData.equals(other.imageData))
+            return false;
+        return true;
+    }
+
     public static class Builder {
         private String digitalCameraManufacturer;
         private String digitalCameraModelName;

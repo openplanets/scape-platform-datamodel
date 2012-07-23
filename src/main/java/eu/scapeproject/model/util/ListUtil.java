@@ -1,6 +1,7 @@
 package eu.scapeproject.model.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class ListUtil {

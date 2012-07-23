@@ -56,6 +56,60 @@ public class ImageCaptureMetadata {
     public SourceInformation getSourceInformation() {
         return sourceInformation;
     }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((digitalCameraCapture == null) ? 0 : digitalCameraCapture.hashCode());
+        result = prime * result + ((generalCaptureInformation == null) ? 0 : generalCaptureInformation.hashCode());
+        result = prime * result + ((methodology == null) ? 0 : methodology.hashCode());
+        result = prime * result + ((orientation == null) ? 0 : orientation.hashCode());
+        result = prime * result + ((scannerCapture == null) ? 0 : scannerCapture.hashCode());
+        result = prime * result + ((sourceInformation == null) ? 0 : sourceInformation.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ImageCaptureMetadata other = (ImageCaptureMetadata) obj;
+        if (digitalCameraCapture == null) {
+            if (other.digitalCameraCapture != null)
+                return false;
+        } else if (!digitalCameraCapture.equals(other.digitalCameraCapture))
+            return false;
+        if (generalCaptureInformation == null) {
+            if (other.generalCaptureInformation != null)
+                return false;
+        } else if (!generalCaptureInformation.equals(other.generalCaptureInformation))
+            return false;
+        if (methodology == null) {
+            if (other.methodology != null)
+                return false;
+        } else if (!methodology.equals(other.methodology))
+            return false;
+        if (orientation != other.orientation)
+            return false;
+        if (scannerCapture == null) {
+            if (other.scannerCapture != null)
+                return false;
+        } else if (!scannerCapture.equals(other.scannerCapture))
+            return false;
+        if (sourceInformation == null) {
+            if (other.sourceInformation != null)
+                return false;
+        } else if (!sourceInformation.equals(other.sourceInformation))
+            return false;
+        return true;
+    }
+
+
 
     public static class Builder {
         private SourceInformation sourceInformation;

@@ -46,4 +46,47 @@ public class StatuteInformation {
         return statuteNotes;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((statuteCitation == null) ? 0 : statuteCitation.hashCode());
+        result = prime * result + ((statuteInformationDeterminationDate == null) ? 0 : statuteInformationDeterminationDate.hashCode());
+        result = prime * result + ((statuteJurisdiction == null) ? 0 : statuteJurisdiction.hashCode());
+        result = prime * result + ((statuteNotes == null) ? 0 : statuteNotes.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        StatuteInformation other = (StatuteInformation) obj;
+        if (statuteCitation == null) {
+            if (other.statuteCitation != null)
+                return false;
+        } else if (!statuteCitation.equals(other.statuteCitation))
+            return false;
+        if (statuteInformationDeterminationDate == null) {
+            if (other.statuteInformationDeterminationDate != null)
+                return false;
+        } else if (!statuteInformationDeterminationDate.equals(other.statuteInformationDeterminationDate))
+            return false;
+        if (statuteJurisdiction == null) {
+            if (other.statuteJurisdiction != null)
+                return false;
+        } else if (!statuteJurisdiction.equals(other.statuteJurisdiction))
+            return false;
+        if (statuteNotes == null) {
+            if (other.statuteNotes != null)
+                return false;
+        } else if (!statuteNotes.equals(other.statuteNotes))
+            return false;
+        return true;
+    }
+
 }

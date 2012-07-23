@@ -42,6 +42,49 @@ public class VideoTimeCode {
         return timeCodeType;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((timeCodeInitialValue == null) ? 0 : timeCodeInitialValue.hashCode());
+        result = prime * result + ((timeCodeRecordMethod == null) ? 0 : timeCodeRecordMethod.hashCode());
+        result = prime * result + ((timeCodeType == null) ? 0 : timeCodeType.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        VideoTimeCode other = (VideoTimeCode) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (timeCodeInitialValue == null) {
+            if (other.timeCodeInitialValue != null)
+                return false;
+        } else if (!timeCodeInitialValue.equals(other.timeCodeInitialValue))
+            return false;
+        if (timeCodeRecordMethod == null) {
+            if (other.timeCodeRecordMethod != null)
+                return false;
+        } else if (!timeCodeRecordMethod.equals(other.timeCodeRecordMethod))
+            return false;
+        if (timeCodeType == null) {
+            if (other.timeCodeType != null)
+                return false;
+        } else if (!timeCodeType.equals(other.timeCodeType))
+            return false;
+        return true;
+    }
+
     public static class Builder {
         private String id;
         private String timeCodeRecordMethod;

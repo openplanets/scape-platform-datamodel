@@ -43,6 +43,46 @@ public class FitsGeneratedMetadata {
         return toolVersion;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((any == null) ? 0 : any.hashCode());
+        result = prime * result + ((status == null) ? 0 : status.hashCode());
+        result = prime * result + ((toolName == null) ? 0 : toolName.hashCode());
+        result = prime * result + ((toolVersion == null) ? 0 : toolVersion.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        FitsGeneratedMetadata other = (FitsGeneratedMetadata) obj;
+        if (any == null) {
+            if (other.any != null)
+                return false;
+        } else if (!any.equals(other.any))
+            return false;
+        if (status != other.status)
+            return false;
+        if (toolName == null) {
+            if (other.toolName != null)
+                return false;
+        } else if (!toolName.equals(other.toolName))
+            return false;
+        if (toolVersion == null) {
+            if (other.toolVersion != null)
+                return false;
+        } else if (!toolVersion.equals(other.toolVersion))
+            return false;
+        return true;
+    }
+
     public static class Builder {
         private List<String> any;
         private FitsStatus status;

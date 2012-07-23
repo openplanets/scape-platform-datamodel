@@ -135,6 +135,127 @@ public class PhysicalData {
         return trackings;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((conditions == null) ? 0 : conditions.hashCode());
+        result = prime * result + ((dimensions == null) ? 0 : dimensions.hashCode());
+        result = prime * result + ((dispositions == null) ? 0 : dispositions.hashCode());
+        result = prime * result + ((ebuStorageMediaCodes == null) ? 0 : ebuStorageMediaCodes.hashCode());
+        result = prime * result + ((equalizations == null) ? 0 : equalizations.hashCode());
+        result = prime * result + ((generations == null) ? 0 : generations.hashCode());
+        result = prime * result + ((grooves == null) ? 0 : grooves.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((materials == null) ? 0 : materials.hashCode());
+        result = prime * result + ((noiseReductions == null) ? 0 : noiseReductions.hashCode());
+        result = prime * result + ((notes == null) ? 0 : notes.hashCode());
+        result = prime * result + ((physFormats == null) ? 0 : physFormats.hashCode());
+        result = prime * result + ((speedAdjustments == null) ? 0 : speedAdjustments.hashCode());
+        result = prime * result + ((speedNotes == null) ? 0 : speedNotes.hashCode());
+        result = prime * result + ((speeds == null) ? 0 : speeds.hashCode());
+        result = prime * result + ((trackFormats == null) ? 0 : trackFormats.hashCode());
+        result = prime * result + ((trackings == null) ? 0 : trackings.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        PhysicalData other = (PhysicalData) obj;
+        if (conditions == null) {
+            if (other.conditions != null)
+                return false;
+        } else if (!conditions.equals(other.conditions))
+            return false;
+        if (dimensions == null) {
+            if (other.dimensions != null)
+                return false;
+        } else if (!dimensions.equals(other.dimensions))
+            return false;
+        if (dispositions == null) {
+            if (other.dispositions != null)
+                return false;
+        } else if (!dispositions.equals(other.dispositions))
+            return false;
+        if (ebuStorageMediaCodes == null) {
+            if (other.ebuStorageMediaCodes != null)
+                return false;
+        } else if (!ebuStorageMediaCodes.equals(other.ebuStorageMediaCodes))
+            return false;
+        if (equalizations == null) {
+            if (other.equalizations != null)
+                return false;
+        } else if (!equalizations.equals(other.equalizations))
+            return false;
+        if (generations == null) {
+            if (other.generations != null)
+                return false;
+        } else if (!generations.equals(other.generations))
+            return false;
+        if (grooves == null) {
+            if (other.grooves != null)
+                return false;
+        } else if (!grooves.equals(other.grooves))
+            return false;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (materials == null) {
+            if (other.materials != null)
+                return false;
+        } else if (!materials.equals(other.materials))
+            return false;
+        if (noiseReductions == null) {
+            if (other.noiseReductions != null)
+                return false;
+        } else if (!noiseReductions.equals(other.noiseReductions))
+            return false;
+        if (notes == null) {
+            if (other.notes != null)
+                return false;
+        } else if (!notes.equals(other.notes))
+            return false;
+        if (physFormats == null) {
+            if (other.physFormats != null)
+                return false;
+        } else if (!physFormats.equals(other.physFormats))
+            return false;
+        if (speedAdjustments == null) {
+            if (other.speedAdjustments != null)
+                return false;
+        } else if (!speedAdjustments.equals(other.speedAdjustments))
+            return false;
+        if (speedNotes == null) {
+            if (other.speedNotes != null)
+                return false;
+        } else if (!speedNotes.equals(other.speedNotes))
+            return false;
+        if (speeds == null) {
+            if (other.speeds != null)
+                return false;
+        } else if (!speeds.equals(other.speeds))
+            return false;
+        if (trackFormats == null) {
+            if (other.trackFormats != null)
+                return false;
+        } else if (!trackFormats.equals(other.trackFormats))
+            return false;
+        if (trackings == null) {
+            if (other.trackings != null)
+                return false;
+        } else if (!trackings.equals(other.trackings))
+            return false;
+        return true;
+    }
+
     public static class Builder {
         private final String id;
         private List<String> ebuStorageMediaCodes;

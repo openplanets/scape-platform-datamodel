@@ -45,6 +45,49 @@ public class MessageDigest {
         return messageDigests;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((messageDigestAlgorithms == null) ? 0 : messageDigestAlgorithms.hashCode());
+        result = prime * result + ((messageDigestDateTimes == null) ? 0 : messageDigestDateTimes.hashCode());
+        result = prime * result + ((messageDigests == null) ? 0 : messageDigests.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        MessageDigest other = (MessageDigest) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (messageDigestAlgorithms == null) {
+            if (other.messageDigestAlgorithms != null)
+                return false;
+        } else if (!messageDigestAlgorithms.equals(other.messageDigestAlgorithms))
+            return false;
+        if (messageDigestDateTimes == null) {
+            if (other.messageDigestDateTimes != null)
+                return false;
+        } else if (!messageDigestDateTimes.equals(other.messageDigestDateTimes))
+            return false;
+        if (messageDigests == null) {
+            if (other.messageDigests != null)
+                return false;
+        } else if (!messageDigests.equals(other.messageDigests))
+            return false;
+        return true;
+    }
+
     public static class Builder {
         private final String id;
         private List<Date> messageDigestDateTimes;

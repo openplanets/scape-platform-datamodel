@@ -65,6 +65,67 @@ public class FitsMetadata extends TechnicalMetadata {
         return version;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((fileInfo == null) ? 0 : fileInfo.hashCode());
+        result = prime * result + ((fileStatus == null) ? 0 : fileStatus.hashCode());
+        result = prime * result + ((identification == null) ? 0 : identification.hashCode());
+        result = prime * result + ((metadata == null) ? 0 : metadata.hashCode());
+        result = prime * result + ((timeStamp == null) ? 0 : timeStamp.hashCode());
+        result = prime * result + ((toolOutput == null) ? 0 : toolOutput.hashCode());
+        result = prime * result + ((version == null) ? 0 : version.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        FitsMetadata other = (FitsMetadata) obj;
+        if (fileInfo == null) {
+            if (other.fileInfo != null)
+                return false;
+        } else if (!fileInfo.equals(other.fileInfo))
+            return false;
+        if (fileStatus == null) {
+            if (other.fileStatus != null)
+                return false;
+        } else if (!fileStatus.equals(other.fileStatus))
+            return false;
+        if (identification == null) {
+            if (other.identification != null)
+                return false;
+        } else if (!identification.equals(other.identification))
+            return false;
+        if (metadata == null) {
+            if (other.metadata != null)
+                return false;
+        } else if (!metadata.equals(other.metadata))
+            return false;
+        if (timeStamp == null) {
+            if (other.timeStamp != null)
+                return false;
+        } else if (!timeStamp.equals(other.timeStamp))
+            return false;
+        if (toolOutput == null) {
+            if (other.toolOutput != null)
+                return false;
+        } else if (!toolOutput.equals(other.toolOutput))
+            return false;
+        if (version == null) {
+            if (other.version != null)
+                return false;
+        } else if (!version.equals(other.version))
+            return false;
+        return true;
+    }
+
     public static class Builder {
         private FitsIdentification identification;
         private FitsFileInfo fileInfo;

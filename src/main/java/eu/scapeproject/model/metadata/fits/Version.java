@@ -42,6 +42,46 @@ public class Version {
         return value;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((status == null) ? 0 : status.hashCode());
+        result = prime * result + ((toolName == null) ? 0 : toolName.hashCode());
+        result = prime * result + ((toolVersion == null) ? 0 : toolVersion.hashCode());
+        result = prime * result + ((value == null) ? 0 : value.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Version other = (Version) obj;
+        if (status != other.status)
+            return false;
+        if (toolName == null) {
+            if (other.toolName != null)
+                return false;
+        } else if (!toolName.equals(other.toolName))
+            return false;
+        if (toolVersion == null) {
+            if (other.toolVersion != null)
+                return false;
+        } else if (!toolVersion.equals(other.toolVersion))
+            return false;
+        if (value == null) {
+            if (other.value != null)
+                return false;
+        } else if (!value.equals(other.value))
+            return false;
+        return true;
+    }
+
     public static class Builder {
         private String value;
         private FitsStatus status;

@@ -1,10 +1,15 @@
 package eu.scapeproject.model;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
+import javax.swing.text.html.parser.Entity;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
+
+import junit.framework.Assert;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -23,6 +28,16 @@ public class JaxbXMLSerializationTest {
         marshaller=JAXBContext.newInstance(FitsMetadata.class).createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new MetsNamespacePrefixMapper());
+    }
+    
+    @Test
+    public void testEntityDeserialization1() throws Exception {
+        IntellectualEntity orig = TestUtil.createRandomEntity();
+        ByteArrayOutputStream bos=new ByteArrayOutputStream();
+        MetsMarshaller.getInstance().serialize(orig, bos);
+        IntellectualEntity deserialized=MetsMarshaller.getInstance().deserialize(IntellectualEntity.class, new ByteArrayInputStream(bos.toByteArray()));
+        MetsMarshaller.getInstance().serialize(deserialized, System.out);
+        Assert.assertEquals(orig, deserialized);
     }
     
     @Test

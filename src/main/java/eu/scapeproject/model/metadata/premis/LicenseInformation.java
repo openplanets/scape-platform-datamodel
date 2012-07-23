@@ -40,4 +40,41 @@ public class LicenseInformation {
         return licenseTerms;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((licenseIdentifier == null) ? 0 : licenseIdentifier.hashCode());
+        result = prime * result + ((licenseNotes == null) ? 0 : licenseNotes.hashCode());
+        result = prime * result + ((licenseTerms == null) ? 0 : licenseTerms.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        LicenseInformation other = (LicenseInformation) obj;
+        if (licenseIdentifier == null) {
+            if (other.licenseIdentifier != null)
+                return false;
+        } else if (!licenseIdentifier.equals(other.licenseIdentifier))
+            return false;
+        if (licenseNotes == null) {
+            if (other.licenseNotes != null)
+                return false;
+        } else if (!licenseNotes.equals(other.licenseNotes))
+            return false;
+        if (licenseTerms == null) {
+            if (other.licenseTerms != null)
+                return false;
+        } else if (!licenseTerms.equals(other.licenseTerms))
+            return false;
+        return true;
+    }
+    
 }
