@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -23,7 +24,6 @@ import eu.scapeproject.model.File;
 import eu.scapeproject.model.Identifier;
 import eu.scapeproject.model.IntellectualEntity;
 import eu.scapeproject.model.Representation;
-import eu.scapeproject.model.UUIDIdentifier;
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
 import eu.scapeproject.model.metadata.ProvenanceMetadata;
 import eu.scapeproject.model.metadata.RightsMetadata;
@@ -175,7 +175,7 @@ public abstract class TestUtil {
     }
 
     public static AudioInfo createRandomAudioInfo() {
-        return new AudioInfo.Builder(new UUIDIdentifier().getValue())
+        return new AudioInfo.Builder(new Identifier(UUID.randomUUID().toString()).getValue())
                 .durations(createRandomTimeStamps())
                 .notes(createRandomStrings())
                 .numChannnels(createRandomNumerics())
@@ -194,14 +194,14 @@ public abstract class TestUtil {
     }
 
     public static AudioMDMetadata createRandomAudioMetadata() {
-        Audio audioMD = new Audio.Builder(new UUIDIdentifier().getValue())
+        Audio audioMD = new Audio.Builder(new Identifier(UUID.randomUUID().toString()).getValue())
                 .analogDigitalFlag(AnalogDigitalFlag.ANALOG)
                 .audioInfos(createRandomAudioInfos())
                 .calibrateInfos(createRandomCalibrateInfos())
                 .fileData(createRandomFileDatas())
                 .physicalData(createRanomdPhysicalDatas())
                 .build();
-        Audio audioSrc = new Audio.Builder(new UUIDIdentifier().getValue())
+        Audio audioSrc = new Audio.Builder(new Identifier(UUID.randomUUID().toString()).getValue())
                 .analogDigitalFlag(AnalogDigitalFlag.ANALOG)
                 .audioInfos(createRandomAudioInfos())
                 .calibrateInfos(createRandomCalibrateInfos())
@@ -215,7 +215,7 @@ public abstract class TestUtil {
     }
 
     public static BitStream createRandomBitStream() {
-        return new BitStream(new UUIDIdentifier(), randomAlphabetic(16), Type.STREAM, createRandomTechnicalMetadata());
+        return new BitStream(new Identifier(UUID.randomUUID().toString()), randomAlphabetic(16), Type.STREAM, createRandomTechnicalMetadata());
     }
 
     public static List<BitStream> createRandomBitStreams() {
@@ -228,7 +228,7 @@ public abstract class TestUtil {
     }
 
     public static CalibrationInfo createRandomCalibrateInfo() {
-        return new CalibrationInfo.Builder(new UUIDIdentifier().getValue())
+        return new CalibrationInfo.Builder(new Identifier(UUID.randomUUID().toString()).getValue())
                 .calibrationExInts(createRandomStrings())
                 .calibrationLocations(createRandomStrings())
                 .calibrationTimeStamps(createRandomTimeStamps())
@@ -298,7 +298,7 @@ public abstract class TestUtil {
     }
 
     public static Compression createRandomCompression() {
-        return new Compression.Builder(new UUIDIdentifier().getValue())
+        return new Compression.Builder(new Identifier(UUID.randomUUID().toString()).getValue())
                 .codecCreatorApps(createRandomStrings())
                 .codecCreatorAppVersions(createRandomNumerics())
                 .codecNames(createRandomStrings())
@@ -341,7 +341,7 @@ public abstract class TestUtil {
         Random rnd = new Random();
         int max = rnd.nextInt(9) + 1;
         for (int i = 0; i < max; i++) {
-            builder.constributor(createRandomAgent());
+            builder.contributor(createRandomAgent());
         }
         max = rnd.nextInt(9) + 1;
         for (int i = 0; i < max; i++) {
@@ -353,7 +353,7 @@ public abstract class TestUtil {
         }
         max = rnd.nextInt(9) + 1;
         for (int i = 0; i < max; i++) {
-            builder.constributor(createRandomAgent());
+            builder.contributor(createRandomAgent());
         }
         max = rnd.nextInt(9) + 1;
         for (int i = 0; i < max; i++) {
@@ -452,7 +452,7 @@ public abstract class TestUtil {
 
     public static IntellectualEntity createRandomEntity() {
         return new IntellectualEntity.Builder()
-                .identifier(new UUIDIdentifier())
+                .identifier(new Identifier(UUID.randomUUID().toString()))
                 .alternativeIdentifiers(createRandomIdentifiers())
                 .descriptive(createRandomDescriptive())
                 .representations(createRandomRepresentations())
@@ -461,7 +461,7 @@ public abstract class TestUtil {
 
     public static Event createRandomEvent() {
         return new Event.Builder()
-                .identifier(new UUIDIdentifier())
+                .identifier(new Identifier(UUID.randomUUID().toString()))
                 .linkingAgents(Arrays.asList(createRandomAgent()))
                 .build();
     }
@@ -476,7 +476,7 @@ public abstract class TestUtil {
     }
 
     public static FileData createRandomFileData() {
-        return new FileData.Builder(new UUIDIdentifier().getValue())
+        return new FileData.Builder(new Identifier(UUID.randomUUID().toString()).getValue())
                 .audiBlockSizes(createRandomIntegers())
                 .audioDataEncodings(createRandomStrings())
                 .audioDataEncodings(createRandomStrings())
@@ -522,7 +522,7 @@ public abstract class TestUtil {
                     .technical(createRandomTechnicalMetadata())
                     .uri(URI.create("http://example.com/" + randomAlphabetic(16)))
                     .bitStreams(createRandomBitStreams())
-                    .identifier(new UUIDIdentifier())
+                    .identifier(new Identifier(UUID.randomUUID().toString()))
                     .build();
             files.add(f);
         }
@@ -669,7 +669,7 @@ public abstract class TestUtil {
         List<Identifier> identifiers = new ArrayList<Identifier>();
         int amount = rand.nextInt(2) + 1;
         for (int i = 0; i < amount; i++) {
-            identifiers.add(new UUIDIdentifier());
+            identifiers.add(new Identifier(UUID.randomUUID().toString()));
         }
         return identifiers;
     }
@@ -720,7 +720,7 @@ public abstract class TestUtil {
 
     public static SourceInformation createRandomImageSource() {
         return new SourceInformation.Builder()
-                .sourceIdentifiers(Arrays.asList(new UUIDIdentifier()))
+                .sourceIdentifiers(Arrays.asList(new Identifier(UUID.randomUUID().toString())))
                 .sourceType("photograph")
                 .sourceXDiemnsionUnit(SourceDimension.CENTIMETERS)
                 .sourceXDimension(rand.nextDouble() * 1000)
@@ -742,14 +742,14 @@ public abstract class TestUtil {
     }
 
     public static LicenseInformation createRandomLicenseInformation() {
-        return new LicenseInformation(new UUIDIdentifier(), randomAlphabetic(16), Arrays.asList(randomAlphabetic(16)));
+        return new LicenseInformation(new Identifier(UUID.randomUUID().toString()), randomAlphabetic(16), Arrays.asList(randomAlphabetic(16)));
     }
 
     public static List<LinkingAgent> createRandomLinkingAgents() {
         List<LinkingAgent> agents = new ArrayList<LinkingAgent>();
         int num = rand.nextInt(2) + 1;
         while (num-- > 0) {
-            agents.add(new LinkingAgent(new UUIDIdentifier(), Arrays.asList("USER")));
+            agents.add(new LinkingAgent(new Identifier(UUID.randomUUID().toString()), Arrays.asList("USER")));
 
         }
         return agents;
@@ -759,14 +759,14 @@ public abstract class TestUtil {
         List<LinkingObject> objs = new ArrayList<LinkingObject>();
         int num = rand.nextInt(2) + 1;
         while (num-- > 0) {
-            objs.add(new LinkingObject(new UUIDIdentifier(), Arrays.asList("SOURCE")));
+            objs.add(new LinkingObject(new Identifier(UUID.randomUUID().toString()), Arrays.asList("SOURCE")));
 
         }
         return objs;
     }
 
     public static Material createRandomMaterial() {
-        return new Material.Builder(new UUIDIdentifier().getValue())
+        return new Material.Builder(new Identifier(UUID.randomUUID().toString()).getValue())
                 .baseMaterials(createRandomStrings())
                 .activeLayers(createRandomStrings())
                 .baseMaterials(createRandomStrings())
@@ -790,7 +790,7 @@ public abstract class TestUtil {
     }
 
     public static MessageDigest createRandomMessageDigest() {
-        return new MessageDigest.Builder(new UUIDIdentifier().getValue())
+        return new MessageDigest.Builder(new Identifier(UUID.randomUUID().toString()).getValue())
                 .messageDigestAlgorithms(createRandomStrings())
                 .messageDigestDateTimes(Arrays.asList(createRandomDate()))
                 .messageDigests(createRandomStrings())
@@ -838,7 +838,7 @@ public abstract class TestUtil {
     }
 
     public static PhysicalData createRandomPhysicalData() {
-        return new PhysicalData.Builder(new UUIDIdentifier().getValue())
+        return new PhysicalData.Builder(new Identifier(UUID.randomUUID().toString()).getValue())
                 .conditions(createRandomStrings())
                 .dimensions(createRandomDimensions())
                 .dispositions(createRandomStrings())
@@ -864,7 +864,7 @@ public abstract class TestUtil {
 
     public static Representation createRandomRepresentation(TechnicalMetadata.MetadataType type) {
         Representation.Builder b = new Representation.Builder()
-        		.identifier(new UUIDIdentifier())
+        		.identifier(new Identifier(UUID.randomUUID().toString()))
                 .provenance(createRandomProvenance())
                 .source(createRandomDescriptive())
                 .rights(createRandomRights())
@@ -941,7 +941,7 @@ public abstract class TestUtil {
             .compressionRatio(rand.nextFloat())
             .frame(createRandomVideoFrame())
             .frameRate(createRandomVideoDataRate())
-            .id(new UUIDIdentifier().getValue())
+            .id(new Identifier(UUID.randomUUID().toString()).getValue())
             .num(rand.nextInt())
             .quality(randomAlphabetic(16))
             .sampleCount(rand.nextInt())
@@ -972,7 +972,7 @@ public abstract class TestUtil {
     }
 
     public static VideoTrackingInfo createRandomVideoTrackingInfo() {
-        return new VideoTrackingInfo(new UUIDIdentifier().getValue(), randomAlphabetic(16), randomAlphabetic(16));
+        return new VideoTrackingInfo(new Identifier(UUID.randomUUID().toString()).getValue(), randomAlphabetic(16), randomAlphabetic(16));
     }
 
     public static List<VideoTimeCode> createRandomTimeCodes() {
@@ -986,7 +986,7 @@ public abstract class TestUtil {
 
     public static VideoTimeCode createRandomVideoTimeCode() {
         return new VideoTimeCode.Builder()
-            .id(new UUIDIdentifier().getValue())
+            .id(new Identifier(UUID.randomUUID().toString()).getValue())
             .timeCodeInitialValue(randomAlphabetic(16))
             .timeCodeRecordMethod(randomAlphabetic(16))
             .timeCodeType(randomAlphabetic(16))
@@ -1010,7 +1010,7 @@ public abstract class TestUtil {
         return new VideoFrame.Builder()
             .dar(randomAlphabetic(15))
             .frameRate(rand.nextFloat())
-            .id(new UUIDIdentifier().getValue())
+            .id(new Identifier(UUID.randomUUID().toString()).getValue())
             .par(rand.nextFloat())
             .pixelsHorizontal(rand.nextInt())
             .pixelsVertical(rand.nextInt())
@@ -1047,7 +1047,7 @@ public abstract class TestUtil {
 
     public static VideoMessageDigest createRandomVideoMessageDigest() {
         return new VideoMessageDigest.Builder()
-            .id(new UUIDIdentifier().getValue())
+            .id(new Identifier(UUID.randomUUID().toString()).getValue())
             .messageDigest(randomAlphabetic(16))
             .messageDigestAlgorithm(randomAlphabetic(16))
             .messageDigestDateTime(new Date())
@@ -1079,7 +1079,7 @@ public abstract class TestUtil {
             .codecCreatorAppVersion(randomNumeric(4))
             .codecName(randomAlphabetic(16))
             .codecQuality(randomAlphabetic(16))
-            .id(new UUIDIdentifier().getValue())
+            .id(new Identifier(UUID.randomUUID().toString()).getValue())
             .build();
     }
 
@@ -1120,7 +1120,7 @@ public abstract class TestUtil {
                     .linkingObjects(createRandomLinkingObjects())
                     .rightsBasis(randomAlphabetic(16))
                     .rightsGranted(createRandomRightsGranted())
-                    .rightsStatementIdentifier(new UUIDIdentifier())
+                    .rightsStatementIdentifier(new Identifier(UUID.randomUUID().toString()))
                     .statuteInformation(createRandomStatuteInfomation())
                     .build();
             statements.add(st);
@@ -1229,7 +1229,7 @@ public abstract class TestUtil {
     }
 
     public static TrackingInfo createRandomTrackingInfo() {
-        return new TrackingInfo(new UUIDIdentifier().getValue(), createRandomStrings(), createRandomStrings());
+        return new TrackingInfo(new Identifier(UUID.randomUUID().toString()).getValue(), createRandomStrings(), createRandomStrings());
     }
 
     public static List<TrackingInfo> createRandomTrackingInfos() {

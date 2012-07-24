@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import eu.scapeproject.dto.mets.MetsAMDSec;
 import eu.scapeproject.dto.mets.MetsAgent;
@@ -28,18 +29,12 @@ import eu.scapeproject.dto.mets.MetsStream;
 import eu.scapeproject.dto.mets.MetsStructMap;
 import eu.scapeproject.dto.mets.MetsTechMD;
 import eu.scapeproject.dto.mets.MetsXMLData;
-import eu.scapeproject.dto.mets.MetsDiv.Builder;
 import eu.scapeproject.model.Agent;
 import eu.scapeproject.model.BitStream;
 import eu.scapeproject.model.File;
 import eu.scapeproject.model.Identifier;
 import eu.scapeproject.model.IntellectualEntity;
 import eu.scapeproject.model.Representation;
-import eu.scapeproject.model.UUIDIdentifier;
-import eu.scapeproject.model.metadata.DescriptiveMetadata;
-import eu.scapeproject.model.metadata.ProvenanceMetadata;
-import eu.scapeproject.model.metadata.RightsMetadata;
-import eu.scapeproject.model.metadata.TechnicalMetadata;
 import eu.scapeproject.model.metadata.audiomd.AudioMDMetadata;
 import eu.scapeproject.model.metadata.dc.DCMetadata;
 import eu.scapeproject.model.metadata.fits.FitsMetadata;
@@ -74,7 +69,7 @@ public abstract class MetsUtil {
 		structMaps.add(new MetsStructMap.Builder().addDivision(entityDiv.build()).build());
 
 		docBuilder.dmdSec(dmdSec)
-				.id(new UUIDIdentifier().getValue())
+				.id(new Identifier(UUID.randomUUID().toString()).getValue())
 				.addHeader(getMetsHeader(entity))
 				.amdSecs(new ArrayList<MetsAMDSec>(amdSecs.values()))
 				.fileSecs(fileSecs)
@@ -102,26 +97,30 @@ public abstract class MetsUtil {
 	private static void addSubDivs(Representation r, MetsDiv.Builder entityDiv, Map<Object, MetsAMDSec> amdSecs) {
 		MetsDiv.Builder repDiv = new MetsDiv.Builder()
 				.label(r.getTitle())
-				.id(new UUIDIdentifier().getValue())
+				.type("Representation")
+				.id(new Identifier(UUID.randomUUID().toString()).getValue())
 				.admId(amdSecs.get(r).getId());
+		for (File f:r.getFiles()){
+			repDiv.addFilePointer(new MetsFilePtr.Builder().fileId(amdSecs.get(f).getId()).build());
+		}
 		entityDiv.addSubDiv(repDiv.build());
 	}
 
 	private static void addFileSecs(Representation r, Map<Object, MetsAMDSec> amdSecs, List<MetsFileSec> fileSecs) {
-		MetsFileGrp.Builder group = new MetsFileGrp.Builder(new UUIDIdentifier().getValue())
+		MetsFileGrp.Builder group = new MetsFileGrp.Builder(new Identifier(UUID.randomUUID().toString()).getValue())
 				.admId(amdSecs.get(r).getId());
 		for (File f : r.getFiles()) {
 			MetsAMDSec.Builder adm = new MetsAMDSec.Builder()
 					.id(f.getIdentifier().getValue());
 			amdSecs.put(f, adm.build());
 			MetsFile.Builder metsFile = new MetsFile.Builder(f.getIdentifier().getValue());
-			MetsFileLocation loc = new MetsFileLocation.Builder(new UUIDIdentifier().getValue())
+			MetsFileLocation loc = new MetsFileLocation.Builder(new Identifier(UUID.randomUUID().toString()).getValue())
 					.href(f.getUri())
 					.build();
 			metsFile.addFileLocation(loc);
 			addBitstreams(f, metsFile, amdSecs);
 		}
-		fileSecs.add(new MetsFileSec(new UUIDIdentifier().getValue(), Arrays.asList(group.build())));
+		fileSecs.add(new MetsFileSec(new Identifier(UUID.randomUUID().toString()).getValue(), Arrays.asList(group.build())));
 	}
 
 	private static void addBitstreams(File f, MetsFile.Builder metsFile, Map<Object, MetsAMDSec> amdSecs) {
@@ -135,7 +134,7 @@ public abstract class MetsUtil {
 			// add a MetsStream object to the MetsFile
 			MetsStream stream = new MetsStream.Builder()
 					.amdMdId(bs.getIdentifier().getValue())
-					.id(new UUIDIdentifier().getValue())
+					.id(new Identifier(UUID.randomUUID().toString()).getValue())
 					.type(bs.getType().name())
 					.build();
 			metsFile.addStream(stream);
@@ -144,7 +143,7 @@ public abstract class MetsUtil {
 
 	public static MetsDiv getDiv(String type, String id) {
 		return new MetsDiv.Builder()
-				.id(new UUIDIdentifier().getValue())
+				.id(new Identifier(UUID.randomUUID().toString()).getValue())
 				.type(type)
 				.admId(id)
 				.build();
@@ -156,7 +155,7 @@ public abstract class MetsUtil {
 		}
 		List<MetsAMDSec> amdSecs = new ArrayList<MetsAMDSec>();
 		for (Representation r : representations) {
-			Identifier id = new UUIDIdentifier();
+			Identifier id = new Identifier(UUID.randomUUID().toString());
 			idMap.put(r, id.getValue());
 		}
 		return amdSecs;
@@ -187,7 +186,7 @@ public abstract class MetsUtil {
 	}
 
 	public static MetsHeader getMetsHeader(IntellectualEntity entity) {
-		MetsHeader.Builder hdrBuilder = new MetsHeader.Builder(new UUIDIdentifier().getValue())
+		MetsHeader.Builder hdrBuilder = new MetsHeader.Builder(new Identifier(UUID.randomUUID().toString()).getValue())
 				.agents(getAgentList((DCMetadata) entity.getDescriptive()))
 				.alternativeIdentifiers(getAlternativeIdentifiers(entity));
 		return hdrBuilder.build();
@@ -204,6 +203,9 @@ public abstract class MetsUtil {
 					altIds.add(new Identifier(metsAltId.getType(), metsAltId.getValue()));
 				}
 			}
+		}
+		if (altIds.size() == 0){
+			return null;
 		}
 		return altIds;
 	}
@@ -245,8 +247,8 @@ public abstract class MetsUtil {
 
 	public static MetsDMDSec convertDCMetadata(DCMetadata dc) {
 
-		final String dmdId = "dmd-" + new UUIDIdentifier().getValue();
-		final String admId = "adm-" + new UUIDIdentifier().getValue();
+		final String dmdId = "dmd-" + new Identifier(UUID.randomUUID().toString()).getValue();
+		final String admId = "adm-" + new Identifier(UUID.randomUUID().toString()).getValue();
 		final Date created = dc.getDate().get(0);
 
 		return new MetsDMDSec.Builder(dmdId)
@@ -261,7 +263,7 @@ public abstract class MetsUtil {
 		if (dc.getConstributors() != null) {
 			for (final Agent contributor : dc.getConstributors()) {
 				final MetsAgent agent = new MetsAgent.Builder()
-						.id(new UUIDIdentifier().getValue())
+						.id(new Identifier(UUID.randomUUID().toString()).getValue())
 						.name(contributor.getName())
 						.role(contributor.getRole())
 						.otherRole(contributor.getOtherRole())
@@ -275,7 +277,7 @@ public abstract class MetsUtil {
 		if (dc.getCreator() != null) {
 			for (final Agent creator : dc.getCreator()) {
 				final MetsAgent agent = new MetsAgent.Builder()
-						.id(new UUIDIdentifier().getValue())
+						.id(new Identifier(UUID.randomUUID().toString()).getValue())
 						.name(creator.getName())
 						.role(creator.getRole())
 						.otherRole(creator.getOtherRole())
@@ -291,41 +293,42 @@ public abstract class MetsUtil {
 
 	public static List<Representation> getRepresentations(MetsDocument doc) {
 		List<Representation> reps = new ArrayList<Representation>();
-		// for (MetsAMDSec amdSec : doc.getAmdSecs()) {
-		// Representation.Builder repBuilder = new Representation.Builder()
-		// .technical((TechnicalMetadata) amdSec.getTechnicalMetadata().getMetadataWrapper().getXmlData().getData())
-		// .source((DescriptiveMetadata) amdSec.getSourceMetadata().getMetadataWrapper().getXmlData().getData())
-		// .rights((RightsMetadata) amdSec.getRightsMetadata().getMetadataWrapper().getXmlData().getData())
-		// .provenance((ProvenanceMetadata) amdSec.getProvenanceMetadata().getMetadataWrapper().getXmlData().getData())
-		// .files(getFilesForRepresentation(doc, amdSec.getId()));
-		// reps.add(repBuilder.build());
-		// }
 		for (MetsStructMap structMap : doc.getStructMaps()) {
 			for (MetsDiv div : structMap.getDivisions()) {
-				if (div.getType().equals("Representation")) {
-					Representation.Builder repBuilder = new Representation.Builder()
-							.identifier(new Identifier(div.getId()));
-					reps.add(repBuilder.build());
+				if (div.getType().equals("Intellectual entity")) {
+					reps.addAll(getRepresentations(div,doc));
 				}
 			}
 		}
 		return reps;
 	}
-
-	public static List<File> getFilesForRepresentation(MetsDocument doc, String id) {
-		List<File> files = new ArrayList<File>();
-		for (MetsFileSec fileSec : doc.getFileSecs()) {
-			for (MetsFileGrp fileGrp : fileSec.getFileGroups()) {
-				if (fileGrp.getId().equals(id)) {
-					for (MetsFile mf : fileGrp.getFiles()) {
-						files.add(new File.Builder()
-								.uri(mf.getFileLocations().get(0).getHref())
-								.build());
-					}
-				}
-			}
+	
+	public static List<File> getFiles(List<MetsFilePtr> pointers,MetsDocument doc){
+		if (pointers == null) {
+			return null;
+		}
+		List<File> files=new ArrayList<File>();
+		for (MetsFilePtr ptr:pointers){
+			File.Builder file=new File.Builder()
+				.identifier(new Identifier(ptr.getFileId()));
+			files.add(file.build());
 		}
 		return files;
 	}
-
+	
+	public static List<Representation> getRepresentations(MetsDiv div,MetsDocument doc){
+		List<Representation> reps=new ArrayList<Representation>();
+		if (div.getType().equals("Representation")){
+			Representation.Builder repBuilder = new Representation.Builder()
+			.identifier(new Identifier(div.getAdmId()));
+			repBuilder.files(getFiles(div.getFilePointers(), doc));
+			reps.add(repBuilder.build());
+		}
+		if (div.getSubDivs() != null){
+			for (MetsDiv subDiv:div.getSubDivs()){
+				reps.addAll(getRepresentations(subDiv,doc));
+			}
+		}
+		return reps;
+	}
 }

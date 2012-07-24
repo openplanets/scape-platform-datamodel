@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import eu.scapeproject.model.Agent;
 import eu.scapeproject.model.jaxb.DateAdapter;
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
+import eu.scapeproject.model.util.ListUtil;
 
 @XmlRootElement(name="dublin-core")
 public class DCMetadata extends DescriptiveMetadata {
@@ -63,7 +64,7 @@ public class DCMetadata extends DescriptiveMetadata {
         this.types = builder.types;
         this.sources = builder.sources;
         this.relations = builder.relations;
-        this.contributors = builder.constributors;
+        this.contributors = builder.contributors;
         this.rights = builder.rights;
     }
 
@@ -171,7 +172,7 @@ public class DCMetadata extends DescriptiveMetadata {
         if (dates == null) {
             if (other.dates != null)
                 return false;
-        } else if (!dates.equals(other.dates))
+        } else if (!ListUtil.compareDates(dates, other.dates))
             return false;
         if (descriptions == null) {
             if (other.descriptions != null)
@@ -227,20 +228,20 @@ public class DCMetadata extends DescriptiveMetadata {
     }
 
     public static class Builder {
-        private List<Date> dates = new ArrayList<Date>();
-        private List<String> titles = new ArrayList<String>();
-        private List<Agent> creators = new ArrayList<Agent>();
-        private List<String> coverages = new ArrayList<String>();;
-        private List<String> descriptions = new ArrayList<String>();;
-        private List<String> formats = new ArrayList<String>();;
-        private List<String> languages = new ArrayList<String>();;
-        private List<String> publishers = new ArrayList<String>();;
-        private List<String> subjects = new ArrayList<String>();;
-        private List<String> types = new ArrayList<String>();;
-        private List<String> sources = new ArrayList<String>();;
-        private List<String> relations = new ArrayList<String>();;
-        private List<Agent> constributors = new ArrayList<Agent>();;
-        private List<String> rights = new ArrayList<String>();;
+        private List<Date> dates;
+        private List<String> titles;
+        private List<Agent> creators;
+        private List<String> coverages;
+        private List<String> descriptions;
+        private List<String> formats;
+        private List<String> languages;
+        private List<String> publishers;
+        private List<String> subjects;
+        private List<String> types;
+        private List<String> sources;
+        private List<String> relations;
+        private List<Agent> contributors;
+        private List<String> rights;
 
         public Builder() {
         	super();
@@ -259,7 +260,7 @@ public class DCMetadata extends DescriptiveMetadata {
         	this.types=md.getType();
         	this.sources=md.getSources();
         	this.relations=md.getRelations();
-        	this.constributors=md.getConstributors();
+        	this.contributors=md.getConstributors();
         	this.rights=md.getRights();
         }
         
@@ -267,72 +268,114 @@ public class DCMetadata extends DescriptiveMetadata {
             return new DCMetadata(this);
         }
 
-        public Builder constributor(Agent constributor) {
-            this.constributors.add(constributor);
+        public Builder contributor(Agent constributor) {
+        	if (contributors == null){
+        		contributors=new ArrayList<Agent>();
+        	}
+            this.contributors.add(constributor);
             return this;
         }
 
         public Builder coverage(String coverage) {
+        	if (this.coverages == null){
+        		this.coverages = new ArrayList<String>();
+        	}
             this.coverages.add(coverage);
             return this;
         }
 
         public Builder creator(Agent creator) {
+        	if (this.creators == null){
+        		this.creators = new ArrayList<Agent>();
+        	}
             this.creators.add(creator);
             return this;
         }
 
         public Builder date(Date date) {
-            this.dates.add(date);
+        	if (this.dates == null){
+        		this.dates = new ArrayList<Date>();
+        	}
+        	this.dates.add(date);
             return this;
         }
 
         public Builder description(String description) {
+        	if (this.descriptions == null){
+        		this.descriptions = new ArrayList<String>();
+        	}
             this.descriptions.add(description);
             return this;
         }
 
         public Builder format(String format) {
+        	if (this.formats == null){
+        		this.formats = new ArrayList<String>();
+        	}
             this.formats.add(format);
             return this;
         }
 
         public Builder language(String language) {
+        	if (this.languages== null){
+        		this.languages = new ArrayList<String>();
+        	}
             this.languages.add(language);
             return this;
         }
 
         public Builder publisher(String publisher) {
+        	if (this.publishers == null){
+        		this.publishers = new ArrayList<String>();
+        	}
             this.publishers.add(publisher);
             return this;
         }
 
         public Builder relations(String relations) {
+        	if (this.relations == null){
+        		this.relations = new ArrayList<String>();
+        	}
             this.relations.add(relations);
             return this;
         }
 
         public Builder rights(String rights) {
+        	if (this.rights == null){
+        		this.rights = new ArrayList<String>();
+        	}
             this.rights.add(rights);
             return this;
         }
 
         public Builder sources(String sources) {
+        	if (this.sources == null){
+        		this.sources = new ArrayList<String>();
+        	}
             this.sources.add(sources);
             return this;
         }
 
         public Builder subject(String subject) {
+        	if (this.subjects == null){
+        		this.subjects = new ArrayList<String>();
+        	}
             this.subjects.add(subject);
             return this;
         }
 
         public Builder title(String title) {
+        	if (this.titles == null){
+        		this.titles = new ArrayList<String>();
+        	}
             this.titles.add(title);
             return this;
         }
 
         public Builder type(String type) {
+        	if (this.types == null){
+        		this.types = new ArrayList<String>();
+        	}
             this.types.add(type);
             return this;
         }

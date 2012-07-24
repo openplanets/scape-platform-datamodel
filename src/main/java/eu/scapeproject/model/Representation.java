@@ -14,6 +14,7 @@ import eu.scapeproject.model.metadata.fits.FitsMetadata;
 import eu.scapeproject.model.metadata.mix.NisoMixMetadata;
 import eu.scapeproject.model.metadata.premis.PremisProvenanceMetadata;
 import eu.scapeproject.model.metadata.textmd.TextMDMetadata;
+import eu.scapeproject.model.util.ListUtil;
 
 public class Representation {
 	private final Identifier identifier;
@@ -99,7 +100,7 @@ public class Representation {
 		if (files == null) {
 			if (other.files != null)
 				return false;
-		} else if (!files.equals(other.files))
+		} else if (!ListUtil.compareFiles(files, other.files))
 			return false;
 		if (provenance == null) {
 			if (other.provenance != null)

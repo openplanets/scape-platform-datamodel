@@ -41,7 +41,7 @@ public class JaxbXMLSerializationTest {
     }
     
     @Test
-    public void testEntityDeserialization2() throws Exception {
+    public void testMinimalEntityDeserialization() throws Exception {
     	IntellectualEntity orig=TestUtil.createMinimalEntity();
     	ByteArrayOutputStream bos=new ByteArrayOutputStream();
     	MetsMarshaller.getInstance().serialize(orig, bos);
