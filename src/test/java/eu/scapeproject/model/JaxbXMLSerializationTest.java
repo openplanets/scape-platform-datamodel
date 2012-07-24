@@ -36,10 +36,20 @@ public class JaxbXMLSerializationTest {
         ByteArrayOutputStream bos=new ByteArrayOutputStream();
         MetsMarshaller.getInstance().serialize(orig, bos);
         IntellectualEntity deserialized=MetsMarshaller.getInstance().deserialize(IntellectualEntity.class, new ByteArrayInputStream(bos.toByteArray()));
-        MetsMarshaller.getInstance().serialize(deserialized, System.out);
+//        MetsMarshaller.getInstance().serialize(deserialized, System.out);
         Assert.assertEquals(orig, deserialized);
     }
     
+    @Test
+    public void testEntityDeserialization2() throws Exception {
+    	IntellectualEntity orig=TestUtil.createMinimalEntity();
+    	ByteArrayOutputStream bos=new ByteArrayOutputStream();
+    	MetsMarshaller.getInstance().serialize(orig, bos);
+    	System.out.println(bos.toString("UTF-8"));
+    	IntellectualEntity desr=MetsMarshaller.getInstance().deserialize(IntellectualEntity.class, new ByteArrayInputStream(bos.toByteArray()));
+    	Assert.assertEquals(orig, desr);
+    }
+
     @Test
     public void testEntitySerialization2() throws Exception {
     	MetsMarshaller.getInstance().serialize(TestUtil.createMinimalEntity(), System.out);
