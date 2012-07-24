@@ -41,6 +41,11 @@ public class JaxbXMLSerializationTest {
     }
     
     @Test
+    public void testEntitySerialization2() throws Exception {
+    	MetsMarshaller.getInstance().serialize(TestUtil.createMinimalEntity(), System.out);
+    }
+    
+    @Test
     public void testEntitySerialization1() throws Exception{
         java.io.File xmlFile=new java.io.File("target/mets_entity_1.xml");
         IntellectualEntity entity=TestUtil.createRandomEntity();

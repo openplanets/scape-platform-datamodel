@@ -104,16 +104,26 @@ public abstract class MetsUtil {
                 .href(f.getUri())
                 .build();
             metsFile.addFileLocation(loc);
-            addBitstreams(f,amdSecs);
+            addBitstreams(f,metsFile,amdSecs);
         }
         fileSecs.add(new MetsFileSec(new UUIDIdentifier().getValue(), Arrays.asList(group.build())));
     }
 
-    private static void addBitstreams(File f, Map<Object, MetsAMDSec> amdSecs) {
+    private static void addBitstreams(File f, MetsFile.Builder metsFile, Map<Object, MetsAMDSec> amdSecs) {
+    	if (f.getBitStreams() == null){
+    		return;
+    	}
         for (BitStream bs:f.getBitStreams()){
             MetsAMDSec.Builder adm=new MetsAMDSec.Builder()
                 .id(bs.getIdentifier().getValue());
             amdSecs.put(bs, adm.build());
+            // add a MetsStream object to the MetsFile
+            MetsStream stream=new MetsStream.Builder()
+            	.amdMdId(bs.getIdentifier().getValue())
+            	.id(new UUIDIdentifier().getValue())
+            	.type(bs.getType().name())
+            	.build();
+            metsFile.addStream(stream);
         }
     }
 

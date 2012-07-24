@@ -129,7 +129,43 @@ public abstract class TestUtil {
         return new GeneralCaptureInformation(new Date(Math.abs(rand.nextLong())), CaptureDevice.DIGITAL_STILL_CAMERA, Arrays.asList("Digital Camera"));
     }
 
-    public static Agent createRandomAgent() {
+
+    
+    public static IntellectualEntity createMinimalEntity(){
+    	return new IntellectualEntity.Builder()
+    		.identifier(new Identifier("minimal-1"))
+    		.descriptive(createMinimalDC())
+    		.representations(Arrays.asList(createMinimalRepresentation()))
+    		.build();
+    }
+    
+    public static Representation createMinimalRepresentation() {
+    	return new Representation.Builder()
+    		.identifier(new Identifier("minimal-representation-1"))
+    		.file(createMinimalFile())
+    		.build();
+    }
+
+
+
+	public static File createMinimalFile() {
+		return new File.Builder()
+			.identifier(new Identifier("minimal-file-1"))
+			.uri(URI.create("http://example.com/minimal"))
+			.build();
+	}
+
+
+
+	public static DCMetadata createMinimalDC() {
+    	return new DCMetadata.Builder()
+    		.title("minimal-entity")
+    		.date(new Date())
+    		.build();
+    }
+
+
+	public static Agent createRandomAgent() {
         return new Agent.Builder()
                 .name("Agent-" + randomAlphabetic(16))
                 .note("no notes")
@@ -179,7 +215,7 @@ public abstract class TestUtil {
     }
 
     public static BitStream createRandomBitStream() {
-        return new BitStream(randomAlphabetic(16), Type.STREAM, createRandomTechnicalMetadata());
+        return new BitStream(new UUIDIdentifier(), randomAlphabetic(16), Type.STREAM, createRandomTechnicalMetadata());
     }
 
     public static List<BitStream> createRandomBitStreams() {
@@ -486,6 +522,7 @@ public abstract class TestUtil {
                     .technical(createRandomTechnicalMetadata())
                     .uri(URI.create("http://example.com/" + randomAlphabetic(16)))
                     .bitStreams(createRandomBitStreams())
+                    .identifier(new UUIDIdentifier())
                     .build();
             files.add(f);
         }
@@ -827,6 +864,7 @@ public abstract class TestUtil {
 
     public static Representation createRandomRepresentation(TechnicalMetadata.MetadataType type) {
         Representation.Builder b = new Representation.Builder()
+        		.identifier(new UUIDIdentifier())
                 .provenance(createRandomProvenance())
                 .source(createRandomDescriptive())
                 .rights(createRandomRights())
