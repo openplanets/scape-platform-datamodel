@@ -16,11 +16,12 @@ import eu.scapeproject.model.metadata.premis.PremisProvenanceMetadata;
 import eu.scapeproject.model.metadata.textmd.TextMDMetadata;
 
 public class Representation {
-    private DescriptiveMetadata source;
-    private ProvenanceMetadata provenance;
-    private TechnicalMetadata technical;
-    private RightsMetadata rights;
-    private Set<File> files;
+    private final Identifier identifier;
+    private final DescriptiveMetadata source;
+    private final ProvenanceMetadata provenance;
+    private final TechnicalMetadata technical;
+    private final RightsMetadata rights;
+    private final Set<File> files;
 
     private Representation() {
         super();
@@ -29,6 +30,7 @@ public class Representation {
         this.technical = null;
         this.rights = null;
         this.files = null;
+        this.identifier = null;
     }
 
     private Representation(Builder builder) {
@@ -37,6 +39,7 @@ public class Representation {
         this.technical = builder.technical;
         this.rights = builder.rights;
         this.files = builder.files;
+        this.identifier = builder.id;
     }
 
     public Set<File> getFiles() {
@@ -59,6 +62,10 @@ public class Representation {
         return technical;
     }
 
+    public Identifier getIdentifier() {
+        return identifier;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -68,6 +75,7 @@ public class Representation {
         result = prime * result + ((rights == null) ? 0 : rights.hashCode());
         result = prime * result + ((source == null) ? 0 : source.hashCode());
         result = prime * result + ((technical == null) ? 0 : technical.hashCode());
+        result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
         return result;
     }
 
@@ -105,6 +113,11 @@ public class Representation {
                 return false;
         } else if (!technical.equals(other.technical))
             return false;
+        if (identifier == null) {
+            if (other.identifier != null)
+                return false;
+        } else if (!identifier.equals(other.identifier))
+            return false;
         return true;
     }
 
@@ -114,37 +127,41 @@ public class Representation {
         private TechnicalMetadata technical;
         private RightsMetadata rights;
         private Set<File> files = new HashSet<File>();
-        
-        public Builder(){
-        	super();
+        private Identifier id;
+
+        public Builder() {
+            super();
         }
-        
-        public Builder(Representation r){
-        	if (r.getSource() !=null){
-        		this.source = new DCMetadata.Builder((DCMetadata) source).build();
-        	}
-        	if (r.getProvenance() !=null){
-        		this.provenance = new PremisProvenanceMetadata.Builder((PremisProvenanceMetadata) r.getProvenance()).build();
-        	}
-        	if (r.getTechnical() != null){
-        		if (r.getTechnical() instanceof NisoMixMetadata){
-        			this.technical = new NisoMixMetadata.Builder((NisoMixMetadata) r.getTechnical()).build();
-        		}else if (r.getTechnical() instanceof TextMDMetadata){
-        			this.technical = new TextMDMetadata.Builder((TextMDMetadata) r.getTechnical()).build();
-        		}else if (r.getTechnical() instanceof AudioMDMetadata){
-        			this.technical = new AudioMDMetadata.Builder((AudioMDMetadata) r.getTechnical()).build();
-        		}else if (r.getTechnical() instanceof FitsMetadata){
-        			this.technical = new FitsMetadata.Builder((FitsMetadata) r.getTechnical()).build();
-        		}
-        	}
-        	
-        	//TODO: deep copy
-        	if (r.getRights() != null){
-        		this.rights=r.rights;
-        	}
-        	if (r.getFiles() != null){
-        		this.files=r.files;
-        	}
+
+        public Builder(Representation r) {
+            if (r.getSource() != null) {
+                this.source = new DCMetadata.Builder((DCMetadata) source).build();
+            }
+            if (r.getProvenance() != null) {
+                this.provenance = new PremisProvenanceMetadata.Builder((PremisProvenanceMetadata) r.getProvenance()).build();
+            }
+            if (r.getTechnical() != null) {
+                if (r.getTechnical() instanceof NisoMixMetadata) {
+                    this.technical = new NisoMixMetadata.Builder((NisoMixMetadata) r.getTechnical()).build();
+                } else if (r.getTechnical() instanceof TextMDMetadata) {
+                    this.technical = new TextMDMetadata.Builder((TextMDMetadata) r.getTechnical()).build();
+                } else if (r.getTechnical() instanceof AudioMDMetadata) {
+                    this.technical = new AudioMDMetadata.Builder((AudioMDMetadata) r.getTechnical()).build();
+                } else if (r.getTechnical() instanceof FitsMetadata) {
+                    this.technical = new FitsMetadata.Builder((FitsMetadata) r.getTechnical()).build();
+                }
+            }
+
+            // TODO: deep copy
+            if (r.getRights() != null) {
+                this.rights = r.rights;
+            }
+            if (r.getFiles() != null) {
+                this.files = r.files;
+            }
+            if (r.getIdentifier() != null) {
+                this.id = r.identifier;
+            }
         }
 
         public Representation build() {
@@ -178,6 +195,11 @@ public class Representation {
 
         public Builder technical(TechnicalMetadata technical) {
             this.technical = technical;
+            return this;
+        }
+
+        public Builder identifier(Identifier id) {
+            this.id = id;
             return this;
         }
     }

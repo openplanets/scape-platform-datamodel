@@ -9,17 +9,20 @@ public class File {
     private final TechnicalMetadata technical;
     private final List<BitStream> bitStreams;
     private final URI uri;
+    private final Identifier identifier;
 
     private File() {
         this.technical=null;
         this.bitStreams=null;
         this.uri=null;
+        this.identifier=null;
     }
 
     private File(Builder builder) {
         this.technical = builder.technical;
         this.bitStreams = builder.bitStreams;
         this.uri = builder.uri;
+        this.identifier=builder.identifier;
     }
 
     public List<BitStream> getBitStreams() {
@@ -33,6 +36,10 @@ public class File {
     public URI getUri() {
         return uri;
     }
+    
+    public Identifier getIdentifier() {
+        return identifier;
+    }
 
     @Override
     public int hashCode() {
@@ -41,6 +48,7 @@ public class File {
         result = prime * result + ((bitStreams == null) ? 0 : bitStreams.hashCode());
         result = prime * result + ((technical == null) ? 0 : technical.hashCode());
         result = prime * result + ((uri == null) ? 0 : uri.hashCode());
+        result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
         return result;
     }
 
@@ -68,6 +76,11 @@ public class File {
                 return false;
         } else if (!uri.equals(other.uri))
             return false;
+        if (identifier == null) {
+            if (other.identifier != null)
+                return false;
+        } else if (!identifier.equals(other.identifier))
+            return false;
         return true;
     }
 
@@ -75,6 +88,7 @@ public class File {
         private TechnicalMetadata technical;
         private List<BitStream> bitStreams;
         private URI uri;
+        private Identifier identifier;
 
         public Builder bitStreams(List<BitStream> bitStreams) {
             this.bitStreams = bitStreams;
@@ -92,6 +106,11 @@ public class File {
 
         public Builder uri(URI uri) {
             this.uri = uri;
+            return this;
+        }
+        
+        public Builder identifier(Identifier identifier){
+            this.identifier=identifier;
             return this;
         }
     }

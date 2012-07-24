@@ -6,18 +6,21 @@ public class BitStream {
     private final String title;
     private final Type type;
     private final TechnicalMetadata technical;
+    private final Identifier identifier;
 
-    private BitStream(){
-        this.title=null;
-        this.type=null;
-        this.technical=null;
+    private BitStream() {
+        this.title = null;
+        this.type = null;
+        this.technical = null;
+        this.identifier = null;
     }
-    
-    public BitStream(String title, Type type, TechnicalMetadata technical) {
+
+    public BitStream(Identifier identifier, String title, Type type, TechnicalMetadata technical) {
         super();
         this.title = title;
         this.type = type;
         this.technical = technical;
+        this.identifier = identifier;
     }
 
     public TechnicalMetadata getTechnical() {
@@ -32,6 +35,10 @@ public class BitStream {
         return type;
     }
 
+    public Identifier getIdentifier() {
+        return identifier;
+    }
+
     public enum Type {
         STREAM;
     }
@@ -43,6 +50,7 @@ public class BitStream {
         result = prime * result + ((technical == null) ? 0 : technical.hashCode());
         result = prime * result + ((title == null) ? 0 : title.hashCode());
         result = prime * result + ((type == null) ? 0 : type.hashCode());
+        result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
         return result;
     }
 
@@ -65,9 +73,16 @@ public class BitStream {
                 return false;
         } else if (!title.equals(other.title))
             return false;
+        if (identifier == null) {
+            if (other.identifier != null)
+                return false;
+        } else if (!identifier.equals(other.identifier))
+            return false;
         if (type != other.type)
             return false;
         return true;
     }
-    
+
+    // TODO: add Builder
+
 }
