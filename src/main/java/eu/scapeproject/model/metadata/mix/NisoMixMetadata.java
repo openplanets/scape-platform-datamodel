@@ -97,7 +97,7 @@ public class NisoMixMetadata extends TechnicalMetadata {
         private String colorspace;
         private ColorProfile colorProfile;
         private YCbCr yCrCb;
-        private ReferencedBlackWhite referencedBlackWhite;
+        private ReferenceBlackWhite referencedBlackWhite;
         private SpecialFormatCharacteristics specialFormatCharacteristics;
         private SourceInformation source;
         private GeneralCaptureInformation generalCaptureInformation;
@@ -175,7 +175,7 @@ public class NisoMixMetadata extends TechnicalMetadata {
             return this;
         }
 
-        public Builder referencedBlackWhite(ReferencedBlackWhite referencedBlackWhite) {
+        public Builder referencedBlackWhite(ReferenceBlackWhite referencedBlackWhite) {
             this.referencedBlackWhite = referencedBlackWhite;
             return this;
         }

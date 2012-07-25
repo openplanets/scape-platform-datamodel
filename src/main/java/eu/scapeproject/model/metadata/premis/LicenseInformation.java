@@ -4,12 +4,16 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import eu.scapeproject.model.Identifier;
+import eu.scapeproject.model.jaxb.PremisLicenseIdentifierAdapter;
+import eu.scapeproject.model.jaxb.PremisLicenseIdentifierAdapter.PremisLicenseIdentifier;
 
 @XmlRootElement(name = "licenseInformation", namespace = "http://www.loc.gov/standards/premis")
 public class LicenseInformation {
     @XmlElement(name = "licenseIdentifier", namespace = "http://www.loc.gov/standards/premis")
+    @XmlJavaTypeAdapter(PremisLicenseIdentifierAdapter.class)
     private Identifier licenseIdentifier;
     @XmlElement(name = "licenseTerms", namespace = "http://www.loc.gov/standards/premis")
     private String licenseTerms;

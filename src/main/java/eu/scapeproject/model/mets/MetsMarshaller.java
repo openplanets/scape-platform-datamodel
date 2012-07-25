@@ -92,6 +92,7 @@ public class MetsMarshaller {
             }
             return entityBuilder.build();
         } catch (JAXBException e) {
+            e.printStackTrace();
             throw new SerializationException(e);
         }
 	}

@@ -42,6 +42,7 @@ public class JaxbXMLSerializationTest {
         IntellectualEntity orig = TestUtil.createRandomEntity();
         ByteArrayOutputStream bos=new ByteArrayOutputStream();
         MetsMarshaller.getInstance().serialize(orig, bos);
+        System.out.println(bos.toString());
         IntellectualEntity deserialized=MetsMarshaller.getInstance().deserialize(IntellectualEntity.class, new ByteArrayInputStream(bos.toByteArray()));
 //        MetsMarshaller.getInstance().serialize(deserialized, System.out);
         Assert.assertEquals(orig, deserialized);

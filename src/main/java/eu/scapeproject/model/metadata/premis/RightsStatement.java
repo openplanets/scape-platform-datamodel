@@ -4,12 +4,16 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import eu.scapeproject.model.Identifier;
+import eu.scapeproject.model.jaxb.PremisEventIdentifierAdapter;
+import eu.scapeproject.model.jaxb.PremisRightsIdentifierAdapter;
 
 @XmlRootElement(name="rightsStatement",namespace="http://www.loc.gov/standards/premis")
 public class RightsStatement {
     @XmlElement(name="rightsStatementIdentifier",namespace="http://www.loc.gov/standards/premis")
+    @XmlJavaTypeAdapter(PremisRightsIdentifierAdapter.class)
     private Identifier rightsStatementIdentifier;
     @XmlElement(name="rightsBasis",namespace="http://www.loc.gov/standards/premis")
     private String rightsBasis;

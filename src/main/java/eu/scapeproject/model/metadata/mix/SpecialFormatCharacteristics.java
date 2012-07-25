@@ -1,7 +1,17 @@
 package eu.scapeproject.model.metadata.mix;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "specialFormatCharateristics",namespace="http://www.loc.gov/mix/v10")
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class SpecialFormatCharacteristics {
-    protected Format format;
+    @XmlElement(name="format",namespace="http://www.loc.gov/mix/v10")
+    private Format format;
+    
 
     public SpecialFormatCharacteristics(Format format) {
         super();
@@ -10,6 +20,11 @@ public abstract class SpecialFormatCharacteristics {
 
     public Format getFormat() {
         return format;
+    }
+    
+    @SuppressWarnings("unused")
+    private SpecialFormatCharacteristics(){
+        super();
     }
 
     
@@ -35,6 +50,7 @@ public abstract class SpecialFormatCharacteristics {
         return true;
     }
 
+    @XmlEnum
     public enum Format {
         JPG_2000, MR_SID, DJVU;
     }

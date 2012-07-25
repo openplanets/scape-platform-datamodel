@@ -1,5 +1,6 @@
 package eu.scapeproject.model;
 
+
 public class Identifier {
     protected final String type;
     protected final String value;

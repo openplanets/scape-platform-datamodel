@@ -73,7 +73,7 @@ import eu.scapeproject.model.metadata.mix.JPEG2000FormatCharacteristics;
 import eu.scapeproject.model.metadata.mix.MRSIDFormatCharacteristics;
 import eu.scapeproject.model.metadata.mix.NisoMixMetadata;
 import eu.scapeproject.model.metadata.mix.NisoMixMetadata.Orientation;
-import eu.scapeproject.model.metadata.mix.ReferencedBlackWhite;
+import eu.scapeproject.model.metadata.mix.ReferenceBlackWhite;
 import eu.scapeproject.model.metadata.mix.ScannerCapture;
 import eu.scapeproject.model.metadata.mix.ScannerCapture.ScannerSensor;
 import eu.scapeproject.model.metadata.mix.SourceInformation;
@@ -822,7 +822,7 @@ public abstract class TestUtil {
                 .imageColorEncoding(createRandomImageColorEncoding())
                 .methodology(randomAlphabetic(16))
                 .orientation(Orientation.NORMAL)
-                .referencedBlackWhite(new ReferencedBlackWhite(new double[] { 0d, 0d, 0d }, new double[] { 256d, 256d, 256d }))
+                .referencedBlackWhite(new ReferenceBlackWhite(new double[] { 0d, 0d, 0d }, new double[] { 256d, 256d, 256d }))
                 .scannerCapture(createRandomScannerCapture())
                 .source(createRandomImageSource())
                 .spacialMetrics(new SpacialMetrics(SamplingFrequencyPane.DEVICE_FOCAL_PLANE, SamplingFrequencyUnit.INCH, rand.nextDouble(), rand.nextDouble()))

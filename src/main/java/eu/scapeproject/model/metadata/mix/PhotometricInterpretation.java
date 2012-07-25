@@ -1,11 +1,18 @@
 package eu.scapeproject.model.metadata.mix;
 
+import javax.xml.bind.annotation.XmlElement;
+
 public class PhotometricInterpretation {
+    @XmlElement(name="colorSpace",namespace="http://www.loc.gov/mix/v10")
     private String colorSpace;
+    @XmlElement(name="colorProfile",namespace="http://www.loc.gov/mix/v10")
     private ColorProfile colorProfile;
+    @XmlElement(name="YCbCr",namespace="http://www.loc.gov/mix/v10")
     private YCbCr ybCbCr;
+    @XmlElement(name="specialFormatCharacteristics",namespace="http://www.loc.gov/mix/v10")
     private SpecialFormatCharacteristics specialFormatCharacteristics;
-    private ReferencedBlackWhite referencedBlackWhite;
+    @XmlElement(name="referenceBlackWhite",namespace="http://www.loc.gov/mix/v10")
+    private ReferenceBlackWhite referencedBlackWhite;
 
     private PhotometricInterpretation() {
         super();
@@ -27,7 +34,7 @@ public class PhotometricInterpretation {
         return colorSpace;
     }
 
-    public ReferencedBlackWhite getReferencedBlackWhite() {
+    public ReferenceBlackWhite getReferencedBlackWhite() {
         return referencedBlackWhite;
     }
 
@@ -93,7 +100,7 @@ public class PhotometricInterpretation {
         private ColorProfile colorProfile;
         private YCbCr ybCbCr;
         private SpecialFormatCharacteristics specialFormatCharacteristics;
-        private ReferencedBlackWhite referencedBlackWhite;
+        private ReferenceBlackWhite referencedBlackWhite;
 
         public PhotometricInterpretation build() {
             return new PhotometricInterpretation(this);
@@ -109,7 +116,7 @@ public class PhotometricInterpretation {
             return this;
         }
 
-        public Builder referencedBlackWhite(ReferencedBlackWhite referencedBlackWhite) {
+        public Builder referencedBlackWhite(ReferenceBlackWhite referencedBlackWhite) {
             this.referencedBlackWhite = referencedBlackWhite;
             return this;
         }

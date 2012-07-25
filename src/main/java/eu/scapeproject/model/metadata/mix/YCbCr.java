@@ -1,15 +1,23 @@
 package eu.scapeproject.model.metadata.mix;
 
-public class YCbCr {
-    private YCbCrSubSampling yCbCrSubSmapling;
+import javax.xml.bind.annotation.XmlElement;
 
+public class YCbCr {
+    @XmlElement(name="yCbCrSubSampling",namespace="http://www.loc.gov/mix/v10")
+    private YCbCrSubSampling yCbCrSubSampling;
+
+    @SuppressWarnings("unused")
+    private YCbCr(){
+        super();
+    }
+    
     public YCbCr(YCbCrSubSampling yCbCrSubSmapling) {
         super();
-        this.yCbCrSubSmapling = yCbCrSubSmapling;
+        this.yCbCrSubSampling = yCbCrSubSmapling;
     }
 
     public YCbCrSubSampling getyCbCrSubSmapling() {
-        return yCbCrSubSmapling;
+        return yCbCrSubSampling;
     }
     
     
@@ -18,7 +26,7 @@ public class YCbCr {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((yCbCrSubSmapling == null) ? 0 : yCbCrSubSmapling.hashCode());
+        result = prime * result + ((yCbCrSubSampling == null) ? 0 : yCbCrSubSampling.hashCode());
         return result;
     }
 
@@ -31,10 +39,10 @@ public class YCbCr {
         if (getClass() != obj.getClass())
             return false;
         YCbCr other = (YCbCr) obj;
-        if (yCbCrSubSmapling == null) {
-            if (other.yCbCrSubSmapling != null)
+        if (yCbCrSubSampling == null) {
+            if (other.yCbCrSubSampling != null)
                 return false;
-        } else if (!yCbCrSubSmapling.equals(other.yCbCrSubSmapling))
+        } else if (!yCbCrSubSampling.equals(other.yCbCrSubSampling))
             return false;
         return true;
     }
@@ -45,6 +53,11 @@ public class YCbCr {
         private SubSampling horiz;;
         private SubSampling vert;
 
+        @SuppressWarnings("unused")
+        private YCbCrSubSampling(){
+            super();
+        }
+        
         public YCbCrSubSampling(SubSampling horiz, SubSampling vert) {
             super();
             this.horiz = horiz;

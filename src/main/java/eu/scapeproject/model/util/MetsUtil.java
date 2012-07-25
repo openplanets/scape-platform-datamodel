@@ -35,6 +35,10 @@ import eu.scapeproject.model.File;
 import eu.scapeproject.model.Identifier;
 import eu.scapeproject.model.IntellectualEntity;
 import eu.scapeproject.model.Representation;
+import eu.scapeproject.model.metadata.DescriptiveMetadata;
+import eu.scapeproject.model.metadata.ProvenanceMetadata;
+import eu.scapeproject.model.metadata.RightsMetadata;
+import eu.scapeproject.model.metadata.TechnicalMetadata;
 import eu.scapeproject.model.metadata.audiomd.AudioMDMetadata;
 import eu.scapeproject.model.metadata.dc.DCMetadata;
 import eu.scapeproject.model.metadata.fits.FitsMetadata;
@@ -342,7 +346,11 @@ public abstract class MetsUtil {
 			Representation.Builder repBuilder = new Representation.Builder()
 			    .identifier(new Identifier(div.getAdmId()))
 			    .files(getFiles(div.getFilePointers(), doc))
-			    .title(div.getLabel());
+			    .title(div.getLabel())
+			    .provenance(getProvenance(div.getAdmId(),doc))
+			    .technical(getTechnical(div.getAdmId(),doc))
+			    .rights(getRights(div.getAdmId(),doc))
+			    .source(getSource(div.getAdmId(),doc));
 			reps.add(repBuilder.build());
 		}
 		if (div.getSubDivs() != null){
@@ -352,4 +360,36 @@ public abstract class MetsUtil {
 		}
 		return reps;
 	}
+
+    private static DescriptiveMetadata getSource(String admId, MetsDocument doc) {
+        MetsAMDSec amd=getAdmSec(admId, doc.getAmdSecs());
+        return (DescriptiveMetadata) amd.getSourceMetadata().getMetadataWrapper().getXmlData().getData();
+    }
+
+    private static RightsMetadata getRights(String admId, MetsDocument doc) {
+        MetsAMDSec amd=getAdmSec(admId, doc.getAmdSecs());
+        return (RightsMetadata) amd.getRightsMetadata().getMetadataWrapper().getXmlData().getData();
+    }
+
+    private static TechnicalMetadata getTechnical(String admId, MetsDocument doc) {
+        MetsAMDSec amd=getAdmSec(admId, doc.getAmdSecs());
+        return (TechnicalMetadata) amd.getTechnicalMetadata().getMetadataWrapper().getXmlData().getData();
+    }
+
+    private static ProvenanceMetadata getProvenance(String admId, MetsDocument doc) {
+        MetsAMDSec amd=getAdmSec(admId, doc.getAmdSecs());
+        return (ProvenanceMetadata) amd.getProvenanceMetadata().getMetadataWrapper().getXmlData().getData();
+    }
+    
+    private static MetsAMDSec getAdmSec(String amdId,List<MetsAMDSec> amdSecs){
+        if (amdSecs == null){
+            return null;
+        }
+        for (MetsAMDSec amd:amdSecs){
+            if (amd.getId().equals(amdId)){
+                return  amd;
+            }
+        }
+        return null;
+    }
 }

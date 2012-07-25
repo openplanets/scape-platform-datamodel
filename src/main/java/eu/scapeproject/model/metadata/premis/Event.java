@@ -7,30 +7,40 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import eu.scapeproject.model.Agent;
 import eu.scapeproject.model.Identifier;
 import eu.scapeproject.model.IntellectualEntity;
+import eu.scapeproject.model.jaxb.PremisEventIdentifierAdapter;
 
 @XmlRootElement(name = "event", namespace = "info:lc/xmlns/premis-v2")
 public class Event {
-    @XmlElement(name = "identifier", namespace = "http://www.loc.gov/standards/premis")
-    private Identifier identifier;
+    @XmlElement(name = "eventIdentifier", namespace = "http://www.loc.gov/standards/premis")
+    @XmlJavaTypeAdapter(PremisEventIdentifierAdapter.class)
+    private final Identifier identifier;
     @XmlElement(name = "type", namespace = "http://www.loc.gov/standards/premis")
-    private String type;
+    private final String type;
     @XmlElement(name = "dateTime", namespace = "http://www.loc.gov/standards/premis")
-    private Date dateTime;
+    private final Date dateTime;
     @XmlElement(name = "detail", namespace = "http://www.loc.gov/standards/premis")
-    private String detail;
+    private final String detail;
     @XmlElement(name = "outcome", namespace = "http://www.loc.gov/standards/premis")
-    private List<Outcome> outcome = new ArrayList<Outcome>();
+    private final List<Outcome> outcome;
     @XmlElement(name = "linkingAgent", namespace = "http://www.loc.gov/standards/premis")
-    private List<Agent> linkingAgents;
+    private final List<Agent> linkingAgents;
     @XmlElement(name = "linkingObject", namespace = "http://www.loc.gov/standards/premis")
-    private List<IntellectualEntity> linkingObjects;
+    private final List<IntellectualEntity> linkingObjects;
 
     private Event() {
         super();
+        this.identifier=null;
+        this.type=null;
+        this.dateTime=null;
+        this.detail=null;
+        this.outcome=null;
+        this.linkingAgents=null;
+        this.linkingObjects=null;
     }
 
     private Event(Builder builder) {

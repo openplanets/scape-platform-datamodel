@@ -1,11 +1,19 @@
 package eu.scapeproject.model.metadata.videomd;
 
+import javax.xml.bind.annotation.XmlElement;
+
 public class VideoCodec extends VideoFormat {
+    @XmlElement(name = "codecID", namespace = "http://www.loc.gov/videoMD/")
     private String codecId;
+    @XmlElement(name = "channelCount", namespace = "http://www.loc.gov/videoMD/")
     private int channelCount;
+    @XmlElement(name = "endianess", namespace = "http://www.loc.gov/videoMD/")
     private String endianess;
+    @XmlElement(name = "scanType", namespace = "http://www.loc.gov/videoMD/")
     private String scanType;
+    @XmlElement(name = "scanOrder", namespace = "http://www.loc.gov/videoMD/")
     private String scanOrder;
+    @XmlElement(name = "sign", namespace = "http://www.loc.gov/videoMD/")
     private String sign;
 
     private VideoCodec(){

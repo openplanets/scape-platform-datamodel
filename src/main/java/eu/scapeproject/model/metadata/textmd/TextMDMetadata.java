@@ -321,8 +321,45 @@ public class TextMDMetadata extends TechnicalMetadata {
 		public LineBreak getLineBreak() {
 			return lineBreak;
 		}
+		
+		@Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((byteOrder == null) ? 0 : byteOrder.hashCode());
+            result = prime * result + byteSize;
+            result = prime * result + ((charSet == null) ? 0 : charSet.hashCode());
+            result = prime * result + ((characterSize == null) ? 0 : characterSize.hashCode());
+            result = prime * result + ((lineBreak == null) ? 0 : lineBreak.hashCode());
+            return result;
+        }
 
-		public static class Builder {
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+            CharacterInfo other = (CharacterInfo) obj;
+            if (byteOrder != other.byteOrder)
+                return false;
+            if (byteSize != other.byteSize)
+                return false;
+            if (charSet != other.charSet)
+                return false;
+            if (characterSize == null) {
+                if (other.characterSize != null)
+                    return false;
+            } else if (!characterSize.equals(other.characterSize))
+                return false;
+            if (lineBreak != other.lineBreak)
+                return false;
+            return true;
+        }
+
+        public static class Builder {
 			private Charset charSet;
 			private ByteOrder byteOrder;
 			private int byteSize;
@@ -401,8 +438,49 @@ public class TextMDMetadata extends TechnicalMetadata {
 		public List<String> getSoftware() {
 			return software;
 		}
+		
+		
 
-		@XmlRootElement(name = "encoding_agent", namespace = "info:lc/xmlns/textmd-v3")
+		@Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((agent == null) ? 0 : agent.hashCode());
+            result = prime * result + ((platform == null) ? 0 : platform.hashCode());
+            result = prime * result + ((software == null) ? 0 : software.hashCode());
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+            Encoding other = (Encoding) obj;
+            if (agent == null) {
+                if (other.agent != null)
+                    return false;
+            } else if (!agent.equals(other.agent))
+                return false;
+            if (platform == null) {
+                if (other.platform != null)
+                    return false;
+            } else if (!platform.equals(other.platform))
+                return false;
+            if (software == null) {
+                if (other.software != null)
+                    return false;
+            } else if (!software.equals(other.software))
+                return false;
+            return true;
+        }
+
+
+
+        @XmlRootElement(name = "encoding_agent", namespace = "info:lc/xmlns/textmd-v3")
 		public static class EncodingAgent {
 			@XmlElement(name = "role", namespace = "info:lc/xmlns/textmd-v3")
 			private Role role;
@@ -423,6 +501,29 @@ public class TextMDMetadata extends TechnicalMetadata {
 			public enum Role {
 				OCR, TRANSCRIBER, MARKUP, EDITOR;
 			}
+
+            @Override
+            public int hashCode() {
+                final int prime = 31;
+                int result = 1;
+                result = prime * result + ((role == null) ? 0 : role.hashCode());
+                return result;
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                if (this == obj)
+                    return true;
+                if (obj == null)
+                    return false;
+                if (getClass() != obj.getClass())
+                    return false;
+                EncodingAgent other = (EncodingAgent) obj;
+                if (role != other.role)
+                    return false;
+                return true;
+            }
+			
 		}
 
 		@XmlRootElement(name = "encoding_platform")
@@ -442,6 +543,29 @@ public class TextMDMetadata extends TechnicalMetadata {
 			public LineBreak getLineBreak() {
 				return lineBreak;
 			}
+
+            @Override
+            public int hashCode() {
+                final int prime = 31;
+                int result = 1;
+                result = prime * result + ((lineBreak == null) ? 0 : lineBreak.hashCode());
+                return result;
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                if (this == obj)
+                    return true;
+                if (obj == null)
+                    return false;
+                if (getClass() != obj.getClass())
+                    return false;
+                EncodingPlatform other = (EncodingPlatform) obj;
+                if (lineBreak != other.lineBreak)
+                    return false;
+                return true;
+            }
+			
 		}
 	}
 

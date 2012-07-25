@@ -4,12 +4,15 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import eu.scapeproject.model.Identifier;
+import eu.scapeproject.model.jaxb.PremisLinkingAgentIdentifierAdapter;
 
 @XmlRootElement(name = "linkingAgent", namespace = "http://www.loc.gov/standards/premis")
 public class LinkingAgent {
     @XmlElement(name = "linkingAgentIdentifier", namespace = "http://www.loc.gov/standards/premis")
+    @XmlJavaTypeAdapter(PremisLinkingAgentIdentifierAdapter.class)
     private Identifier linkingAgentIdentifier;
     @XmlElement(name = "linkingAgentRole", namespace = "http://www.loc.gov/standards/premis")
     private List<String> linkingAgentRole;

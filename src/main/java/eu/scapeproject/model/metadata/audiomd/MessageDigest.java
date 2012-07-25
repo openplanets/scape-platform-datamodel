@@ -6,12 +6,16 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import eu.scapeproject.model.jaxb.DateAdapter;
 
 @XmlRootElement(name="messagedigest",namespace="http://www.loc.gov/AMD/")
 public class MessageDigest {
     @XmlAttribute(name="id",namespace="http://www.loc.gov/AMD/")
     private String id;
     @XmlElement(name="messagedigestdatetime",namespace="http://www.loc.gov/AMD/")
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private List<Date> messageDigestDateTimes;
     @XmlElement(name="messagedigestalgorithm",namespace="http://www.loc.gov/AMD/")
     private List<String> messageDigestAlgorithms;
