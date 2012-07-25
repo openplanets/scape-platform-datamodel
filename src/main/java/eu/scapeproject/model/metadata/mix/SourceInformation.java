@@ -2,17 +2,32 @@ package eu.scapeproject.model.metadata.mix;
 
 import java.util.List;
 
-import eu.scapeproject.model.Identifier;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import eu.scapeproject.model.Identifier;
+import eu.scapeproject.model.jaxb.MixSourceIdentifierAdapter;
+
+@XmlRootElement(name="sourceInformation",namespace="http://www.loc.gov/mix/v10")
 public class SourceInformation {
+    @XmlElement(name="sourceType",namespace="http://www.loc.gov/mix/v10")
     private String sourceType;
-    private List<? extends Identifier> sourceIdentifiers;
+    @XmlElement(name="sourceIdentifiers",namespace="http://www.loc.gov/mix/v10")
+    @XmlJavaTypeAdapter(MixSourceIdentifierAdapter.class)
+    private List<Identifier> sourceIdentifiers;
+    @XmlElement(name="sourceXDimension",namespace="http://www.loc.gov/mix/v10")
     private double sourceXDimension;
+    @XmlElement(name="sourceXDiemnsionUnit",namespace="http://www.loc.gov/mix/v10")
     private SourceDimension sourceXDiemnsionUnit;
+    @XmlElement(name="sourceYDimension",namespace="http://www.loc.gov/mix/v10")
     private double sourceYDimension;
+    @XmlElement(name="sourceYDiemnsionUnit",namespace="http://www.loc.gov/mix/v10")
     private SourceDimension sourceYDiemnsionUnit;
+    @XmlElement(name="sourceZDimension",namespace="http://www.loc.gov/mix/v10")
     private double sourceZDimension;
-    private SourceDimension sourceZDiemnsionUnit;
+    @XmlElement(name="sourceZDimensionUnit",namespace="http://www.loc.gov/mix/v10")
+    private SourceDimension sourceZDimensionUnit;
 
     private SourceInformation(){
         super();
@@ -26,10 +41,10 @@ public class SourceInformation {
         this.sourceYDimension = builder.sourceYDimension;
         this.sourceYDiemnsionUnit = builder.sourceYDiemnsionUnit;
         this.sourceZDimension = builder.sourceZDimension;
-        this.sourceZDiemnsionUnit = builder.sourceZDiemnsionUnit;
+        this.sourceZDimensionUnit = builder.sourceZDiemnsionUnit;
     }
 
-    public List<? extends Identifier> getSourceIdentifiers() {
+    public List<Identifier> getSourceIdentifiers() {
         return sourceIdentifiers;
     }
 
@@ -54,7 +69,7 @@ public class SourceInformation {
     }
 
     public SourceDimension getSourceZDiemnsionUnit() {
-        return sourceZDiemnsionUnit;
+        return sourceZDimensionUnit;
     }
 
     public double getSourceZDimension() {
@@ -75,7 +90,7 @@ public class SourceInformation {
         result = prime * result + ((sourceYDiemnsionUnit == null) ? 0 : sourceYDiemnsionUnit.hashCode());
         temp = Double.doubleToLongBits(sourceYDimension);
         result = prime * result + (int) (temp ^ (temp >>> 32));
-        result = prime * result + ((sourceZDiemnsionUnit == null) ? 0 : sourceZDiemnsionUnit.hashCode());
+        result = prime * result + ((sourceZDimensionUnit == null) ? 0 : sourceZDimensionUnit.hashCode());
         temp = Double.doubleToLongBits(sourceZDimension);
         result = prime * result + (int) (temp ^ (temp >>> 32));
         return result;
@@ -108,7 +123,7 @@ public class SourceInformation {
             return false;
         if (Double.doubleToLongBits(sourceYDimension) != Double.doubleToLongBits(other.sourceYDimension))
             return false;
-        if (sourceZDiemnsionUnit != other.sourceZDiemnsionUnit)
+        if (sourceZDimensionUnit != other.sourceZDimensionUnit)
             return false;
         if (Double.doubleToLongBits(sourceZDimension) != Double.doubleToLongBits(other.sourceZDimension))
             return false;
@@ -118,7 +133,7 @@ public class SourceInformation {
 
     public static class Builder {
         private String sourceType;
-        private List<? extends Identifier> sourceIdentifiers;
+        private List<Identifier> sourceIdentifiers;
         private double sourceXDimension;
         private SourceDimension sourceXDiemnsionUnit;
         private double sourceYDimension;
@@ -130,7 +145,7 @@ public class SourceInformation {
             return new SourceInformation(this);
         }
 
-        public Builder sourceIdentifiers(List<? extends Identifier> sourceIdentifiers) {
+        public Builder sourceIdentifiers(List<Identifier> sourceIdentifiers) {
             this.sourceIdentifiers = sourceIdentifiers;
             return this;
         }

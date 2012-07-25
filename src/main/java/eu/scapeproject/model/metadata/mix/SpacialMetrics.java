@@ -1,11 +1,24 @@
 package eu.scapeproject.model.metadata.mix;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="spacialMetrics",namespace="http://www.loc.gov/mix/v10")
 public class SpacialMetrics {
+    @XmlElement(name="samplingFrequencyPane",namespace="http://www.loc.gov/mix/v10")
     private SamplingFrequencyPane samplingFrequencyPane;
+    @XmlElement(name="samplingFrequencyUnit",namespace="http://www.loc.gov/mix/v10")
     private SamplingFrequencyUnit samplingFrequencyUnit;
+    @XmlElement(name="xSamplingFrequency",namespace="http://www.loc.gov/mix/v10")
     private double xSamplingFrequency;
+    @XmlElement(name="ySamplingFrequency",namespace="http://www.loc.gov/mix/v10")
     private double ySamplingFrequency;
 
+    @SuppressWarnings("unused")
+	private SpacialMetrics() {
+		super();
+	}
+    
     public SpacialMetrics(SamplingFrequencyPane samplingFrequencyPane, SamplingFrequencyUnit samplingFrequencyUnit, double xSamplingFrequency,
             double ySamplingFrequency) {
         super();

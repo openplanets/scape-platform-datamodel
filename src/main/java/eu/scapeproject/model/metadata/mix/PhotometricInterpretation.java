@@ -1,7 +1,8 @@
 package eu.scapeproject.model.metadata.mix;
 
 import javax.xml.bind.annotation.XmlElement;
-
+import javax.xml.bind.annotation.XmlRootElement;
+@XmlRootElement(name="photometricInterpretation",namespace="http://www.loc.gov/mix/v10")
 public class PhotometricInterpretation {
     @XmlElement(name="colorSpace",namespace="http://www.loc.gov/mix/v10")
     private String colorSpace;

@@ -3,12 +3,25 @@ package eu.scapeproject.model.metadata.mix;
 import java.net.URI;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="targetData",namespace="http://www.loc.gov/mix/v10")
 public class TargetData {
+    @XmlElement(name="targetTypes",namespace="http://www.loc.gov/mix/v10")
     private List<TargetType> targetTypes;
+    @XmlElement(name="tergetIds",namespace="http://www.loc.gov/mix/v10")
     private List<TargetId> tergetIds;
+    @XmlElement(name="externalReferences",namespace="http://www.loc.gov/mix/v10")
     private List<URI> externalReferences;
+    @XmlElement(name="performanceData",namespace="http://www.loc.gov/mix/v10")
     private List<URI> performanceData;
 
+    @SuppressWarnings("unused")
+	private TargetData() {
+		super();
+	}
+    
     public TargetData(List<TargetType> targetTypes, List<TargetId> tergetIds, List<URI> externalReferences, List<URI> performanceData) {
         super();
         this.targetTypes = targetTypes;
@@ -76,11 +89,21 @@ public class TargetData {
         return true;
     }
 
+    @XmlRootElement(name="targetId",namespace="http://www.loc.gov/mix/v10")
     public static class TargetId {
+        @XmlElement(name="targetManufacturer",namespace="http://www.loc.gov/mix/v10")
         private String targetManufacturer;
+        @XmlElement(name="targetname",namespace="http://www.loc.gov/mix/v10")
         private String targetname;
+        @XmlElement(name="targetNo",namespace="http://www.loc.gov/mix/v10")
         private String targetNo;
+        @XmlElement(name="targetMedia",namespace="http://www.loc.gov/mix/v10")
         private String targetMedia;
+        
+        @SuppressWarnings("unused")
+		private TargetId() {
+			super();
+		}
 
         public TargetId(String targetManufacturer, String targetname, String targetNo, String targetMedia) {
             super();

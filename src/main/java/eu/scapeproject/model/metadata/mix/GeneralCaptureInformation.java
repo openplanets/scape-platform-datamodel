@@ -3,9 +3,20 @@ package eu.scapeproject.model.metadata.mix;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import eu.scapeproject.model.jaxb.DateAdapter;
+
+@XmlRootElement(name="generalCaptureInformation",namespace="http://www.loc.gov/mix/v10")
 public class GeneralCaptureInformation {
+    @XmlElement(name="dateTimeCreated",namespace="http://www.loc.gov/mix/v10")
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date dateTimeCreated;
+    @XmlElement(name="imageProducers",namespace="http://www.loc.gov/mix/v10")
     private List<String> imageProducers;
+    @XmlElement(name="captureDevice",namespace="http://www.loc.gov/mix/v10")
     private CaptureDevice captureDevice;
 
     @SuppressWarnings("unused")

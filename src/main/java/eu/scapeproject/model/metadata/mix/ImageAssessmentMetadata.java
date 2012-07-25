@@ -1,8 +1,15 @@
 package eu.scapeproject.model.metadata.mix;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="imageAssemeentMetadata",namespace="http://www.loc.gov/mix/v10")
 public class ImageAssessmentMetadata {
+    @XmlElement(name="spacialMetrics",namespace="http://www.loc.gov/mix/v10")
     private SpacialMetrics spacialMetrics;
+    @XmlElement(name="imageColorEncoding",namespace="http://www.loc.gov/mix/v10")
     private ImageColorEncoding imageColorEncoding;
+    @XmlElement(name="targetData",namespace="http://www.loc.gov/mix/v10")
     private TargetData targetData;
     
     @SuppressWarnings("unused")

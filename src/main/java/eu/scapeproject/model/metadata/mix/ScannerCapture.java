@@ -1,13 +1,25 @@
 package eu.scapeproject.model.metadata.mix;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="scannerCapture",namespace="http://www.loc.gov/mix/v10")
 public class ScannerCapture {
+    @XmlElement(name="scannerManufacturer",namespace="http://www.loc.gov/mix/v10")
     private String scannerManufacturer;
+    @XmlElement(name="scannerModelName",namespace="http://www.loc.gov/mix/v10")
     private String scannerModelName;
+    @XmlElement(name="scannerModelNumber",namespace="http://www.loc.gov/mix/v10")
     private String scannerModelNumber;
+    @XmlElement(name="scannerModelSerialNo",namespace="http://www.loc.gov/mix/v10")
     private String scannerModelSerialNo;
+    @XmlElement(name="maximumOpticalResolution",namespace="http://www.loc.gov/mix/v10")
     private String maximumOpticalResolution;
+    @XmlElement(name="scannerSensor",namespace="http://www.loc.gov/mix/v10")
     private ScannerSensor scannerSensor;
+    @XmlElement(name="scanningSoftwareName",namespace="http://www.loc.gov/mix/v10")
     private String scanningSoftwareName;
+    @XmlElement(name="scanningSoftwareVersionNo",namespace="http://www.loc.gov/mix/v10")
     private String scanningSoftwareVersionNo;
 
     private ScannerCapture() {

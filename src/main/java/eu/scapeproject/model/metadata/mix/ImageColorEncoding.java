@@ -4,17 +4,35 @@ import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="imageColorEncoding",namespace="http://www.loc.gov/mix/v10")
 public class ImageColorEncoding {
+    @XmlElement(name="bitsPerSampleValue",namespace="http://www.loc.gov/mix/v10")
     private String bitsPerSampleValue;
+    @XmlElement(name="bitsPerSampleUnit",namespace="http://www.loc.gov/mix/v10")
     private BitsPerSampleUnit bitsPerSampleUnit;
+    @XmlElement(name="samplesPerPixel",namespace="http://www.loc.gov/mix/v10")
     private int samplesPerPixel;
+    @XmlElement(name="extraSamples",namespace="http://www.loc.gov/mix/v10")
     private ExtraSamples extraSamples;
+    @XmlElement(name="colorMapReference",namespace="http://www.loc.gov/mix/v10")
     private URI colorMapReference;
+    @XmlElement(name="embeddedColorMap",namespace="http://www.loc.gov/mix/v10")
     private byte[] embeddedColorMap;
+    @XmlElement(name="grayResponseCurve",namespace="http://www.loc.gov/mix/v10")
     private short grayResponseCurve;
+    @XmlElement(name="grayResponseUnit",namespace="http://www.loc.gov/mix/v10")
     private GrayResponseUnit grayResponseUnit;
+    @XmlElement(name="whitePoints",namespace="http://www.loc.gov/mix/v10")
     private List<WhitePoint> whitePoints;
 
+    @SuppressWarnings("unused")
+	private ImageColorEncoding() {
+		super();
+	}
+    
     private ImageColorEncoding(Builder builder) {
         this.bitsPerSampleValue = builder.bitsPerSampleValue;
         this.bitsPerSampleUnit = builder.bitsPerSampleUnit;
@@ -191,13 +209,26 @@ public class ImageColorEncoding {
         TENTH_OF_A_UNIT, HUNDREDS_OF_A_UNIT, THOUSANDS_OF_A_UNIT, TEN_THOUSANDS_OF_A_UNIT, HUNDRED_THOUSANDS_OF_A_UNIT;
     }
 
+    @XmlRootElement(name="primaryChromaticies",namespace="http://www.loc.gov/mix/v10")
     public static class PrimaryChromaticies {
+        @XmlElement(name="primaryChromaticiesRedX",namespace="http://www.loc.gov/mix/v10")
         private String primaryChromaticiesRedX;
+        @XmlElement(name="primaryChromaticiesRedY",namespace="http://www.loc.gov/mix/v10")
         private String primaryChromaticiesRedY;
+        @XmlElement(name="primaryChromaticiesGreenX",namespace="http://www.loc.gov/mix/v10")
         private String primaryChromaticiesGreenX;
+        @XmlElement(name="primaryChromaticieGreenY",namespace="http://www.loc.gov/mix/v10")
         private String primaryChromaticieGreenY;
+        @XmlElement(name="primaryChromaticiesBlueX",namespace="http://www.loc.gov/mix/v10")
         private String primaryChromaticiesBlueX;
+        @XmlElement(name="primaryChromaticiesBlueY",namespace="http://www.loc.gov/mix/v10")
         private String primaryChromaticiesBlueY;
+        
+        @SuppressWarnings("unused")
+		private PrimaryChromaticies() {
+			super();
+		}
+
         public String getPrimaryChromaticieGreenY() {
             return primaryChromaticieGreenY;
         }
@@ -216,14 +247,76 @@ public class ImageColorEncoding {
         public String getPrimaryChromaticiesRedY() {
             return primaryChromaticiesRedY;
         }
-        
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((primaryChromaticieGreenY == null) ? 0 : primaryChromaticieGreenY.hashCode());
+			result = prime * result + ((primaryChromaticiesBlueX == null) ? 0 : primaryChromaticiesBlueX.hashCode());
+			result = prime * result + ((primaryChromaticiesBlueY == null) ? 0 : primaryChromaticiesBlueY.hashCode());
+			result = prime * result + ((primaryChromaticiesGreenX == null) ? 0 : primaryChromaticiesGreenX.hashCode());
+			result = prime * result + ((primaryChromaticiesRedX == null) ? 0 : primaryChromaticiesRedX.hashCode());
+			result = prime * result + ((primaryChromaticiesRedY == null) ? 0 : primaryChromaticiesRedY.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			PrimaryChromaticies other = (PrimaryChromaticies) obj;
+			if (primaryChromaticieGreenY == null) {
+				if (other.primaryChromaticieGreenY != null)
+					return false;
+			} else if (!primaryChromaticieGreenY.equals(other.primaryChromaticieGreenY))
+				return false;
+			if (primaryChromaticiesBlueX == null) {
+				if (other.primaryChromaticiesBlueX != null)
+					return false;
+			} else if (!primaryChromaticiesBlueX.equals(other.primaryChromaticiesBlueX))
+				return false;
+			if (primaryChromaticiesBlueY == null) {
+				if (other.primaryChromaticiesBlueY != null)
+					return false;
+			} else if (!primaryChromaticiesBlueY.equals(other.primaryChromaticiesBlueY))
+				return false;
+			if (primaryChromaticiesGreenX == null) {
+				if (other.primaryChromaticiesGreenX != null)
+					return false;
+			} else if (!primaryChromaticiesGreenX.equals(other.primaryChromaticiesGreenX))
+				return false;
+			if (primaryChromaticiesRedX == null) {
+				if (other.primaryChromaticiesRedX != null)
+					return false;
+			} else if (!primaryChromaticiesRedX.equals(other.primaryChromaticiesRedX))
+				return false;
+			if (primaryChromaticiesRedY == null) {
+				if (other.primaryChromaticiesRedY != null)
+					return false;
+			} else if (!primaryChromaticiesRedY.equals(other.primaryChromaticiesRedY))
+				return false;
+			return true;
+		}
         
     }
 
+    @XmlRootElement(name="whitePoint",namespace="http://www.loc.gov/mix/v10")
     public static class WhitePoint {
+        @XmlElement(name="whitePointXValue",namespace="http://www.loc.gov/mix/v10")
         private String whitePointXValue;
+        @XmlElement(name="whitePointYValue",namespace="http://www.loc.gov/mix/v10")
         private String whitePointYValue;
 
+        @SuppressWarnings("unused")
+        private WhitePoint() {
+			super();
+		}
+		
         public WhitePoint(String whitePointXValue, String whitePointYValue) {
             super();
             this.whitePointXValue = whitePointXValue;
@@ -237,6 +330,37 @@ public class ImageColorEncoding {
         public String getWhitePointYValue() {
             return whitePointYValue;
         }
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((whitePointXValue == null) ? 0 : whitePointXValue.hashCode());
+			result = prime * result + ((whitePointYValue == null) ? 0 : whitePointYValue.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			WhitePoint other = (WhitePoint) obj;
+			if (whitePointXValue == null) {
+				if (other.whitePointXValue != null)
+					return false;
+			} else if (!whitePointXValue.equals(other.whitePointXValue))
+				return false;
+			if (whitePointYValue == null) {
+				if (other.whitePointYValue != null)
+					return false;
+			} else if (!whitePointYValue.equals(other.whitePointYValue))
+				return false;
+			return true;
+		}
 
     }
 }

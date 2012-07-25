@@ -2,8 +2,14 @@ package eu.scapeproject.model.metadata.mix;
 
 import java.util.Arrays;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="referenceBlackWhite",namespace="http://www.loc.gov/mix/v10")
 public class ReferenceBlackWhite {
+    @XmlElement(name="referenceBlack",namespace="http://www.loc.gov/mix/v10")
     private double[] referenceBlack;
+    @XmlElement(name="referenceWhite",namespace="http://www.loc.gov/mix/v10")
     private double[] referenceWhite;
     
     @SuppressWarnings("unused")

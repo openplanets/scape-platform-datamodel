@@ -1,7 +1,9 @@
 package eu.scapeproject.model.metadata.mix;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name="yCbCr",namespace="http://www.loc.gov/mix/v10")
 public class YCbCr {
     @XmlElement(name="yCbCrSubSampling",namespace="http://www.loc.gov/mix/v10")
     private YCbCrSubSampling yCbCrSubSampling;
@@ -49,8 +51,11 @@ public class YCbCr {
 
 
 
+    @XmlRootElement(name="yCbCrSubSampling",namespace="http://www.loc.gov/mix/v10")
     public static class YCbCrSubSampling {
+        @XmlElement(name="horiz",namespace="http://www.loc.gov/mix/v10")
         private SubSampling horiz;;
+        @XmlElement(name="vert",namespace="http://www.loc.gov/mix/v10")
         private SubSampling vert;
 
         @SuppressWarnings("unused")
