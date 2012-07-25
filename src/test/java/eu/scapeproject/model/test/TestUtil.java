@@ -58,7 +58,6 @@ import eu.scapeproject.model.metadata.fits.FitsTool;
 import eu.scapeproject.model.metadata.fits.ToolOutput;
 import eu.scapeproject.model.metadata.fits.Version;
 import eu.scapeproject.model.metadata.mix.ColorProfile;
-import eu.scapeproject.model.metadata.mix.DJVUFormatCharacteristics;
 import eu.scapeproject.model.metadata.mix.DigitalCameraCapture;
 import eu.scapeproject.model.metadata.mix.GPSData;
 import eu.scapeproject.model.metadata.mix.GeneralCaptureInformation;
@@ -69,8 +68,6 @@ import eu.scapeproject.model.metadata.mix.ImageColorEncoding.ExtraSamples;
 import eu.scapeproject.model.metadata.mix.ImageColorEncoding.GrayResponseUnit;
 import eu.scapeproject.model.metadata.mix.ImageData;
 import eu.scapeproject.model.metadata.mix.ImageData.ExposureProgram;
-import eu.scapeproject.model.metadata.mix.JPEG2000FormatCharacteristics;
-import eu.scapeproject.model.metadata.mix.MRSIDFormatCharacteristics;
 import eu.scapeproject.model.metadata.mix.NisoMixMetadata;
 import eu.scapeproject.model.metadata.mix.NisoMixMetadata.Orientation;
 import eu.scapeproject.model.metadata.mix.ReferenceBlackWhite;
@@ -82,6 +79,7 @@ import eu.scapeproject.model.metadata.mix.SpacialMetrics;
 import eu.scapeproject.model.metadata.mix.SpacialMetrics.SamplingFrequencyPane;
 import eu.scapeproject.model.metadata.mix.SpacialMetrics.SamplingFrequencyUnit;
 import eu.scapeproject.model.metadata.mix.SpecialFormatCharacteristics;
+import eu.scapeproject.model.metadata.mix.SpecialFormatCharacteristics.Format;
 import eu.scapeproject.model.metadata.mix.TargetData;
 import eu.scapeproject.model.metadata.mix.TargetData.TargetType;
 import eu.scapeproject.model.metadata.mix.YCbCr;
@@ -626,11 +624,11 @@ public abstract class TestUtil {
     public static SpecialFormatCharacteristics createRandomFormatCharacteristics() {
         switch (rand.nextInt(2) + 1) {
         case 0:
-            return new JPEG2000FormatCharacteristics();
+            return new SpecialFormatCharacteristics(Format.JPG_2000);
         case 1:
-            return new DJVUFormatCharacteristics();
+            return new SpecialFormatCharacteristics(Format.DJVU);
         case 2:
-            return new MRSIDFormatCharacteristics();
+            return new SpecialFormatCharacteristics(Format.MR_SID);
         default:
             return null;
         }
