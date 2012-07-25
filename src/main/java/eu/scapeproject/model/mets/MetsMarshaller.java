@@ -13,6 +13,8 @@ import org.apache.commons.lang3.SerializationException;
 import eu.scapeproject.dto.mets.MetsDocument;
 import eu.scapeproject.model.Identifier;
 import eu.scapeproject.model.IntellectualEntity;
+import eu.scapeproject.model.LifecycleState;
+import eu.scapeproject.model.LifecycleState.State;
 import eu.scapeproject.model.jaxb.MetsNamespacePrefixMapper;
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
 import eu.scapeproject.model.metadata.audiomd.AudioMDMetadata;
@@ -84,6 +86,10 @@ public class MetsMarshaller {
                 .descriptive((DescriptiveMetadata) doc.getDmdSec().getMetadataWrapper().getXmlData().getData())
                 .representations(MetsUtil.getRepresentations(doc))
                 .alternativeIdentifiers(MetsUtil.getAlternativeIdentifiers(doc.getHeaders()));
+            if (doc.getHeaders().get(0).getRecordStatus() != null){
+                System.out.println(doc.getHeaders().get(0).getRecordStatus());
+                entityBuilder.lifecycleState(new LifecycleState("", State.valueOf(doc.getHeaders().get(0).getRecordStatus())));
+            }
             return entityBuilder.build();
         } catch (JAXBException e) {
             throw new SerializationException(e);

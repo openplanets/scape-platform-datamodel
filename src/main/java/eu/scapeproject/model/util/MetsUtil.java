@@ -81,17 +81,19 @@ public abstract class MetsUtil {
 
 	private static void addRepresentations(IntellectualEntity entity, MetsDiv.Builder entityDiv, Map<Object, MetsAMDSec> amdSecs,
 			List<MetsFileSec> fileSecs) {
-		for (Representation r : entity.getRepresentations()) {
-			MetsAMDSec.Builder amdBuilder = new MetsAMDSec.Builder();
-			amdBuilder.provenanceMetadata(getProvenance(r))
-					.rightsMetadata(getRights(r))
-					.sourceMetadata(getSource(r))
-					.technicalMetadata(getTechnical(r))
-					.id(r.getIdentifier().getValue());
-			amdSecs.put(r, amdBuilder.build());
-			addFileSecs(r, amdSecs, fileSecs);
-			addSubDivs(r, entityDiv, amdSecs);
-		}
+	    if (entity.getRepresentations() != null){
+    		for (Representation r : entity.getRepresentations()) {
+    			MetsAMDSec.Builder amdBuilder = new MetsAMDSec.Builder();
+    			amdBuilder.provenanceMetadata(getProvenance(r))
+    					.rightsMetadata(getRights(r))
+    					.sourceMetadata(getSource(r))
+    					.technicalMetadata(getTechnical(r))
+    					.id(r.getIdentifier().getValue());
+    			amdSecs.put(r, amdBuilder.build());
+    			addFileSecs(r, amdSecs, fileSecs);
+    			addSubDivs(r, entityDiv, amdSecs);
+    		}
+	    }
 	}
 
 	private static void addSubDivs(Representation r, MetsDiv.Builder entityDiv, Map<Object, MetsAMDSec> amdSecs) {
@@ -190,6 +192,9 @@ public abstract class MetsUtil {
 		MetsHeader.Builder hdrBuilder = new MetsHeader.Builder(new Identifier(UUID.randomUUID().toString()).getValue())
 				.agents(getAgentList((DCMetadata) entity.getDescriptive()))
 				.alternativeIdentifiers(getAlternativeIdentifiers(entity));
+		if (entity.getLifecycleState() != null){
+		    hdrBuilder.recordStatus(entity.getLifecycleState().getState().name());
+		}
 		return hdrBuilder.build();
 	}
 
