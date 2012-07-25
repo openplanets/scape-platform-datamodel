@@ -119,6 +119,7 @@ public abstract class MetsUtil {
 					.build();
 			metsFile.addFileLocation(loc);
 			addBitstreams(f, metsFile, amdSecs);
+			group.addFile(metsFile.build());
 		}
 		fileSecs.add(new MetsFileSec(new Identifier(UUID.randomUUID().toString()).getValue(), Arrays.asList(group.build())));
 	}
@@ -309,19 +310,34 @@ public abstract class MetsUtil {
 		}
 		List<File> files=new ArrayList<File>();
 		for (MetsFilePtr ptr:pointers){
-			File.Builder file=new File.Builder()
-				.identifier(new Identifier(ptr.getFileId()));
-			files.add(file.build());
+		    files.add(getMetsFile(ptr.getFileId(),doc));
 		}
 		return files;
 	}
 	
-	public static List<Representation> getRepresentations(MetsDiv div,MetsDocument doc){
+	private static File getMetsFile(String fileId, MetsDocument doc) {
+        for (MetsFileSec fileSec:doc.getFileSecs()){
+            for (MetsFileGrp grp:fileSec.getFileGroups()){
+                for (MetsFile metsFile:grp.getFiles()){
+                    if (metsFile.getId().equals(fileId)){
+                        return new File.Builder()
+                            .identifier(new Identifier(fileId))
+                            .uri(metsFile.getFileLocations().get(0).getHref())
+                            .build();
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public static List<Representation> getRepresentations(MetsDiv div,MetsDocument doc){
 		List<Representation> reps=new ArrayList<Representation>();
 		if (div.getType().equals("Representation")){
 			Representation.Builder repBuilder = new Representation.Builder()
-			.identifier(new Identifier(div.getAdmId()));
-			repBuilder.files(getFiles(div.getFilePointers(), doc));
+			    .identifier(new Identifier(div.getAdmId()))
+			    .files(getFiles(div.getFilePointers(), doc))
+			    .title(div.getLabel());
 			reps.add(repBuilder.build());
 		}
 		if (div.getSubDivs() != null){

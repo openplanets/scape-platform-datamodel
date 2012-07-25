@@ -15,12 +15,12 @@ public class BitStream {
         this.identifier = null;
     }
 
-    public BitStream(Identifier identifier, String title, Type type, TechnicalMetadata technical) {
+    private BitStream(Builder b) {
         super();
-        this.title = title;
-        this.type = type;
-        this.technical = technical;
-        this.identifier = identifier;
+        this.title = b.title;
+        this.type = b.type;
+        this.technical = b.technical;
+        this.identifier = b.identifier;
     }
 
     public TechnicalMetadata getTechnical() {
@@ -83,6 +83,34 @@ public class BitStream {
         return true;
     }
 
-    // TODO: add Builder
+    public static class Builder {
+        private  String title;
+        private  Type type;
+        private  TechnicalMetadata technical;
+        private  Identifier identifier;
 
+        public Builder title(String title){
+            this.title=title;
+            return this;
+        }
+        
+        public Builder type(Type type){
+            this.type=type;
+            return this;
+        }
+        
+        public Builder technical(TechnicalMetadata technical){
+            this.technical=technical;
+            return this;
+        }
+        
+        public Builder identifier(Identifier identifier){
+            this.identifier=identifier;
+            return this;
+        }
+        
+        public BitStream build() {
+            return new BitStream(this);
+        }
+    }
 }

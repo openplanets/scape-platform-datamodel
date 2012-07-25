@@ -215,7 +215,12 @@ public abstract class TestUtil {
     }
 
     public static BitStream createRandomBitStream() {
-        return new BitStream(new Identifier(UUID.randomUUID().toString()), randomAlphabetic(16), Type.STREAM, createRandomTechnicalMetadata());
+        return new BitStream.Builder()
+                .identifier(new Identifier(UUID.randomUUID().toString()))
+                .title(randomAlphabetic(16))
+                .type(Type.STREAM)
+                .technical(createRandomTechnicalMetadata())
+                .build();
     }
 
     public static List<BitStream> createRandomBitStreams() {
