@@ -62,9 +62,11 @@ public abstract class MetsUtil {
 		MetsDMDSec dmdSec = convertDCMetadata(dc);
 		Map<Object, MetsAMDSec> amdSecs = new HashMap<Object, MetsAMDSec>();
 		MetsDocument.Builder docBuilder = new MetsDocument.Builder();
+		
 		// add representations, files and bitstreams to the MetsAmdSec
 		List<MetsFileSec> fileSecs = new ArrayList<MetsFileSec>();
 		List<MetsStructMap> structMaps = new ArrayList<MetsStructMap>();
+
 		// take care! since order is important here, this sucks but is due to
 		// METS format, since somehow Structmap has to be linked to AmdSecs
 		MetsDiv.Builder entityDiv = new MetsDiv.Builder()
@@ -72,6 +74,7 @@ public abstract class MetsUtil {
 		addRepresentations(entity, entityDiv, amdSecs, fileSecs);
 		structMaps.add(new MetsStructMap.Builder().addDivision(entityDiv.build()).build());
 
+		// finally build the MetsDocument
 		docBuilder.dmdSec(dmdSec)
 				.id(new Identifier(UUID.randomUUID().toString()).getValue())
 				.addHeader(getMetsHeader(entity))
@@ -256,12 +259,11 @@ public abstract class MetsUtil {
 	}
 
 	public static MetsDMDSec convertDCMetadata(DCMetadata dc) {
-
-		final String dmdId = "dmd-" + new Identifier(UUID.randomUUID().toString()).getValue();
-		final String admId = "adm-" + new Identifier(UUID.randomUUID().toString()).getValue();
+		
+		final String admId = UUID.randomUUID().toString();
 		final Date created = dc.getDate().get(0);
 
-		return new MetsDMDSec.Builder(dmdId)
+		return new MetsDMDSec.Builder(dc.getId())
 				.admId(admId)
 				.created(created)
 				.metadataWrapper(createMetsWrapper(dc))
@@ -392,4 +394,10 @@ public abstract class MetsUtil {
         }
         return null;
     }
+
+	public static DescriptiveMetadata getDescriptiveMetadadata(MetsDMDSec dmdSec) {
+		DCMetadata.Builder dc = new DCMetadata.Builder((DCMetadata) dmdSec.getMetadataWrapper().getXmlData().getData());
+		dc.identifier=new Identifier(dmdSec.getId());
+		return dc.build();
+	}
 }

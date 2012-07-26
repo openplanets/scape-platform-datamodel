@@ -87,7 +87,7 @@ public abstract class ValidationUtil {
         DCMetadata dc=(DCMetadata) metadata;
         assertNotNull(dc.getDescription());
         assertTrue(dc.getConstributors().size() > 0);
-        assertTrue(dc.getCoverage().size() > 0);
+        assertTrue(dc.getCoverages().size() > 0);
         assertTrue(dc.getCreator().size() > 0);
         assertTrue(dc.getDate().size() > 0);
         assertTrue(dc.getDescription().size() > 0);

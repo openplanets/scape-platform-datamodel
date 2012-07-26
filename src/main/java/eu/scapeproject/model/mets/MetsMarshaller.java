@@ -10,9 +10,11 @@ import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.lang3.SerializationException;
 
+import eu.scapeproject.dto.mets.MetsDMDSec;
 import eu.scapeproject.dto.mets.MetsDocument;
 import eu.scapeproject.model.Identifier;
 import eu.scapeproject.model.IntellectualEntity;
+import eu.scapeproject.model.IntellectualEntity.Builder;
 import eu.scapeproject.model.LifecycleState;
 import eu.scapeproject.model.LifecycleState.State;
 import eu.scapeproject.model.jaxb.MetsNamespacePrefixMapper;
@@ -39,7 +41,7 @@ public class MetsMarshaller {
 		}
 		return INSTANCE;
 	}
-
+	
 	private MetsMarshaller() throws JAXBException {
 		super();
 		final JAXBContext ctx = JAXBContext.newInstance(
@@ -73,17 +75,28 @@ public class MetsMarshaller {
 	public <T> T deserialize(Class<T> type,InputStream in) throws SerializationException {
 		if (type == IntellectualEntity.class){
 			return (T) deserializeEntity(in);
+		}else if(type == DCMetadata.class){
+			return (T) deserializeDC(in);
 		}else{
 			throw new SerializationException("unable to deserialize into objects of type " + type);
 		}
 	}
 	
+	private DCMetadata deserializeDC(InputStream in) throws SerializationException{
+		try{
+			MetsDMDSec dmd=(MetsDMDSec) unmarshaller.unmarshal(in);
+			return (DCMetadata) MetsUtil.getDescriptiveMetadadata(dmd);
+		}catch(JAXBException e){
+			throw new SerializationException(e);
+		}
+	}
+
 	private IntellectualEntity deserializeEntity(InputStream in) throws SerializationException{
 		try {
             MetsDocument doc=(MetsDocument) unmarshaller.unmarshal(in);
             IntellectualEntity.Builder entityBuilder=new IntellectualEntity.Builder()
                 .identifier(new Identifier(doc.getObjId()))
-                .descriptive((DescriptiveMetadata) doc.getDmdSec().getMetadataWrapper().getXmlData().getData())
+                .descriptive(MetsUtil.getDescriptiveMetadadata(doc.getDmdSec()))
                 .representations(MetsUtil.getRepresentations(doc))
                 .alternativeIdentifiers(MetsUtil.getAlternativeIdentifiers(doc.getHeaders()));
             if (doc.getHeaders().get(0).getRecordStatus() != null){
@@ -102,6 +115,13 @@ public class MetsMarshaller {
 		marshaller.marshal(doc, out);
 	}
 	
+	public Marshaller getJaxbMarshaller(){
+		return marshaller;
+	}
+	
+	public Unmarshaller getJaxbUnmarshaller(){
+		return unmarshaller;
+	}
 
 	
 }

@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import eu.scapeproject.model.Agent;
+import eu.scapeproject.model.Identifier;
 import eu.scapeproject.model.jaxb.DateAdapter;
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
 import eu.scapeproject.model.util.ListUtil;
@@ -66,13 +67,16 @@ public class DCMetadata extends DescriptiveMetadata {
         this.relations = builder.relations;
         this.contributors = builder.contributors;
         this.rights = builder.rights;
+        if (builder.identifier != null) {
+        	this.setId(builder.identifier.getValue());
+        }
     }
 
     public List<Agent> getConstributors() {
         return contributors;
     }
 
-    public List<String> getCoverage() {
+    public List<String> getCoverages() {
         return coverages;
     }
 
@@ -228,6 +232,7 @@ public class DCMetadata extends DescriptiveMetadata {
     }
 
     public static class Builder {
+    	public Identifier identifier;
         private List<Date> dates;
         private List<String> titles;
         private List<Agent> creators;
@@ -262,6 +267,7 @@ public class DCMetadata extends DescriptiveMetadata {
         	this.relations=md.getRelations();
         	this.contributors=md.getConstributors();
         	this.rights=md.getRights();
+        	this.coverages=md.getCoverages();
         }
         
         public DCMetadata build() {
@@ -273,6 +279,11 @@ public class DCMetadata extends DescriptiveMetadata {
         		contributors=new ArrayList<Agent>();
         	}
             this.contributors.add(constributor);
+            return this;
+        }
+
+        public Builder identifier(Identifier identifier) {
+            this.identifier = identifier;
             return this;
         }
 

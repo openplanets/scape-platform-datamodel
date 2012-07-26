@@ -341,6 +341,7 @@ public abstract class TestUtil {
 
     public static DescriptiveMetadata createRandomDescriptive() {
         DCMetadata.Builder builder = new DCMetadata.Builder();
+        builder.identifier(new Identifier(UUID.randomUUID().toString()));
         Random rnd = new Random();
         int max = rnd.nextInt(9) + 1;
         for (int i = 0; i < max; i++) {

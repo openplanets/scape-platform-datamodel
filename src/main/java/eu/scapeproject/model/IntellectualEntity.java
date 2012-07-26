@@ -158,7 +158,7 @@ public class IntellectualEntity {
 			this.lifecycleState = state;
 			return this;
 		}
-
+		
 		public IntellectualEntity build() {
 			return new IntellectualEntity(this);
 		}
