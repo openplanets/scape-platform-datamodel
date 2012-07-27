@@ -11,6 +11,7 @@ import eu.scapeproject.model.metadata.dc.DCMetadata;
 public class IntellectualEntity {
 
 	private final Identifier identifier;
+	private final int versionNumber;
 	private final List<Identifier> alternativeIdentifiers;
 	private final DescriptiveMetadata descriptive;
 	private final List<Representation> representations;
@@ -24,6 +25,7 @@ public class IntellectualEntity {
 		this.descriptive = null;
 		this.representations = null;
 		this.lifeCycleState = null;
+		this.versionNumber = 1;
 	}
 
 	public IntellectualEntity(Builder builder) {
@@ -32,8 +34,9 @@ public class IntellectualEntity {
 		this.descriptive = builder.descriptive;
 		this.representations = builder.representations;
 		this.lifeCycleState = builder.lifecycleState;
+		this.versionNumber = builder.versionNumber;
 	}
-	
+
 	public LifecycleState getLifecycleState() {
 		return lifeCycleState;
 	}
@@ -53,58 +56,66 @@ public class IntellectualEntity {
 	public List<Representation> getRepresentations() {
 		return representations;
 	}
+	
+	public int getVersionNumber() {
+		return versionNumber;
+	}
 
 	@Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((alternativeIdentifiers == null) ? 0 : alternativeIdentifiers.hashCode());
-        result = prime * result + ((descriptive == null) ? 0 : descriptive.hashCode());
-        result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
-        result = prime * result + ((lifeCycleState == null) ? 0 : lifeCycleState.hashCode());
-        result = prime * result + ((representations == null) ? 0 : representations.hashCode());
-        return result;
-    }
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((alternativeIdentifiers == null) ? 0 : alternativeIdentifiers.hashCode());
+		result = prime * result + ((descriptive == null) ? 0 : descriptive.hashCode());
+		result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
+		result = prime * result + ((lifeCycleState == null) ? 0 : lifeCycleState.hashCode());
+		result = prime * result + ((representations == null) ? 0 : representations.hashCode());
+		result = prime * result + versionNumber;
+		return result;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        IntellectualEntity other = (IntellectualEntity) obj;
-        if (alternativeIdentifiers == null) {
-            if (other.alternativeIdentifiers != null)
-                return false;
-        } else if (!alternativeIdentifiers.equals(other.alternativeIdentifiers))
-            return false;
-        if (descriptive == null) {
-            if (other.descriptive != null)
-                return false;
-        } else if (!descriptive.equals(other.descriptive))
-            return false;
-        if (identifier == null) {
-            if (other.identifier != null)
-                return false;
-        } else if (!identifier.equals(other.identifier))
-            return false;
-        if (lifeCycleState == null) {
-            if (other.lifeCycleState != null)
-                return false;
-        } else if (!lifeCycleState.equals(other.lifeCycleState))
-            return false;
-        if (representations == null) {
-            if (other.representations != null)
-                return false;
-        } else if (!representations.equals(other.representations))
-            return false;
-        return true;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		IntellectualEntity other = (IntellectualEntity) obj;
+		if (alternativeIdentifiers == null) {
+			if (other.alternativeIdentifiers != null)
+				return false;
+		} else if (!alternativeIdentifiers.equals(other.alternativeIdentifiers))
+			return false;
+		if (descriptive == null) {
+			if (other.descriptive != null)
+				return false;
+		} else if (!descriptive.equals(other.descriptive))
+			return false;
+		if (identifier == null) {
+			if (other.identifier != null)
+				return false;
+		} else if (!identifier.equals(other.identifier))
+			return false;
+		if (lifeCycleState == null) {
+			if (other.lifeCycleState != null)
+				return false;
+		} else if (!lifeCycleState.equals(other.lifeCycleState))
+			return false;
+		if (representations == null) {
+			if (other.representations != null)
+				return false;
+		} else if (!representations.equals(other.representations))
+			return false;
+		if (versionNumber != other.versionNumber)
+			return false;
+		return true;
+	}
 
-    public static class Builder {
+	public static class Builder {
 		private Identifier identifier;
+		private int versionNumber;
 		private List<Identifier> alternativeIdentifiers;
 		private DescriptiveMetadata descriptive;
 		private List<Representation> representations;
@@ -115,23 +126,26 @@ public class IntellectualEntity {
 		}
 
 		public Builder(IntellectualEntity orig) {
-			this.identifier = new Identifier(orig.getIdentifier().type, orig.getIdentifier().value) {};
+			this.identifier = new Identifier(orig.getIdentifier().type, orig.getIdentifier().value) {
+			};
 			this.descriptive = new DCMetadata.Builder((DCMetadata) orig.descriptive).build();
 			if (orig.alternativeIdentifiers != null) {
 				this.alternativeIdentifiers = new ArrayList<Identifier>();
 				for (Identifier id : orig.alternativeIdentifiers) {
-					this.alternativeIdentifiers.add(new Identifier(new String(id.type), new String(id.value)) {});
+					this.alternativeIdentifiers.add(new Identifier(new String(id.type), new String(id.value)) {
+					});
 				}
 			}
 			if (orig.representations != null) {
 				this.representations = new ArrayList<Representation>();
-				for (Representation r:representations){
+				for (Representation r : representations) {
 					this.representations.add(new Representation.Builder(r).build());
 				}
 			}
-			if (orig.lifeCycleState != null){
+			if (orig.lifeCycleState != null) {
 				this.lifecycleState = new LifecycleState(new String(orig.lifeCycleState.getDetails()), orig.lifeCycleState.getState());
 			}
+			this.versionNumber = orig.versionNumber;
 		}
 
 		public Builder identifier(Identifier identifier) {
@@ -158,8 +172,14 @@ public class IntellectualEntity {
 			this.lifecycleState = state;
 			return this;
 		}
-		
+
+		public Builder versionNumber(int versionNumber) {
+			this.versionNumber = versionNumber;
+			return this;
+		}
+
 		public IntellectualEntity build() {
+			versionNumber = (versionNumber == 0) ? 1 : versionNumber;
 			return new IntellectualEntity(this);
 		}
 	}
