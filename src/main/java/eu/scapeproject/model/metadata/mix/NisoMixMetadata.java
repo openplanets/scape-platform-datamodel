@@ -111,9 +111,9 @@ public class NisoMixMetadata extends TechnicalMetadata {
         	this.width = technical.getBasicImageInformation().getBasicImageCharacteristics().getWidth();
         	this.height = technical.getBasicImageInformation().getBasicImageCharacteristics().getHeight();
         	this.orientation = technical.getImageCapture().getOrientation();
-        	this.methodology = new String(technical.getImageCapture().getMethodology());
-        	this.colorspace = new String(technical.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getColorSpace());
         	// TODO: Deep copy necessary?
+        	this.methodology = technical.getImageCapture().getMethodology();
+        	this.colorspace = technical.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getColorSpace();
         	this.colorProfile = technical.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getColorProfile();
         	this.yCrCb = technical.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getYbCbCr();
         	this.referencedBlackWhite = technical.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getReferencedBlackWhite();

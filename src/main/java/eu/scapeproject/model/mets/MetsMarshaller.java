@@ -12,13 +12,13 @@ import org.apache.commons.lang3.SerializationException;
 
 import eu.scapeproject.dto.mets.MetsDMDSec;
 import eu.scapeproject.dto.mets.MetsDocument;
+import eu.scapeproject.dto.mets.MetsFile;
+import eu.scapeproject.model.File;
 import eu.scapeproject.model.Identifier;
 import eu.scapeproject.model.IntellectualEntity;
-import eu.scapeproject.model.IntellectualEntity.Builder;
 import eu.scapeproject.model.LifecycleState;
 import eu.scapeproject.model.LifecycleState.State;
 import eu.scapeproject.model.jaxb.MetsNamespacePrefixMapper;
-import eu.scapeproject.model.metadata.DescriptiveMetadata;
 import eu.scapeproject.model.metadata.audiomd.AudioMDMetadata;
 import eu.scapeproject.model.metadata.dc.DCMetadata;
 import eu.scapeproject.model.metadata.fits.FitsMetadata;
@@ -41,7 +41,7 @@ public class MetsMarshaller {
 		}
 		return INSTANCE;
 	}
-	
+
 	private MetsMarshaller() throws JAXBException {
 		super();
 		final JAXBContext ctx = JAXBContext.newInstance(
@@ -60,68 +60,78 @@ public class MetsMarshaller {
 		unmarshaller = ctx.createUnmarshaller();
 	}
 
-	public void serialize(Object subject,OutputStream out) throws SerializationException{
+	public void serialize(Object subject, OutputStream out) throws SerializationException {
 		if (subject instanceof IntellectualEntity) {
 			try {
-				serializeEntity((IntellectualEntity) subject,out);
+				serializeEntity((IntellectualEntity) subject, out);
 			} catch (JAXBException e) {
 				throw new SerializationException(e);
 			}
-		}else  {
+		} else if (subject instanceof File) {
+			try {
+				serializeFile((File) subject, out);
+			} catch (JAXBException e) {
+				throw new SerializationException(e);
+			}
+		} else {
 			throw new SerializationException("unable to serialize objects of type " + subject.getClass());
 		}
 	}
-	
-	public <T> T deserialize(Class<T> type,InputStream in) throws SerializationException {
-		if (type == IntellectualEntity.class){
+
+	private void serializeFile(File subject, OutputStream out) throws JAXBException{
+		MetsFile file= MetsUtil.convertFile(subject);
+		marshaller.marshal(file, out);
+	}
+
+	public <T> T deserialize(Class<T> type, InputStream in) throws SerializationException {
+		if (type == IntellectualEntity.class) {
 			return (T) deserializeEntity(in);
-		}else if(type == DCMetadata.class){
+		} else if (type == DCMetadata.class) {
 			return (T) deserializeDC(in);
-		}else{
+		} else {
 			throw new SerializationException("unable to deserialize into objects of type " + type);
 		}
 	}
-	
-	private DCMetadata deserializeDC(InputStream in) throws SerializationException{
-		try{
-			MetsDMDSec dmd=(MetsDMDSec) unmarshaller.unmarshal(in);
+
+	private DCMetadata deserializeDC(InputStream in) throws SerializationException {
+		try {
+			MetsDMDSec dmd = (MetsDMDSec) unmarshaller.unmarshal(in);
 			return (DCMetadata) MetsUtil.getDescriptiveMetadadata(dmd);
-		}catch(JAXBException e){
+		} catch (JAXBException e) {
 			throw new SerializationException(e);
 		}
 	}
 
-	private IntellectualEntity deserializeEntity(InputStream in) throws SerializationException{
+	private IntellectualEntity deserializeEntity(InputStream in) throws SerializationException {
 		try {
-            MetsDocument doc=(MetsDocument) unmarshaller.unmarshal(in);
-            IntellectualEntity.Builder entityBuilder=new IntellectualEntity.Builder()
-                .identifier(new Identifier(doc.getObjId()))
-                .descriptive(MetsUtil.getDescriptiveMetadadata(doc.getDmdSec()))
-                .representations(MetsUtil.getRepresentations(doc))
-                .alternativeIdentifiers(MetsUtil.getAlternativeIdentifiers(doc.getHeaders()));
-            if (doc.getHeaders().get(0).getRecordStatus() != null){
-                System.out.println(doc.getHeaders().get(0).getRecordStatus());
-                entityBuilder.lifecycleState(new LifecycleState("", State.valueOf(doc.getHeaders().get(0).getRecordStatus())));
-            }
-            return entityBuilder.build();
-        } catch (JAXBException e) {
-            e.printStackTrace();
-            throw new SerializationException(e);
-        }
+			MetsDocument doc = (MetsDocument) unmarshaller.unmarshal(in);
+			IntellectualEntity.Builder entityBuilder = new IntellectualEntity.Builder()
+					.identifier(new Identifier(doc.getObjId()))
+					.descriptive(MetsUtil.getDescriptiveMetadadata(doc.getDmdSec()))
+					.representations(MetsUtil.getRepresentations(doc))
+					.alternativeIdentifiers(MetsUtil.getAlternativeIdentifiers(doc.getHeaders()));
+			if (doc.getHeaders().get(0).getRecordStatus() != null) {
+				System.out.println(doc.getHeaders().get(0).getRecordStatus());
+				entityBuilder.lifecycleState(new LifecycleState("", State.valueOf(doc.getHeaders().get(0).getRecordStatus())));
+			}
+			return entityBuilder.build();
+		} catch (JAXBException e) {
+			e.printStackTrace();
+			throw new SerializationException(e);
+		}
 	}
 
-	private void serializeEntity(IntellectualEntity entity,OutputStream out) throws JAXBException{
-		MetsDocument doc=MetsUtil.convertEntity(entity);
+	private void serializeEntity(IntellectualEntity entity, OutputStream out) throws JAXBException {
+		MetsDocument doc = MetsUtil.convertEntity(entity);
 		marshaller.marshal(doc, out);
 	}
-	
-	public Marshaller getJaxbMarshaller(){
+
+	public Marshaller getJaxbMarshaller() {
 		return marshaller;
 	}
-	
-	public Unmarshaller getJaxbUnmarshaller(){
+
+	public Unmarshaller getJaxbUnmarshaller() {
 		return unmarshaller;
 	}
 
-	
 }

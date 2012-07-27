@@ -400,4 +400,10 @@ public abstract class MetsUtil {
         MetsAMDSec amd=getAdmSec(admId, doc.getAmdSecs());
         return (TechnicalMetadata) amd.getTechnicalMetadata().getMetadataWrapper().getXmlData().getData();
     }
+
+	public static MetsFile convertFile(File file) {
+		return new MetsFile.Builder(file.getIdentifier().getValue())
+			.addFileLocation(new MetsFileLocation.Builder(file.getIdentifier().getValue()).href(file.getUri()).build())
+			.build();
+	}
 }

@@ -138,7 +138,7 @@ public class IntellectualEntity {
 			}
 			if (orig.representations != null) {
 				this.representations = new ArrayList<Representation>();
-				for (Representation r : representations) {
+				for (Representation r : orig.representations) {
 					this.representations.add(new Representation.Builder(r).build());
 				}
 			}
