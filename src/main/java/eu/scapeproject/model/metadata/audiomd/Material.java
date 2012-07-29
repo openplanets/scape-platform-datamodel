@@ -9,28 +9,38 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="material",namespace="http://www.loc.gov/AMD/")
 public class Material {
     @XmlAttribute(name="id",namespace="http://www.loc.gov/AMD/")
-    private String id;
+    private final String id;
     @XmlElement(name="basematerial",namespace="http://www.loc.gov/AMD/")
-    private List<String> baseMaterials;
+    private final List<String> baseMaterials;
     @XmlElement(name="binder",namespace="http://www.loc.gov/AMD/")
-    private List<String> binders;
+    private final List<String> binders;
     @XmlElement(name="discsurface",namespace="http://www.loc.gov/AMD/")
-    private List<String> discSurfaces;
+    private final List<String> discSurfaces;
     @XmlElement(name="oxide",namespace="http://www.loc.gov/AMD/")
-    private List<String> oxides;
+    private final List<String> oxides;
     @XmlElement(name="activelayer",namespace="http://www.loc.gov/AMD/")
-    private List<String> activeLayers;
+    private final List<String> activeLayers;
     @XmlElement(name="reflectivelayer",namespace="http://www.loc.gov/AMD/")
-    private List<String> reflectiveLayers;
+    private final List<String> reflectiveLayers;
     @XmlElement(name="stockbrand",namespace="http://www.loc.gov/AMD/")
-    private List<String> stockBrands;
+    private final List<String> stockBrands;
     @XmlElement(name="method",namespace="http://www.loc.gov/AMD/")
-    private List<String> methods;
+    private final List<String> methods;
     @XmlElement(name="usedsides",namespace="http://www.loc.gov/AMD/")
-    private List<String> usedSides;
+    private final List<String> usedSides;
     
     private Material(){
         super();
+        this.id = null;
+        this.baseMaterials = null;
+        this.binders = null;
+        this.discSurfaces = null;
+        this.oxides = null;
+        this.activeLayers = null;
+        this.reflectiveLayers = null;
+        this.stockBrands = null;
+        this.methods = null;
+        this.usedSides = null;
     }
 
     private Material(Builder builder) {

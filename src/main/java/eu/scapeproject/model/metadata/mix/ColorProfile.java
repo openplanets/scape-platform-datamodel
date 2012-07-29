@@ -9,30 +9,39 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ColorProfile {
     @XmlElement(name="iccProfile",namespace="http://www.loc.gov/mix/v10")
-    private ICCProfile iccProfile;
+    private final ICCProfile iccProfile;
     @XmlElement(name="localProfile",namespace="http://www.loc.gov/mix/v10")
-    private LocalProfile localProfile;
+    private final LocalProfile localProfile;
     @XmlElement(name="embeddedProfile",namespace="http://www.loc.gov/mix/v10")
-    private EmbeddedProfile embeddedProfile;
+    private final EmbeddedProfile embeddedProfile;
 
     @SuppressWarnings("unused")
     private ColorProfile(){
         super();
+        this.iccProfile=null;
+        this.localProfile=null;
+        this.embeddedProfile=null;
     }
     
     public ColorProfile(EmbeddedProfile embeddedProfile) {
         super();
         this.embeddedProfile = embeddedProfile;
+        this.localProfile=null;
+        this.iccProfile=null;
     }
 
     public ColorProfile(ICCProfile iccProfile) {
         super();
         this.iccProfile = iccProfile;
+        this.localProfile=null;
+        this.embeddedProfile=null;
     }
 
     public ColorProfile(LocalProfile localProfile) {
         super();
         this.localProfile = localProfile;
+        this.iccProfile=null;
+        this.embeddedProfile=null;
     }
 
     public EmbeddedProfile getEmbeddedProfile() {
@@ -46,20 +55,6 @@ public class ColorProfile {
     public LocalProfile getLocalProfile() {
         return localProfile;
     }
-
-    public void setEmbeddedProfile(EmbeddedProfile embeddedProfile) {
-        this.embeddedProfile = embeddedProfile;
-    }
-
-    public void setIccProfile(ICCProfile iccProfile) {
-        this.iccProfile = iccProfile;
-    }
-
-    public void setLocalProfile(LocalProfile localProfile) {
-        this.localProfile = localProfile;
-    }
-    
-    
 
     @Override
     public int hashCode() {

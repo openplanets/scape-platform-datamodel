@@ -6,15 +6,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="imageAssemeentMetadata",namespace="http://www.loc.gov/mix/v10")
 public class ImageAssessmentMetadata {
     @XmlElement(name="spacialMetrics",namespace="http://www.loc.gov/mix/v10")
-    private SpacialMetrics spacialMetrics;
+    private final SpacialMetrics spacialMetrics;
     @XmlElement(name="imageColorEncoding",namespace="http://www.loc.gov/mix/v10")
-    private ImageColorEncoding imageColorEncoding;
+    private final ImageColorEncoding imageColorEncoding;
     @XmlElement(name="targetData",namespace="http://www.loc.gov/mix/v10")
-    private TargetData targetData;
+    private final TargetData targetData;
     
     @SuppressWarnings("unused")
     private ImageAssessmentMetadata(){
         super();
+        this.spacialMetrics=null;
+        this.imageColorEncoding=null;
+        this.targetData=null;
     }
 
     public ImageAssessmentMetadata(SpacialMetrics spacialMetrics, ImageColorEncoding imageColorEncoding, TargetData targetData) {

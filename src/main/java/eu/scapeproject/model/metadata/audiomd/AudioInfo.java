@@ -9,20 +9,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="audioinfo",namespace="http://www.loc.gov/AMD/")
 public class AudioInfo {
     @XmlAttribute(name="id",namespace="http://www.loc.gov/AMD/")
-    private String id;
+    private final String id;
     @XmlElement(name="duration",namespace="http://www.loc.gov/AMD/")
-    private List<String> durations;
+    private final List<String> durations;
     @XmlElement(name="note",namespace="http://www.loc.gov/AMD/")
-    private List<String> notes;
+    private final List<String> notes;
     @XmlElement(name="numchannel",namespace="http://www.loc.gov/AMD/")
-    private List<String> numChannnels;
+    private final List<String> numChannnels;
     @XmlElement(name="soundchannelmap",namespace="http://www.loc.gov/AMD/")
-    private List<SoundChannelMap> soundChannelMaps;
+    private final List<SoundChannelMap> soundChannelMaps;
     @XmlElement(name="soundfields",namespace="http://www.loc.gov/AMD/")
-    private List<String> soundFields;
+    private final List<String> soundFields;
 
     private AudioInfo() {
         super();
+        this.id=null;
+        this.durations=null;
+        this.notes=null;
+        this.numChannnels=null;
+        this.soundChannelMaps=null;
+        this.soundFields=null;
     }
 
     private AudioInfo(Builder builder) {

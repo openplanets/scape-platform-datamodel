@@ -9,15 +9,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="copyRightInformation",namespace="http://www.loc.gov/standards/premis")
 public class CopyRightInformation {
     @XmlElement(name="copyrightJurisdiction",namespace="http://www.loc.gov/standards/premis")
-    private String copyrightJurisdiction;
+    private final String copyrightJurisdiction;
 
     @XmlElement(name="copyrightStatusDeterminationDate",namespace="http://www.loc.gov/standards/premis")
-    private Date copyrightStatusDeterminationDate;
+    private final Date copyrightStatusDeterminationDate;
     @XmlElement(name="copyrightNote",namespace="http://www.loc.gov/standards/premis")
-    private List<String> copyrightNote;
+    private final List<String> copyrightNote;
     @SuppressWarnings("unused")
     private CopyRightInformation(){
         super();
+        this.copyrightJurisdiction=null;
+        this.copyrightNote=null;
+        this.copyrightStatusDeterminationDate=null;
     }
 
     public CopyRightInformation(String copyrightJurisdiction, Date copyrightStatusDeterminationDate, List<String> copyrightNote) {

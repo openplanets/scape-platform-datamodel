@@ -6,34 +6,47 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="format",namespace="http://www.loc.gov/videoMD/")
 public class VideoFormat {
     @XmlElement(name="annotation",namespace="http://www.loc.gov/videoMD/")
-    private String annotation;
+    private final String annotation;
     @XmlElement(name="creatorapp",namespace="http://www.loc.gov/videoMD/")
-    private String creatorApp;
+    private final String creatorApp;
     @XmlElement(name="creatorlib",namespace="http://www.loc.gov/videoMD/")
     private String creatorLib;
     @XmlElement(name="creatorlibdate",namespace="http://www.loc.gov/videoMD/")
-    private String creatorLibDate;
+    private final String creatorLibDate;
     @XmlElement(name="creatorlibsettings",namespace="http://www.loc.gov/videoMD/")
-    private String creatorLibSettings;
+    private final String creatorLibSettings;
     @XmlElement(name="name",namespace="http://www.loc.gov/videoMD/")
-    private String name;
+    private final String name;
     @XmlElement(name="encodingdate",namespace="http://www.loc.gov/videoMD/")
-    private String encodingDate;
+    private final String encodingDate;
     @XmlElement(name="taggeddate",namespace="http://www.loc.gov/videoMD/")
-    private String taggedDate;
+    private final String taggedDate;
     @XmlElement(name="commercialname",namespace="http://www.loc.gov/videoMD/")
-    private String commercialName;
+    private final String commercialName;
     @XmlElement(name="mimetype",namespace="http://www.loc.gov/videoMD/")
-    private String mimeType;
+    private final String mimeType;
     @XmlElement(name="profile",namespace="http://www.loc.gov/videoMD/")
-    private String profile;
+    private final String profile;
     @XmlElement(name="settings",namespace="http://www.loc.gov/videoMD/")
-    private String settings;
+    private final String settings;
     @XmlElement(name="version",namespace="http://www.loc.gov/videoMD/")
-    private String version;
+    private final String version;
 
     protected VideoFormat(){
         super();
+        this.annotation = null;
+        this.creatorApp = null;
+        this.creatorLib = null;
+        this.creatorLibDate = null;
+        this.creatorLibSettings = null;
+        this.name = null;
+        this.encodingDate = null;
+        this.taggedDate = null;
+        this.commercialName = null;
+        this.mimeType = null;
+        this.profile = null;
+        this.settings = null;
+        this.version = null;
     }
     
     private VideoFormat(Builder builder) {

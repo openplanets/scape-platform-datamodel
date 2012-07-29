@@ -9,16 +9,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="messagedigest",namespace="http://www.loc.gov/videoMD/")
 public class VideoMessageDigest {
     @XmlAttribute(name="id",namespace="http://www.loc.gov/videoMD/")
-    private String id;
+    private final String id;
     @XmlElement(name="messagedigestdatetime",namespace="http://www.loc.gov/videoMD/")
-    private Date messageDigestDateTime;
+    private final Date messageDigestDateTime;
     @XmlElement(name="messagedigestalgorithm",namespace="http://www.loc.gov/videoMD/")
-    private String messageDigestAlgorithm;
+    private final String messageDigestAlgorithm;
     @XmlElement(name="messagedigest",namespace="http://www.loc.gov/videoMD/")
-    private String messageDigest;
+    private final String messageDigest;
 
     private VideoMessageDigest() {
         super();
+        this.id=null;
+        this.messageDigestDateTime=null;
+        this.messageDigestAlgorithm=null;
+        this.messageDigest=null;
     }
 
     private VideoMessageDigest(Builder builder) {

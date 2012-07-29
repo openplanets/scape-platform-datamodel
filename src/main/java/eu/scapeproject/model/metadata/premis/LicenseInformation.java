@@ -14,15 +14,18 @@ import eu.scapeproject.model.jaxb.PremisLicenseIdentifierAdapter.PremisLicenseId
 public class LicenseInformation {
     @XmlElement(name = "licenseIdentifier", namespace = "http://www.loc.gov/standards/premis")
     @XmlJavaTypeAdapter(PremisLicenseIdentifierAdapter.class)
-    private Identifier licenseIdentifier;
+    private final Identifier licenseIdentifier;
     @XmlElement(name = "licenseTerms", namespace = "http://www.loc.gov/standards/premis")
-    private String licenseTerms;
+    private final String licenseTerms;
     @XmlElement(name = "licenseNotes", namespace = "http://www.loc.gov/standards/premis")
-    private List<String> licenseNotes;
+    private final List<String> licenseNotes;
 
     @SuppressWarnings("unused")
     private LicenseInformation() {
         super();
+        this.licenseIdentifier=null;
+        this.licenseNotes=null;
+        this.licenseTerms=null;
     }
 
     public LicenseInformation(Identifier licenseIdentifier, String licenseTerms, List<String> licenseNotes) {

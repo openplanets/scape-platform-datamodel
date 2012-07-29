@@ -9,15 +9,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "trackinginfo", namespace = "http://www.loc.gov/AMD/")
 public class TrackingInfo {
     @XmlAttribute(name = "id", namespace = "http://www.loc.gov/AMD/")
-    private String id;
+    private final String id;
     @XmlElement(name = "trackingtype", namespace = "http://www.loc.gov/AMD/")
-    private List<String> trackingTypes;
+    private final List<String> trackingTypes;
     @XmlElement(name = "trackingvalue", namespace = "http://www.loc.gov/AMD/")
-    private List<String> trackingValues;
+    private final List<String> trackingValues;
 
     @SuppressWarnings("unused")
     private TrackingInfo() {
         super();
+        this.id=null;
+        this.trackingTypes=null;
+        this.trackingValues=null;
     }
 
     public TrackingInfo(String id, List<String> trackingTypes, List<String> trackingValues) {

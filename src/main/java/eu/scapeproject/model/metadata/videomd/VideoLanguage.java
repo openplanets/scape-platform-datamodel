@@ -8,10 +8,11 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlRootElement(name = "language", namespace = "http://www.loc.gov/videoMD/")
 public class VideoLanguage {
     @XmlValue
-    private char[] language;
+    private final char[] language;
 
     private VideoLanguage() {
         super();
+        language=null;
     }
 
     private VideoLanguage(char[] language) {

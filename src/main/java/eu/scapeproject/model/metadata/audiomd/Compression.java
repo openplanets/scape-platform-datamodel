@@ -9,18 +9,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="compression",namespace="http://www.loc.gov/AMD/")
 public class Compression {
     @XmlAttribute(name="id",namespace="http://www.loc.gov/AMD/")
-    private String id;
+    private final String id;
     @XmlElement(name="codeccreatorapp",namespace="http://www.loc.gov/AMD/")
-    private List<String> codecCreatorApps;
+    private final List<String> codecCreatorApps;
     @XmlElement(name="codeccreatorappversion",namespace="http://www.loc.gov/AMD/")
-    private List<String> codecCreatorAppVersions;
+    private final List<String> codecCreatorAppVersions;
     @XmlElement(name="codecname",namespace="http://www.loc.gov/AMD/")
-    private List<String> codecNames;
+    private final List<String> codecNames;
     @XmlElement(name="codecquality",namespace="http://www.loc.gov/AMD/")
-    private List<CodecQuality> codecQualities;
+    private final List<CodecQuality> codecQualities;
 
     private Compression() {
         super();
+        this.id=null;
+        this.codecCreatorApps=null;
+        this.codecCreatorAppVersions=null;
+        this.codecNames=null;
+        this.codecQualities=null;
     }
 
     private Compression(Builder builder) {

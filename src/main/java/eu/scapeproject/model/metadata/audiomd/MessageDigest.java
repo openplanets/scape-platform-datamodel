@@ -13,17 +13,21 @@ import eu.scapeproject.model.jaxb.DateAdapter;
 @XmlRootElement(name="messagedigest",namespace="http://www.loc.gov/AMD/")
 public class MessageDigest {
     @XmlAttribute(name="id",namespace="http://www.loc.gov/AMD/")
-    private String id;
+    private final String id;
     @XmlElement(name="messagedigestdatetime",namespace="http://www.loc.gov/AMD/")
     @XmlJavaTypeAdapter(DateAdapter.class)
-    private List<Date> messageDigestDateTimes;
+    private final List<Date> messageDigestDateTimes;
     @XmlElement(name="messagedigestalgorithm",namespace="http://www.loc.gov/AMD/")
-    private List<String> messageDigestAlgorithms;
+    private final List<String> messageDigestAlgorithms;
     @XmlElement(name="messagedigest",namespace="http://www.loc.gov/AMD/")
-    private List<String> messageDigests;
+    private final List<String> messageDigests;
 
     private MessageDigest() {
         super();
+        this.id=null;
+        this.messageDigestAlgorithms=null;
+        this.messageDigestDateTimes=null;
+        this.messageDigests=null;
     }
 
     private MessageDigest(Builder builder) {

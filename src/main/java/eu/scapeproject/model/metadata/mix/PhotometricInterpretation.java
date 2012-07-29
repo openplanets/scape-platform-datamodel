@@ -5,18 +5,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="photometricInterpretation",namespace="http://www.loc.gov/mix/v10")
 public class PhotometricInterpretation {
     @XmlElement(name="colorSpace",namespace="http://www.loc.gov/mix/v10")
-    private String colorSpace;
+    private final String colorSpace;
     @XmlElement(name="colorProfile",namespace="http://www.loc.gov/mix/v10")
-    private ColorProfile colorProfile;
+    private final ColorProfile colorProfile;
     @XmlElement(name="YCbCr",namespace="http://www.loc.gov/mix/v10")
-    private YCbCr ybCbCr;
+    private final YCbCr ybCbCr;
     @XmlElement(name="specialFormatCharacteristics",namespace="http://www.loc.gov/mix/v10")
-    private SpecialFormatCharacteristics specialFormatCharacteristics;
+    private final SpecialFormatCharacteristics specialFormatCharacteristics;
     @XmlElement(name="referenceBlackWhite",namespace="http://www.loc.gov/mix/v10")
-    private ReferenceBlackWhite referencedBlackWhite;
+    private final ReferenceBlackWhite referencedBlackWhite;
 
     private PhotometricInterpretation() {
         super();
+        this.colorProfile=null;
+        this.colorSpace=null;
+        this.ybCbCr=null;
+        this.specialFormatCharacteristics=null;
+        this.referencedBlackWhite=null;
     }
 
     private PhotometricInterpretation(Builder builder) {

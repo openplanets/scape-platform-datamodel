@@ -6,15 +6,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "tool", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
 public class FitsTool {
     @XmlElement(name = "message", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private String message;
+    private final String message;
     @XmlElement(name = "well-formed", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private String wellFormed;
+    private final String wellFormed;
     @XmlElement(name = "valid", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private String valid;
+    private final String valid;
 
     @SuppressWarnings("unused")
     private FitsTool() {
         super();
+        this.message=null;
+        this.wellFormed=null;
+        this.valid=null;
     }
 
     public FitsTool(String message, String wellFormed, String valid) {

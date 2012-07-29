@@ -10,50 +10,71 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="filedata",namespace="http://www.loc.gov/AMD/")
 public class FileData {
     @XmlAttribute(name="id",namespace="http://www.loc.gov/AMD/")
-    private String id;
+    private final String id;
     @XmlElement(name="audioblocksize",namespace="http://www.loc.gov/AMD/")
-    private List<Integer> audiBlockSizes;
+    private final List<Integer> audiBlockSizes;
     @XmlElement(name="audiodataencoding",namespace="http://www.loc.gov/AMD/")
-    private List<String> audioDataEncodings;
+    private final List<String> audioDataEncodings;
     @XmlElement(name="bitspersample",namespace="http://www.loc.gov/AMD/")
-    private List<Integer> bitsPerSamples;
+    private final List<Integer> bitsPerSamples;
     @XmlElement(name="byteorder",namespace="http://www.loc.gov/AMD/")
-    private List<Integer> byteOrders;
+    private final List<Integer> byteOrders;
     @XmlElement(name="messagedigest",namespace="http://www.loc.gov/AMD/")
-    private List<MessageDigest> messageDigest;
+    private final List<MessageDigest> messageDigest;
     @XmlElement(name="compression",namespace="http://www.loc.gov/AMD/")
-    private List<Compression> compression;
+    private final List<Compression> compression;
     @XmlElement(name="datarates",namespace="http://www.loc.gov/AMD/")
-    private List<Integer> dataRates;
+    private final List<Integer> dataRates;
     @XmlElement(name="dataratemode",namespace="http://www.loc.gov/AMD/")
-    private List<DataRateMode> dataRateModes;
+    private final List<DataRateMode> dataRateModes;
     @XmlElement(name="firstsamploffset",namespace="http://www.loc.gov/AMD/")
-    private List<Integer> firstSampleOffsets;
+    private final List<Integer> firstSampleOffsets;
     @XmlElement(name="firstvalidbyteblock",namespace="http://www.loc.gov/AMD/")
-    private List<Integer> firstValidByteBlocks;
+    private final List<Integer> firstValidByteBlocks;
     @XmlElement(name="formatlocation",namespace="http://www.loc.gov/AMD/")
-    private List<String> formatLocations;
+    private final List<String> formatLocations;
     @XmlElement(name="formatname",namespace="http://www.loc.gov/AMD/")
-    private List<String> formatNames;
+    private final List<String> formatNames;
     @XmlElement(name="formatversion",namespace="http://www.loc.gov/AMD/")
-    private List<String> formatVersions;
+    private final List<String> formatVersions;
     @XmlElement(name="lastvalidbyteblock",namespace="http://www.loc.gov/AMD/")
-    private List<Integer> lastValidByteBlocks;
+    private final List<Integer> lastValidByteBlocks;
     @XmlElement(name="numsampleframe",namespace="http://www.loc.gov/AMD/")
-    private List<Integer> numSampleFrames;
+    private final List<Integer> numSampleFrames;
     @XmlElement(name="samplingfrequency",namespace="http://www.loc.gov/AMD/")
-    private List<Float> samplingFrequencies;
+    private final List<Float> samplingFrequencies;
     @XmlElement(name="security",namespace="http://www.loc.gov/AMD/")
-    private List<String> securities;
+    private final List<String> securities;
     @XmlElement(name="use",namespace="http://www.loc.gov/AMD/")
-    private List<String> uses;
+    private final List<String> uses;
     @XmlElement(name="otheruse",namespace="http://www.loc.gov/AMD/")
-    private List<String> otherUses;
+    private final List<String> otherUses;
     @XmlElement(name="wordsize",namespace="http://www.loc.gov/AMD/")
-    private List<Integer> wordSizes;
+    private final List<Integer> wordSizes;
 
     private FileData() {
         super();
+        this.id=null;
+        this.audiBlockSizes = null;
+        this.audioDataEncodings = null;
+        this.bitsPerSamples = null;
+        this.byteOrders = null;
+        this.messageDigest = null;
+        this.compression = null;
+        this.dataRates = null;
+        this.dataRateModes = null;
+        this.firstSampleOffsets = null;
+        this.firstValidByteBlocks = null;
+        this.formatLocations = null;
+        this.formatNames = null;
+        this.formatVersions = null;
+        this.lastValidByteBlocks = null;
+        this.numSampleFrames = null;
+        this.samplingFrequencies = null;
+        this.securities = null;
+        this.uses = null;
+        this.otherUses = null;
+        this.wordSizes = null;
     }
 
     private FileData(Builder builder) {

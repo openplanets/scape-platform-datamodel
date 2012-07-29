@@ -9,18 +9,21 @@ import eu.scapeproject.model.metadata.TechnicalMetadata;
 @XmlRootElement(name = "mdWrap")
 public class NisoMixMetadata extends TechnicalMetadata {
     @XmlElement(name = "basicImageInformation", namespace = "http://www.loc.gov/mix/v10")
-    private BasicImageInformation basicImageInformation;
+    private final BasicImageInformation basicImageInformation;
     @XmlElement(name = "imageCaptureMetadata", namespace = "http://www.loc.gov/mix/v10")
-    private ImageCaptureMetadata imageCapture;
+    private final ImageCaptureMetadata imageCapture;
     @XmlElement(name = "imageAssessmentMetadata", namespace = "http://www.loc.gov/mix/v10")
-    private ImageAssessmentMetadata imageAssessmentMetadata;
+    private final ImageAssessmentMetadata imageAssessmentMetadata;
 
     public NisoMixMetadata() {
         super(TechnicalMetadata.MetadataType.NISO_MIX);
+        this.basicImageInformation=null;
+        this.imageAssessmentMetadata=null;
+        this.imageCapture=null;
     }
 
     private NisoMixMetadata(Builder builder) {
-        this();
+        super(MetadataType.NISO_MIX);
         PhotometricInterpretation pi = new PhotometricInterpretation.Builder()
                 .colorProfile(builder.colorProfile)
                 .colorSpace(builder.colorspace)

@@ -11,7 +11,7 @@ import eu.scapeproject.model.metadata.ProvenanceMetadata;
 @XmlRootElement(name = "digiprovMD", namespace = "http://www.loc.gov/standards/premis")
 public class PremisProvenanceMetadata extends ProvenanceMetadata {
     @XmlElement(name = "event",namespace="http://www.loc.gov/standards/premis")
-    private List<Event> events;
+    private final List<Event> events;
 
     public PremisProvenanceMetadata(Builder b){
     	super("premis");
@@ -20,6 +20,7 @@ public class PremisProvenanceMetadata extends ProvenanceMetadata {
     
     private PremisProvenanceMetadata() {
         super("premis");
+        this.events=null;
     }
 
     public PremisProvenanceMetadata(List<Event> events) {

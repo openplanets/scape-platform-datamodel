@@ -8,58 +8,83 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="imageData", namespace = "http://www.loc.gov/mix/v10")
 public class ImageData {
     @XmlElement(name="fNumber", namespace = "http://www.loc.gov/mix/v10")
-    private double fNumber;
+    private final double fNumber;
     @XmlElement(name="exposureTime", namespace = "http://www.loc.gov/mix/v10")
-    private double exposureTime;
+    private final double exposureTime;
     @XmlElement(name="exposureProgram", namespace = "http://www.loc.gov/mix/v10")
-    private ExposureProgram exposureProgram;
+    private final ExposureProgram exposureProgram;
     @XmlElement(name="spectralSensitivity", namespace = "http://www.loc.gov/mix/v10")
-    private List<String> spectralSensitivity;
+    private final List<String> spectralSensitivity;
     @XmlElement(name="isoSpeedRatings", namespace = "http://www.loc.gov/mix/v10")
-    private int isoSpeedRatings;
+    private final int isoSpeedRatings;
     @XmlElement(name="oECF", namespace = "http://www.loc.gov/mix/v10")
-    private double oECF;
+    private final double oECF;
     @XmlElement(name="exifVersion", namespace = "http://www.loc.gov/mix/v10")
-    private ExifVersion exifVersion;
+    private final ExifVersion exifVersion;
     @XmlElement(name="shutterSpeedValue", namespace = "http://www.loc.gov/mix/v10")
-    private double shutterSpeedValue;
+    private final double shutterSpeedValue;
     @XmlElement(name="apertureValue", namespace = "http://www.loc.gov/mix/v10")
-    private double apertureValue;
+    private final double apertureValue;
     @XmlElement(name="brightnessValue", namespace = "http://www.loc.gov/mix/v10")
-    private double brightnessValue;
+    private final double brightnessValue;
     @XmlElement(name="exposeBiasValue", namespace = "http://www.loc.gov/mix/v10")
-    private double exposeBiasValue;
+    private final double exposeBiasValue;
     @XmlElement(name="maxApertureValue", namespace = "http://www.loc.gov/mix/v10")
-    private double maxApertureValue;
+    private final double maxApertureValue;
     @XmlElement(name="subjectDistance", namespace = "http://www.loc.gov/mix/v10")
-    private double subjectDistance;
+    private final double subjectDistance;
     @XmlElement(name="meteringMode", namespace = "http://www.loc.gov/mix/v10")
-    private MeteringMode meteringMode;
+    private final MeteringMode meteringMode;
     @XmlElement(name="lightSource", namespace = "http://www.loc.gov/mix/v10")
-    private LightSource lightSource;
+    private final LightSource lightSource;
     @XmlElement(name="flash", namespace = "http://www.loc.gov/mix/v10")
-    private Flash flash;
+    private final Flash flash;
     @XmlElement(name="focalLength", namespace = "http://www.loc.gov/mix/v10")
-    private double focalLength;
+    private final double focalLength;
     @XmlElement(name="flashEnergy", namespace = "http://www.loc.gov/mix/v10")
-    private double flashEnergy;
+    private final double flashEnergy;
     @XmlElement(name="backLight", namespace = "http://www.loc.gov/mix/v10")
-    private BackLight backLight;
+    private final BackLight backLight;
     @XmlElement(name="exposureIndex", namespace = "http://www.loc.gov/mix/v10")
-    private double exposureIndex;
+    private final double exposureIndex;
     @XmlElement(name="sensingMode", namespace = "http://www.loc.gov/mix/v10")
-    private SensingMode sensingMode;
+    private final SensingMode sensingMode;
     @XmlElement(name="cfaPattern", namespace = "http://www.loc.gov/mix/v10")
-    private int cfaPattern;
+    private final int cfaPattern;
     @XmlElement(name="autoFocus", namespace = "http://www.loc.gov/mix/v10")
-    private AutoFocus autoFocus;
+    private final AutoFocus autoFocus;
     @XmlElement(name="xPrintAspectRatio", namespace = "http://www.loc.gov/mix/v10")
-    private double xPrintAspectRatio;
+    private final double xPrintAspectRatio;
     @XmlElement(name="yPrintAspectRatio", namespace = "http://www.loc.gov/mix/v10")
-    private double yPrintAspectRatio;
+    private final double yPrintAspectRatio;
 
     private ImageData(){
         super();
+        this.fNumber = 0;
+        this.exposureTime =0;
+        this.exposureProgram = null;
+        this.spectralSensitivity = null;
+        this.isoSpeedRatings = 0;
+        this.oECF = 0;
+        this.exifVersion = null;
+        this.shutterSpeedValue = 0;
+        this.apertureValue = 0;
+        this.brightnessValue = 0;
+        this.exposeBiasValue = 0;
+        this.maxApertureValue = 0;
+        this.subjectDistance = 0;
+        this.meteringMode = null;
+        this.lightSource = null;
+        this.flash = null;
+        this.focalLength = 0;
+        this.flashEnergy = 0;
+        this.backLight = null;
+        this.exposureIndex = 0;
+        this.sensingMode = null;
+        this.cfaPattern = 0;
+        this.autoFocus = null;
+        this.xPrintAspectRatio = 0;
+        this.yPrintAspectRatio = 0;
     }
     
     private ImageData(Builder builder) {

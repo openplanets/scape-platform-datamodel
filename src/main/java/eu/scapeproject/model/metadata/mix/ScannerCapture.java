@@ -6,25 +6,33 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="scannerCapture",namespace="http://www.loc.gov/mix/v10")
 public class ScannerCapture {
     @XmlElement(name="scannerManufacturer",namespace="http://www.loc.gov/mix/v10")
-    private String scannerManufacturer;
+    private final String scannerManufacturer;
     @XmlElement(name="scannerModelName",namespace="http://www.loc.gov/mix/v10")
-    private String scannerModelName;
+    private final String scannerModelName;
     @XmlElement(name="scannerModelNumber",namespace="http://www.loc.gov/mix/v10")
-    private String scannerModelNumber;
+    private final String scannerModelNumber;
     @XmlElement(name="scannerModelSerialNo",namespace="http://www.loc.gov/mix/v10")
-    private String scannerModelSerialNo;
+    private final String scannerModelSerialNo;
     @XmlElement(name="maximumOpticalResolution",namespace="http://www.loc.gov/mix/v10")
-    private String maximumOpticalResolution;
+    private final String maximumOpticalResolution;
     @XmlElement(name="scannerSensor",namespace="http://www.loc.gov/mix/v10")
-    private ScannerSensor scannerSensor;
+    private final ScannerSensor scannerSensor;
     @XmlElement(name="scanningSoftwareName",namespace="http://www.loc.gov/mix/v10")
-    private String scanningSoftwareName;
+    private final String scanningSoftwareName;
     @XmlElement(name="scanningSoftwareVersionNo",namespace="http://www.loc.gov/mix/v10")
-    private String scanningSoftwareVersionNo;
+    private final String scanningSoftwareVersionNo;
 
     private ScannerCapture() {
         super();
-    }
+        this.scannerManufacturer = null;
+        this.scannerModelName = null;
+        this.scannerModelNumber = null;
+        this.scannerModelSerialNo = null;
+        this.maximumOpticalResolution = null;
+        this.scannerSensor = null;
+        this.scanningSoftwareName = null;
+        this.scanningSoftwareVersionNo = null;
+   }
 
     private ScannerCapture(Builder builder) {
         this.scannerManufacturer = builder.scannerManufacturer;

@@ -8,16 +8,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "metadata", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
 public class FitsGeneratedMetadata {
     @XmlElement(name = "any", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private List<String> any;
+    private final List<String> any;
     @XmlElement(name = "status", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private FitsStatus status;
+    private final FitsStatus status;
     @XmlElement(name = "toolname", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private String toolName;
+    private final String toolName;
     @XmlElement(name = "toolversion", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private String toolVersion;
+    private final String toolVersion;
 
     private FitsGeneratedMetadata() {
         super();
+        this.any=null;
+        this.status=null;
+        this.toolName=null;
+        this.toolVersion=null;
     }
 
     private FitsGeneratedMetadata(Builder builder) {

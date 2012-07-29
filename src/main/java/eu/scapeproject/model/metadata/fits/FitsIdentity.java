@@ -8,22 +8,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "identity", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
 public class FitsIdentity {
     @XmlElement(name = "tool", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private List<FitsTool> tool;
+    private final List<FitsTool> tool;
     @XmlElement(name = "version", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private List<Version> versions;
+    private final List<Version> versions;
     @XmlElement(name = "externalIdentifier", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private List<ExternalIdentifier> externalIdentifiers;
+    private final List<ExternalIdentifier> externalIdentifiers;
     @XmlElement(name = "format", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private String format;
+    private final String format;
     @XmlElement(name = "mimetype", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private String mimeType;
+    private final String mimeType;
     @XmlElement(name = "toolname", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private String toolName;
+    private final String toolName;
     @XmlElement(name = "toolversion", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private String toolVersion;
+    private final String toolVersion;
 
     private FitsIdentity() {
-        super();
+    	super();
+    	this.externalIdentifiers=null;
+    	this.mimeType=null;
+    	this.format=null;
+    	this.tool=null;
+    	this.toolName=null;
+    	this.toolVersion=null;
+    	this.versions=null;
     }
 
     private FitsIdentity(Builder builder) {

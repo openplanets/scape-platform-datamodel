@@ -8,11 +8,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "soundchannelmap", namespace = "http://www.loc.gov/AMD/")
 public class SoundChannelMap {
     @XmlElement(name = "channelassignment", namespace = "http://www.loc.gov/AMD/")
-    private List<ChannelAssignment> channelAssignments;
+    private final List<ChannelAssignment> channelAssignments;
 
     @SuppressWarnings("unused")
     private SoundChannelMap() {
         super();
+        this.channelAssignments=null;
     }
 
     public SoundChannelMap(List<ChannelAssignment> channelAssignments) {

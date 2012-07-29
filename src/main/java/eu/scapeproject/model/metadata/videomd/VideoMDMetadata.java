@@ -8,16 +8,18 @@ import eu.scapeproject.model.metadata.TechnicalMetadata;
 @XmlRootElement(name = "videoMD", namespace = "http://www.loc.gov/videoMD/")
 public class VideoMDMetadata extends TechnicalMetadata {
     @XmlElement(name = "videomd", namespace = "http://www.loc.gov/videoMD/")
-    private Video videoMD;
+    private final Video videoMD;
     @XmlElement(name = "videosrc", namespace = "http://www.loc.gov/videoMD/")
-    private Video videoSrc;
+    private final Video videoSrc;
 
     private VideoMDMetadata(){
-        super(TechnicalMetadata.MetadataType.VIDEOMD);
+        super(MetadataType.VIDEOMD);
+        this.videoMD=null;
+        this.videoSrc=null;
     }
     
     public VideoMDMetadata(Video videoMD, Video videoSrc) {
-        this();
+        super(MetadataType.VIDEOMD);
         this.videoMD = videoMD;
         this.videoSrc = videoSrc;
     }

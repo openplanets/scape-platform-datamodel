@@ -6,22 +6,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "digitalCameraCapture", namespace = "http://www.loc.gov/mix/v10")
 public class DigitalCameraCapture {
     @XmlElement(name = "digitalCameraManufacturer", namespace = "http://www.loc.gov/mix/v10")
-    private String digitalCameraManufacturer;
+    private final String digitalCameraManufacturer;
     @XmlElement(name = "digitalCameraModelName", namespace = "http://www.loc.gov/mix/v10")
-    private String digitalCameraModelName;
+    private final String digitalCameraModelName;
     @XmlElement(name = "digitalCameraModelNumber", namespace = "http://www.loc.gov/mix/v10")
-    private String digitalCameraModelNumber;
+    private final String digitalCameraModelNumber;
     @XmlElement(name = "digitalCameraModelSerialNo", namespace = "http://www.loc.gov/mix/v10")
-    private String digitalCameraModelSerialNo;
+    private final String digitalCameraModelSerialNo;
     @XmlElement(name = "digitalCameraSensor", namespace = "http://www.loc.gov/mix/v10")
-    private String digitalCameraSensor;
+    private final String digitalCameraSensor;
     @XmlElement(name = "imageData", namespace = "http://www.loc.gov/mix/v10")
-    private ImageData imageData;
+    private final ImageData imageData;
     @XmlElement(name = "gpsData", namespace = "http://www.loc.gov/mix/v10")
-    private GPSData gpsData;
+    private final GPSData gpsData;
 
     private DigitalCameraCapture() {
         super();
+        this.digitalCameraManufacturer = null;
+        this.digitalCameraModelName = null;
+        this.digitalCameraModelNumber = null;
+        this.digitalCameraModelSerialNo = null;
+        this.digitalCameraSensor = null;
+        this.imageData = null;
+        this.gpsData = null;
     }
 
     private DigitalCameraCapture(Builder builder) {

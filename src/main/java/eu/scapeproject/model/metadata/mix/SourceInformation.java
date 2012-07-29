@@ -12,25 +12,33 @@ import eu.scapeproject.model.jaxb.MixSourceIdentifierAdapter;
 @XmlRootElement(name="sourceInformation",namespace="http://www.loc.gov/mix/v10")
 public class SourceInformation {
     @XmlElement(name="sourceType",namespace="http://www.loc.gov/mix/v10")
-    private String sourceType;
+    private final String sourceType;
     @XmlElement(name="sourceIdentifiers",namespace="http://www.loc.gov/mix/v10")
     @XmlJavaTypeAdapter(MixSourceIdentifierAdapter.class)
-    private List<Identifier> sourceIdentifiers;
+    private final List<Identifier> sourceIdentifiers;
     @XmlElement(name="sourceXDimension",namespace="http://www.loc.gov/mix/v10")
-    private double sourceXDimension;
+    private final double sourceXDimension;
     @XmlElement(name="sourceXDiemnsionUnit",namespace="http://www.loc.gov/mix/v10")
-    private SourceDimension sourceXDiemnsionUnit;
+    private final SourceDimension sourceXDiemnsionUnit;
     @XmlElement(name="sourceYDimension",namespace="http://www.loc.gov/mix/v10")
-    private double sourceYDimension;
+    private final double sourceYDimension;
     @XmlElement(name="sourceYDiemnsionUnit",namespace="http://www.loc.gov/mix/v10")
-    private SourceDimension sourceYDiemnsionUnit;
+    private final SourceDimension sourceYDiemnsionUnit;
     @XmlElement(name="sourceZDimension",namespace="http://www.loc.gov/mix/v10")
-    private double sourceZDimension;
+    private final double sourceZDimension;
     @XmlElement(name="sourceZDimensionUnit",namespace="http://www.loc.gov/mix/v10")
-    private SourceDimension sourceZDimensionUnit;
+    private final SourceDimension sourceZDimensionUnit;
 
     private SourceInformation(){
         super();
+        this.sourceType = null;
+        this.sourceIdentifiers = null;
+        this.sourceXDimension = 0;
+        this.sourceXDiemnsionUnit = null;
+        this.sourceYDimension = 0;
+        this.sourceYDiemnsionUnit = null;
+        this.sourceZDimension = 0;
+        this.sourceZDimensionUnit = null;
     }
     
     private SourceInformation(Builder builder) {

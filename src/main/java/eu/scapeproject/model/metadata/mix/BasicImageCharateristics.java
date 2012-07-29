@@ -6,14 +6,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "basicImageCharateristics",namespace="http://www.loc.gov/mix/v10")
 public class BasicImageCharateristics {
     @XmlElement(name = "width",namespace="http://www.loc.gov/mix/v10")
-    private int width;
+    private final int width;
     @XmlElement(name = "height",namespace="http://www.loc.gov/mix/v10")
-    private int height;
+    private final int height;
     @XmlElement(name = "photometricInterpretation",namespace="http://www.loc.gov/mix/v10")
-    private PhotometricInterpretation photometricInterpretation;
+    private final PhotometricInterpretation photometricInterpretation;
 
     public BasicImageCharateristics() {
         super();
+        this.width=0;
+        this.height=0;
+        this.photometricInterpretation=null;
     }
 
     public BasicImageCharateristics(int width, int height, PhotometricInterpretation photometricInterpretation) {

@@ -9,17 +9,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="targetData",namespace="http://www.loc.gov/mix/v10")
 public class TargetData {
     @XmlElement(name="targetTypes",namespace="http://www.loc.gov/mix/v10")
-    private List<TargetType> targetTypes;
+    private final List<TargetType> targetTypes;
     @XmlElement(name="tergetIds",namespace="http://www.loc.gov/mix/v10")
-    private List<TargetId> tergetIds;
+    private final List<TargetId> tergetIds;
     @XmlElement(name="externalReferences",namespace="http://www.loc.gov/mix/v10")
-    private List<URI> externalReferences;
+    private final List<URI> externalReferences;
     @XmlElement(name="performanceData",namespace="http://www.loc.gov/mix/v10")
-    private List<URI> performanceData;
+    private final List<URI> performanceData;
 
     @SuppressWarnings("unused")
 	private TargetData() {
 		super();
+        this.targetTypes = null;
+        this.tergetIds = null;
+        this.externalReferences = null;
+        this.performanceData = null;
 	}
     
     public TargetData(List<TargetType> targetTypes, List<TargetId> tergetIds, List<URI> externalReferences, List<URI> performanceData) {

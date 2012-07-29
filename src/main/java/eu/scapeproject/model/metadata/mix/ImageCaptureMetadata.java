@@ -8,20 +8,26 @@ import eu.scapeproject.model.metadata.mix.NisoMixMetadata.Orientation;
 @XmlRootElement(name = "imageCaptureMetadata", namespace = "http://www.loc.gov/mix/v10")
 public class ImageCaptureMetadata {
     @XmlElement(name = "sourceInformation", namespace = "http://www.loc.gov/mix/v10")
-    private SourceInformation sourceInformation;
+    private final SourceInformation sourceInformation;
     @XmlElement(name = "generalCaptureInformation", namespace = "http://www.loc.gov/mix/v10")
-    private GeneralCaptureInformation generalCaptureInformation;
+    private final GeneralCaptureInformation generalCaptureInformation;
     @XmlElement(name = "scannerCapture", namespace = "http://www.loc.gov/mix/v10")
-    private ScannerCapture scannerCapture;
+    private final ScannerCapture scannerCapture;
     @XmlElement(name = "orientation", namespace = "http://www.loc.gov/mix/v10")
-    private Orientation orientation;
+    private final Orientation orientation;
     @XmlElement(name = "methodology", namespace = "http://www.loc.gov/mix/v10")
-    private String methodology;
+    private final String methodology;
     @XmlElement(name = "digitalCameraCapture", namespace = "http://www.loc.gov/mix/v10")
-    private DigitalCameraCapture digitalCameraCapture;
+    private final DigitalCameraCapture digitalCameraCapture;
 
     private ImageCaptureMetadata() {
         super();
+        this.sourceInformation = null;
+        this.generalCaptureInformation = null;
+        this.scannerCapture = null;
+        this.orientation = null;
+        this.methodology = null;
+        this.digitalCameraCapture = null;
     }
 
     private ImageCaptureMetadata(Builder builder) {

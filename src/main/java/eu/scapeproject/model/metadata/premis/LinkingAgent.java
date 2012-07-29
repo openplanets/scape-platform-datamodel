@@ -13,13 +13,15 @@ import eu.scapeproject.model.jaxb.PremisLinkingAgentIdentifierAdapter;
 public class LinkingAgent {
     @XmlElement(name = "linkingAgentIdentifier", namespace = "http://www.loc.gov/standards/premis")
     @XmlJavaTypeAdapter(PremisLinkingAgentIdentifierAdapter.class)
-    private Identifier linkingAgentIdentifier;
+    private final Identifier linkingAgentIdentifier;
     @XmlElement(name = "linkingAgentRole", namespace = "http://www.loc.gov/standards/premis")
-    private List<String> linkingAgentRole;
+    private final List<String> linkingAgentRole;
 
     @SuppressWarnings("unused")
     private LinkingAgent() {
         super();
+        this.linkingAgentIdentifier=null;
+        this.linkingAgentRole=null;
     }
 
     public LinkingAgent(Identifier linkingAgentIdentifier, List<String> linkingAgentRole) {

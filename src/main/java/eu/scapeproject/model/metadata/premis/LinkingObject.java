@@ -13,13 +13,15 @@ import eu.scapeproject.model.jaxb.PremisLinkingObjectIdentifierAdapter;
 public class LinkingObject {
     @XmlElement(name="linkingObjectIdentifier",namespace="http://www.loc.gov/standards/premis")
     @XmlJavaTypeAdapter(PremisLinkingObjectIdentifierAdapter.class)
-    private Identifier linkingObjectIdentifier;
+    private final Identifier linkingObjectIdentifier;
     @XmlElement(name="linkingObjectRole",namespace="http://www.loc.gov/standards/premis")
-    private List<String> linkingObjectRole;
+    private final List<String> linkingObjectRole;
 
     @SuppressWarnings("unused")
     private LinkingObject() {
         super();
+        this.linkingObjectIdentifier=null;
+        this.linkingObjectRole=null;
     }
 
     public LinkingObject(Identifier linkingObjectIdentifier, List<String> linkingObjectRole) {

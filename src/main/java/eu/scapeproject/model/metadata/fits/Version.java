@@ -7,16 +7,20 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlRootElement(name = "version", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
 public class Version {
     @XmlValue
-    private String value;
+    private final String value;
     @XmlAttribute(name = "status", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private FitsStatus status;
+    private final FitsStatus status;
     @XmlAttribute(name = "toolname", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private String toolName;
+    private final String toolName;
     @XmlAttribute(name = "toolversion", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private String toolVersion;
+    private final String toolVersion;
 
     private Version() {
         super();
+        this.value=null;
+        this.status=null;
+        this.toolName=null;
+        this.toolVersion=null;
     }
 
     private Version(Builder builder) {

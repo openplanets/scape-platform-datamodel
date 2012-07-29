@@ -14,34 +14,45 @@ import eu.scapeproject.model.util.ListUtil;
 @XmlRootElement(name = "textMD", namespace = "info:lc/xmlns/textmd-v3")
 public class TextMDMetadata extends TechnicalMetadata {
 	@XmlElement(name = "encoding", namespace = "info:lc/xmlns/textmd-v3")
-	private List<Encoding> encodings;
+	private final List<Encoding> encodings;
 	@XmlElement(name = "character_info", namespace = "info:lc/xmlns/textmd-v3")
-	private List<CharacterInfo> characterInfos;
+	private final List<CharacterInfo> characterInfos;
 	@XmlElement(name = "language", namespace = "info:lc/xmlns/textmd-v3")
-	private List<String> languages;
+	private final List<String> languages;
 	@XmlElement(name = "alt_language", namespace = "info:lc/xmlns/textmd-v3")
-	private List<String> altLanguages;
+	private final List<String> altLanguages;
 	@XmlElement(name = "font_script", namespace = "info:lc/xmlns/textmd-v3")
-	private List<String> fontScripts;
+	private final List<String> fontScripts;
 	@XmlElement(name = "markup_basis", namespace = "info:lc/xmlns/textmd-v3")
-	private List<String> markupBases;
+	private final List<String> markupBases;
 	@XmlElement(name = "markup_language", namespace = "info:lc/xmlns/textmd-v3")
-	private List<String> markupLanguages;
+	private final List<String> markupLanguages;
 	@XmlElement(name = "processingNote", namespace = "info:lc/xmlns/textmd-v3")
-	private List<String> processingNotes;
+	private final List<String> processingNotes;
 	@XmlElement(name = "printRequirements", namespace = "info:lc/xmlns/textmd-v3")
-	private List<String> printRequirements;
+	private final List<String> printRequirements;
 	@XmlElement(name = "viewingRequirements", namespace = "info:lc/xmlns/textmd-v3")
-	private List<String> viewingRequirements;
+	private final List<String> viewingRequirements;
 	@XmlElement(name = "textNote", namespace = "info:lc/xmlns/textmd-v3")
-	private List<String> textNotes;
+	private final List<String> textNotes;
 
 	private TextMDMetadata() {
 		super(MetadataType.TEXTMD);
+		this.encodings = null;
+		this.characterInfos = null;
+		this.languages = null;
+		this.altLanguages = null;
+		this.fontScripts = null;
+		this.markupBases = null;
+		this.markupLanguages = null;
+		this.processingNotes = null;
+		this.printRequirements = null;
+		this.viewingRequirements = null;
+		this.textNotes = null;
 	}
 
 	private TextMDMetadata(Builder builder) {
-		this();
+		super(MetadataType.TEXTMD);
 		this.encodings = builder.encodings;
 		this.characterInfos = builder.characterInfos;
 		this.languages = builder.languages;

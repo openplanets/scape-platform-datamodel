@@ -7,11 +7,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "trackinginfo", namespace = "http://www.loc.gov/videoMD/")
 public class VideoTrackingInfo {
     @XmlAttribute(name = "id", namespace = "http://www.loc.gov/videoMD/")
-    private String id;
+    private final String id;
     @XmlElement(name = "trackingtype", namespace = "http://www.loc.gov/videoMD/")
-    private String trackingType;
+    private final String trackingType;
     @XmlElement(name = "trackingvalue", namespace = "http://www.loc.gov/videoMD/")
-    private String trackingValue;
+    private final String trackingValue;
 
     public String getId() {
         return id;
@@ -28,6 +28,9 @@ public class VideoTrackingInfo {
     @SuppressWarnings("unused")
     private VideoTrackingInfo(){
         super();
+        this.id=null;
+        this.trackingType=null;
+        this.trackingValue=null;
     }
 
     public VideoTrackingInfo(String id, String trackingType, String trackingValue) {

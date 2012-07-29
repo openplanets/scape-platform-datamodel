@@ -8,13 +8,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "identification", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
 public class FitsIdentification {
     @XmlElement(name = "identity", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private List<FitsIdentity> identities;
+    private final List<FitsIdentity> identities;
     @XmlElement(name = "status", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private FitsStatus status;
+    private final FitsStatus status;
 
     @SuppressWarnings("unused")
     private FitsIdentification() {
         super();
+        this.identities=null;
+        this.status=null;
     }
 
     public FitsIdentification(List<FitsIdentity> identities, FitsStatus status) {

@@ -8,13 +8,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="referenceBlackWhite",namespace="http://www.loc.gov/mix/v10")
 public class ReferenceBlackWhite {
     @XmlElement(name="referenceBlack",namespace="http://www.loc.gov/mix/v10")
-    private double[] referenceBlack;
+    private final double[] referenceBlack;
     @XmlElement(name="referenceWhite",namespace="http://www.loc.gov/mix/v10")
-    private double[] referenceWhite;
+    private final double[] referenceWhite;
     
     @SuppressWarnings("unused")
     private ReferenceBlackWhite(){
         super();
+        this.referenceBlack=null;
+        this.referenceWhite=null;
     }
 
     public ReferenceBlackWhite(double[] referenceBlack, double[] referenceWhite) {

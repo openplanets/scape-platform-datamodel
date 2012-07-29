@@ -6,18 +6,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "rate", namespace = "http://www.loc.gov/videoMD/")
 public class VideoVariableRate {
     @XmlElement(name = "maximum", namespace = "http://www.loc.gov/videoMD/")
-    private float maximum;
+    private final float maximum;
     @XmlElement(name = "minimum", namespace = "http://www.loc.gov/videoMD/")
-    private float minimum;
+    private final float minimum;
     @XmlElement(name = "nominal", namespace = "http://www.loc.gov/videoMD/")
-    private float nominal;
+    private final float nominal;
     @XmlElement(name = "mode", namespace = "http://www.loc.gov/videoMD/")
-    private String mode;
+    private final String mode;
     @XmlElement(name = "unit", namespace = "http://www.loc.gov/videoMD/")
-    private String unit;
+    private final String unit;
 
     private VideoVariableRate() {
         super();
+        this.maximum = 0;
+        this.minimum = 0;
+        this.nominal = 0;
+        this.mode = null;
+        this.unit = null;
     }
 
     private VideoVariableRate(Builder builder) {

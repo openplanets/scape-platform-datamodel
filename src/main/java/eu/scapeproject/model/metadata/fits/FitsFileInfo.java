@@ -8,38 +8,53 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlRootElement(name = "fileinfo", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
 public class FitsFileInfo {
     @XmlElement(name = "filepath", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private FileInfoElement filePath;
+    private final FileInfoElement filePath;
     @XmlElement(name = "filename", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private FileInfoElement fileName;
+    private final FileInfoElement fileName;
     @XmlElement(name = "size", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private FileInfoElement size;
+    private final FileInfoElement size;
     @XmlElement(name = "md5checksum", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private FileInfoElement md5Checksum;
+    private final FileInfoElement md5Checksum;
     @XmlElement(name = "lastmodified", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private FileInfoElement lastModified;
+    private final FileInfoElement lastModified;
     @XmlElement(name = "fslastmodified", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private FileInfoElement fsLastModified;
+    private final FileInfoElement fsLastModified;
     @XmlElement(name = "created", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private FileInfoElement created;
+    private final FileInfoElement created;
     @XmlElement(name = "creatingapplicationname", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private FileInfoElement creatingApplicationName;
+    private final FileInfoElement creatingApplicationName;
     @XmlElement(name = "creatingapplicationversion", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private FileInfoElement creatingApplicationVersion;
+    private final FileInfoElement creatingApplicationVersion;
     @XmlElement(name = "inhibitortype", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private FileInfoElement inhibitorType;
+    private final FileInfoElement inhibitorType;
     @XmlElement(name = "inhibitortarget", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private FileInfoElement inhibitorTarget;
+    private final FileInfoElement inhibitorTarget;
     @XmlElement(name = "rightsbasis", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private FileInfoElement rightsBasis;
+    private final FileInfoElement rightsBasis;
     @XmlElement(name = "copyrightbasis", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private FileInfoElement copyRightBasis;
+    private final FileInfoElement copyRightBasis;
     @XmlElement(name = "copyrightnote", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private FileInfoElement copyRightNote;
+    private final FileInfoElement copyRightNote;
     @XmlElement(name = "creatingos", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private FileInfoElement creatingOs;
+    private final FileInfoElement creatingOs;
 
     private FitsFileInfo() {
         super();
+        this.filePath = null;
+        this.fileName = null;
+        this.size = null;
+        this.md5Checksum = null;
+        this.lastModified = null;
+        this.fsLastModified = null;
+        this.created = null;
+        this.creatingApplicationName = null;
+        this.creatingApplicationVersion = null;
+        this.inhibitorType = null;
+        this.inhibitorTarget = null;
+        this.rightsBasis = null;
+        this.copyRightBasis = null;
+        this.copyRightNote = null;
+        this.creatingOs = null;
     }
 
     private FitsFileInfo(Builder builder) {

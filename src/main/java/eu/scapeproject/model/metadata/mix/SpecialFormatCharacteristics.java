@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SpecialFormatCharacteristics {
 	@XmlElement(name = "format", namespace = "http://www.loc.gov/mix/v10")
-	private Format format;
+	private final  Format format;
 
 	public SpecialFormatCharacteristics(Format format) {
 		super();
@@ -25,6 +25,7 @@ public class SpecialFormatCharacteristics {
 	@SuppressWarnings("unused")
 	private SpecialFormatCharacteristics() {
 		super();
+		this.format=null;
 	}
 
 	@Override

@@ -8,25 +8,53 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "mediadata", namespace = "http://www.loc.gov/videoMD/")
 public abstract class MediaDataType {
     @XmlElement(name = "trackinginfo", namespace = "http://www.loc.gov/videoMD/")
-    protected List<VideoTrackingInfo> trackingInfos;
+    protected final List<VideoTrackingInfo> trackingInfos;
     @XmlElement(name = "duration", namespace = "http://www.loc.gov/videoMD/")
-    protected String duration;
+    protected final String duration;
     @XmlElement(name = "language", namespace = "http://www.loc.gov/videoMD/")
-    protected List<VideoLanguage> language;
+    protected final List<VideoLanguage> language;
     @XmlElement(name = "security", namespace = "http://www.loc.gov/videoMD/")
-    protected String security;
+    protected final String security;
     @XmlElement(name = "size", namespace = "http://www.loc.gov/videoMD/")
-    protected int size;
+    protected final int size;
     @XmlElement(name = "datarate", namespace = "http://www.loc.gov/videoMD/")
-    protected VideoVariableRate dataRate;
+    protected final VideoVariableRate dataRate;
     @XmlElement(name = "timecode", namespace = "http://www.loc.gov/videoMD/")
-    protected List<VideoTimeCode> timeCodes;
+    protected final List<VideoTimeCode> timeCodes;
     @XmlElement(name = "use", namespace = "http://www.loc.gov/videoMD/")
-    protected List<String> uses;
+    protected final List<String> uses;
     @XmlElement(name = "otheruse", namespace = "http://www.loc.gov/videoMD/")
-    protected List<String> otherUses;
+    protected final List<String> otherUses;
+    
+    protected MediaDataType(){
+    	this.trackingInfos=null;
+    	this.duration=null;
+    	this.language=null;
+    	this.security=null;
+    	this.size=0;
+    	this.dataRate=null;
+    	this.timeCodes=null;
+    	this.uses=null;
+    	this.otherUses=null;
+    }
 
-    public List<VideoTrackingInfo> getTrackingInfos() {
+    
+    protected MediaDataType(List<VideoTrackingInfo> trackingInfos, String duration, List<VideoLanguage> language, String security,
+			int size, VideoVariableRate dataRate, List<VideoTimeCode> timeCodes, List<String> uses, List<String> otherUses) {
+		super();
+		this.trackingInfos = trackingInfos;
+		this.duration = duration;
+		this.language = language;
+		this.security = security;
+		this.size = size;
+		this.dataRate = dataRate;
+		this.timeCodes = timeCodes;
+		this.uses = uses;
+		this.otherUses = otherUses;
+	}
+
+
+	public List<VideoTrackingInfo> getTrackingInfos() {
         return trackingInfos;
     }
 

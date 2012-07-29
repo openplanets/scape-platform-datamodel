@@ -6,16 +6,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="externalidentifier",namespace="http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
 public class ExternalIdentifier {
     @XmlElement(name="value",namespace="http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private String value;
+    private final String value;
     @XmlElement(name="type",namespace="http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private String type;
+    private final String type;
     @XmlElement(name="toolname",namespace="http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private String toolName;
+    private final String toolName;
     @XmlElement(name="toolversion",namespace="http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private String toolVersion;
+    private final String toolVersion;
 
     private ExternalIdentifier() {
         super();
+        this.value=null;
+        this.toolName=null;
+        this.type=null;
+        this.toolVersion=null;
     }
 
     private ExternalIdentifier(Builder builder) {

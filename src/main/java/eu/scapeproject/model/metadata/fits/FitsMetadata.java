@@ -8,26 +8,33 @@ import eu.scapeproject.model.metadata.TechnicalMetadata;
 @XmlRootElement(name = "fits", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
 public class FitsMetadata extends TechnicalMetadata {
     @XmlElement(name = "identification", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private FitsIdentification identification;
+    private final FitsIdentification identification;
     @XmlElement(name = "fileinfo", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private FitsFileInfo fileInfo;
+    private final FitsFileInfo fileInfo;
     @XmlElement(name = "filestatus", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private FitsFileStatus fileStatus;
+    private final FitsFileStatus fileStatus;
     @XmlElement(name = "metadata", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private FitsGeneratedMetadata metadata;
+    private final FitsGeneratedMetadata metadata;
     @XmlElement(name = "toolOutput", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private ToolOutput toolOutput;
+    private final ToolOutput toolOutput;
     @XmlElement(name = "version", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private String version;
+    private final String version;
     @XmlElement(name = "timestamp", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
-    private String timeStamp;
+    private final String timeStamp;
 
     private FitsMetadata() {
         super(MetadataType.FITS);
+        this.identification=null;
+        this.fileInfo=null;
+        this.fileStatus=null;
+        this.metadata=null;
+        this.toolOutput=null;
+        this.version=null;
+        this.timeStamp=null;
     }
 
     private FitsMetadata(Builder builder) {
-        this();
+    	super(MetadataType.FITS);
         this.identification = builder.identification;
         this.fileInfo = builder.fileInfo;
         this.fileStatus = builder.fileStatus;

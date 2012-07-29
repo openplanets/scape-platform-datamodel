@@ -8,13 +8,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="termOfGrant",namespace="http://www.loc.gov/standards/premis")
 public class TermOfGrant {
     @XmlElement(name="startDate",namespace="http://www.loc.gov/standards/premis")
-    private Date startDate;
+    private final Date startDate;
     @XmlElement(name="endDate",namespace="http://www.loc.gov/standards/premis")
-    private Date endDate;
+    private final Date endDate;
 
     @SuppressWarnings("unused")
     private TermOfGrant() {
         super();
+        this.endDate=null;
+        this.startDate=null;
     }
 
     public TermOfGrant(Date startDate, Date endDate) {

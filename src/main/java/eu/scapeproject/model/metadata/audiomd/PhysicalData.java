@@ -9,42 +9,59 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="physicaldata",namespace="http://www.loc.gov/AMD/")
 public class PhysicalData {
     @XmlAttribute(name="id",namespace="http://www.loc.gov/AMD/")
-    private String id;
+    private final String id;
     @XmlElement(name="ebustoragemediacode",namespace="http://www.loc.gov/AMD/")
-    private List<String> ebuStorageMediaCodes;
+    private final List<String> ebuStorageMediaCodes;
     @XmlElement(name="condition",namespace="http://www.loc.gov/AMD/")
-    private List<String> conditions;
+    private final List<String> conditions;
     @XmlElement(name="dimension",namespace="http://www.loc.gov/AMD/")
-    private List<Dimension> dimensions;
+    private final List<Dimension> dimensions;
     @XmlElement(name="disposition",namespace="http://www.loc.gov/AMD/")
-    private List<String> dispositions;
+    private final List<String> dispositions;
     @XmlElement(name="equalization",namespace="http://www.loc.gov/AMD/")
-    private List<String> equalizations;
+    private final List<String> equalizations;
     @XmlElement(name="generation",namespace="http://www.loc.gov/AMD/")
-    private List<String> generations;
+    private final List<String> generations;
     @XmlElement(name="groove",namespace="http://www.loc.gov/AMD/")
-    private List<String> grooves;
+    private final List<String> grooves;
     @XmlElement(name="material",namespace="http://www.loc.gov/AMD/")
-    private List<Material> materials;
+    private final List<Material> materials;
     @XmlElement(name="noisereduction",namespace="http://www.loc.gov/AMD/")
-    private List<String> noiseReductions;
+    private final List<String> noiseReductions;
     @XmlElement(name="physformat",namespace="http://www.loc.gov/AMD/")
-    private List<String> physFormats;
+    private final List<String> physFormats;
     @XmlElement(name="speed",namespace="http://www.loc.gov/AMD/")
-    private List<String> speeds;
+    private final List<String> speeds;
     @XmlElement(name="speedadjustment",namespace="http://www.loc.gov/AMD/")
-    private List<String> speedAdjustments;
+    private final List<String> speedAdjustments;
     @XmlElement(name="speednote",namespace="http://www.loc.gov/AMD/")
-    private List<String> speedNotes;
+    private final List<String> speedNotes;
     @XmlElement(name="trackformat",namespace="http://www.loc.gov/AMD/")
-    private List<String> trackFormats;
+    private final List<String> trackFormats;
     @XmlElement(name="tracking",namespace="http://www.loc.gov/AMD/")
-    private List<TrackingInfo> trackings;
+    private final List<TrackingInfo> trackings;
     @XmlElement(name="note",namespace="http://www.loc.gov/AMD/")
-    private List<String> notes;
+    private final List<String> notes;
 
     private PhysicalData() {
         super();
+        this.id = null;
+        this.ebuStorageMediaCodes = null;
+        this.conditions = null;
+        this.dimensions = null;
+        this.dispositions = null;
+        this.equalizations = null;
+        this.generations = null;
+        this.grooves = null;
+        this.materials = null;
+        this.noiseReductions = null;
+        this.physFormats = null;
+        this.speeds = null;
+        this.speedAdjustments = null;
+        this.speedNotes = null;
+        this.trackFormats = null;
+        this.trackings = null;
+        this.notes = null;
     }
 
     private PhysicalData(Builder builder) {

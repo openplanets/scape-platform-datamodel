@@ -9,18 +9,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="calibrationInfo",namespace="http://www.loc.gov/AMD/")
 public class CalibrationInfo {
     @XmlAttribute(name="id",namespace="http://www.loc.gov/AMD/")
-    private String id;
+    private final String id;
     @XmlElement(name="calibrationExInts",namespace="http://www.loc.gov/AMD/")
-    private List<String> calibrationExInts;
+    private final List<String> calibrationExInts;
     @XmlElement(name="calibrationLocations",namespace="http://www.loc.gov/AMD/")
-    private List<String> calibrationLocations;
+    private final List<String> calibrationLocations;
     @XmlElement(name="calibrationTimeStamps",namespace="http://www.loc.gov/AMD/")
-    private List<String> calibrationTimeStamps;
+    private final List<String> calibrationTimeStamps;
     @XmlElement(name="calibrationTrackTypes",namespace="http://www.loc.gov/AMD/")
-    private List<String> calibrationTrackTypes;
+    private final List<String> calibrationTrackTypes;
 
     private CalibrationInfo() {
         super();
+        this.id=null;
+        this.calibrationExInts=null;
+        this.calibrationLocations=null;
+        this.calibrationTimeStamps=null;
+        this.calibrationTrackTypes=null;
     }
 
     private CalibrationInfo(Builder builder) {

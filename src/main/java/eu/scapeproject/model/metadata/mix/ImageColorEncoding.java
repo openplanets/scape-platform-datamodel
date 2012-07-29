@@ -10,27 +10,36 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="imageColorEncoding",namespace="http://www.loc.gov/mix/v10")
 public class ImageColorEncoding {
     @XmlElement(name="bitsPerSampleValue",namespace="http://www.loc.gov/mix/v10")
-    private String bitsPerSampleValue;
+    private final String bitsPerSampleValue;
     @XmlElement(name="bitsPerSampleUnit",namespace="http://www.loc.gov/mix/v10")
-    private BitsPerSampleUnit bitsPerSampleUnit;
+    private final BitsPerSampleUnit bitsPerSampleUnit;
     @XmlElement(name="samplesPerPixel",namespace="http://www.loc.gov/mix/v10")
-    private int samplesPerPixel;
+    private final int samplesPerPixel;
     @XmlElement(name="extraSamples",namespace="http://www.loc.gov/mix/v10")
-    private ExtraSamples extraSamples;
+    private final ExtraSamples extraSamples;
     @XmlElement(name="colorMapReference",namespace="http://www.loc.gov/mix/v10")
-    private URI colorMapReference;
+    private final URI colorMapReference;
     @XmlElement(name="embeddedColorMap",namespace="http://www.loc.gov/mix/v10")
-    private byte[] embeddedColorMap;
+    private final byte[] embeddedColorMap;
     @XmlElement(name="grayResponseCurve",namespace="http://www.loc.gov/mix/v10")
-    private short grayResponseCurve;
+    private final short grayResponseCurve;
     @XmlElement(name="grayResponseUnit",namespace="http://www.loc.gov/mix/v10")
-    private GrayResponseUnit grayResponseUnit;
+    private final GrayResponseUnit grayResponseUnit;
     @XmlElement(name="whitePoints",namespace="http://www.loc.gov/mix/v10")
-    private List<WhitePoint> whitePoints;
+    private final List<WhitePoint> whitePoints;
 
     @SuppressWarnings("unused")
 	private ImageColorEncoding() {
 		super();
+        this.bitsPerSampleValue = null;
+        this.bitsPerSampleUnit = null;
+        this.samplesPerPixel = 0;
+        this.extraSamples = null;
+        this.colorMapReference = null;
+        this.embeddedColorMap = null;
+        this.grayResponseCurve = 0;
+        this.grayResponseUnit = null;
+        this.whitePoints = null;
 	}
     
     private ImageColorEncoding(Builder builder) {

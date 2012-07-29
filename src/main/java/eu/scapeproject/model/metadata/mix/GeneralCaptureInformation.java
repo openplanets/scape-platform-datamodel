@@ -13,15 +13,18 @@ import eu.scapeproject.model.jaxb.DateAdapter;
 public class GeneralCaptureInformation {
     @XmlElement(name="dateTimeCreated",namespace="http://www.loc.gov/mix/v10")
     @XmlJavaTypeAdapter(DateAdapter.class)
-    private Date dateTimeCreated;
+    private final Date dateTimeCreated;
     @XmlElement(name="imageProducers",namespace="http://www.loc.gov/mix/v10")
-    private List<String> imageProducers;
+    private final List<String> imageProducers;
     @XmlElement(name="captureDevice",namespace="http://www.loc.gov/mix/v10")
-    private CaptureDevice captureDevice;
+    private final CaptureDevice captureDevice;
 
     @SuppressWarnings("unused")
     private GeneralCaptureInformation() {
         super();
+        this.dateTimeCreated=null;
+        this.imageProducers=null;
+        this.captureDevice=null;
     }
 
     public GeneralCaptureInformation(Date dateTimeCreated, CaptureDevice captureDevice, List<String> imageProducers) {

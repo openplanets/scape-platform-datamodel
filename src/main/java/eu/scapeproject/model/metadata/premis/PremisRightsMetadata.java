@@ -10,14 +10,15 @@ import eu.scapeproject.model.metadata.RightsMetadata;
 @XmlRootElement(name="premisRightsMetadata",namespace="http://www.loc.gov/standards/premis")
 public class PremisRightsMetadata extends RightsMetadata{
     @XmlElement(name="rightsStatements",namespace="http://www.loc.gov/standards/premis")
-    private List<RightsStatement> rightsStatements;
+    private final List<RightsStatement> rightsStatements;
 
     private PremisRightsMetadata(){
         super(Type.PREMIS);
+        this.rightsStatements=null;
     }
 
     public PremisRightsMetadata(List<RightsStatement> rightsStatements) {
-        this();
+        super(Type.PREMIS);
         this.rightsStatements = rightsStatements;
     }
 

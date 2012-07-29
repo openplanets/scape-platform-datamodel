@@ -8,36 +8,50 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="track",namespace="http://www.loc.gov/videoMD/")
 public class VideoTrack extends MediaDataType {
     @XmlAttribute(name="id",namespace="http://www.loc.gov/videoMD/")
-    private String id;
+    private final String id;
     @XmlElement(name="num",namespace="http://www.loc.gov/videoMD/")
-    private int num;
+    private final int num;
     @XmlElement(name="type",namespace="http://www.loc.gov/videoMD/")
-    private String type;
+    private final String type;
     @XmlElement(name="bitspersample",namespace="http://www.loc.gov/videoMD/")
-    private int bitsPerSample;
+    private final int bitsPerSample;
     @XmlElement(name="bitsperpixelstored",namespace="http://www.loc.gov/videoMD/")
-    private float bitsPerPixelStored;
+    private final float bitsPerPixelStored;
     @XmlElement(name="codec",namespace="http://www.loc.gov/videoMD/")
-    private VideoCodec codec;
+    private final VideoCodec codec;
     @XmlElement(name="compressionratio",namespace="http://www.loc.gov/videoMD/")
-    private float compressionRatio;
+    private final float compressionRatio;
     @XmlElement(name="quality",namespace="http://www.loc.gov/videoMD/")
-    private String quality;
+    private final String quality;
     @XmlElement(name="frame",namespace="http://www.loc.gov/videoMD/")
-    private VideoFrame frame;
+    private final VideoFrame frame;
     @XmlElement(name="framerate",namespace="http://www.loc.gov/videoMD/")
-    private VideoVariableRate frameRate;
+    private final VideoVariableRate frameRate;
     @XmlElement(name="samplerate",namespace="http://www.loc.gov/videoMD/")
-    private VideoVariableRate sampleRate;
+    private final VideoVariableRate sampleRate;
     @XmlElement(name="sampling",namespace="http://www.loc.gov/videoMD/")
-    private String sampling;
+    private final String sampling;
     @XmlElement(name="samplecount",namespace="http://www.loc.gov/videoMD/")
-    private int sampleCount;
+    private final int sampleCount;
     @XmlElement(name="signalformat",namespace="http://www.loc.gov/videoMD/")
-    private String signalFormat;
+    private final String signalFormat;
 
     private VideoTrack(){
         super();
+        this.id = null;
+        this.num = 0;
+        this.type = null;
+        this.bitsPerSample = 0;
+        this.bitsPerPixelStored = 0;
+        this.codec = null;
+        this.compressionRatio = 0;
+        this.quality = null;
+        this.frame = null;
+        this.frameRate = null;
+        this.sampleRate = null;
+        this.sampling = null;
+        this.sampleCount = 0;
+        this.signalFormat = null;
     }
     
     private VideoTrack(Builder builder) {

@@ -9,17 +9,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "statuteInformation", namespace = "http://www.loc.gov/standards/premis")
 public class StatuteInformation {
     @XmlElement(name = "statuteJurisdiction", namespace = "http://www.loc.gov/standards/premis")
-    private String statuteJurisdiction;
+    private final String statuteJurisdiction;
     @XmlElement(name = "statuteCitation", namespace = "http://www.loc.gov/standards/premis")
-    private String statuteCitation;
+    private final String statuteCitation;
     @XmlElement(name = "statuteInformationDeterminationDate", namespace = "http://www.loc.gov/standards/premis")
-    private Date statuteInformationDeterminationDate;
+    private final Date statuteInformationDeterminationDate;
     @XmlElement(name = "statuteNotes", namespace = "http://www.loc.gov/standards/premis")
-    private List<String> statuteNotes;
+    private final List<String> statuteNotes;
 
     @SuppressWarnings("unused")
     private StatuteInformation() {
         super();
+        this.statuteInformationDeterminationDate=null;
+        this.statuteCitation=null;
+        this.statuteJurisdiction=null;
+        this.statuteNotes=null;
     }
 
     public StatuteInformation(String statuteJurisdiction, String statuteCitation, Date statuteInformationDeterminationDate, List<String> statuteNotes) {

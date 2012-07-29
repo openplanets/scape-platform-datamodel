@@ -14,25 +14,33 @@ import eu.scapeproject.model.jaxb.PremisRightsIdentifierAdapter;
 public class RightsStatement {
     @XmlElement(name="rightsStatementIdentifier",namespace="http://www.loc.gov/standards/premis")
     @XmlJavaTypeAdapter(PremisRightsIdentifierAdapter.class)
-    private Identifier rightsStatementIdentifier;
+    private final Identifier rightsStatementIdentifier;
     @XmlElement(name="rightsBasis",namespace="http://www.loc.gov/standards/premis")
-    private String rightsBasis;
+    private final String rightsBasis;
     @XmlElement(name="copyrightInformation",namespace="http://www.loc.gov/standards/premis")
-    private CopyRightInformation copyrightInformation;
+    private final CopyRightInformation copyrightInformation;
     @XmlElement(name="licenseInformation",namespace="http://www.loc.gov/standards/premis")
-    private LicenseInformation licenseInformation;
+    private final LicenseInformation licenseInformation;
     @XmlElement(name="statuteInformation",namespace="http://www.loc.gov/standards/premis")
-    private List<StatuteInformation> statuteInformation;
+    private final List<StatuteInformation> statuteInformation;
     @XmlElement(name="rightsGranted",namespace="http://www.loc.gov/standards/premis")
-    private List<GrantedRights> rightsGranted;
+    private final List<GrantedRights> rightsGranted;
     @XmlElement(name="linkingObjects",namespace="http://www.loc.gov/standards/premis")
-    private List<LinkingObject> linkingObjects;
+    private final List<LinkingObject> linkingObjects;
     @XmlElement(name="linkingagents",namespace="http://www.loc.gov/standards/premis")
-    private List<LinkingAgent> linkingagents;
+    private final List<LinkingAgent> linkingagents;
 
     private RightsStatement(){
         super();
-    }
+        this.rightsStatementIdentifier = null;
+        this.rightsBasis = null;
+        this.copyrightInformation = null;
+        this.licenseInformation = null;
+        this.statuteInformation = null;
+        this.rightsGranted = null;
+        this.linkingObjects = null;
+        this.linkingagents = null;
+     }
     
     private RightsStatement(Builder builder) {
         this.rightsStatementIdentifier = builder.rightsStatementIdentifier;

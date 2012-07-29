@@ -7,22 +7,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "frame", namespace = "http://www.loc.gov/videoMD/")
 public class VideoFrame {
     @XmlAttribute(name = "id", namespace = "http://www.loc.gov/videoMD/")
-    private String id;
+    private final String id;
     @XmlElement(name = "pixelshorizontal", namespace = "http://www.loc.gov/videoMD/")
-    private int pixelsHorizontal;
+    private final int pixelsHorizontal;
     @XmlElement(name = "pixelsvertical", namespace = "http://www.loc.gov/videoMD/")
-    private int pixelsVertical;
+    private final int pixelsVertical;
     @XmlElement(name = "framerate", namespace = "http://www.loc.gov/videoMD/")
-    private float frameRate;
+    private final float frameRate;
     @XmlElement(name = "par", namespace = "http://www.loc.gov/videoMD/")
-    private float par;
+    private final float par;
     @XmlElement(name = "dar", namespace = "http://www.loc.gov/videoMD/")
-    private String dar;
+    private final String dar;
     @XmlElement(name = "rotation", namespace = "http://www.loc.gov/videoMD/")
-    private float rotation;
+    private final float rotation;
 
     private VideoFrame() {
         super();
+        this.id=null;
+        this.pixelsHorizontal=0;
+        this.pixelsVertical=0;
+        this.frameRate=0;
+        this.par=0;
+        this.dar=null;
+        this.rotation=0;
     }
 
     private VideoFrame(Builder builder) {

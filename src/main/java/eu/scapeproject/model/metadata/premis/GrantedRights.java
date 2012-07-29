@@ -8,17 +8,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "grantedRights", namespace = "http://www.loc.gov/standards/premis")
 public class GrantedRights {
     @XmlElement(name = "act", namespace = "http://www.loc.gov/standards/premis")
-    private String act;
+    private final String act;
     @XmlElement(name = "restriction", namespace = "http://www.loc.gov/standards/premis")
-    private String restriction;
+    private final String restriction;
     @XmlElement(name = "termOfGrant", namespace = "http://www.loc.gov/standards/premis")
-    private TermOfGrant termOfGrant;
+    private final TermOfGrant termOfGrant;
     @XmlElement(name = "rightsGrantedNotes", namespace = "http://www.loc.gov/standards/premis")
-    private List<String> rightsGrantedNotes;
+    private final List<String> rightsGrantedNotes;
 
     @SuppressWarnings("unused")
     private GrantedRights() {
         super();
+        this.act=null;
+        this.restriction=null;
+        this.termOfGrant=null;
+        this.rightsGrantedNotes=null;
     }
 
     public GrantedRights(String act, String restriction, TermOfGrant termOfGrant, List<String> rightsGrantedNotes) {

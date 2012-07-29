@@ -6,11 +6,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="yCbCr",namespace="http://www.loc.gov/mix/v10")
 public class YCbCr {
     @XmlElement(name="yCbCrSubSampling",namespace="http://www.loc.gov/mix/v10")
-    private YCbCrSubSampling yCbCrSubSampling;
+    private final  YCbCrSubSampling yCbCrSubSampling;
 
     @SuppressWarnings("unused")
     private YCbCr(){
         super();
+        this.yCbCrSubSampling=null;
     }
     
     public YCbCr(YCbCrSubSampling yCbCrSubSmapling) {

@@ -6,26 +6,35 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="dimension",namespace="http://www.loc.gov/AMD/")
 public class Dimension {
     @XmlElement(name = "depth",namespace="http://www.loc.gov/AMD/")
-    private float depth;
+    private final float depth;
     @XmlElement(name = "diameter",namespace="http://www.loc.gov/AMD/")
-    private float diameter;
+    private final float diameter;
     @XmlElement(name = "gauge",namespace="http://www.loc.gov/AMD/")
-    private String gauge;
+    private final String gauge;
     @XmlElement(name = "height",namespace="http://www.loc.gov/AMD/")
-    private float height;
+    private final float height;
     @XmlElement(name = "length",namespace="http://www.loc.gov/AMD/")
-    private String length;
+    private final String length;
     @XmlElement(name = "note",namespace="http://www.loc.gov/AMD/")
-    private String note;
+    private final String note;
     @XmlElement(name = "thickness",namespace="http://www.loc.gov/AMD/")
-    private String thickness;
+    private final String thickness;
     @XmlElement(name = "units",namespace="http://www.loc.gov/AMD/")
-    private String units;
+    private final String units;
     @XmlElement(name = "width",namespace="http://www.loc.gov/AMD/")
-    private float width;
+    private final float width;
 
     private Dimension() {
         super();
+        this.depth=0f;
+        this.diameter=0f;
+        this.gauge=null;
+        this.height=0f;
+        this.length=null;
+        this.note=null;
+        this.thickness=null;
+        this.units=null;
+        this.width=0f;
     }
 
     private Dimension(Builder builder) {

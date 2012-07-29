@@ -7,17 +7,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "timecode", namespace = "http://www.loc.gov/videoMD/")
 public class VideoTimeCode {
     @XmlAttribute(name = "id", namespace = "http://www.loc.gov/videoMD/")
-    private String id;
+    private final String id;
     @XmlElement(name = "timecoderecordmethod", namespace = "http://www.loc.gov/videoMD/")
-    private String timeCodeRecordMethod;
+    private final String timeCodeRecordMethod;
     @XmlElement(name = "timecodetype", namespace = "http://www.loc.gov/videoMD/")
-    private String timeCodeType;
+    private final String timeCodeType;
     @XmlElement(name = "timecodeinitialvalue", namespace = "http://www.loc.gov/videoMD/")
-    private String timeCodeInitialValue;
+    private final String timeCodeInitialValue;
 
     private VideoTimeCode() {
         super();
-    }
+        this.id = null;
+        this.timeCodeRecordMethod = null;
+        this.timeCodeType = null;
+        this.timeCodeInitialValue = null;
+     }
 
     private VideoTimeCode(Builder builder) {
         this.id = builder.id;
