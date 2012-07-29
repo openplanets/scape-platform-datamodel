@@ -1,8 +1,15 @@
 package eu.scapeproject.model;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+
+@XmlRootElement(name="identifier",namespace="http://scapeproject.eu/model")
 public class Identifier {
+	@XmlAttribute(name="type")
     protected final String type;
+	@XmlElement(name="value",namespace="http://scapeproject.eu/model")
     protected final String value;
 
     private Identifier() {

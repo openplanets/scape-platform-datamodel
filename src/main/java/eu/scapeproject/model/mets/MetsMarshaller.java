@@ -53,7 +53,9 @@ public class MetsMarshaller {
 				PremisRightsMetadata.class,
 				AudioMDMetadata.class,
 				VideoMDMetadata.class,
-				FitsMetadata.class);
+				FitsMetadata.class,
+				LifecycleState.class,
+				Identifier.class);
 		marshaller = ctx.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new MetsNamespacePrefixMapper());
@@ -73,9 +75,29 @@ public class MetsMarshaller {
 			} catch (JAXBException e) {
 				throw new SerializationException(e);
 			}
+		} else if (subject instanceof Identifier) {
+			try {
+				serializeIdentifier((Identifier) subject, out);
+			} catch (JAXBException e) {
+				throw new SerializationException(e);
+			}
+		} else if (subject instanceof LifecycleState) {
+			try {
+				serializeLifecycleState((LifecycleState) subject, out);
+			} catch (JAXBException e) {
+				throw new SerializationException(e);
+			}
 		} else {
 			throw new SerializationException("unable to serialize objects of type " + subject.getClass());
 		}
+	}
+
+	private void serializeLifecycleState(LifecycleState subject, OutputStream out) throws JAXBException{
+		marshaller.marshal(subject, out);
+	}
+
+	private void serializeIdentifier(Identifier subject, OutputStream out) throws JAXBException{
+		marshaller.marshal(subject, out);
 	}
 
 	private void serializeFile(File subject, OutputStream out) throws JAXBException{
