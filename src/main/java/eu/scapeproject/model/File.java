@@ -104,6 +104,9 @@ public class File {
         }
 
         public File build() {
+        	if (bitStreams != null && bitStreams.size() == 0){
+        		bitStreams = null;
+        	}
             return new File(this);
         }
 

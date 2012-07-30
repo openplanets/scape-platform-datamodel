@@ -109,8 +109,7 @@ public class MetsMarshaller {
 	}
 
 	private void serializeFile(File subject, OutputStream out) throws JAXBException {
-		MetsFile file = MetsUtil.convertFile(subject);
-		marshaller.marshal(file, out);
+		marshaller.marshal(subject, out);
 	}
 
 	public <T> T deserialize(Class<T> type, InputStream in) throws SerializationException {
@@ -120,8 +119,18 @@ public class MetsMarshaller {
 			return (T) deserializeDC(in);
 		} else if (type == Representation.class) {
 			return (T) deserializeRepresentation(in);
+		}else if (type == File.class){
+			return (T) deserializeFile(in);
 		} else {
 			throw new SerializationException("unable to deserialize into objects of type " + type);
+		}
+	}
+
+	private File deserializeFile(InputStream in) {
+		try {
+			return (File) unmarshaller.unmarshal(in);
+		} catch (JAXBException e) {
+			throw new SerializationException(e);
 		}
 	}
 

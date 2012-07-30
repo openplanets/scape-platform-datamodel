@@ -1,5 +1,6 @@
 package eu.scapeproject.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,7 +33,7 @@ public class Representation {
 	@XmlElement(name="rights",namespace="http://scapeproject.eu/model")
 	private final RightsMetadata rights;
 	@XmlElement(name="files",namespace="http://scapeproject.eu/model")
-	private final Set<File> files;
+	private final List<File> files;
 	@XmlElement(name="title",namespace="http://scapeproject.eu/model")
 	private final String title;
 	@XmlElement(name="usage",namespace="http://scapeproject.eu/model")
@@ -61,7 +62,7 @@ public class Representation {
 		this.usage = builder.usage;
 	}
 
-	public Set<File> getFiles() {
+	public List<File> getFiles() {
 		return files;
 	}
 
@@ -165,7 +166,7 @@ public class Representation {
 		private ProvenanceMetadata provenance;
 		private TechnicalMetadata technical;
 		private RightsMetadata rights;
-		private Set<File> files = new HashSet<File>();
+		private List<File> files = new ArrayList<File>();
 		private Identifier id;
 		private String title;
 		private String usage;
