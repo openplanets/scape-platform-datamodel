@@ -2,6 +2,8 @@ package eu.scapeproject.model.mets;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -16,7 +18,9 @@ import eu.scapeproject.dto.mets.MetsFile;
 import eu.scapeproject.model.File;
 import eu.scapeproject.model.Identifier;
 import eu.scapeproject.model.IntellectualEntity;
+import eu.scapeproject.model.IntellectualEntityCollection;
 import eu.scapeproject.model.LifecycleState;
+import eu.scapeproject.model.VersionList;
 import eu.scapeproject.model.LifecycleState.State;
 import eu.scapeproject.model.jaxb.MetsNamespacePrefixMapper;
 import eu.scapeproject.model.metadata.audiomd.AudioMDMetadata;
@@ -55,7 +59,9 @@ public class MetsMarshaller {
 				VideoMDMetadata.class,
 				FitsMetadata.class,
 				LifecycleState.class,
-				Identifier.class);
+				Identifier.class,
+				VersionList.class,
+				IntellectualEntityCollection.class);
 		marshaller = ctx.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new MetsNamespacePrefixMapper());
@@ -69,6 +75,12 @@ public class MetsMarshaller {
 			} catch (JAXBException e) {
 				throw new SerializationException(e);
 			}
+        } else if (subject instanceof List<?>) {
+            try {
+                serializeList((List) subject, out);
+            } catch (JAXBException e) {
+                throw new SerializationException(e);
+            }
 		} else if (subject instanceof File) {
 			try {
 				serializeFile((File) subject, out);
@@ -92,7 +104,11 @@ public class MetsMarshaller {
 		}
 	}
 
-	private void serializeLifecycleState(LifecycleState subject, OutputStream out) throws JAXBException{
+	private void serializeList(List subject, OutputStream out) throws JAXBException {
+	    marshaller.marshal(subject, out);
+    }
+
+    private void serializeLifecycleState(LifecycleState subject, OutputStream out) throws JAXBException{
 		marshaller.marshal(subject, out);
 	}
 
