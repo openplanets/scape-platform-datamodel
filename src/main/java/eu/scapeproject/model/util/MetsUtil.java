@@ -365,6 +365,9 @@ public abstract class MetsUtil {
 				}
 			}
 		}
+		if (reps.size() == 0){
+		    return null;
+		}
 		return reps;
 	}
 
