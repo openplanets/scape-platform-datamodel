@@ -3,12 +3,20 @@ package eu.scapeproject.model;
 import java.net.URI;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import eu.scapeproject.model.metadata.TechnicalMetadata;
 
+@XmlRootElement(name="file",namespace="http://scapeproject.eu/model")
 public class File {
+	@XmlElement(name="technical",namespace="http://scapeproject.eu/model")
     private final TechnicalMetadata technical;
+	@XmlElement(name="bitstream",namespace="http://scapeproject.eu/model")
     private final List<BitStream> bitStreams;
+	@XmlElement(name="uri",namespace="http://scapeproject.eu/model")
     private final URI uri;
+	@XmlElement(name="identifier",namespace="http://scapeproject.eu/model")
     private final Identifier identifier;
 
     private File() {

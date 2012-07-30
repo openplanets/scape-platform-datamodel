@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
 import eu.scapeproject.model.metadata.ProvenanceMetadata;
 import eu.scapeproject.model.metadata.RightsMetadata;
@@ -16,14 +19,23 @@ import eu.scapeproject.model.metadata.premis.PremisProvenanceMetadata;
 import eu.scapeproject.model.metadata.textmd.TextMDMetadata;
 import eu.scapeproject.model.util.ListUtil;
 
+@XmlRootElement(name="representation",namespace="http://scapeproject.eu/model")
 public class Representation {
+	@XmlElement(name="identifier",namespace="http://scapeproject.eu/model")
 	private final Identifier identifier;
+	@XmlElement(name="source",namespace="http://scapeproject.eu/model")
 	private final DescriptiveMetadata source;
+	@XmlElement(name="provenance",namespace="http://scapeproject.eu/model")
 	private final ProvenanceMetadata provenance;
+	@XmlElement(name="technical",namespace="http://scapeproject.eu/model")
 	private final TechnicalMetadata technical;
+	@XmlElement(name="rights",namespace="http://scapeproject.eu/model")
 	private final RightsMetadata rights;
+	@XmlElement(name="files",namespace="http://scapeproject.eu/model")
 	private final Set<File> files;
+	@XmlElement(name="title",namespace="http://scapeproject.eu/model")
 	private final String title;
+	@XmlElement(name="usage",namespace="http://scapeproject.eu/model")
 	private final String usage;
 
 	private Representation() {
