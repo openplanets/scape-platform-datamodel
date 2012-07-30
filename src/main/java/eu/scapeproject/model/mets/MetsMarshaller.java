@@ -70,48 +70,6 @@ public class MetsMarshaller {
 		unmarshaller = ctx.createUnmarshaller();
 	}
 
-	public void serialize(Object subject, OutputStream out) throws SerializationException {
-		try {
-			if (subject instanceof IntellectualEntity) {
-				serializeEntity((IntellectualEntity) subject, out);
-			} else if (subject instanceof List<?>) {
-				serializeList((List) subject, out);
-			} else if (subject instanceof Representation) {
-				serilizeRepresentation((Representation) subject, out);
-			} else if (subject instanceof File) {
-				serializeFile((File) subject, out);
-			} else if (subject instanceof Identifier) {
-				serializeIdentifier((Identifier) subject, out);
-			} else if (subject instanceof LifecycleState) {
-				serializeLifecycleState((LifecycleState) subject, out);
-			} else {
-				throw new SerializationException("unable to serialize objects of type " + subject.getClass());
-			}
-		} catch (JAXBException e) {
-			throw new SerializationException(e);
-		}
-	}
-
-	private void serilizeRepresentation(Representation subject, OutputStream out) throws JAXBException {
-		marshaller.marshal(subject, out);
-	}
-
-	private void serializeList(List subject, OutputStream out) throws JAXBException {
-		marshaller.marshal(subject, out);
-	}
-
-	private void serializeLifecycleState(LifecycleState subject, OutputStream out) throws JAXBException {
-		marshaller.marshal(subject, out);
-	}
-
-	private void serializeIdentifier(Identifier subject, OutputStream out) throws JAXBException {
-		marshaller.marshal(subject, out);
-	}
-
-	private void serializeFile(File subject, OutputStream out) throws JAXBException {
-		marshaller.marshal(subject, out);
-	}
-
 	public <T> T deserialize(Class<T> type, InputStream in) throws SerializationException {
 		if (type == IntellectualEntity.class) {
 			return (T) deserializeEntity(in);
@@ -123,22 +81,6 @@ public class MetsMarshaller {
 			return (T) deserializeFile(in);
 		} else {
 			throw new SerializationException("unable to deserialize into objects of type " + type);
-		}
-	}
-
-	private File deserializeFile(InputStream in) {
-		try {
-			return (File) unmarshaller.unmarshal(in);
-		} catch (JAXBException e) {
-			throw new SerializationException(e);
-		}
-	}
-
-	private Representation deserializeRepresentation(InputStream in) throws SerializationException {
-		try {
-			return (Representation) unmarshaller.unmarshal(in);
-		} catch (JAXBException e) {
-			throw new SerializationException(e);
 		}
 	}
 
@@ -181,9 +123,20 @@ public class MetsMarshaller {
 		return entityBuilder.build();
 	}
 
-	private void serializeEntity(IntellectualEntity entity, OutputStream out) throws JAXBException {
-		MetsDocument doc = MetsUtil.convertEntity(entity);
-		marshaller.marshal(doc, out);
+	private File deserializeFile(InputStream in) {
+		try {
+			return (File) unmarshaller.unmarshal(in);
+		} catch (JAXBException e) {
+			throw new SerializationException(e);
+		}
+	}
+
+	private Representation deserializeRepresentation(InputStream in) throws SerializationException {
+		try {
+			return (Representation) unmarshaller.unmarshal(in);
+		} catch (JAXBException e) {
+			throw new SerializationException(e);
+		}
 	}
 
 	public Marshaller getJaxbMarshaller() {
@@ -192,6 +145,53 @@ public class MetsMarshaller {
 
 	public Unmarshaller getJaxbUnmarshaller() {
 		return unmarshaller;
+	}
+
+	public void serialize(Object subject, OutputStream out) throws SerializationException {
+		try {
+			if (subject instanceof IntellectualEntity) {
+				serializeEntity((IntellectualEntity) subject, out);
+			} else if (subject instanceof List<?>) {
+				serializeList((List) subject, out);
+			} else if (subject instanceof Representation) {
+				serilizeRepresentation((Representation) subject, out);
+			} else if (subject instanceof File) {
+				serializeFile((File) subject, out);
+			} else if (subject instanceof Identifier) {
+				serializeIdentifier((Identifier) subject, out);
+			} else if (subject instanceof LifecycleState) {
+				serializeLifecycleState((LifecycleState) subject, out);
+			} else {
+				throw new SerializationException("unable to serialize objects of type " + subject.getClass());
+			}
+		} catch (JAXBException e) {
+			throw new SerializationException(e);
+		}
+	}
+
+	private void serializeEntity(IntellectualEntity entity, OutputStream out) throws JAXBException {
+		MetsDocument doc = MetsUtil.convertEntity(entity);
+		marshaller.marshal(doc, out);
+	}
+
+	private void serializeFile(File subject, OutputStream out) throws JAXBException {
+		marshaller.marshal(subject, out);
+	}
+
+	private void serializeIdentifier(Identifier subject, OutputStream out) throws JAXBException {
+		marshaller.marshal(subject, out);
+	}
+
+	private void serializeLifecycleState(LifecycleState subject, OutputStream out) throws JAXBException {
+		marshaller.marshal(subject, out);
+	}
+
+	private void serializeList(List subject, OutputStream out) throws JAXBException {
+		marshaller.marshal(subject, out);
+	}
+
+	private void serilizeRepresentation(Representation subject, OutputStream out) throws JAXBException {
+		marshaller.marshal(subject, out);
 	}
 
 }

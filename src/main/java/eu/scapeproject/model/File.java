@@ -1,6 +1,7 @@
 package eu.scapeproject.model;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -98,8 +99,28 @@ public class File {
         private URI uri;
         private Identifier identifier;
 
+        public Builder(){
+        	super();
+        }
+        
+        public Builder(File orig){
+        	//TODO: deep copy
+        	this.technical = orig.technical;
+        	this.bitStreams=orig.bitStreams;
+        	this.uri=orig.uri;
+        	this.identifier=orig.identifier;
+        }
+        
         public Builder bitStreams(List<BitStream> bitStreams) {
             this.bitStreams = bitStreams;
+            return this;
+        }
+
+        public Builder bitStream(BitStream bitStream) {
+        	if (this.bitStreams == null){
+        		this.bitStreams=new ArrayList<BitStream>();
+        	}
+            this.bitStreams.add(bitStream);
             return this;
         }
 

@@ -55,12 +55,13 @@ public abstract class MetsUtil {
 			return;
 		}
 		for (BitStream bs : f.getBitStreams()) {
+			String admId=new Identifier(UUID.randomUUID().toString()).getValue();
 			MetsAMDSec.Builder adm = new MetsAMDSec.Builder()
-					.id(bs.getIdentifier().getValue());
+					.id(admId);
 			amdSecs.put(bs, adm.build());
 			// add a MetsStream object to the MetsFile
 			MetsStream stream = new MetsStream.Builder()
-					.amdMdId(bs.getIdentifier().getValue())
+					.amdMdId(admId)
 					.id(new Identifier(UUID.randomUUID().toString()).getValue())
 					.type(bs.getType().name())
 					.build();
