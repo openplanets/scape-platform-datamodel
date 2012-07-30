@@ -149,7 +149,6 @@ public class MetsMarshaller {
                     .representations(MetsUtil.getRepresentations(doc))
                     .alternativeIdentifiers(MetsUtil.getAlternativeIdentifiers(doc.getHeaders()));
             if (doc.getHeaders().get(0).getRecordStatus() != null) {
-                System.out.println(doc.getHeaders().get(0).getRecordStatus());
                 entityBuilder.lifecycleState(new LifecycleState("", State.valueOf(doc.getHeaders().get(0).getRecordStatus())));
             }
             return entityBuilder.build();
@@ -166,7 +165,6 @@ public class MetsMarshaller {
                 .representations(MetsUtil.getRepresentations(doc))
                 .alternativeIdentifiers(MetsUtil.getAlternativeIdentifiers(doc.getHeaders()));
         if (doc.getHeaders().get(0).getRecordStatus() != null) {
-            System.out.println(doc.getHeaders().get(0).getRecordStatus());
             entityBuilder.lifecycleState(new LifecycleState("", State.valueOf(doc.getHeaders().get(0).getRecordStatus())));
         }
         return entityBuilder.build();
