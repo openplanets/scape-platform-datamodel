@@ -35,20 +35,20 @@ import eu.scapeproject.model.metadata.textmd.TextMDMetadata;
 import eu.scapeproject.model.metadata.videomd.VideoMDMetadata;
 import eu.scapeproject.model.util.MetsUtil;
 
-public class MetsMarshaller {
+public class SCAPEMarshaller {
 	private static final String SCAPE_PROFILE = "http://example.com/scape-mets-profile.xml";
 	private final Marshaller marshaller;
 	private final Unmarshaller unmarshaller;
-	private static MetsMarshaller INSTANCE;
+	private static SCAPEMarshaller INSTANCE;
 
-	public static MetsMarshaller getInstance() throws JAXBException {
+	public static SCAPEMarshaller getInstance() throws JAXBException {
 		if (INSTANCE == null) {
-			INSTANCE = new MetsMarshaller();
+			INSTANCE = new SCAPEMarshaller();
 		}
 		return INSTANCE;
 	}
 
-	private MetsMarshaller() throws JAXBException {
+	private SCAPEMarshaller() throws JAXBException {
 		super();
 		final JAXBContext ctx = JAXBContext.newInstance(
 				MetsDocument.class,
@@ -122,7 +122,7 @@ public class MetsMarshaller {
 		}
 	}
 
-	private IntellectualEntity deserializeEntity(MetsDocument doc) {
+	public IntellectualEntity deserializeEntity(MetsDocument doc) {
 		IntellectualEntity.Builder entityBuilder = new IntellectualEntity.Builder()
 				.identifier(new Identifier(doc.getObjId()))
 				.descriptive(MetsUtil.getDescriptiveMetadadata(doc.getDmdSec()))
