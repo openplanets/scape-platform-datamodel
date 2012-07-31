@@ -169,7 +169,7 @@ public abstract class MetsUtil {
                 .fileSecs(fileSecs)
                 .structMaps(structMaps)
                 .label(((DCMetadata) entity.getDescriptive()).getTitle().get(0))
-                .objId(entity.getIdentifier().getValue());
+                .objId(entity.getIdentifier() == null ? null : entity.getIdentifier().getValue());
         return docBuilder.build();
     }
 
