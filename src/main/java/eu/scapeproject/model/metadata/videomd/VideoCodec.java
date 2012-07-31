@@ -29,43 +29,6 @@ public class VideoCodec extends VideoFormat {
         this.sign = builder.sign;
     }
 
-    public int getChannelCount() {
-        return channelCount;
-    }
-
-    public String getCodecId() {
-        return codecId;
-    }
-
-    public String getEndianess() {
-        return endianess;
-    }
-
-    public String getScanOrder() {
-        return scanOrder;
-    }
-
-    public String getScanType() {
-        return scanType;
-    }
-
-    public String getSign() {
-        return sign;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + channelCount;
-        result = prime * result + ((codecId == null) ? 0 : codecId.hashCode());
-        result = prime * result + ((endianess == null) ? 0 : endianess.hashCode());
-        result = prime * result + ((scanOrder == null) ? 0 : scanOrder.hashCode());
-        result = prime * result + ((scanType == null) ? 0 : scanType.hashCode());
-        result = prime * result + ((sign == null) ? 0 : sign.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -103,6 +66,43 @@ public class VideoCodec extends VideoFormat {
         } else if (!sign.equals(other.sign))
             return false;
         return true;
+    }
+
+    public int getChannelCount() {
+        return channelCount;
+    }
+
+    public String getCodecId() {
+        return codecId;
+    }
+
+    public String getEndianess() {
+        return endianess;
+    }
+
+    public String getScanOrder() {
+        return scanOrder;
+    }
+
+    public String getScanType() {
+        return scanType;
+    }
+
+    public String getSign() {
+        return sign;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + channelCount;
+        result = prime * result + ((codecId == null) ? 0 : codecId.hashCode());
+        result = prime * result + ((endianess == null) ? 0 : endianess.hashCode());
+        result = prime * result + ((scanOrder == null) ? 0 : scanOrder.hashCode());
+        result = prime * result + ((scanType == null) ? 0 : scanType.hashCode());
+        result = prime * result + ((sign == null) ? 0 : sign.hashCode());
+        return result;
     }
 
     public static class Builder {

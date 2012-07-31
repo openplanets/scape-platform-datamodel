@@ -1,6 +1,5 @@
 package eu.scapeproject.model.metadata.mix;
 
-import javax.print.attribute.standard.OrientationRequested;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -43,28 +42,6 @@ public class NisoMixMetadata extends TechnicalMetadata {
         this.imageAssessmentMetadata = new ImageAssessmentMetadata(builder.spacialMetrics, builder.imageColorEncoding, builder.targetData);
     }
 
-    public BasicImageInformation getBasicImageInformation() {
-        return basicImageInformation;
-    }
-
-    public ImageAssessmentMetadata getImageAssessmentMetadata() {
-        return imageAssessmentMetadata;
-    }
-
-    public ImageCaptureMetadata getImageCapture() {
-        return imageCapture;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((basicImageInformation == null) ? 0 : basicImageInformation.hashCode());
-        result = prime * result + ((imageAssessmentMetadata == null) ? 0 : imageAssessmentMetadata.hashCode());
-        result = prime * result + ((imageCapture == null) ? 0 : imageCapture.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -92,6 +69,28 @@ public class NisoMixMetadata extends TechnicalMetadata {
         return true;
     }
 
+    public BasicImageInformation getBasicImageInformation() {
+        return basicImageInformation;
+    }
+
+    public ImageAssessmentMetadata getImageAssessmentMetadata() {
+        return imageAssessmentMetadata;
+    }
+
+    public ImageCaptureMetadata getImageCapture() {
+        return imageCapture;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((basicImageInformation == null) ? 0 : basicImageInformation.hashCode());
+        result = prime * result + ((imageAssessmentMetadata == null) ? 0 : imageAssessmentMetadata.hashCode());
+        result = prime * result + ((imageCapture == null) ? 0 : imageCapture.hashCode());
+        return result;
+    }
+
     public static class Builder {
         private int width;
         private int height;
@@ -110,6 +109,10 @@ public class NisoMixMetadata extends TechnicalMetadata {
         private ImageColorEncoding imageColorEncoding;
         private TargetData targetData;
 
+        public Builder(){
+        	super();
+        }
+        
         public Builder(NisoMixMetadata technical) {
         	this.width = technical.getBasicImageInformation().getBasicImageCharacteristics().getWidth();
         	this.height = technical.getBasicImageInformation().getBasicImageCharacteristics().getHeight();
@@ -128,10 +131,6 @@ public class NisoMixMetadata extends TechnicalMetadata {
         	this.spacialMetrics = technical.getImageAssessmentMetadata().getSpacialMetrics();
         	this.imageColorEncoding = technical.getImageAssessmentMetadata().getImageColorEncoding();
         	this.targetData = technical.getImageAssessmentMetadata().getTargetData();
-        }
-        
-        public Builder(){
-        	super();
         }
 
 		public NisoMixMetadata build() {

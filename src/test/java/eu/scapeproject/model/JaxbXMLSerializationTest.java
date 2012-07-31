@@ -2,15 +2,11 @@ package eu.scapeproject.model;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
-import javax.swing.text.html.parser.Entity;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
@@ -25,7 +21,6 @@ import eu.scapeproject.model.metadata.dc.DCMetadata;
 import eu.scapeproject.model.metadata.fits.FitsMetadata;
 import eu.scapeproject.model.mets.SCAPEMarshaller;
 import eu.scapeproject.model.test.TestUtil;
-import eu.scapeproject.model.test.ValidationUtil;
 
 public class JaxbXMLSerializationTest {
     private static Marshaller marshaller;
@@ -49,6 +44,28 @@ public class JaxbXMLSerializationTest {
     }
     
     @Test
+    public void testEntitySerialization1() throws Exception{
+        java.io.File xmlFile=new java.io.File("target/mets_entity_1.xml");
+        IntellectualEntity entity=TestUtil.createRandomEntity();
+        FileOutputStream out=new FileOutputStream(xmlFile);
+        SCAPEMarshaller.getInstance().serialize(entity, out);
+//        ValidationUtil.validateXML(new FileInputStream(xmlFile),this.getClass().getClassLoader().getResourceAsStream("mets.xsd"));
+    }
+
+    @Test
+    public void testEntitySerialization2() throws Exception {
+    	ByteArrayOutputStream bos=new ByteArrayOutputStream();
+    	SCAPEMarshaller.getInstance().serialize(TestUtil.createMinimalEntity(), bos);
+    }
+
+    @Test
+    public void testFitsSerialization() throws Exception{
+        FitsMetadata md=TestUtil.createRandomFitsMetadata();
+        FileOutputStream out=new FileOutputStream("target/fits_1.xml");
+        marshaller.marshal(md, out);
+    }
+    
+    @Test
     public void testMinimalEntityDeserialization1() throws Exception {
     	IntellectualEntity orig=TestUtil.createMinimalEntity();
     	ByteArrayOutputStream bos=new ByteArrayOutputStream();
@@ -57,7 +74,7 @@ public class JaxbXMLSerializationTest {
     	IntellectualEntity desr=SCAPEMarshaller.getInstance().deserialize(IntellectualEntity.class, new ByteArrayInputStream(bos.toByteArray()));
     	Assert.assertEquals(orig, desr);
     }
-
+    
     @Test
     public void testMinimalEntityDeserialization2() throws Exception {
         Agent agent1=new Agent.Builder()
@@ -99,27 +116,5 @@ public class JaxbXMLSerializationTest {
         System.out.println(bos.toString("UTF-8"));
         IntellectualEntity desr=SCAPEMarshaller.getInstance().deserialize(IntellectualEntity.class, new ByteArrayInputStream(bos.toByteArray()));
         Assert.assertEquals(orig, desr);
-    }
-
-    @Test
-    public void testEntitySerialization2() throws Exception {
-    	ByteArrayOutputStream bos=new ByteArrayOutputStream();
-    	SCAPEMarshaller.getInstance().serialize(TestUtil.createMinimalEntity(), bos);
-    }
-    
-    @Test
-    public void testEntitySerialization1() throws Exception{
-        java.io.File xmlFile=new java.io.File("target/mets_entity_1.xml");
-        IntellectualEntity entity=TestUtil.createRandomEntity();
-        FileOutputStream out=new FileOutputStream(xmlFile);
-        SCAPEMarshaller.getInstance().serialize(entity, out);
-//        ValidationUtil.validateXML(new FileInputStream(xmlFile),this.getClass().getClassLoader().getResourceAsStream("mets.xsd"));
-    }
-    
-    @Test
-    public void testFitsSerialization() throws Exception{
-        FitsMetadata md=TestUtil.createRandomFitsMetadata();
-        FileOutputStream out=new FileOutputStream("target/fits_1.xml");
-        marshaller.marshal(md, out);
     }
 }

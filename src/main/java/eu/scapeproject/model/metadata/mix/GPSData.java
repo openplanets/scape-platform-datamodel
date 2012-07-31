@@ -100,6 +100,103 @@ public class GPSData {
         this.gpsDifferential = builder.gpsDifferential;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        GPSData other = (GPSData) obj;
+        if (gpsAreaInformation == null) {
+            if (other.gpsAreaInformation != null)
+                return false;
+        } else if (!gpsAreaInformation.equals(other.gpsAreaInformation))
+            return false;
+        if (Double.doubleToLongBits(gpsDOP) != Double.doubleToLongBits(other.gpsDOP))
+            return false;
+        if (gpsDateStamp == null) {
+            if (other.gpsDateStamp != null)
+                return false;
+        } else if (!gpsDateStamp.equals(other.gpsDateStamp))
+            return false;
+        if (Double.doubleToLongBits(gpsDestBearing) != Double.doubleToLongBits(other.gpsDestBearing))
+            return false;
+        if (gpsDestBearingRef != other.gpsDestBearingRef)
+            return false;
+        if (Double.doubleToLongBits(gpsDestDistance) != Double.doubleToLongBits(other.gpsDestDistance))
+            return false;
+        if (gpsDestDistanceRef != other.gpsDestDistanceRef)
+            return false;
+        if (gpsDestLatitude == null) {
+            if (other.gpsDestLatitude != null)
+                return false;
+        } else if (!gpsDestLatitude.equals(other.gpsDestLatitude))
+            return false;
+        if (gpsDestLatitudeRef != other.gpsDestLatitudeRef)
+            return false;
+        if (gpsDestLongitude == null) {
+            if (other.gpsDestLongitude != null)
+                return false;
+        } else if (!gpsDestLongitude.equals(other.gpsDestLongitude))
+            return false;
+        if (gpsDestLongitudeRef != other.gpsDestLongitudeRef)
+            return false;
+        if (gpsDifferential != other.gpsDifferential)
+            return false;
+        if (Double.doubleToLongBits(gpsImageDirection) != Double.doubleToLongBits(other.gpsImageDirection))
+            return false;
+        if (gpsImageDirectionRef != other.gpsImageDirectionRef)
+            return false;
+        if (Double.doubleToLongBits(gpsLatitude) != Double.doubleToLongBits(other.gpsLatitude))
+            return false;
+        if (gpsLatitudeRef != other.gpsLatitudeRef)
+            return false;
+        if (Double.doubleToLongBits(gpsLongitude) != Double.doubleToLongBits(other.gpsLongitude))
+            return false;
+        if (gpsLongitudeRef != other.gpsLongitudeRef)
+            return false;
+        if (gpsMapDatum == null) {
+            if (other.gpsMapDatum != null)
+                return false;
+        } else if (!gpsMapDatum.equals(other.gpsMapDatum))
+            return false;
+        if (gpsMeasureMode != other.gpsMeasureMode)
+            return false;
+        if (gpsProcessingMethod == null) {
+            if (other.gpsProcessingMethod != null)
+                return false;
+        } else if (!gpsProcessingMethod.equals(other.gpsProcessingMethod))
+            return false;
+        if (gpsSatellites == null) {
+            if (other.gpsSatellites != null)
+                return false;
+        } else if (!gpsSatellites.equals(other.gpsSatellites))
+            return false;
+        if (Double.doubleToLongBits(gpsSpeed) != Double.doubleToLongBits(other.gpsSpeed))
+            return false;
+        if (gpsSpeedRef != other.gpsSpeedRef)
+            return false;
+        if (gpsStatus != other.gpsStatus)
+            return false;
+        if (gpsTimeStamp == null) {
+            if (other.gpsTimeStamp != null)
+                return false;
+        } else if (!gpsTimeStamp.equals(other.gpsTimeStamp))
+            return false;
+        if (Double.doubleToLongBits(gpsTrack) != Double.doubleToLongBits(other.gpsTrack))
+            return false;
+        if (gpsTrackRef != other.gpsTrackRef)
+            return false;
+        if (gpsVersionId == null) {
+            if (other.gpsVersionId != null)
+                return false;
+        } else if (!gpsVersionId.equals(other.gpsVersionId))
+            return false;
+        return true;
+    }
+
     public String getGpsAreaInformation() {
         return gpsAreaInformation;
     }
@@ -259,103 +356,6 @@ public class GPSData {
         result = prime * result + ((gpsTrackRef == null) ? 0 : gpsTrackRef.hashCode());
         result = prime * result + ((gpsVersionId == null) ? 0 : gpsVersionId.hashCode());
         return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        GPSData other = (GPSData) obj;
-        if (gpsAreaInformation == null) {
-            if (other.gpsAreaInformation != null)
-                return false;
-        } else if (!gpsAreaInformation.equals(other.gpsAreaInformation))
-            return false;
-        if (Double.doubleToLongBits(gpsDOP) != Double.doubleToLongBits(other.gpsDOP))
-            return false;
-        if (gpsDateStamp == null) {
-            if (other.gpsDateStamp != null)
-                return false;
-        } else if (!gpsDateStamp.equals(other.gpsDateStamp))
-            return false;
-        if (Double.doubleToLongBits(gpsDestBearing) != Double.doubleToLongBits(other.gpsDestBearing))
-            return false;
-        if (gpsDestBearingRef != other.gpsDestBearingRef)
-            return false;
-        if (Double.doubleToLongBits(gpsDestDistance) != Double.doubleToLongBits(other.gpsDestDistance))
-            return false;
-        if (gpsDestDistanceRef != other.gpsDestDistanceRef)
-            return false;
-        if (gpsDestLatitude == null) {
-            if (other.gpsDestLatitude != null)
-                return false;
-        } else if (!gpsDestLatitude.equals(other.gpsDestLatitude))
-            return false;
-        if (gpsDestLatitudeRef != other.gpsDestLatitudeRef)
-            return false;
-        if (gpsDestLongitude == null) {
-            if (other.gpsDestLongitude != null)
-                return false;
-        } else if (!gpsDestLongitude.equals(other.gpsDestLongitude))
-            return false;
-        if (gpsDestLongitudeRef != other.gpsDestLongitudeRef)
-            return false;
-        if (gpsDifferential != other.gpsDifferential)
-            return false;
-        if (Double.doubleToLongBits(gpsImageDirection) != Double.doubleToLongBits(other.gpsImageDirection))
-            return false;
-        if (gpsImageDirectionRef != other.gpsImageDirectionRef)
-            return false;
-        if (Double.doubleToLongBits(gpsLatitude) != Double.doubleToLongBits(other.gpsLatitude))
-            return false;
-        if (gpsLatitudeRef != other.gpsLatitudeRef)
-            return false;
-        if (Double.doubleToLongBits(gpsLongitude) != Double.doubleToLongBits(other.gpsLongitude))
-            return false;
-        if (gpsLongitudeRef != other.gpsLongitudeRef)
-            return false;
-        if (gpsMapDatum == null) {
-            if (other.gpsMapDatum != null)
-                return false;
-        } else if (!gpsMapDatum.equals(other.gpsMapDatum))
-            return false;
-        if (gpsMeasureMode != other.gpsMeasureMode)
-            return false;
-        if (gpsProcessingMethod == null) {
-            if (other.gpsProcessingMethod != null)
-                return false;
-        } else if (!gpsProcessingMethod.equals(other.gpsProcessingMethod))
-            return false;
-        if (gpsSatellites == null) {
-            if (other.gpsSatellites != null)
-                return false;
-        } else if (!gpsSatellites.equals(other.gpsSatellites))
-            return false;
-        if (Double.doubleToLongBits(gpsSpeed) != Double.doubleToLongBits(other.gpsSpeed))
-            return false;
-        if (gpsSpeedRef != other.gpsSpeedRef)
-            return false;
-        if (gpsStatus != other.gpsStatus)
-            return false;
-        if (gpsTimeStamp == null) {
-            if (other.gpsTimeStamp != null)
-                return false;
-        } else if (!gpsTimeStamp.equals(other.gpsTimeStamp))
-            return false;
-        if (Double.doubleToLongBits(gpsTrack) != Double.doubleToLongBits(other.gpsTrack))
-            return false;
-        if (gpsTrackRef != other.gpsTrackRef)
-            return false;
-        if (gpsVersionId == null) {
-            if (other.gpsVersionId != null)
-                return false;
-        } else if (!gpsVersionId.equals(other.gpsVersionId))
-            return false;
-        return true;
     }
 
     public static class Builder {

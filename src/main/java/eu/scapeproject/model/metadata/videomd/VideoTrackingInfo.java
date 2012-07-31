@@ -13,18 +13,6 @@ public class VideoTrackingInfo {
     @XmlElement(name = "trackingvalue", namespace = "http://www.loc.gov/videoMD/")
     private final String trackingValue;
 
-    public String getId() {
-        return id;
-    }
-
-    public String getTrackingType() {
-        return trackingType;
-    }
-
-    public String getTrackingValue() {
-        return trackingValue;
-    }
-    
     @SuppressWarnings("unused")
     private VideoTrackingInfo(){
         super();
@@ -38,16 +26,6 @@ public class VideoTrackingInfo {
         this.id = id;
         this.trackingType = trackingType;
         this.trackingValue = trackingValue;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((trackingType == null) ? 0 : trackingType.hashCode());
-        result = prime * result + ((trackingValue == null) ? 0 : trackingValue.hashCode());
-        return result;
     }
 
     @Override
@@ -75,6 +53,28 @@ public class VideoTrackingInfo {
         } else if (!trackingValue.equals(other.trackingValue))
             return false;
         return true;
+    }
+    
+    public String getId() {
+        return id;
+    }
+
+    public String getTrackingType() {
+        return trackingType;
+    }
+
+    public String getTrackingValue() {
+        return trackingValue;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((trackingType == null) ? 0 : trackingType.hashCode());
+        result = prime * result + ((trackingValue == null) ? 0 : trackingValue.hashCode());
+        return result;
     }
     
 }

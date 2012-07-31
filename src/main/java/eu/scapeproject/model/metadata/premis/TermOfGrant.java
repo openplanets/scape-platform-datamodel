@@ -25,23 +25,6 @@ public class TermOfGrant {
         this.endDate = endDate;
     }
 
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
-        result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -62,6 +45,23 @@ public class TermOfGrant {
         } else if (!startDate.equals(other.startDate))
             return false;
         return true;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
+        result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
+        return result;
     }
 
 }

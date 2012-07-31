@@ -65,78 +65,6 @@ public class VideoFormat {
         this.version = builder.version;
     }
 
-    public String getAnnotation() {
-        return annotation;
-    }
-
-    public String getCommercialName() {
-        return commercialName;
-    }
-
-    public String getCreatorApp() {
-        return creatorApp;
-    }
-
-    public String getCreatorLib() {
-        return creatorLib;
-    }
-
-    public String getCreatorLibDate() {
-        return creatorLibDate;
-    }
-
-    public String getCreatorLibSettings() {
-        return creatorLibSettings;
-    }
-
-    public String getEncodingDate() {
-        return encodingDate;
-    }
-
-    public String getMimeType() {
-        return mimeType;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getProfile() {
-        return profile;
-    }
-
-    public String getSettings() {
-        return settings;
-    }
-
-    public String getTaggedDate() {
-        return taggedDate;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((annotation == null) ? 0 : annotation.hashCode());
-        result = prime * result + ((commercialName == null) ? 0 : commercialName.hashCode());
-        result = prime * result + ((creatorApp == null) ? 0 : creatorApp.hashCode());
-        result = prime * result + ((creatorLib == null) ? 0 : creatorLib.hashCode());
-        result = prime * result + ((creatorLibDate == null) ? 0 : creatorLibDate.hashCode());
-        result = prime * result + ((creatorLibSettings == null) ? 0 : creatorLibSettings.hashCode());
-        result = prime * result + ((encodingDate == null) ? 0 : encodingDate.hashCode());
-        result = prime * result + ((mimeType == null) ? 0 : mimeType.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((profile == null) ? 0 : profile.hashCode());
-        result = prime * result + ((settings == null) ? 0 : settings.hashCode());
-        result = prime * result + ((taggedDate == null) ? 0 : taggedDate.hashCode());
-        result = prime * result + ((version == null) ? 0 : version.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -212,6 +140,78 @@ public class VideoFormat {
         } else if (!version.equals(other.version))
             return false;
         return true;
+    }
+
+    public String getAnnotation() {
+        return annotation;
+    }
+
+    public String getCommercialName() {
+        return commercialName;
+    }
+
+    public String getCreatorApp() {
+        return creatorApp;
+    }
+
+    public String getCreatorLib() {
+        return creatorLib;
+    }
+
+    public String getCreatorLibDate() {
+        return creatorLibDate;
+    }
+
+    public String getCreatorLibSettings() {
+        return creatorLibSettings;
+    }
+
+    public String getEncodingDate() {
+        return encodingDate;
+    }
+
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public String getSettings() {
+        return settings;
+    }
+
+    public String getTaggedDate() {
+        return taggedDate;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((annotation == null) ? 0 : annotation.hashCode());
+        result = prime * result + ((commercialName == null) ? 0 : commercialName.hashCode());
+        result = prime * result + ((creatorApp == null) ? 0 : creatorApp.hashCode());
+        result = prime * result + ((creatorLib == null) ? 0 : creatorLib.hashCode());
+        result = prime * result + ((creatorLibDate == null) ? 0 : creatorLibDate.hashCode());
+        result = prime * result + ((creatorLibSettings == null) ? 0 : creatorLibSettings.hashCode());
+        result = prime * result + ((encodingDate == null) ? 0 : encodingDate.hashCode());
+        result = prime * result + ((mimeType == null) ? 0 : mimeType.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((profile == null) ? 0 : profile.hashCode());
+        result = prime * result + ((settings == null) ? 0 : settings.hashCode());
+        result = prime * result + ((taggedDate == null) ? 0 : taggedDate.hashCode());
+        result = prime * result + ((version == null) ? 0 : version.hashCode());
+        return result;
     }
 
     public static class Builder {

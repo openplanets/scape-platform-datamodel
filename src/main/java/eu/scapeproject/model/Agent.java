@@ -38,44 +38,6 @@ public class Agent {
         this.otherType = builder.otherType;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public String getOtherRole() {
-        return otherRole;
-    }
-
-    public String getOtherType() {
-        return otherType;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((note == null) ? 0 : note.hashCode());
-        result = prime * result + ((otherRole == null) ? 0 : otherRole.hashCode());
-        result = prime * result + ((otherType == null) ? 0 : otherType.hashCode());
-        result = prime * result + ((role == null) ? 0 : role.hashCode());
-        result = prime * result + ((type == null) ? 0 : type.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -116,6 +78,44 @@ public class Agent {
         } else if (!type.equals(other.type))
             return false;
         return true;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public String getOtherRole() {
+        return otherRole;
+    }
+
+    public String getOtherType() {
+        return otherType;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    
+    public String getType() {
+        return type;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((note == null) ? 0 : note.hashCode());
+        result = prime * result + ((otherRole == null) ? 0 : otherRole.hashCode());
+        result = prime * result + ((otherType == null) ? 0 : otherType.hashCode());
+        result = prime * result + ((role == null) ? 0 : role.hashCode());
+        result = prime * result + ((type == null) ? 0 : type.hashCode());
+        return result;
     }
 
 

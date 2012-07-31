@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import eu.scapeproject.model.Identifier;
-import eu.scapeproject.model.jaxb.PremisEventIdentifierAdapter;
 import eu.scapeproject.model.jaxb.PremisRightsIdentifierAdapter;
 
 @XmlRootElement(name="rightsStatement",namespace="http://www.loc.gov/standards/premis")
@@ -51,53 +50,6 @@ public class RightsStatement {
         this.rightsGranted = builder.rightsGranted;
         this.linkingObjects = builder.linkingObjects;
         this.linkingagents = builder.linkingagents;
-    }
-
-    public CopyRightInformation getCopyrightInformation() {
-        return copyrightInformation;
-    }
-
-    public LicenseInformation getLicenseInformation() {
-        return licenseInformation;
-    }
-
-    public List<LinkingAgent> getLinkingagents() {
-        return linkingagents;
-    }
-
-    public List<LinkingObject> getLinkingObjects() {
-        return linkingObjects;
-    }
-
-    public String getRightsBasis() {
-        return rightsBasis;
-    }
-
-    public List<GrantedRights> getRightsGranted() {
-        return rightsGranted;
-    }
-
-    public Identifier getRightsStatementIdentifier() {
-        return rightsStatementIdentifier;
-    }
-
-    public List<StatuteInformation> getStatuteInformation() {
-        return statuteInformation;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((copyrightInformation == null) ? 0 : copyrightInformation.hashCode());
-        result = prime * result + ((licenseInformation == null) ? 0 : licenseInformation.hashCode());
-        result = prime * result + ((linkingObjects == null) ? 0 : linkingObjects.hashCode());
-        result = prime * result + ((linkingagents == null) ? 0 : linkingagents.hashCode());
-        result = prime * result + ((rightsBasis == null) ? 0 : rightsBasis.hashCode());
-        result = prime * result + ((rightsGranted == null) ? 0 : rightsGranted.hashCode());
-        result = prime * result + ((rightsStatementIdentifier == null) ? 0 : rightsStatementIdentifier.hashCode());
-        result = prime * result + ((statuteInformation == null) ? 0 : statuteInformation.hashCode());
-        return result;
     }
 
     @Override
@@ -150,6 +102,53 @@ public class RightsStatement {
         } else if (!statuteInformation.equals(other.statuteInformation))
             return false;
         return true;
+    }
+
+    public CopyRightInformation getCopyrightInformation() {
+        return copyrightInformation;
+    }
+
+    public LicenseInformation getLicenseInformation() {
+        return licenseInformation;
+    }
+
+    public List<LinkingAgent> getLinkingagents() {
+        return linkingagents;
+    }
+
+    public List<LinkingObject> getLinkingObjects() {
+        return linkingObjects;
+    }
+
+    public String getRightsBasis() {
+        return rightsBasis;
+    }
+
+    public List<GrantedRights> getRightsGranted() {
+        return rightsGranted;
+    }
+
+    public Identifier getRightsStatementIdentifier() {
+        return rightsStatementIdentifier;
+    }
+
+    public List<StatuteInformation> getStatuteInformation() {
+        return statuteInformation;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((copyrightInformation == null) ? 0 : copyrightInformation.hashCode());
+        result = prime * result + ((licenseInformation == null) ? 0 : licenseInformation.hashCode());
+        result = prime * result + ((linkingObjects == null) ? 0 : linkingObjects.hashCode());
+        result = prime * result + ((linkingagents == null) ? 0 : linkingagents.hashCode());
+        result = prime * result + ((rightsBasis == null) ? 0 : rightsBasis.hashCode());
+        result = prime * result + ((rightsGranted == null) ? 0 : rightsGranted.hashCode());
+        result = prime * result + ((rightsStatementIdentifier == null) ? 0 : rightsStatementIdentifier.hashCode());
+        result = prime * result + ((statuteInformation == null) ? 0 : statuteInformation.hashCode());
+        return result;
     }
 
     public static class Builder {

@@ -20,14 +20,11 @@ public class FitsFileStatus {
         this.valid=null;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((message == null) ? 0 : message.hashCode());
-        result = prime * result + ((valid == null) ? 0 : valid.hashCode());
-        result = prime * result + ((wellFormed == null) ? 0 : wellFormed.hashCode());
-        return result;
+    public FitsFileStatus(String message, String wellFormed, String valid) {
+        super();
+        this.message = message;
+        this.wellFormed = wellFormed;
+        this.valid = valid;
     }
 
     @Override
@@ -57,13 +54,6 @@ public class FitsFileStatus {
         return true;
     }
 
-    public FitsFileStatus(String message, String wellFormed, String valid) {
-        super();
-        this.message = message;
-        this.wellFormed = wellFormed;
-        this.valid = valid;
-    }
-
     public String getMessage() {
         return message;
     }
@@ -74,5 +64,15 @@ public class FitsFileStatus {
 
     public String getWellFormed() {
         return wellFormed;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((message == null) ? 0 : message.hashCode());
+        result = prime * result + ((valid == null) ? 0 : valid.hashCode());
+        result = prime * result + ((wellFormed == null) ? 0 : wellFormed.hashCode());
+        return result;
     }
 }

@@ -34,33 +34,6 @@ public class StatuteInformation {
         this.statuteNotes = statuteNotes;
     }
 
-    public String getStatuteCitation() {
-        return statuteCitation;
-    }
-
-    public Date getStatuteInformationDeterminationDate() {
-        return statuteInformationDeterminationDate;
-    }
-
-    public String getStatuteJurisdiction() {
-        return statuteJurisdiction;
-    }
-
-    public List<String> getStatuteNotes() {
-        return statuteNotes;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((statuteCitation == null) ? 0 : statuteCitation.hashCode());
-        result = prime * result + ((statuteInformationDeterminationDate == null) ? 0 : statuteInformationDeterminationDate.hashCode());
-        result = prime * result + ((statuteJurisdiction == null) ? 0 : statuteJurisdiction.hashCode());
-        result = prime * result + ((statuteNotes == null) ? 0 : statuteNotes.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -91,6 +64,33 @@ public class StatuteInformation {
         } else if (!statuteNotes.equals(other.statuteNotes))
             return false;
         return true;
+    }
+
+    public String getStatuteCitation() {
+        return statuteCitation;
+    }
+
+    public Date getStatuteInformationDeterminationDate() {
+        return statuteInformationDeterminationDate;
+    }
+
+    public String getStatuteJurisdiction() {
+        return statuteJurisdiction;
+    }
+
+    public List<String> getStatuteNotes() {
+        return statuteNotes;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((statuteCitation == null) ? 0 : statuteCitation.hashCode());
+        result = prime * result + ((statuteInformationDeterminationDate == null) ? 0 : statuteInformationDeterminationDate.hashCode());
+        result = prime * result + ((statuteJurisdiction == null) ? 0 : statuteJurisdiction.hashCode());
+        result = prime * result + ((statuteNotes == null) ? 0 : statuteNotes.hashCode());
+        return result;
     }
 
 }

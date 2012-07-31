@@ -12,15 +12,10 @@ public class Identifier {
 	@XmlElement(name="value",namespace="http://scapeproject.eu/model")
     protected final String value;
 
+    @SuppressWarnings("unused")
     private Identifier() {
         this.type = null;
         this.value = null;
-    }
-
-    public Identifier(String type, String value) {
-        super();
-        this.type = type;
-        this.value = value;
     }
 
     public Identifier(String value) {
@@ -29,21 +24,10 @@ public class Identifier {
         this.value = value;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((type == null) ? 0 : type.hashCode());
-        result = prime * result + ((value == null) ? 0 : value.hashCode());
-        return result;
+    public Identifier(String type, String value) {
+        super();
+        this.type = type;
+        this.value = value;
     }
 
     @Override
@@ -64,6 +48,23 @@ public class Identifier {
         } else if (!value.equals(other.value))
             return false;
         return true;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((type == null) ? 0 : type.hashCode());
+        result = prime * result + ((value == null) ? 0 : value.hashCode());
+        return result;
     }
     
 }

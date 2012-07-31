@@ -33,33 +33,6 @@ public class GrantedRights {
         this.rightsGrantedNotes = rightsGrantedNotes;
     }
 
-    public String getAct() {
-        return act;
-    }
-
-    public String getRestriction() {
-        return restriction;
-    }
-
-    public List<String> getRightsGrantedNotes() {
-        return rightsGrantedNotes;
-    }
-
-    public TermOfGrant getTermOfGrant() {
-        return termOfGrant;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((act == null) ? 0 : act.hashCode());
-        result = prime * result + ((restriction == null) ? 0 : restriction.hashCode());
-        result = prime * result + ((rightsGrantedNotes == null) ? 0 : rightsGrantedNotes.hashCode());
-        result = prime * result + ((termOfGrant == null) ? 0 : termOfGrant.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -90,6 +63,33 @@ public class GrantedRights {
         } else if (!termOfGrant.equals(other.termOfGrant))
             return false;
         return true;
+    }
+
+    public String getAct() {
+        return act;
+    }
+
+    public String getRestriction() {
+        return restriction;
+    }
+
+    public List<String> getRightsGrantedNotes() {
+        return rightsGrantedNotes;
+    }
+
+    public TermOfGrant getTermOfGrant() {
+        return termOfGrant;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((act == null) ? 0 : act.hashCode());
+        result = prime * result + ((restriction == null) ? 0 : restriction.hashCode());
+        result = prime * result + ((rightsGrantedNotes == null) ? 0 : rightsGrantedNotes.hashCode());
+        result = prime * result + ((termOfGrant == null) ? 0 : termOfGrant.hashCode());
+        return result;
     }
     
     

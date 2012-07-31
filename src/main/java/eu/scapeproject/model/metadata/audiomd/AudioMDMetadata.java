@@ -24,24 +24,7 @@ public class AudioMDMetadata extends TechnicalMetadata {
 		this.audioSrc = b.audioSrc;
 	}
 
-	public Audio getAudioMD() {
-		return audioMD;
-	};
-
-	public Audio getAudioSrc() {
-		return audioSrc;
-	}
-
 	@Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((audioMD == null) ? 0 : audioMD.hashCode());
-        result = prime * result + ((audioSrc == null) ? 0 : audioSrc.hashCode());
-        return result;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
@@ -61,6 +44,23 @@ public class AudioMDMetadata extends TechnicalMetadata {
         } else if (!audioSrc.equals(other.audioSrc))
             return false;
         return true;
+    };
+
+	public Audio getAudioMD() {
+		return audioMD;
+	}
+
+	public Audio getAudioSrc() {
+		return audioSrc;
+	}
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((audioMD == null) ? 0 : audioMD.hashCode());
+        result = prime * result + ((audioSrc == null) ? 0 : audioSrc.hashCode());
+        return result;
     }
 
     public static class Builder {

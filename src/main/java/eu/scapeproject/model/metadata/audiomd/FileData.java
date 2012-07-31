@@ -101,118 +101,6 @@ public class FileData {
         this.wordSizes = builder.wordSizes;
     }
 
-    public List<Integer> getAudiBlockSizes() {
-        return audiBlockSizes;
-    }
-
-    public List<String> getAudioDataEncodings() {
-        return audioDataEncodings;
-    }
-
-    public List<Integer> getBitsPerSamples() {
-        return bitsPerSamples;
-    }
-
-    public List<Integer> getByteOrders() {
-        return byteOrders;
-    }
-
-    public List<Compression> getCompression() {
-        return compression;
-    }
-
-    public List<DataRateMode> getDataRateModes() {
-        return dataRateModes;
-    }
-
-    public List<Integer> getDataRates() {
-        return dataRates;
-    }
-
-    public List<Integer> getFirstSampleOffsets() {
-        return firstSampleOffsets;
-    }
-
-    public List<Integer> getFirstValidByteBlocks() {
-        return firstValidByteBlocks;
-    }
-
-    public List<String> getFormatLocations() {
-        return formatLocations;
-    }
-
-    public List<String> getFormatNames() {
-        return formatNames;
-    }
-
-    public List<String> getFormatVersions() {
-        return formatVersions;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public List<Integer> getLastValidByteBlocks() {
-        return lastValidByteBlocks;
-    }
-
-    public List<MessageDigest> getMessageDigest() {
-        return messageDigest;
-    }
-
-    public List<Integer> getNumSampleFrames() {
-        return numSampleFrames;
-    }
-
-    public List<String> getOtherUses() {
-        return otherUses;
-    }
-
-    public List<Float> getSamplingFrequencies() {
-        return samplingFrequencies;
-    }
-
-    public List<String> getSecurities() {
-        return securities;
-    }
-
-    public List<String> getUses() {
-        return uses;
-    }
-
-    public List<Integer> getWordSizes() {
-        return wordSizes;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((audiBlockSizes == null) ? 0 : audiBlockSizes.hashCode());
-        result = prime * result + ((audioDataEncodings == null) ? 0 : audioDataEncodings.hashCode());
-        result = prime * result + ((bitsPerSamples == null) ? 0 : bitsPerSamples.hashCode());
-        result = prime * result + ((byteOrders == null) ? 0 : byteOrders.hashCode());
-        result = prime * result + ((compression == null) ? 0 : compression.hashCode());
-        result = prime * result + ((dataRateModes == null) ? 0 : dataRateModes.hashCode());
-        result = prime * result + ((dataRates == null) ? 0 : dataRates.hashCode());
-        result = prime * result + ((firstSampleOffsets == null) ? 0 : firstSampleOffsets.hashCode());
-        result = prime * result + ((firstValidByteBlocks == null) ? 0 : firstValidByteBlocks.hashCode());
-        result = prime * result + ((formatLocations == null) ? 0 : formatLocations.hashCode());
-        result = prime * result + ((formatNames == null) ? 0 : formatNames.hashCode());
-        result = prime * result + ((formatVersions == null) ? 0 : formatVersions.hashCode());
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((lastValidByteBlocks == null) ? 0 : lastValidByteBlocks.hashCode());
-        result = prime * result + ((messageDigest == null) ? 0 : messageDigest.hashCode());
-        result = prime * result + ((numSampleFrames == null) ? 0 : numSampleFrames.hashCode());
-        result = prime * result + ((otherUses == null) ? 0 : otherUses.hashCode());
-        result = prime * result + ((samplingFrequencies == null) ? 0 : samplingFrequencies.hashCode());
-        result = prime * result + ((securities == null) ? 0 : securities.hashCode());
-        result = prime * result + ((uses == null) ? 0 : uses.hashCode());
-        result = prime * result + ((wordSizes == null) ? 0 : wordSizes.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -328,6 +216,118 @@ public class FileData {
         } else if (!wordSizes.equals(other.wordSizes))
             return false;
         return true;
+    }
+
+    public List<Integer> getAudiBlockSizes() {
+        return audiBlockSizes;
+    }
+
+    public List<String> getAudioDataEncodings() {
+        return audioDataEncodings;
+    }
+
+    public List<Integer> getBitsPerSamples() {
+        return bitsPerSamples;
+    }
+
+    public List<Integer> getByteOrders() {
+        return byteOrders;
+    }
+
+    public List<Compression> getCompression() {
+        return compression;
+    }
+
+    public List<DataRateMode> getDataRateModes() {
+        return dataRateModes;
+    }
+
+    public List<Integer> getDataRates() {
+        return dataRates;
+    }
+
+    public List<Integer> getFirstSampleOffsets() {
+        return firstSampleOffsets;
+    }
+
+    public List<Integer> getFirstValidByteBlocks() {
+        return firstValidByteBlocks;
+    }
+
+    public List<String> getFormatLocations() {
+        return formatLocations;
+    }
+
+    public List<String> getFormatNames() {
+        return formatNames;
+    }
+
+    public List<String> getFormatVersions() {
+        return formatVersions;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public List<Integer> getLastValidByteBlocks() {
+        return lastValidByteBlocks;
+    }
+
+    public List<MessageDigest> getMessageDigest() {
+        return messageDigest;
+    }
+
+    public List<Integer> getNumSampleFrames() {
+        return numSampleFrames;
+    }
+
+    public List<String> getOtherUses() {
+        return otherUses;
+    }
+
+    public List<Float> getSamplingFrequencies() {
+        return samplingFrequencies;
+    }
+
+    public List<String> getSecurities() {
+        return securities;
+    }
+
+    public List<String> getUses() {
+        return uses;
+    }
+
+    public List<Integer> getWordSizes() {
+        return wordSizes;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((audiBlockSizes == null) ? 0 : audiBlockSizes.hashCode());
+        result = prime * result + ((audioDataEncodings == null) ? 0 : audioDataEncodings.hashCode());
+        result = prime * result + ((bitsPerSamples == null) ? 0 : bitsPerSamples.hashCode());
+        result = prime * result + ((byteOrders == null) ? 0 : byteOrders.hashCode());
+        result = prime * result + ((compression == null) ? 0 : compression.hashCode());
+        result = prime * result + ((dataRateModes == null) ? 0 : dataRateModes.hashCode());
+        result = prime * result + ((dataRates == null) ? 0 : dataRates.hashCode());
+        result = prime * result + ((firstSampleOffsets == null) ? 0 : firstSampleOffsets.hashCode());
+        result = prime * result + ((firstValidByteBlocks == null) ? 0 : firstValidByteBlocks.hashCode());
+        result = prime * result + ((formatLocations == null) ? 0 : formatLocations.hashCode());
+        result = prime * result + ((formatNames == null) ? 0 : formatNames.hashCode());
+        result = prime * result + ((formatVersions == null) ? 0 : formatVersions.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((lastValidByteBlocks == null) ? 0 : lastValidByteBlocks.hashCode());
+        result = prime * result + ((messageDigest == null) ? 0 : messageDigest.hashCode());
+        result = prime * result + ((numSampleFrames == null) ? 0 : numSampleFrames.hashCode());
+        result = prime * result + ((otherUses == null) ? 0 : otherUses.hashCode());
+        result = prime * result + ((samplingFrequencies == null) ? 0 : samplingFrequencies.hashCode());
+        result = prime * result + ((securities == null) ? 0 : securities.hashCode());
+        result = prime * result + ((uses == null) ? 0 : uses.hashCode());
+        result = prime * result + ((wordSizes == null) ? 0 : wordSizes.hashCode());
+        return result;
     }
 
     public static class Builder {

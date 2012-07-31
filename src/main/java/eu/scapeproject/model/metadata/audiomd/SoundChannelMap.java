@@ -21,18 +21,6 @@ public class SoundChannelMap {
         this.channelAssignments = channelAssignments;
     }
 
-    public List<ChannelAssignment> getChannelAssignments() {
-        return channelAssignments;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((channelAssignments == null) ? 0 : channelAssignments.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -48,6 +36,18 @@ public class SoundChannelMap {
         } else if (!channelAssignments.equals(other.channelAssignments))
             return false;
         return true;
+    }
+
+    public List<ChannelAssignment> getChannelAssignments() {
+        return channelAssignments;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((channelAssignments == null) ? 0 : channelAssignments.hashCode());
+        return result;
     }
     
 }

@@ -7,6 +7,14 @@ import javax.xml.bind.annotation.XmlValue;
 
 @XmlRootElement(name = "language", namespace = "http://www.loc.gov/videoMD/")
 public class VideoLanguage {
+    public static VideoLanguage fromString(String lang) {
+        if (lang.length() > 3) {
+            return new VideoLanguage(lang.substring(0, 3).toCharArray());
+        } else {
+            return new VideoLanguage(lang.toCharArray());
+        }
+    }
+
     @XmlValue
     private final char[] language;
 
@@ -18,26 +26,6 @@ public class VideoLanguage {
     private VideoLanguage(char[] language) {
         super();
         this.language = language;
-    }
-
-    public char[] getLanguage() {
-        return language;
-    }
-
-    public static VideoLanguage fromString(String lang) {
-        if (lang.length() > 3) {
-            return new VideoLanguage(lang.substring(0, 3).toCharArray());
-        } else {
-            return new VideoLanguage(lang.toCharArray());
-        }
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + Arrays.hashCode(language);
-        return result;
     }
 
     @Override
@@ -52,6 +40,18 @@ public class VideoLanguage {
         if (!Arrays.equals(language, other.language))
             return false;
         return true;
+    }
+
+    public char[] getLanguage() {
+        return language;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + Arrays.hashCode(language);
+        return result;
     }
     
     

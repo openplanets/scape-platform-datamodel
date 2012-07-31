@@ -42,6 +42,38 @@ public class VideoFrame {
         this.rotation = builder.rotation;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        VideoFrame other = (VideoFrame) obj;
+        if (dar == null) {
+            if (other.dar != null)
+                return false;
+        } else if (!dar.equals(other.dar))
+            return false;
+        if (Float.floatToIntBits(frameRate) != Float.floatToIntBits(other.frameRate))
+            return false;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (Float.floatToIntBits(par) != Float.floatToIntBits(other.par))
+            return false;
+        if (pixelsHorizontal != other.pixelsHorizontal)
+            return false;
+        if (pixelsVertical != other.pixelsVertical)
+            return false;
+        if (Float.floatToIntBits(rotation) != Float.floatToIntBits(other.rotation))
+            return false;
+        return true;
+    }
+
     public String getDar() {
         return dar;
     }
@@ -82,38 +114,6 @@ public class VideoFrame {
         result = prime * result + pixelsVertical;
         result = prime * result + Float.floatToIntBits(rotation);
         return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        VideoFrame other = (VideoFrame) obj;
-        if (dar == null) {
-            if (other.dar != null)
-                return false;
-        } else if (!dar.equals(other.dar))
-            return false;
-        if (Float.floatToIntBits(frameRate) != Float.floatToIntBits(other.frameRate))
-            return false;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (Float.floatToIntBits(par) != Float.floatToIntBits(other.par))
-            return false;
-        if (pixelsHorizontal != other.pixelsHorizontal)
-            return false;
-        if (pixelsVertical != other.pixelsVertical)
-            return false;
-        if (Float.floatToIntBits(rotation) != Float.floatToIntBits(other.rotation))
-            return false;
-        return true;
     }
 
     public static class Builder {

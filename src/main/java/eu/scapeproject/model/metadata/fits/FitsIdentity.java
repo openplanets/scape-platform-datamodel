@@ -43,48 +43,6 @@ public class FitsIdentity {
         this.toolVersion = builder.toolVersion;
     }
 
-    public List<ExternalIdentifier> getExternalIdentifiers() {
-        return externalIdentifiers;
-    }
-
-    public String getFormat() {
-        return format;
-    }
-
-    public String getMimeType() {
-        return mimeType;
-    }
-
-    public List<FitsTool> getTool() {
-        return tool;
-    }
-
-    public String getToolName() {
-        return toolName;
-    }
-
-    public String getToolVersion() {
-        return toolVersion;
-    }
-
-    public List<Version> getVersions() {
-        return versions;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((externalIdentifiers == null) ? 0 : externalIdentifiers.hashCode());
-        result = prime * result + ((format == null) ? 0 : format.hashCode());
-        result = prime * result + ((mimeType == null) ? 0 : mimeType.hashCode());
-        result = prime * result + ((tool == null) ? 0 : tool.hashCode());
-        result = prime * result + ((toolName == null) ? 0 : toolName.hashCode());
-        result = prime * result + ((toolVersion == null) ? 0 : toolVersion.hashCode());
-        result = prime * result + ((versions == null) ? 0 : versions.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -130,6 +88,48 @@ public class FitsIdentity {
         } else if (!versions.equals(other.versions))
             return false;
         return true;
+    }
+
+    public List<ExternalIdentifier> getExternalIdentifiers() {
+        return externalIdentifiers;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    public List<FitsTool> getTool() {
+        return tool;
+    }
+
+    public String getToolName() {
+        return toolName;
+    }
+
+    public String getToolVersion() {
+        return toolVersion;
+    }
+
+    public List<Version> getVersions() {
+        return versions;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((externalIdentifiers == null) ? 0 : externalIdentifiers.hashCode());
+        result = prime * result + ((format == null) ? 0 : format.hashCode());
+        result = prime * result + ((mimeType == null) ? 0 : mimeType.hashCode());
+        result = prime * result + ((tool == null) ? 0 : tool.hashCode());
+        result = prime * result + ((toolName == null) ? 0 : toolName.hashCode());
+        result = prime * result + ((toolVersion == null) ? 0 : toolVersion.hashCode());
+        result = prime * result + ((versions == null) ? 0 : versions.hashCode());
+        return result;
     }
 
     public static class Builder {

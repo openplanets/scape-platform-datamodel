@@ -45,53 +45,6 @@ public class ScannerCapture {
         this.scanningSoftwareVersionNo = builder.scanningSoftwareVersionNo;
     }
 
-    public String getMaximumOpticalResolution() {
-        return maximumOpticalResolution;
-    }
-
-    public String getScannerManufacturer() {
-        return scannerManufacturer;
-    }
-
-    public String getScannerModelName() {
-        return scannerModelName;
-    }
-
-    public String getScannerModelNumber() {
-        return scannerModelNumber;
-    }
-
-    public String getScannerModelSerialNo() {
-        return scannerModelSerialNo;
-    }
-
-    public ScannerSensor getScannerSensor() {
-        return scannerSensor;
-    }
-
-    public String getScanningSoftwareName() {
-        return scanningSoftwareName;
-    }
-
-    public String getScanningSoftwareVersionNo() {
-        return scanningSoftwareVersionNo;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((maximumOpticalResolution == null) ? 0 : maximumOpticalResolution.hashCode());
-        result = prime * result + ((scannerManufacturer == null) ? 0 : scannerManufacturer.hashCode());
-        result = prime * result + ((scannerModelName == null) ? 0 : scannerModelName.hashCode());
-        result = prime * result + ((scannerModelNumber == null) ? 0 : scannerModelNumber.hashCode());
-        result = prime * result + ((scannerModelSerialNo == null) ? 0 : scannerModelSerialNo.hashCode());
-        result = prime * result + ((scannerSensor == null) ? 0 : scannerSensor.hashCode());
-        result = prime * result + ((scanningSoftwareName == null) ? 0 : scanningSoftwareName.hashCode());
-        result = prime * result + ((scanningSoftwareVersionNo == null) ? 0 : scanningSoftwareVersionNo.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -139,6 +92,53 @@ public class ScannerCapture {
         } else if (!scanningSoftwareVersionNo.equals(other.scanningSoftwareVersionNo))
             return false;
         return true;
+    }
+
+    public String getMaximumOpticalResolution() {
+        return maximumOpticalResolution;
+    }
+
+    public String getScannerManufacturer() {
+        return scannerManufacturer;
+    }
+
+    public String getScannerModelName() {
+        return scannerModelName;
+    }
+
+    public String getScannerModelNumber() {
+        return scannerModelNumber;
+    }
+
+    public String getScannerModelSerialNo() {
+        return scannerModelSerialNo;
+    }
+
+    public ScannerSensor getScannerSensor() {
+        return scannerSensor;
+    }
+
+    public String getScanningSoftwareName() {
+        return scanningSoftwareName;
+    }
+
+    public String getScanningSoftwareVersionNo() {
+        return scanningSoftwareVersionNo;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((maximumOpticalResolution == null) ? 0 : maximumOpticalResolution.hashCode());
+        result = prime * result + ((scannerManufacturer == null) ? 0 : scannerManufacturer.hashCode());
+        result = prime * result + ((scannerModelName == null) ? 0 : scannerModelName.hashCode());
+        result = prime * result + ((scannerModelNumber == null) ? 0 : scannerModelNumber.hashCode());
+        result = prime * result + ((scannerModelSerialNo == null) ? 0 : scannerModelSerialNo.hashCode());
+        result = prime * result + ((scannerSensor == null) ? 0 : scannerSensor.hashCode());
+        result = prime * result + ((scanningSoftwareName == null) ? 0 : scanningSoftwareName.hashCode());
+        result = prime * result + ((scanningSoftwareVersionNo == null) ? 0 : scanningSoftwareVersionNo.hashCode());
+        return result;
     }
 
     public static class Builder {

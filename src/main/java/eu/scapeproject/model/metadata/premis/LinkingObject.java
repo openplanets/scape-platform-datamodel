@@ -30,23 +30,6 @@ public class LinkingObject {
         this.linkingObjectRole = linkingObjectRole;
     }
 
-    public Identifier getLinkingObjectIdentifier() {
-        return linkingObjectIdentifier;
-    }
-
-    public List<String> getLinkingObjectRole() {
-        return linkingObjectRole;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((linkingObjectIdentifier == null) ? 0 : linkingObjectIdentifier.hashCode());
-        result = prime * result + ((linkingObjectRole == null) ? 0 : linkingObjectRole.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -67,6 +50,23 @@ public class LinkingObject {
         } else if (!linkingObjectRole.equals(other.linkingObjectRole))
             return false;
         return true;
+    }
+
+    public Identifier getLinkingObjectIdentifier() {
+        return linkingObjectIdentifier;
+    }
+
+    public List<String> getLinkingObjectRole() {
+        return linkingObjectRole;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((linkingObjectIdentifier == null) ? 0 : linkingObjectIdentifier.hashCode());
+        result = prime * result + ((linkingObjectRole == null) ? 0 : linkingObjectRole.hashCode());
+        return result;
     }
     
 }

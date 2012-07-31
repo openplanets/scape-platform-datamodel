@@ -44,28 +44,6 @@ public class ColorProfile {
         this.embeddedProfile=null;
     }
 
-    public EmbeddedProfile getEmbeddedProfile() {
-        return embeddedProfile;
-    }
-
-    public ICCProfile getIccProfile() {
-        return iccProfile;
-    }
-
-    public LocalProfile getLocalProfile() {
-        return localProfile;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((embeddedProfile == null) ? 0 : embeddedProfile.hashCode());
-        result = prime * result + ((iccProfile == null) ? 0 : iccProfile.hashCode());
-        result = prime * result + ((localProfile == null) ? 0 : localProfile.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -93,6 +71,28 @@ public class ColorProfile {
         return true;
     }
 
+    public EmbeddedProfile getEmbeddedProfile() {
+        return embeddedProfile;
+    }
+
+    public ICCProfile getIccProfile() {
+        return iccProfile;
+    }
+
+    public LocalProfile getLocalProfile() {
+        return localProfile;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((embeddedProfile == null) ? 0 : embeddedProfile.hashCode());
+        result = prime * result + ((iccProfile == null) ? 0 : iccProfile.hashCode());
+        result = prime * result + ((localProfile == null) ? 0 : localProfile.hashCode());
+        return result;
+    }
+
 
 
     public static class EmbeddedProfile {
@@ -107,18 +107,6 @@ public class ColorProfile {
         public EmbeddedProfile(String base64EncodedProfile) {
             super();
             this.base64EncodedProfile = base64EncodedProfile;
-        }
-
-        public String getBase64EncodedProfile() {
-            return base64EncodedProfile;
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((base64EncodedProfile == null) ? 0 : base64EncodedProfile.hashCode());
-            return result;
         }
 
         @Override
@@ -136,6 +124,18 @@ public class ColorProfile {
             } else if (!base64EncodedProfile.equals(other.base64EncodedProfile))
                 return false;
             return true;
+        }
+
+        public String getBase64EncodedProfile() {
+            return base64EncodedProfile;
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((base64EncodedProfile == null) ? 0 : base64EncodedProfile.hashCode());
+            return result;
         }
         
     }
@@ -158,28 +158,6 @@ public class ColorProfile {
             this.iccProfileName = iccProfileName;
             this.iccProfileVersion = iccProfileVersion;
             this.iccProfileUrl = iccProfileUrl;
-        }
-
-        public String getIccProfileName() {
-            return iccProfileName;
-        }
-
-        public String getIccProfileUrl() {
-            return iccProfileUrl;
-        }
-
-        public String getIccProfileVersion() {
-            return iccProfileVersion;
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((iccProfileName == null) ? 0 : iccProfileName.hashCode());
-            result = prime * result + ((iccProfileUrl == null) ? 0 : iccProfileUrl.hashCode());
-            result = prime * result + ((iccProfileVersion == null) ? 0 : iccProfileVersion.hashCode());
-            return result;
         }
 
         @Override
@@ -208,6 +186,28 @@ public class ColorProfile {
                 return false;
             return true;
         }
+
+        public String getIccProfileName() {
+            return iccProfileName;
+        }
+
+        public String getIccProfileUrl() {
+            return iccProfileUrl;
+        }
+
+        public String getIccProfileVersion() {
+            return iccProfileVersion;
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((iccProfileName == null) ? 0 : iccProfileName.hashCode());
+            result = prime * result + ((iccProfileUrl == null) ? 0 : iccProfileUrl.hashCode());
+            result = prime * result + ((iccProfileVersion == null) ? 0 : iccProfileVersion.hashCode());
+            return result;
+        }
         
     }
 
@@ -226,23 +226,6 @@ public class ColorProfile {
             super();
             this.localProfileVersion = localProfileVersion;
             this.localProfileUrl = localProfileUrl;
-        }
-
-        public String getLocalProfileUrl() {
-            return localProfileUrl;
-        }
-
-        public String getLocalProfileVersion() {
-            return localProfileVersion;
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((localProfileUrl == null) ? 0 : localProfileUrl.hashCode());
-            result = prime * result + ((localProfileVersion == null) ? 0 : localProfileVersion.hashCode());
-            return result;
         }
 
         @Override
@@ -265,6 +248,23 @@ public class ColorProfile {
             } else if (!localProfileVersion.equals(other.localProfileVersion))
                 return false;
             return true;
+        }
+
+        public String getLocalProfileUrl() {
+            return localProfileUrl;
+        }
+
+        public String getLocalProfileVersion() {
+            return localProfileVersion;
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((localProfileUrl == null) ? 0 : localProfileUrl.hashCode());
+            result = prime * result + ((localProfileVersion == null) ? 0 : localProfileVersion.hashCode());
+            return result;
         }
         
     }

@@ -40,43 +40,6 @@ public class AudioInfo {
         this.soundFields = builder.soundFields;
     }
 
-    public List<String> getDurations() {
-        return durations;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public List<String> getNotes() {
-        return notes;
-    }
-
-    public List<String> getNumChannnels() {
-        return numChannnels;
-    }
-
-    public List<SoundChannelMap> getSoundChannelMaps() {
-        return soundChannelMaps;
-    }
-
-    public List<String> getSoundFields() {
-        return soundFields;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((durations == null) ? 0 : durations.hashCode());
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((notes == null) ? 0 : notes.hashCode());
-        result = prime * result + ((numChannnels == null) ? 0 : numChannnels.hashCode());
-        result = prime * result + ((soundChannelMaps == null) ? 0 : soundChannelMaps.hashCode());
-        result = prime * result + ((soundFields == null) ? 0 : soundFields.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -117,6 +80,43 @@ public class AudioInfo {
         } else if (!soundFields.equals(other.soundFields))
             return false;
         return true;
+    }
+
+    public List<String> getDurations() {
+        return durations;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public List<String> getNotes() {
+        return notes;
+    }
+
+    public List<String> getNumChannnels() {
+        return numChannnels;
+    }
+
+    public List<SoundChannelMap> getSoundChannelMaps() {
+        return soundChannelMaps;
+    }
+
+    public List<String> getSoundFields() {
+        return soundFields;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((durations == null) ? 0 : durations.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((notes == null) ? 0 : notes.hashCode());
+        result = prime * result + ((numChannnels == null) ? 0 : numChannnels.hashCode());
+        result = prime * result + ((soundChannelMaps == null) ? 0 : soundChannelMaps.hashCode());
+        result = prime * result + ((soundFields == null) ? 0 : soundFields.hashCode());
+        return result;
     }
 
     public static class Builder {

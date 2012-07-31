@@ -41,48 +41,6 @@ public class Audio {
 		this.physicalData = b.physicalData;
 	}
 
-	public AnalogDigitalFlag getAnalogDigitalFlag() {
-		return analogDigitalFlag;
-	}
-
-	public List<AudioInfo> getAudioInfos() {
-		return audioInfos;
-	}
-
-	public List<CalibrationInfo> getCalibrateInfos() {
-		return calibrateInfos;
-	}
-
-	public List<FileData> getFileData() {
-		return fileData;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public List<PhysicalData> getPhysicalData() {
-		return physicalData;
-	}
-
-	@XmlEnum
-	public enum AnalogDigitalFlag {
-		ANALOG, PHYS_DIGITAL, FILE_DIGITAL;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((analogDigitalFlag == null) ? 0 : analogDigitalFlag.hashCode());
-		result = prime * result + ((audioInfos == null) ? 0 : audioInfos.hashCode());
-		result = prime * result + ((calibrateInfos == null) ? 0 : calibrateInfos.hashCode());
-		result = prime * result + ((fileData == null) ? 0 : fileData.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((physicalData == null) ? 0 : physicalData.hashCode());
-		return result;
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -120,6 +78,48 @@ public class Audio {
 		} else if (!physicalData.equals(other.physicalData))
 			return false;
 		return true;
+	}
+
+	public AnalogDigitalFlag getAnalogDigitalFlag() {
+		return analogDigitalFlag;
+	}
+
+	public List<AudioInfo> getAudioInfos() {
+		return audioInfos;
+	}
+
+	public List<CalibrationInfo> getCalibrateInfos() {
+		return calibrateInfos;
+	}
+
+	public List<FileData> getFileData() {
+		return fileData;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public List<PhysicalData> getPhysicalData() {
+		return physicalData;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((analogDigitalFlag == null) ? 0 : analogDigitalFlag.hashCode());
+		result = prime * result + ((audioInfos == null) ? 0 : audioInfos.hashCode());
+		result = prime * result + ((calibrateInfos == null) ? 0 : calibrateInfos.hashCode());
+		result = prime * result + ((fileData == null) ? 0 : fileData.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((physicalData == null) ? 0 : physicalData.hashCode());
+		return result;
+	}
+
+	@XmlEnum
+	public enum AnalogDigitalFlag {
+		ANALOG, PHYS_DIGITAL, FILE_DIGITAL;
 	}
 
 	public static class Builder {

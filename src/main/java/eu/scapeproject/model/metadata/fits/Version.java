@@ -30,33 +30,6 @@ public class Version {
         this.toolVersion = builder.toolVersion;
     }
 
-    public FitsStatus getStatus() {
-        return status;
-    }
-
-    public String getToolName() {
-        return toolName;
-    }
-
-    public String getToolVersion() {
-        return toolVersion;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((status == null) ? 0 : status.hashCode());
-        result = prime * result + ((toolName == null) ? 0 : toolName.hashCode());
-        result = prime * result + ((toolVersion == null) ? 0 : toolVersion.hashCode());
-        result = prime * result + ((value == null) ? 0 : value.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -84,6 +57,33 @@ public class Version {
         } else if (!value.equals(other.value))
             return false;
         return true;
+    }
+
+    public FitsStatus getStatus() {
+        return status;
+    }
+
+    public String getToolName() {
+        return toolName;
+    }
+
+    public String getToolVersion() {
+        return toolVersion;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((status == null) ? 0 : status.hashCode());
+        result = prime * result + ((toolName == null) ? 0 : toolName.hashCode());
+        result = prime * result + ((toolVersion == null) ? 0 : toolVersion.hashCode());
+        result = prime * result + ((value == null) ? 0 : value.hashCode());
+        return result;
     }
 
     public static class Builder {

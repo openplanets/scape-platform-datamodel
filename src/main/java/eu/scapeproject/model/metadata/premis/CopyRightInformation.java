@@ -30,28 +30,6 @@ public class CopyRightInformation {
         this.copyrightNote = copyrightNote;
     }
     
-    public String getCopyrightJurisdiction() {
-        return copyrightJurisdiction;
-    }
-
-    public List<String> getCopyrightNote() {
-        return copyrightNote;
-    }
-
-    public Date getCopyrightStatusDeterminationDate() {
-        return copyrightStatusDeterminationDate;
-    }
-    
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((copyrightJurisdiction == null) ? 0 : copyrightJurisdiction.hashCode());
-        result = prime * result + ((copyrightNote == null) ? 0 : copyrightNote.hashCode());
-        result = prime * result + ((copyrightStatusDeterminationDate == null) ? 0 : copyrightStatusDeterminationDate.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -77,6 +55,28 @@ public class CopyRightInformation {
         } else if (!copyrightStatusDeterminationDate.equals(other.copyrightStatusDeterminationDate))
             return false;
         return true;
+    }
+
+    public String getCopyrightJurisdiction() {
+        return copyrightJurisdiction;
+    }
+
+    public List<String> getCopyrightNote() {
+        return copyrightNote;
+    }
+    
+    public Date getCopyrightStatusDeterminationDate() {
+        return copyrightStatusDeterminationDate;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((copyrightJurisdiction == null) ? 0 : copyrightJurisdiction.hashCode());
+        result = prime * result + ((copyrightNote == null) ? 0 : copyrightNote.hashCode());
+        result = prime * result + ((copyrightStatusDeterminationDate == null) ? 0 : copyrightStatusDeterminationDate.hashCode());
+        return result;
     }
 
 

@@ -54,59 +54,7 @@ public abstract class MediaDataType {
 	}
 
 
-	public List<VideoTrackingInfo> getTrackingInfos() {
-        return trackingInfos;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public List<VideoLanguage> getLanguage() {
-        return language;
-    }
-
-    public String getSecurity() {
-        return security;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public VideoVariableRate getDataRate() {
-        return dataRate;
-    }
-
-    public List<VideoTimeCode> getTimeCodes() {
-        return timeCodes;
-    }
-
-    public List<String> getUses() {
-        return uses;
-    }
-
-    public List<String> getOtherUses() {
-        return otherUses;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((dataRate == null) ? 0 : dataRate.hashCode());
-        result = prime * result + ((duration == null) ? 0 : duration.hashCode());
-        result = prime * result + ((language == null) ? 0 : language.hashCode());
-        result = prime * result + ((otherUses == null) ? 0 : otherUses.hashCode());
-        result = prime * result + ((security == null) ? 0 : security.hashCode());
-        result = prime * result + size;
-        result = prime * result + ((timeCodes == null) ? 0 : timeCodes.hashCode());
-        result = prime * result + ((trackingInfos == null) ? 0 : trackingInfos.hashCode());
-        result = prime * result + ((uses == null) ? 0 : uses.hashCode());
-        return result;
-    }
-
-    @Override
+	@Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
@@ -158,6 +106,58 @@ public abstract class MediaDataType {
         } else if (!uses.equals(other.uses))
             return false;
         return true;
+    }
+
+    public VideoVariableRate getDataRate() {
+        return dataRate;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public List<VideoLanguage> getLanguage() {
+        return language;
+    }
+
+    public List<String> getOtherUses() {
+        return otherUses;
+    }
+
+    public String getSecurity() {
+        return security;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public List<VideoTimeCode> getTimeCodes() {
+        return timeCodes;
+    }
+
+    public List<VideoTrackingInfo> getTrackingInfos() {
+        return trackingInfos;
+    }
+
+    public List<String> getUses() {
+        return uses;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((dataRate == null) ? 0 : dataRate.hashCode());
+        result = prime * result + ((duration == null) ? 0 : duration.hashCode());
+        result = prime * result + ((language == null) ? 0 : language.hashCode());
+        result = prime * result + ((otherUses == null) ? 0 : otherUses.hashCode());
+        result = prime * result + ((security == null) ? 0 : security.hashCode());
+        result = prime * result + size;
+        result = prime * result + ((timeCodes == null) ? 0 : timeCodes.hashCode());
+        result = prime * result + ((trackingInfos == null) ? 0 : trackingInfos.hashCode());
+        result = prime * result + ((uses == null) ? 0 : uses.hashCode());
+        return result;
     }
     
     

@@ -33,6 +33,34 @@ public class VideoVariableRate {
         this.unit = builder.unit;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        VideoVariableRate other = (VideoVariableRate) obj;
+        if (Float.floatToIntBits(maximum) != Float.floatToIntBits(other.maximum))
+            return false;
+        if (Float.floatToIntBits(minimum) != Float.floatToIntBits(other.minimum))
+            return false;
+        if (mode == null) {
+            if (other.mode != null)
+                return false;
+        } else if (!mode.equals(other.mode))
+            return false;
+        if (Float.floatToIntBits(nominal) != Float.floatToIntBits(other.nominal))
+            return false;
+        if (unit == null) {
+            if (other.unit != null)
+                return false;
+        } else if (!unit.equals(other.unit))
+            return false;
+        return true;
+    }
+
     public float getMaximum() {
         return maximum;
     }
@@ -63,34 +91,6 @@ public class VideoVariableRate {
         result = prime * result + Float.floatToIntBits(nominal);
         result = prime * result + ((unit == null) ? 0 : unit.hashCode());
         return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        VideoVariableRate other = (VideoVariableRate) obj;
-        if (Float.floatToIntBits(maximum) != Float.floatToIntBits(other.maximum))
-            return false;
-        if (Float.floatToIntBits(minimum) != Float.floatToIntBits(other.minimum))
-            return false;
-        if (mode == null) {
-            if (other.mode != null)
-                return false;
-        } else if (!mode.equals(other.mode))
-            return false;
-        if (Float.floatToIntBits(nominal) != Float.floatToIntBits(other.nominal))
-            return false;
-        if (unit == null) {
-            if (other.unit != null)
-                return false;
-        } else if (!unit.equals(other.unit))
-            return false;
-        return true;
     }
 
 

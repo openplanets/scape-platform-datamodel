@@ -75,88 +75,6 @@ public class FitsFileInfo {
         this.creatingOs = builder.creatingOs;
     }
 
-    public FileInfoElement getCopyRightBasis() {
-        return copyRightBasis;
-    }
-
-    public FileInfoElement getCopyRightNote() {
-        return copyRightNote;
-    }
-
-    public FileInfoElement getCreated() {
-        return created;
-    }
-
-    public FileInfoElement getCreatingApplicationName() {
-        return creatingApplicationName;
-    }
-
-    public FileInfoElement getCreatingApplicationVersion() {
-        return creatingApplicationVersion;
-    }
-
-    public FileInfoElement getCreatingOs() {
-        return creatingOs;
-    }
-
-    public FileInfoElement getFileName() {
-        return fileName;
-    }
-
-    public FileInfoElement getFilePath() {
-        return filePath;
-    }
-
-    public FileInfoElement getFsLastModified() {
-        return fsLastModified;
-    }
-
-    public FileInfoElement getInhibitorTarget() {
-        return inhibitorTarget;
-    }
-
-    public FileInfoElement getInhibitorType() {
-        return inhibitorType;
-    }
-
-    public FileInfoElement getLastModified() {
-        return lastModified;
-    }
-
-    public FileInfoElement getMd5Checksum() {
-        return md5Checksum;
-    }
-
-    public FileInfoElement getRightsBasis() {
-        return rightsBasis;
-    }
-
-    public FileInfoElement getSize() {
-        return size;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((copyRightBasis == null) ? 0 : copyRightBasis.hashCode());
-        result = prime * result + ((copyRightNote == null) ? 0 : copyRightNote.hashCode());
-        result = prime * result + ((created == null) ? 0 : created.hashCode());
-        result = prime * result + ((creatingApplicationName == null) ? 0 : creatingApplicationName.hashCode());
-        result = prime * result + ((creatingApplicationVersion == null) ? 0 : creatingApplicationVersion.hashCode());
-        result = prime * result + ((creatingOs == null) ? 0 : creatingOs.hashCode());
-        result = prime * result + ((fileName == null) ? 0 : fileName.hashCode());
-        result = prime * result + ((filePath == null) ? 0 : filePath.hashCode());
-        result = prime * result + ((fsLastModified == null) ? 0 : fsLastModified.hashCode());
-        result = prime * result + ((inhibitorTarget == null) ? 0 : inhibitorTarget.hashCode());
-        result = prime * result + ((inhibitorType == null) ? 0 : inhibitorType.hashCode());
-        result = prime * result + ((lastModified == null) ? 0 : lastModified.hashCode());
-        result = prime * result + ((md5Checksum == null) ? 0 : md5Checksum.hashCode());
-        result = prime * result + ((rightsBasis == null) ? 0 : rightsBasis.hashCode());
-        result = prime * result + ((size == null) ? 0 : size.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -242,6 +160,88 @@ public class FitsFileInfo {
         } else if (!size.equals(other.size))
             return false;
         return true;
+    }
+
+    public FileInfoElement getCopyRightBasis() {
+        return copyRightBasis;
+    }
+
+    public FileInfoElement getCopyRightNote() {
+        return copyRightNote;
+    }
+
+    public FileInfoElement getCreated() {
+        return created;
+    }
+
+    public FileInfoElement getCreatingApplicationName() {
+        return creatingApplicationName;
+    }
+
+    public FileInfoElement getCreatingApplicationVersion() {
+        return creatingApplicationVersion;
+    }
+
+    public FileInfoElement getCreatingOs() {
+        return creatingOs;
+    }
+
+    public FileInfoElement getFileName() {
+        return fileName;
+    }
+
+    public FileInfoElement getFilePath() {
+        return filePath;
+    }
+
+    public FileInfoElement getFsLastModified() {
+        return fsLastModified;
+    }
+
+    public FileInfoElement getInhibitorTarget() {
+        return inhibitorTarget;
+    }
+
+    public FileInfoElement getInhibitorType() {
+        return inhibitorType;
+    }
+
+    public FileInfoElement getLastModified() {
+        return lastModified;
+    }
+
+    public FileInfoElement getMd5Checksum() {
+        return md5Checksum;
+    }
+
+    public FileInfoElement getRightsBasis() {
+        return rightsBasis;
+    }
+
+    public FileInfoElement getSize() {
+        return size;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((copyRightBasis == null) ? 0 : copyRightBasis.hashCode());
+        result = prime * result + ((copyRightNote == null) ? 0 : copyRightNote.hashCode());
+        result = prime * result + ((created == null) ? 0 : created.hashCode());
+        result = prime * result + ((creatingApplicationName == null) ? 0 : creatingApplicationName.hashCode());
+        result = prime * result + ((creatingApplicationVersion == null) ? 0 : creatingApplicationVersion.hashCode());
+        result = prime * result + ((creatingOs == null) ? 0 : creatingOs.hashCode());
+        result = prime * result + ((fileName == null) ? 0 : fileName.hashCode());
+        result = prime * result + ((filePath == null) ? 0 : filePath.hashCode());
+        result = prime * result + ((fsLastModified == null) ? 0 : fsLastModified.hashCode());
+        result = prime * result + ((inhibitorTarget == null) ? 0 : inhibitorTarget.hashCode());
+        result = prime * result + ((inhibitorType == null) ? 0 : inhibitorType.hashCode());
+        result = prime * result + ((lastModified == null) ? 0 : lastModified.hashCode());
+        result = prime * result + ((md5Checksum == null) ? 0 : md5Checksum.hashCode());
+        result = prime * result + ((rightsBasis == null) ? 0 : rightsBasis.hashCode());
+        result = prime * result + ((size == null) ? 0 : size.hashCode());
+        return result;
     }
 
     public static class Builder {
@@ -362,28 +362,6 @@ public class FitsFileInfo {
             this.value = value;
         }
 
-        public String getToolName() {
-            return toolName;
-        }
-
-        public String getToolVersion() {
-            return toolVersion;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((toolName == null) ? 0 : toolName.hashCode());
-            result = prime * result + ((toolVersion == null) ? 0 : toolVersion.hashCode());
-            result = prime * result + ((value == null) ? 0 : value.hashCode());
-            return result;
-        }
-
         @Override
         public boolean equals(Object obj) {
             if (this == obj)
@@ -409,6 +387,28 @@ public class FitsFileInfo {
             } else if (!value.equals(other.value))
                 return false;
             return true;
+        }
+
+        public String getToolName() {
+            return toolName;
+        }
+
+        public String getToolVersion() {
+            return toolVersion;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((toolName == null) ? 0 : toolName.hashCode());
+            result = prime * result + ((toolVersion == null) ? 0 : toolVersion.hashCode());
+            result = prime * result + ((value == null) ? 0 : value.hashCode());
+            return result;
         }
 
     }

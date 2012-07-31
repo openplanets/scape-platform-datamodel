@@ -27,28 +27,6 @@ public class ImageAssessmentMetadata {
         this.targetData = targetData;
     }
 
-    public ImageColorEncoding getImageColorEncoding() {
-        return imageColorEncoding;
-    }
-
-    public SpacialMetrics getSpacialMetrics() {
-        return spacialMetrics;
-    }
-
-    public TargetData getTargetData() {
-        return targetData;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((imageColorEncoding == null) ? 0 : imageColorEncoding.hashCode());
-        result = prime * result + ((spacialMetrics == null) ? 0 : spacialMetrics.hashCode());
-        result = prime * result + ((targetData == null) ? 0 : targetData.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -74,6 +52,28 @@ public class ImageAssessmentMetadata {
         } else if (!targetData.equals(other.targetData))
             return false;
         return true;
+    }
+
+    public ImageColorEncoding getImageColorEncoding() {
+        return imageColorEncoding;
+    }
+
+    public SpacialMetrics getSpacialMetrics() {
+        return spacialMetrics;
+    }
+
+    public TargetData getTargetData() {
+        return targetData;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((imageColorEncoding == null) ? 0 : imageColorEncoding.hashCode());
+        result = prime * result + ((spacialMetrics == null) ? 0 : spacialMetrics.hashCode());
+        result = prime * result + ((targetData == null) ? 0 : targetData.hashCode());
+        return result;
     }
 
 }

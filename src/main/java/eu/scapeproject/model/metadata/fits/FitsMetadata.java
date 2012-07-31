@@ -44,48 +44,6 @@ public class FitsMetadata extends TechnicalMetadata {
         this.timeStamp = builder.timeStamp;
     }
 
-    public FitsFileInfo getFileInfo() {
-        return fileInfo;
-    }
-
-    public FitsFileStatus getFileStatus() {
-        return fileStatus;
-    }
-
-    public FitsIdentification getIdentification() {
-        return identification;
-    }
-
-    public FitsGeneratedMetadata getMetadata() {
-        return metadata;
-    }
-
-    public String getTimeStamp() {
-        return timeStamp;
-    }
-
-    public ToolOutput getToolOutput() {
-        return toolOutput;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((fileInfo == null) ? 0 : fileInfo.hashCode());
-        result = prime * result + ((fileStatus == null) ? 0 : fileStatus.hashCode());
-        result = prime * result + ((identification == null) ? 0 : identification.hashCode());
-        result = prime * result + ((metadata == null) ? 0 : metadata.hashCode());
-        result = prime * result + ((timeStamp == null) ? 0 : timeStamp.hashCode());
-        result = prime * result + ((toolOutput == null) ? 0 : toolOutput.hashCode());
-        result = prime * result + ((version == null) ? 0 : version.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -131,6 +89,48 @@ public class FitsMetadata extends TechnicalMetadata {
         } else if (!version.equals(other.version))
             return false;
         return true;
+    }
+
+    public FitsFileInfo getFileInfo() {
+        return fileInfo;
+    }
+
+    public FitsFileStatus getFileStatus() {
+        return fileStatus;
+    }
+
+    public FitsIdentification getIdentification() {
+        return identification;
+    }
+
+    public FitsGeneratedMetadata getMetadata() {
+        return metadata;
+    }
+
+    public String getTimeStamp() {
+        return timeStamp;
+    }
+
+    public ToolOutput getToolOutput() {
+        return toolOutput;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((fileInfo == null) ? 0 : fileInfo.hashCode());
+        result = prime * result + ((fileStatus == null) ? 0 : fileStatus.hashCode());
+        result = prime * result + ((identification == null) ? 0 : identification.hashCode());
+        result = prime * result + ((metadata == null) ? 0 : metadata.hashCode());
+        result = prime * result + ((timeStamp == null) ? 0 : timeStamp.hashCode());
+        result = prime * result + ((toolOutput == null) ? 0 : toolOutput.hashCode());
+        result = prime * result + ((version == null) ? 0 : version.hashCode());
+        return result;
     }
 
     public static class Builder {

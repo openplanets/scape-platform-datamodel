@@ -27,28 +27,6 @@ public class FitsTool {
         this.valid = valid;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public String getValid() {
-        return valid;
-    }
-
-    public String getWellFormed() {
-        return wellFormed;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((message == null) ? 0 : message.hashCode());
-        result = prime * result + ((valid == null) ? 0 : valid.hashCode());
-        result = prime * result + ((wellFormed == null) ? 0 : wellFormed.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -74,6 +52,28 @@ public class FitsTool {
         } else if (!wellFormed.equals(other.wellFormed))
             return false;
         return true;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getValid() {
+        return valid;
+    }
+
+    public String getWellFormed() {
+        return wellFormed;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((message == null) ? 0 : message.hashCode());
+        result = prime * result + ((valid == null) ? 0 : valid.hashCode());
+        result = prime * result + ((wellFormed == null) ? 0 : wellFormed.hashCode());
+        return result;
     }
 
 }

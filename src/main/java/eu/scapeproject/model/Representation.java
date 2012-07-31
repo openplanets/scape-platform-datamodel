@@ -1,9 +1,7 @@
 package eu.scapeproject.model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -62,45 +60,6 @@ public class Representation {
 		this.usage = builder.usage;
 	}
 
-	public List<File> getFiles() {
-		return files;
-	}
-
-	public ProvenanceMetadata getProvenance() {
-		return provenance;
-	}
-
-	public RightsMetadata getRights() {
-		return rights;
-	}
-
-	public DescriptiveMetadata getSource() {
-		return source;
-	}
-
-	public TechnicalMetadata getTechnical() {
-		return technical;
-	}
-
-	public Identifier getIdentifier() {
-		return identifier;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((files == null) ? 0 : files.hashCode());
-		result = prime * result + ((provenance == null) ? 0 : provenance.hashCode());
-		result = prime * result + ((rights == null) ? 0 : rights.hashCode());
-		result = prime * result + ((source == null) ? 0 : source.hashCode());
-		result = prime * result + ((technical == null) ? 0 : technical.hashCode());
-		result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + ((usage == null) ? 0 : usage.hashCode());
-		return result;
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -153,12 +112,51 @@ public class Representation {
 		return true;
 	}
 
+	public List<File> getFiles() {
+		return files;
+	}
+
+	public Identifier getIdentifier() {
+		return identifier;
+	}
+
+	public ProvenanceMetadata getProvenance() {
+		return provenance;
+	}
+
+	public RightsMetadata getRights() {
+		return rights;
+	}
+
+	public DescriptiveMetadata getSource() {
+		return source;
+	}
+
+	public TechnicalMetadata getTechnical() {
+		return technical;
+	}
+
 	public String getTitle() {
 		return title;
 	}
 
 	public String getUsage() {
 		return usage;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((files == null) ? 0 : files.hashCode());
+		result = prime * result + ((provenance == null) ? 0 : provenance.hashCode());
+		result = prime * result + ((rights == null) ? 0 : rights.hashCode());
+		result = prime * result + ((source == null) ? 0 : source.hashCode());
+		result = prime * result + ((technical == null) ? 0 : technical.hashCode());
+		result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		result = prime * result + ((usage == null) ? 0 : usage.hashCode());
+		return result;
 	}
 
 	public static class Builder {
@@ -229,6 +227,11 @@ public class Representation {
 			return this;
 		}
 
+		public Builder identifier(Identifier id) {
+			this.id = id;
+			return this;
+		}
+
 		public Builder provenance(ProvenanceMetadata provenance) {
 			this.provenance = provenance;
 			return this;
@@ -248,17 +251,12 @@ public class Representation {
 			this.technical = technical;
 			return this;
 		}
-
-		public Builder identifier(Identifier id) {
-			this.id = id;
+		public Builder title(String title) {
+			this.title=title;
 			return this;
 		}
 		public Builder usage(String usage) {
 			this.usage=usage;
-			return this;
-		}
-		public Builder title(String title) {
-			this.title=title;
 			return this;
 		}
 	}

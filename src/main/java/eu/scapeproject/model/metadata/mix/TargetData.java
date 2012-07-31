@@ -34,33 +34,6 @@ public class TargetData {
         this.performanceData = performanceData;
     }
 
-    public List<URI> getExternalReferences() {
-        return externalReferences;
-    }
-
-    public List<URI> getPerformanceData() {
-        return performanceData;
-    }
-
-    public List<TargetType> getTargetTypes() {
-        return targetTypes;
-    }
-
-    public List<TargetId> getTergetIds() {
-        return tergetIds;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((externalReferences == null) ? 0 : externalReferences.hashCode());
-        result = prime * result + ((performanceData == null) ? 0 : performanceData.hashCode());
-        result = prime * result + ((targetTypes == null) ? 0 : targetTypes.hashCode());
-        result = prime * result + ((tergetIds == null) ? 0 : tergetIds.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -93,6 +66,33 @@ public class TargetData {
         return true;
     }
 
+    public List<URI> getExternalReferences() {
+        return externalReferences;
+    }
+
+    public List<URI> getPerformanceData() {
+        return performanceData;
+    }
+
+    public List<TargetType> getTargetTypes() {
+        return targetTypes;
+    }
+
+    public List<TargetId> getTergetIds() {
+        return tergetIds;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((externalReferences == null) ? 0 : externalReferences.hashCode());
+        result = prime * result + ((performanceData == null) ? 0 : performanceData.hashCode());
+        result = prime * result + ((targetTypes == null) ? 0 : targetTypes.hashCode());
+        result = prime * result + ((tergetIds == null) ? 0 : tergetIds.hashCode());
+        return result;
+    }
+
     @XmlRootElement(name="targetId",namespace="http://www.loc.gov/mix/v10")
     public static class TargetId {
         @XmlElement(name="targetManufacturer",namespace="http://www.loc.gov/mix/v10")
@@ -115,33 +115,6 @@ public class TargetData {
             this.targetname = targetname;
             this.targetNo = targetNo;
             this.targetMedia = targetMedia;
-        }
-
-        public String getTargetManufacturer() {
-            return targetManufacturer;
-        }
-
-        public String getTargetMedia() {
-            return targetMedia;
-        }
-
-        public String getTargetname() {
-            return targetname;
-        }
-
-        public String getTargetNo() {
-            return targetNo;
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((targetManufacturer == null) ? 0 : targetManufacturer.hashCode());
-            result = prime * result + ((targetMedia == null) ? 0 : targetMedia.hashCode());
-            result = prime * result + ((targetNo == null) ? 0 : targetNo.hashCode());
-            result = prime * result + ((targetname == null) ? 0 : targetname.hashCode());
-            return result;
         }
 
         @Override
@@ -174,6 +147,33 @@ public class TargetData {
             } else if (!targetname.equals(other.targetname))
                 return false;
             return true;
+        }
+
+        public String getTargetManufacturer() {
+            return targetManufacturer;
+        }
+
+        public String getTargetMedia() {
+            return targetMedia;
+        }
+
+        public String getTargetname() {
+            return targetname;
+        }
+
+        public String getTargetNo() {
+            return targetNo;
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((targetManufacturer == null) ? 0 : targetManufacturer.hashCode());
+            result = prime * result + ((targetMedia == null) ? 0 : targetMedia.hashCode());
+            result = prime * result + ((targetNo == null) ? 0 : targetNo.hashCode());
+            result = prime * result + ((targetname == null) ? 0 : targetname.hashCode());
+            return result;
         }
     }
 

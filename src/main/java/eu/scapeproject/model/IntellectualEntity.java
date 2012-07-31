@@ -1,10 +1,8 @@
 package eu.scapeproject.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import eu.scapeproject.model.LifecycleState.State;
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
 import eu.scapeproject.model.metadata.dc.DCMetadata;
 
@@ -35,43 +33,6 @@ public class IntellectualEntity {
 		this.representations = builder.representations;
 		this.lifeCycleState = builder.lifecycleState;
 		this.versionNumber = builder.versionNumber;
-	}
-
-	public LifecycleState getLifecycleState() {
-		return lifeCycleState;
-	}
-
-	public List<Identifier> getAlternativeIdentifiers() {
-		return alternativeIdentifiers;
-	}
-
-	public DescriptiveMetadata getDescriptive() {
-		return descriptive;
-	}
-
-	public Identifier getIdentifier() {
-		return identifier;
-	}
-
-	public List<Representation> getRepresentations() {
-		return representations;
-	}
-	
-	public int getVersionNumber() {
-		return versionNumber;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((alternativeIdentifiers == null) ? 0 : alternativeIdentifiers.hashCode());
-		result = prime * result + ((descriptive == null) ? 0 : descriptive.hashCode());
-		result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
-		result = prime * result + ((lifeCycleState == null) ? 0 : lifeCycleState.hashCode());
-		result = prime * result + ((representations == null) ? 0 : representations.hashCode());
-		result = prime * result + versionNumber;
-		return result;
 	}
 
 	@Override
@@ -113,6 +74,43 @@ public class IntellectualEntity {
 		return true;
 	}
 
+	public List<Identifier> getAlternativeIdentifiers() {
+		return alternativeIdentifiers;
+	}
+
+	public DescriptiveMetadata getDescriptive() {
+		return descriptive;
+	}
+
+	public Identifier getIdentifier() {
+		return identifier;
+	}
+
+	public LifecycleState getLifecycleState() {
+		return lifeCycleState;
+	}
+	
+	public List<Representation> getRepresentations() {
+		return representations;
+	}
+
+	public int getVersionNumber() {
+		return versionNumber;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((alternativeIdentifiers == null) ? 0 : alternativeIdentifiers.hashCode());
+		result = prime * result + ((descriptive == null) ? 0 : descriptive.hashCode());
+		result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
+		result = prime * result + ((lifeCycleState == null) ? 0 : lifeCycleState.hashCode());
+		result = prime * result + ((representations == null) ? 0 : representations.hashCode());
+		result = prime * result + versionNumber;
+		return result;
+	}
+
 	public static class Builder {
 		private Identifier identifier;
 		private int versionNumber;
@@ -148,14 +146,14 @@ public class IntellectualEntity {
 			this.versionNumber = orig.versionNumber;
 		}
 
-		public Builder identifier(Identifier identifier) {
-			this.identifier = identifier;
-			return this;
-		}
-
 		public Builder alternativeIdentifiers(List<Identifier> alternativeIdentifiers) {
 			this.alternativeIdentifiers = alternativeIdentifiers;
 			return this;
+		}
+
+		public IntellectualEntity build() {
+			versionNumber = (versionNumber == 0) ? 1 : versionNumber;
+			return new IntellectualEntity(this);
 		}
 
 		public Builder descriptive(DescriptiveMetadata descriptive) {
@@ -163,8 +161,8 @@ public class IntellectualEntity {
 			return this;
 		}
 
-		public Builder representations(List<Representation> representations) {
-			this.representations = representations;
+		public Builder identifier(Identifier identifier) {
+			this.identifier = identifier;
 			return this;
 		}
 
@@ -173,14 +171,14 @@ public class IntellectualEntity {
 			return this;
 		}
 
-		public Builder versionNumber(int versionNumber) {
-			this.versionNumber = versionNumber;
+		public Builder representations(List<Representation> representations) {
+			this.representations = representations;
 			return this;
 		}
 
-		public IntellectualEntity build() {
-			versionNumber = (versionNumber == 0) ? 1 : versionNumber;
-			return new IntellectualEntity(this);
+		public Builder versionNumber(int versionNumber) {
+			this.versionNumber = versionNumber;
+			return this;
 		}
 	}
 

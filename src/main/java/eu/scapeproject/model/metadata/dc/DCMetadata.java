@@ -1,7 +1,6 @@
 package eu.scapeproject.model.metadata.dc;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -86,83 +85,6 @@ public class DCMetadata extends DescriptiveMetadata {
 		}
 	}
 
-	public List<Agent> getConstributors() {
-		return contributors;
-	}
-
-	public List<String> getCoverages() {
-		return coverages;
-	}
-
-	public List<Agent> getCreator() {
-		return creators;
-	}
-
-	public List<Date> getDate() {
-		return dates;
-	}
-
-	public List<String> getDescription() {
-		return descriptions;
-	}
-
-	public List<String> getFormat() {
-		return formats;
-	}
-
-	public List<String> getLanguage() {
-		return languages;
-	}
-
-	public List<String> getPublisher() {
-		return publishers;
-	}
-
-	public List<String> getRelations() {
-		return relations;
-	}
-
-	public List<String> getRights() {
-		return rights;
-	}
-
-	public List<String> getSources() {
-		return sources;
-	}
-
-	public List<String> getSubject() {
-		return subjects;
-	}
-
-	public List<String> getTitle() {
-		return titles;
-	}
-
-	public List<String> getType() {
-		return types;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((contributors == null) ? 0 : contributors.hashCode());
-		result = prime * result + ((coverages == null) ? 0 : coverages.hashCode());
-		result = prime * result + ((creators == null) ? 0 : creators.hashCode());
-		result = prime * result + ((dates == null) ? 0 : dates.hashCode());
-		result = prime * result + ((descriptions == null) ? 0 : descriptions.hashCode());
-		result = prime * result + ((formats == null) ? 0 : formats.hashCode());
-		result = prime * result + ((languages == null) ? 0 : languages.hashCode());
-		result = prime * result + ((publishers == null) ? 0 : publishers.hashCode());
-		result = prime * result + ((relations == null) ? 0 : relations.hashCode());
-		result = prime * result + ((rights == null) ? 0 : rights.hashCode());
-		result = prime * result + ((sources == null) ? 0 : sources.hashCode());
-		result = prime * result + ((subjects == null) ? 0 : subjects.hashCode());
-		result = prime * result + ((titles == null) ? 0 : titles.hashCode());
-		result = prime * result + ((types == null) ? 0 : types.hashCode());
-		return result;
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -245,6 +167,83 @@ public class DCMetadata extends DescriptiveMetadata {
 		return true;
 	}
 
+	public List<Agent> getConstributors() {
+		return contributors;
+	}
+
+	public List<String> getCoverages() {
+		return coverages;
+	}
+
+	public List<Agent> getCreator() {
+		return creators;
+	}
+
+	public List<Date> getDate() {
+		return dates;
+	}
+
+	public List<String> getDescription() {
+		return descriptions;
+	}
+
+	public List<String> getFormat() {
+		return formats;
+	}
+
+	public List<String> getLanguage() {
+		return languages;
+	}
+
+	public List<String> getPublisher() {
+		return publishers;
+	}
+
+	public List<String> getRelations() {
+		return relations;
+	}
+
+	public List<String> getRights() {
+		return rights;
+	}
+
+	public List<String> getSources() {
+		return sources;
+	}
+
+	public List<String> getSubject() {
+		return subjects;
+	}
+
+	public List<String> getTitle() {
+		return titles;
+	}
+
+	public List<String> getType() {
+		return types;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((contributors == null) ? 0 : contributors.hashCode());
+		result = prime * result + ((coverages == null) ? 0 : coverages.hashCode());
+		result = prime * result + ((creators == null) ? 0 : creators.hashCode());
+		result = prime * result + ((dates == null) ? 0 : dates.hashCode());
+		result = prime * result + ((descriptions == null) ? 0 : descriptions.hashCode());
+		result = prime * result + ((formats == null) ? 0 : formats.hashCode());
+		result = prime * result + ((languages == null) ? 0 : languages.hashCode());
+		result = prime * result + ((publishers == null) ? 0 : publishers.hashCode());
+		result = prime * result + ((relations == null) ? 0 : relations.hashCode());
+		result = prime * result + ((rights == null) ? 0 : rights.hashCode());
+		result = prime * result + ((sources == null) ? 0 : sources.hashCode());
+		result = prime * result + ((subjects == null) ? 0 : subjects.hashCode());
+		result = prime * result + ((titles == null) ? 0 : titles.hashCode());
+		result = prime * result + ((types == null) ? 0 : types.hashCode());
+		return result;
+	}
+
 	public static class Builder {
 		public Identifier identifier;
 		private List<Date> dates;
@@ -297,11 +296,6 @@ public class DCMetadata extends DescriptiveMetadata {
 			return this;
 		}
 
-		public Builder identifier(Identifier identifier) {
-			this.identifier = identifier;
-			return this;
-		}
-
 		public Builder coverage(String coverage) {
 			if (this.coverages == null) {
 				this.coverages = new ArrayList<String>();
@@ -339,6 +333,11 @@ public class DCMetadata extends DescriptiveMetadata {
 				this.formats = new ArrayList<String>();
 			}
 			this.formats.add(format);
+			return this;
+		}
+
+		public Builder identifier(Identifier identifier) {
+			this.identifier = identifier;
 			return this;
 		}
 

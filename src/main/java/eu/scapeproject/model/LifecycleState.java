@@ -11,13 +11,16 @@ public class LifecycleState {
     @XmlAttribute(name="lifecyclestate")
     private final State state;
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((details == null) ? 0 : details.hashCode());
-        result = prime * result + ((state == null) ? 0 : state.hashCode());
-        return result;
+    @SuppressWarnings("unused")
+    private LifecycleState(){
+        this.details=null;
+        this.state=null;
+    }
+
+    public LifecycleState(String details, State state) {
+        super();
+        this.details = details;
+        this.state = state;
     }
 
     @Override
@@ -38,28 +41,26 @@ public class LifecycleState {
             return false;
         return true;
     }
-
-    public LifecycleState(String details, State state) {
-        super();
-        this.details = details;
-        this.state = state;
-    }
     
-    private LifecycleState(){
-        this.details=null;
-        this.state=null;
-    }
-
-    public enum State {
-        INGESTED, INGESTING, INGEST_FAILED, OTHER;
+    public String getDetails() {
+        return details;
     }
 
     public State getState() {
         return state;
     }
 
-    public String getDetails() {
-        return details;
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((details == null) ? 0 : details.hashCode());
+        result = prime * result + ((state == null) ? 0 : state.hashCode());
+        return result;
+    }
+
+    public enum State {
+        INGESTED, INGESTING, INGEST_FAILED, OTHER;
     }
     
 }

@@ -22,18 +22,6 @@ public class PremisRightsMetadata extends RightsMetadata{
         this.rightsStatements = rightsStatements;
     }
 
-    public List<RightsStatement> getRightsStatements() {
-        return rightsStatements;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((rightsStatements == null) ? 0 : rightsStatements.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -49,6 +37,18 @@ public class PremisRightsMetadata extends RightsMetadata{
         } else if (!rightsStatements.equals(other.rightsStatements))
             return false;
         return true;
+    }
+
+    public List<RightsStatement> getRightsStatements() {
+        return rightsStatements;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((rightsStatements == null) ? 0 : rightsStatements.hashCode());
+        return result;
     }
 
 }

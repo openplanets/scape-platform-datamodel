@@ -37,33 +37,6 @@ public class MessageDigest {
         this.messageDigests = builder.messageDigests;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public List<String> getMessageDigestAlgorithms() {
-        return messageDigestAlgorithms;
-    }
-
-    public List<Date> getMessageDigestDateTimes() {
-        return messageDigestDateTimes;
-    }
-
-    public List<String> getMessageDigests() {
-        return messageDigests;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((messageDigestAlgorithms == null) ? 0 : messageDigestAlgorithms.hashCode());
-        result = prime * result + ((messageDigestDateTimes == null) ? 0 : messageDigestDateTimes.hashCode());
-        result = prime * result + ((messageDigests == null) ? 0 : messageDigests.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -94,6 +67,33 @@ public class MessageDigest {
         } else if (!messageDigests.equals(other.messageDigests))
             return false;
         return true;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public List<String> getMessageDigestAlgorithms() {
+        return messageDigestAlgorithms;
+    }
+
+    public List<Date> getMessageDigestDateTimes() {
+        return messageDigestDateTimes;
+    }
+
+    public List<String> getMessageDigests() {
+        return messageDigests;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((messageDigestAlgorithms == null) ? 0 : messageDigestAlgorithms.hashCode());
+        result = prime * result + ((messageDigestDateTimes == null) ? 0 : messageDigestDateTimes.hashCode());
+        result = prime * result + ((messageDigests == null) ? 0 : messageDigests.hashCode());
+        return result;
     }
 
     public static class Builder {

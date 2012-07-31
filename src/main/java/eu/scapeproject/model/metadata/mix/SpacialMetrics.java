@@ -32,6 +32,26 @@ public class SpacialMetrics {
         this.ySamplingFrequency = ySamplingFrequency;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SpacialMetrics other = (SpacialMetrics) obj;
+        if (samplingFrequencyPane != other.samplingFrequencyPane)
+            return false;
+        if (samplingFrequencyUnit != other.samplingFrequencyUnit)
+            return false;
+        if (Double.doubleToLongBits(xSamplingFrequency) != Double.doubleToLongBits(other.xSamplingFrequency))
+            return false;
+        if (Double.doubleToLongBits(ySamplingFrequency) != Double.doubleToLongBits(other.ySamplingFrequency))
+            return false;
+        return true;
+    }
+
     public SamplingFrequencyPane getSamplingFrequencyPane() {
         return samplingFrequencyPane;
     }
@@ -60,26 +80,6 @@ public class SpacialMetrics {
         temp = Double.doubleToLongBits(ySamplingFrequency);
         result = prime * result + (int) (temp ^ (temp >>> 32));
         return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        SpacialMetrics other = (SpacialMetrics) obj;
-        if (samplingFrequencyPane != other.samplingFrequencyPane)
-            return false;
-        if (samplingFrequencyUnit != other.samplingFrequencyUnit)
-            return false;
-        if (Double.doubleToLongBits(xSamplingFrequency) != Double.doubleToLongBits(other.xSamplingFrequency))
-            return false;
-        if (Double.doubleToLongBits(ySamplingFrequency) != Double.doubleToLongBits(other.ySamplingFrequency))
-            return false;
-        return true;
     }
 
     public enum SamplingFrequencyPane {

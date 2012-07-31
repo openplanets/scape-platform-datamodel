@@ -36,38 +36,6 @@ public class CalibrationInfo {
         this.calibrationTrackTypes = builder.calibrationTrackTypes;
     }
 
-    public List<String> getCalibrationExInts() {
-        return calibrationExInts;
-    }
-
-    public List<String> getCalibrationLocations() {
-        return calibrationLocations;
-    }
-
-    public List<String> getCalibrationTimeStamps() {
-        return calibrationTimeStamps;
-    }
-
-    public List<String> getCalibrationTrackTypes() {
-        return calibrationTrackTypes;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((calibrationExInts == null) ? 0 : calibrationExInts.hashCode());
-        result = prime * result + ((calibrationLocations == null) ? 0 : calibrationLocations.hashCode());
-        result = prime * result + ((calibrationTimeStamps == null) ? 0 : calibrationTimeStamps.hashCode());
-        result = prime * result + ((calibrationTrackTypes == null) ? 0 : calibrationTrackTypes.hashCode());
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -103,6 +71,38 @@ public class CalibrationInfo {
         } else if (!id.equals(other.id))
             return false;
         return true;
+    }
+
+    public List<String> getCalibrationExInts() {
+        return calibrationExInts;
+    }
+
+    public List<String> getCalibrationLocations() {
+        return calibrationLocations;
+    }
+
+    public List<String> getCalibrationTimeStamps() {
+        return calibrationTimeStamps;
+    }
+
+    public List<String> getCalibrationTrackTypes() {
+        return calibrationTrackTypes;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((calibrationExInts == null) ? 0 : calibrationExInts.hashCode());
+        result = prime * result + ((calibrationLocations == null) ? 0 : calibrationLocations.hashCode());
+        result = prime * result + ((calibrationTimeStamps == null) ? 0 : calibrationTimeStamps.hashCode());
+        result = prime * result + ((calibrationTrackTypes == null) ? 0 : calibrationTrackTypes.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
     }
 
     public static class Builder {

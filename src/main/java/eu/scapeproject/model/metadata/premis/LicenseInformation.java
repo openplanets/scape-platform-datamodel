@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import eu.scapeproject.model.Identifier;
 import eu.scapeproject.model.jaxb.PremisLicenseIdentifierAdapter;
-import eu.scapeproject.model.jaxb.PremisLicenseIdentifierAdapter.PremisLicenseIdentifier;
 
 @XmlRootElement(name = "licenseInformation", namespace = "http://www.loc.gov/standards/premis")
 public class LicenseInformation {
@@ -33,28 +32,6 @@ public class LicenseInformation {
         this.licenseIdentifier = licenseIdentifier;
         this.licenseTerms = licenseTerms;
         this.licenseNotes = licenseNotes;
-    }
-
-    public Identifier getLicenseIdentifier() {
-        return licenseIdentifier;
-    }
-
-    public List<String> getLicenseNotes() {
-        return licenseNotes;
-    }
-
-    public String getLicenseTerms() {
-        return licenseTerms;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((licenseIdentifier == null) ? 0 : licenseIdentifier.hashCode());
-        result = prime * result + ((licenseNotes == null) ? 0 : licenseNotes.hashCode());
-        result = prime * result + ((licenseTerms == null) ? 0 : licenseTerms.hashCode());
-        return result;
     }
 
     @Override
@@ -82,6 +59,28 @@ public class LicenseInformation {
         } else if (!licenseTerms.equals(other.licenseTerms))
             return false;
         return true;
+    }
+
+    public Identifier getLicenseIdentifier() {
+        return licenseIdentifier;
+    }
+
+    public List<String> getLicenseNotes() {
+        return licenseNotes;
+    }
+
+    public String getLicenseTerms() {
+        return licenseTerms;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((licenseIdentifier == null) ? 0 : licenseIdentifier.hashCode());
+        result = prime * result + ((licenseNotes == null) ? 0 : licenseNotes.hashCode());
+        result = prime * result + ((licenseTerms == null) ? 0 : licenseTerms.hashCode());
+        return result;
     }
     
 }

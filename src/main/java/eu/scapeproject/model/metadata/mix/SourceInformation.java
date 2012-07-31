@@ -52,58 +52,6 @@ public class SourceInformation {
         this.sourceZDimensionUnit = builder.sourceZDiemnsionUnit;
     }
 
-    public List<Identifier> getSourceIdentifiers() {
-        return sourceIdentifiers;
-    }
-
-    public String getSourceType() {
-        return sourceType;
-    }
-
-    public SourceDimension getSourceXDiemnsionUnit() {
-        return sourceXDiemnsionUnit;
-    }
-
-    public double getSourceXDimension() {
-        return sourceXDimension;
-    }
-
-    public SourceDimension getSourceYDiemnsionUnit() {
-        return sourceYDiemnsionUnit;
-    }
-
-    public double getSourceYDimension() {
-        return sourceYDimension;
-    }
-
-    public SourceDimension getSourceZDiemnsionUnit() {
-        return sourceZDimensionUnit;
-    }
-
-    public double getSourceZDimension() {
-        return sourceZDimension;
-    }
-
-    
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((sourceIdentifiers == null) ? 0 : sourceIdentifiers.hashCode());
-        result = prime * result + ((sourceType == null) ? 0 : sourceType.hashCode());
-        result = prime * result + ((sourceXDiemnsionUnit == null) ? 0 : sourceXDiemnsionUnit.hashCode());
-        long temp;
-        temp = Double.doubleToLongBits(sourceXDimension);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        result = prime * result + ((sourceYDiemnsionUnit == null) ? 0 : sourceYDiemnsionUnit.hashCode());
-        temp = Double.doubleToLongBits(sourceYDimension);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        result = prime * result + ((sourceZDimensionUnit == null) ? 0 : sourceZDimensionUnit.hashCode());
-        temp = Double.doubleToLongBits(sourceZDimension);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -136,6 +84,58 @@ public class SourceInformation {
         if (Double.doubleToLongBits(sourceZDimension) != Double.doubleToLongBits(other.sourceZDimension))
             return false;
         return true;
+    }
+
+    public List<Identifier> getSourceIdentifiers() {
+        return sourceIdentifiers;
+    }
+
+    public String getSourceType() {
+        return sourceType;
+    }
+
+    public SourceDimension getSourceXDiemnsionUnit() {
+        return sourceXDiemnsionUnit;
+    }
+
+    public double getSourceXDimension() {
+        return sourceXDimension;
+    }
+
+    public SourceDimension getSourceYDiemnsionUnit() {
+        return sourceYDiemnsionUnit;
+    }
+
+    public double getSourceYDimension() {
+        return sourceYDimension;
+    }
+
+    public SourceDimension getSourceZDiemnsionUnit() {
+        return sourceZDimensionUnit;
+    }
+
+    
+    public double getSourceZDimension() {
+        return sourceZDimension;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((sourceIdentifiers == null) ? 0 : sourceIdentifiers.hashCode());
+        result = prime * result + ((sourceType == null) ? 0 : sourceType.hashCode());
+        result = prime * result + ((sourceXDiemnsionUnit == null) ? 0 : sourceXDiemnsionUnit.hashCode());
+        long temp;
+        temp = Double.doubleToLongBits(sourceXDimension);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + ((sourceYDiemnsionUnit == null) ? 0 : sourceYDiemnsionUnit.hashCode());
+        temp = Double.doubleToLongBits(sourceYDimension);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + ((sourceZDimensionUnit == null) ? 0 : sourceZDimensionUnit.hashCode());
+        temp = Double.doubleToLongBits(sourceZDimension);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 
 

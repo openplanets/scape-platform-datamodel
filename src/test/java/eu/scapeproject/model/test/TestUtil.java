@@ -129,18 +129,18 @@ public abstract class TestUtil {
 
 
     
+    public static DCMetadata createMinimalDC() {
+    	return new DCMetadata.Builder()
+    		.title("minimal-entity")
+    		.date(new Date())
+    		.build();
+    }
+    
     public static IntellectualEntity createMinimalEntity(){
     	return new IntellectualEntity.Builder()
     		.identifier(new Identifier("minimal-1"))
     		.descriptive(createMinimalDC())
     		.representations(Arrays.asList(createMinimalRepresentation()))
-    		.build();
-    }
-    
-    public static Representation createMinimalRepresentation() {
-    	return new Representation.Builder()
-    		.identifier(new Identifier("minimal-representation-1"))
-    		.file(createMinimalFile())
     		.build();
     }
 
@@ -155,10 +155,10 @@ public abstract class TestUtil {
 
 
 
-	public static DCMetadata createMinimalDC() {
-    	return new DCMetadata.Builder()
-    		.title("minimal-entity")
-    		.date(new Date())
+	public static Representation createMinimalRepresentation() {
+    	return new Representation.Builder()
+    		.identifier(new Identifier("minimal-representation-1"))
+    		.file(createMinimalFile())
     		.build();
     }
 
@@ -894,199 +894,6 @@ public abstract class TestUtil {
         return b.build();
     }
 
-    public static TechnicalMetadata createRandomVideoMetadata() {
-        VideoFileData fileData = new VideoFileData.Builder()
-                .bitsPerSample(createRandomIntegers())
-                .byteOrder(createRandomIntegers())
-                .color(randomAlphabetic(16))
-                .comressions(createRandomVideoCompressions())
-                .dataRate(createRandomVideoDataRate())
-                .dataRateMode(createRandomStrings())
-                .dataRateUnit(createRandomStrings())
-                .duration(randomNumeric(4))
-                .formats(createRandomVideoFormats())
-                .frame(createRandomVideoFrame())
-                .frameRate(createRandomVideoDataRate())
-                .language(createRandomVideoLanguages())
-                .locations(createRandomStrings())
-                .messageDigest(createRandomVideoMessageDigest())
-                .otherColor(randomAlphabetic(16))
-                .otherUses(createRandomStrings())
-                .sampleRate(createRandomVideoDataRate())
-                .sampling(createRandomStrings())
-                .security(randomAlphabetic(16))
-                .signalFormat(createRandomStrings())
-                .size(rand.nextInt())
-                .sound(createRandomStrings())
-                .timeCodes(createRandomTimeCodes())
-                .trackingInfos(createRandomVideoTrackingInfos())
-                .tracks(createRandomVideoTracks())
-                .uses(createRandomStrings())
-                .build();
-        Video videoMD = new Video(Arrays.asList(fileData));
-        Video videoSrc = new Video(null);
-        return new VideoMDMetadata(videoMD, videoSrc);
-    }
-
-    public static List<VideoTrack> createRandomVideoTracks() {
-        List<VideoTrack> formats=new ArrayList<VideoTrack>();
-        int max=rand.nextInt(2) +1;
-        while (max-- > 0){
-            formats.add(createRandomVideoTrack());
-        }
-        return formats;
-    }
-
-    public static VideoTrack createRandomVideoTrack() {
-        return new VideoTrack.Builder()
-            .bitsPerPixelStored(rand.nextFloat())
-            .bitsPerSample(rand.nextInt())
-            .codec(createRandomVideoCodec())
-            .compressionRatio(rand.nextFloat())
-            .frame(createRandomVideoFrame())
-            .frameRate(createRandomVideoDataRate())
-            .id(new Identifier(UUID.randomUUID().toString()).getValue())
-            .num(rand.nextInt())
-            .quality(randomAlphabetic(16))
-            .sampleCount(rand.nextInt())
-            .sampleRate(createRandomVideoDataRate())
-            .sampling(randomAlphabetic(16))
-            .signalFormat(randomAlphabetic(16))
-            .build();
-    }
-
-    public static VideoCodec createRandomVideoCodec() {
-        return new VideoCodec.Builder()
-            .channelCount(rand.nextInt())
-            .codecId(randomAlphabetic(16))
-            .endianess(randomAlphabetic(16))
-            .scanOrder(randomAlphabetic(16))
-            .scanType(randomAlphabetic(16))
-            .sign(randomAlphabetic(16))
-            .build();
-    }
-
-    public static List<VideoTrackingInfo> createRandomVideoTrackingInfos() {
-        List<VideoTrackingInfo> formats=new ArrayList<VideoTrackingInfo>();
-        int max=rand.nextInt(2) +1;
-        while (max-- > 0){
-            formats.add(createRandomVideoTrackingInfo());
-        }
-        return formats;
-    }
-
-    public static VideoTrackingInfo createRandomVideoTrackingInfo() {
-        return new VideoTrackingInfo(new Identifier(UUID.randomUUID().toString()).getValue(), randomAlphabetic(16), randomAlphabetic(16));
-    }
-
-    public static List<VideoTimeCode> createRandomTimeCodes() {
-        List<VideoTimeCode> formats=new ArrayList<VideoTimeCode>();
-        int max=rand.nextInt(2) +1;
-        while (max-- > 0){
-            formats.add(createRandomVideoTimeCode());
-        }
-        return formats;
-    }
-
-    public static VideoTimeCode createRandomVideoTimeCode() {
-        return new VideoTimeCode.Builder()
-            .id(new Identifier(UUID.randomUUID().toString()).getValue())
-            .timeCodeInitialValue(randomAlphabetic(16))
-            .timeCodeRecordMethod(randomAlphabetic(16))
-            .timeCodeType(randomAlphabetic(16))
-            .build();
-    }
-
-    public static List<VideoLanguage> createRandomVideoLanguages() {
-        List<VideoLanguage> formats=new ArrayList<VideoLanguage>();
-        int max=rand.nextInt(2) +1;
-        while (max-- > 0){
-            formats.add(createRandomVideoLanguage());
-        }
-        return formats;
-    }
-
-    public static VideoLanguage createRandomVideoLanguage() {
-        return VideoLanguage.fromString(randomAlphabetic(3));
-    }
-
-    public static VideoFrame createRandomVideoFrame() {
-        return new VideoFrame.Builder()
-            .dar(randomAlphabetic(15))
-            .frameRate(rand.nextFloat())
-            .id(new Identifier(UUID.randomUUID().toString()).getValue())
-            .par(rand.nextFloat())
-            .pixelsHorizontal(rand.nextInt())
-            .pixelsVertical(rand.nextInt())
-            .rotation(rand.nextFloat())
-            .build();
-}
-
-    public static List<VideoFormat> createRandomVideoFormats() {
-        List<VideoFormat> formats=new ArrayList<VideoFormat>();
-        int max=rand.nextInt(2) +1;
-        while (max-- > 0){
-            formats.add(createRandomVideoFormat());
-        }
-        return formats;
-    }
-
-    public static VideoFormat createRandomVideoFormat() {
-        return new VideoFormat.Builder()
-            .annotation(randomAlphabetic(16))
-            .commercialName(randomAlphabetic(16))
-            .creatorApp(randomAlphabetic(16))
-            .creatorLib(randomAlphabetic(16))
-            .creatorLibDate(randomAlphabetic(16))
-            .creatorLibSettings(randomAlphabetic(16))
-            .encodingDate(randomAlphabetic(16))
-            .mimeType(randomAlphabetic(16))
-            .name(randomAlphabetic(16))
-            .profile(randomAlphabetic(16))
-            .settings(randomAlphabetic(16))
-            .taggedDate(randomAlphabetic(16))
-            .version(randomAlphabetic(16))
-            .build();
-    }
-
-    public static VideoMessageDigest createRandomVideoMessageDigest() {
-        return new VideoMessageDigest.Builder()
-            .id(new Identifier(UUID.randomUUID().toString()).getValue())
-            .messageDigest(randomAlphabetic(16))
-            .messageDigestAlgorithm(randomAlphabetic(16))
-            .messageDigestDateTime(new Date())
-            .build();
-    }
-
-    public static VideoVariableRate createRandomVideoDataRate() {
-        return new VideoVariableRate.Builder()
-            .maximum(rand.nextFloat())
-            .minimum(rand.nextFloat())
-            .mode(randomAlphabetic(16))
-            .nominal(rand.nextFloat())
-            .unit(randomAlphabetic(16))
-            .build();
-    }
-
-    public static List<VideoCompression> createRandomVideoCompressions() {
-        List<VideoCompression> compressions=new ArrayList<VideoCompression>();
-        int max=rand.nextInt(2) +1;
-        while (max-->0){
-            compressions.add(createRandomVideoCompression());
-        }
-        return compressions;
-    }
-
-    public static VideoCompression createRandomVideoCompression() {
-        return new VideoCompression.Builder()
-            .codecCreatorApp(randomAlphabetic(16))
-            .codecCreatorAppVersion(randomNumeric(4))
-            .codecName(randomAlphabetic(16))
-            .codecQuality(randomAlphabetic(16))
-            .id(new Identifier(UUID.randomUUID().toString()).getValue())
-            .build();
-    }
-
     public static List<Representation> createRandomRepresentations() {
         int num = 6;
         List<Representation> representations = new ArrayList<Representation>();
@@ -1219,6 +1026,15 @@ public abstract class TestUtil {
                 .build();
     }
 
+    public static List<VideoTimeCode> createRandomTimeCodes() {
+        List<VideoTimeCode> formats=new ArrayList<VideoTimeCode>();
+        int max=rand.nextInt(2) +1;
+        while (max-- > 0){
+            formats.add(createRandomVideoTimeCode());
+        }
+        return formats;
+    }
+
     public static List<String> createRandomTimeStamps() {
         List<String> timestamps = new ArrayList<String>();
         int max = rand.nextInt(2) + 1;
@@ -1243,6 +1059,190 @@ public abstract class TestUtil {
             tis.add(createRandomTrackingInfo());
         }
         return tis;
+    }
+
+    public static VideoCodec createRandomVideoCodec() {
+        return new VideoCodec.Builder()
+            .channelCount(rand.nextInt())
+            .codecId(randomAlphabetic(16))
+            .endianess(randomAlphabetic(16))
+            .scanOrder(randomAlphabetic(16))
+            .scanType(randomAlphabetic(16))
+            .sign(randomAlphabetic(16))
+            .build();
+    }
+
+    public static VideoCompression createRandomVideoCompression() {
+        return new VideoCompression.Builder()
+            .codecCreatorApp(randomAlphabetic(16))
+            .codecCreatorAppVersion(randomNumeric(4))
+            .codecName(randomAlphabetic(16))
+            .codecQuality(randomAlphabetic(16))
+            .id(new Identifier(UUID.randomUUID().toString()).getValue())
+            .build();
+    }
+
+    public static List<VideoCompression> createRandomVideoCompressions() {
+        List<VideoCompression> compressions=new ArrayList<VideoCompression>();
+        int max=rand.nextInt(2) +1;
+        while (max-->0){
+            compressions.add(createRandomVideoCompression());
+        }
+        return compressions;
+    }
+
+    public static VideoVariableRate createRandomVideoDataRate() {
+        return new VideoVariableRate.Builder()
+            .maximum(rand.nextFloat())
+            .minimum(rand.nextFloat())
+            .mode(randomAlphabetic(16))
+            .nominal(rand.nextFloat())
+            .unit(randomAlphabetic(16))
+            .build();
+    }
+
+    public static VideoFormat createRandomVideoFormat() {
+        return new VideoFormat.Builder()
+            .annotation(randomAlphabetic(16))
+            .commercialName(randomAlphabetic(16))
+            .creatorApp(randomAlphabetic(16))
+            .creatorLib(randomAlphabetic(16))
+            .creatorLibDate(randomAlphabetic(16))
+            .creatorLibSettings(randomAlphabetic(16))
+            .encodingDate(randomAlphabetic(16))
+            .mimeType(randomAlphabetic(16))
+            .name(randomAlphabetic(16))
+            .profile(randomAlphabetic(16))
+            .settings(randomAlphabetic(16))
+            .taggedDate(randomAlphabetic(16))
+            .version(randomAlphabetic(16))
+            .build();
+    }
+
+    public static List<VideoFormat> createRandomVideoFormats() {
+        List<VideoFormat> formats=new ArrayList<VideoFormat>();
+        int max=rand.nextInt(2) +1;
+        while (max-- > 0){
+            formats.add(createRandomVideoFormat());
+        }
+        return formats;
+    }
+
+    public static VideoFrame createRandomVideoFrame() {
+        return new VideoFrame.Builder()
+            .dar(randomAlphabetic(15))
+            .frameRate(rand.nextFloat())
+            .id(new Identifier(UUID.randomUUID().toString()).getValue())
+            .par(rand.nextFloat())
+            .pixelsHorizontal(rand.nextInt())
+            .pixelsVertical(rand.nextInt())
+            .rotation(rand.nextFloat())
+            .build();
+}
+
+    public static VideoLanguage createRandomVideoLanguage() {
+        return VideoLanguage.fromString(randomAlphabetic(3));
+    }
+
+    public static List<VideoLanguage> createRandomVideoLanguages() {
+        List<VideoLanguage> formats=new ArrayList<VideoLanguage>();
+        int max=rand.nextInt(2) +1;
+        while (max-- > 0){
+            formats.add(createRandomVideoLanguage());
+        }
+        return formats;
+    }
+
+    public static VideoMessageDigest createRandomVideoMessageDigest() {
+        return new VideoMessageDigest.Builder()
+            .id(new Identifier(UUID.randomUUID().toString()).getValue())
+            .messageDigest(randomAlphabetic(16))
+            .messageDigestAlgorithm(randomAlphabetic(16))
+            .messageDigestDateTime(new Date())
+            .build();
+    }
+
+    public static TechnicalMetadata createRandomVideoMetadata() {
+        VideoFileData fileData = new VideoFileData.Builder()
+                .bitsPerSample(createRandomIntegers())
+                .byteOrder(createRandomIntegers())
+                .color(randomAlphabetic(16))
+                .comressions(createRandomVideoCompressions())
+                .dataRate(createRandomVideoDataRate())
+                .dataRateMode(createRandomStrings())
+                .dataRateUnit(createRandomStrings())
+                .duration(randomNumeric(4))
+                .formats(createRandomVideoFormats())
+                .frame(createRandomVideoFrame())
+                .frameRate(createRandomVideoDataRate())
+                .language(createRandomVideoLanguages())
+                .locations(createRandomStrings())
+                .messageDigest(createRandomVideoMessageDigest())
+                .otherColor(randomAlphabetic(16))
+                .otherUses(createRandomStrings())
+                .sampleRate(createRandomVideoDataRate())
+                .sampling(createRandomStrings())
+                .security(randomAlphabetic(16))
+                .signalFormat(createRandomStrings())
+                .size(rand.nextInt())
+                .sound(createRandomStrings())
+                .timeCodes(createRandomTimeCodes())
+                .trackingInfos(createRandomVideoTrackingInfos())
+                .tracks(createRandomVideoTracks())
+                .uses(createRandomStrings())
+                .build();
+        Video videoMD = new Video(Arrays.asList(fileData));
+        Video videoSrc = new Video(null);
+        return new VideoMDMetadata(videoMD, videoSrc);
+    }
+
+    public static VideoTimeCode createRandomVideoTimeCode() {
+        return new VideoTimeCode.Builder()
+            .id(new Identifier(UUID.randomUUID().toString()).getValue())
+            .timeCodeInitialValue(randomAlphabetic(16))
+            .timeCodeRecordMethod(randomAlphabetic(16))
+            .timeCodeType(randomAlphabetic(16))
+            .build();
+    }
+
+    public static VideoTrack createRandomVideoTrack() {
+        return new VideoTrack.Builder()
+            .bitsPerPixelStored(rand.nextFloat())
+            .bitsPerSample(rand.nextInt())
+            .codec(createRandomVideoCodec())
+            .compressionRatio(rand.nextFloat())
+            .frame(createRandomVideoFrame())
+            .frameRate(createRandomVideoDataRate())
+            .id(new Identifier(UUID.randomUUID().toString()).getValue())
+            .num(rand.nextInt())
+            .quality(randomAlphabetic(16))
+            .sampleCount(rand.nextInt())
+            .sampleRate(createRandomVideoDataRate())
+            .sampling(randomAlphabetic(16))
+            .signalFormat(randomAlphabetic(16))
+            .build();
+    }
+
+    public static VideoTrackingInfo createRandomVideoTrackingInfo() {
+        return new VideoTrackingInfo(new Identifier(UUID.randomUUID().toString()).getValue(), randomAlphabetic(16), randomAlphabetic(16));
+    }
+
+    public static List<VideoTrackingInfo> createRandomVideoTrackingInfos() {
+        List<VideoTrackingInfo> formats=new ArrayList<VideoTrackingInfo>();
+        int max=rand.nextInt(2) +1;
+        while (max-- > 0){
+            formats.add(createRandomVideoTrackingInfo());
+        }
+        return formats;
+    }
+
+    public static List<VideoTrack> createRandomVideoTracks() {
+        List<VideoTrack> formats=new ArrayList<VideoTrack>();
+        int max=rand.nextInt(2) +1;
+        while (max-- > 0){
+            formats.add(createRandomVideoTrack());
+        }
+        return formats;
     }
 
     public static List<PhysicalData> createRanomdPhysicalDatas() {

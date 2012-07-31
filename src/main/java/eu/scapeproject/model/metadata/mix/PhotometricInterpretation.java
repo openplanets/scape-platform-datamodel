@@ -32,38 +32,6 @@ public class PhotometricInterpretation {
         this.referencedBlackWhite = builder.referencedBlackWhite;
     }
 
-    public ColorProfile getColorProfile() {
-        return colorProfile;
-    }
-
-    public String getColorSpace() {
-        return colorSpace;
-    }
-
-    public ReferenceBlackWhite getReferencedBlackWhite() {
-        return referencedBlackWhite;
-    }
-
-    public SpecialFormatCharacteristics getSpecialFormatCharacteristics() {
-        return specialFormatCharacteristics;
-    }
-
-    public YCbCr getYbCbCr() {
-        return ybCbCr;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((colorProfile == null) ? 0 : colorProfile.hashCode());
-        result = prime * result + ((colorSpace == null) ? 0 : colorSpace.hashCode());
-        result = prime * result + ((referencedBlackWhite == null) ? 0 : referencedBlackWhite.hashCode());
-        result = prime * result + ((specialFormatCharacteristics == null) ? 0 : specialFormatCharacteristics.hashCode());
-        result = prime * result + ((ybCbCr == null) ? 0 : ybCbCr.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -99,6 +67,38 @@ public class PhotometricInterpretation {
         } else if (!ybCbCr.equals(other.ybCbCr))
             return false;
         return true;
+    }
+
+    public ColorProfile getColorProfile() {
+        return colorProfile;
+    }
+
+    public String getColorSpace() {
+        return colorSpace;
+    }
+
+    public ReferenceBlackWhite getReferencedBlackWhite() {
+        return referencedBlackWhite;
+    }
+
+    public SpecialFormatCharacteristics getSpecialFormatCharacteristics() {
+        return specialFormatCharacteristics;
+    }
+
+    public YCbCr getYbCbCr() {
+        return ybCbCr;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((colorProfile == null) ? 0 : colorProfile.hashCode());
+        result = prime * result + ((colorSpace == null) ? 0 : colorSpace.hashCode());
+        result = prime * result + ((referencedBlackWhite == null) ? 0 : referencedBlackWhite.hashCode());
+        result = prime * result + ((specialFormatCharacteristics == null) ? 0 : specialFormatCharacteristics.hashCode());
+        result = prime * result + ((ybCbCr == null) ? 0 : ybCbCr.hashCode());
+        return result;
     }
 
     public static class Builder {

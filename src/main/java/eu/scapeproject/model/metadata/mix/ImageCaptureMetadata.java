@@ -39,43 +39,6 @@ public class ImageCaptureMetadata {
         this.digitalCameraCapture = builder.digitalCameraCapture;
     }
 
-    public DigitalCameraCapture getDigitalCameraCapture() {
-        return digitalCameraCapture;
-    }
-
-    public GeneralCaptureInformation getGeneralCaptureInformation() {
-        return generalCaptureInformation;
-    }
-
-    public String getMethodology() {
-        return methodology;
-    }
-
-    public Orientation getOrientation() {
-        return orientation;
-    }
-
-    public ScannerCapture getScannerCapture() {
-        return scannerCapture;
-    }
-
-    public SourceInformation getSourceInformation() {
-        return sourceInformation;
-    }
-    
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((digitalCameraCapture == null) ? 0 : digitalCameraCapture.hashCode());
-        result = prime * result + ((generalCaptureInformation == null) ? 0 : generalCaptureInformation.hashCode());
-        result = prime * result + ((methodology == null) ? 0 : methodology.hashCode());
-        result = prime * result + ((orientation == null) ? 0 : orientation.hashCode());
-        result = prime * result + ((scannerCapture == null) ? 0 : scannerCapture.hashCode());
-        result = prime * result + ((sourceInformation == null) ? 0 : sourceInformation.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -113,6 +76,43 @@ public class ImageCaptureMetadata {
         } else if (!sourceInformation.equals(other.sourceInformation))
             return false;
         return true;
+    }
+
+    public DigitalCameraCapture getDigitalCameraCapture() {
+        return digitalCameraCapture;
+    }
+
+    public GeneralCaptureInformation getGeneralCaptureInformation() {
+        return generalCaptureInformation;
+    }
+
+    public String getMethodology() {
+        return methodology;
+    }
+
+    public Orientation getOrientation() {
+        return orientation;
+    }
+
+    public ScannerCapture getScannerCapture() {
+        return scannerCapture;
+    }
+    
+    public SourceInformation getSourceInformation() {
+        return sourceInformation;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((digitalCameraCapture == null) ? 0 : digitalCameraCapture.hashCode());
+        result = prime * result + ((generalCaptureInformation == null) ? 0 : generalCaptureInformation.hashCode());
+        result = prime * result + ((methodology == null) ? 0 : methodology.hashCode());
+        result = prime * result + ((orientation == null) ? 0 : orientation.hashCode());
+        result = prime * result + ((scannerCapture == null) ? 0 : scannerCapture.hashCode());
+        result = prime * result + ((sourceInformation == null) ? 0 : sourceInformation.hashCode());
+        return result;
     }
 
 

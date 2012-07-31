@@ -28,7 +28,6 @@ public class ImageColorEncoding {
     @XmlElement(name="whitePoints",namespace="http://www.loc.gov/mix/v10")
     private final List<WhitePoint> whitePoints;
 
-    @SuppressWarnings("unused")
 	private ImageColorEncoding() {
 		super();
         this.bitsPerSampleValue = null;
@@ -52,62 +51,6 @@ public class ImageColorEncoding {
         this.grayResponseCurve = builder.grayResponseCurve;
         this.grayResponseUnit = builder.grayResponseUnit;
         this.whitePoints = builder.whitePoints;
-    }
-
-    public BitsPerSampleUnit getBitsPerSampleUnit() {
-        return bitsPerSampleUnit;
-    }
-
-    public String getBitsPerSampleValue() {
-        return bitsPerSampleValue;
-    }
-
-    public URI getColorMapReference() {
-        return colorMapReference;
-    }
-
-    public byte[] getEmbeddedColorMap() {
-        return embeddedColorMap;
-    }
-
-    public ExtraSamples getExtraSamples() {
-        return extraSamples;
-    }
-
-    public short getGrayResponseCurve() {
-        return grayResponseCurve;
-    }
-
-    public GrayResponseUnit getGrayResponseUnit() {
-        return grayResponseUnit;
-    }
-
-    public int getSamplesPerPixel() {
-        return samplesPerPixel;
-    }
-
-    public List<WhitePoint> getWhitePoints() {
-        return whitePoints;
-    }
-
-    public enum BitsPerSampleUnit {
-        FLOAT, INTEGER;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((bitsPerSampleUnit == null) ? 0 : bitsPerSampleUnit.hashCode());
-        result = prime * result + ((bitsPerSampleValue == null) ? 0 : bitsPerSampleValue.hashCode());
-        result = prime * result + ((colorMapReference == null) ? 0 : colorMapReference.hashCode());
-        result = prime * result + Arrays.hashCode(embeddedColorMap);
-        result = prime * result + ((extraSamples == null) ? 0 : extraSamples.hashCode());
-        result = prime * result + grayResponseCurve;
-        result = prime * result + ((grayResponseUnit == null) ? 0 : grayResponseUnit.hashCode());
-        result = prime * result + samplesPerPixel;
-        result = prime * result + ((whitePoints == null) ? 0 : whitePoints.hashCode());
-        return result;
     }
 
     @Override
@@ -147,6 +90,62 @@ public class ImageColorEncoding {
         } else if (!whitePoints.equals(other.whitePoints))
             return false;
         return true;
+    }
+
+    public BitsPerSampleUnit getBitsPerSampleUnit() {
+        return bitsPerSampleUnit;
+    }
+
+    public String getBitsPerSampleValue() {
+        return bitsPerSampleValue;
+    }
+
+    public URI getColorMapReference() {
+        return colorMapReference;
+    }
+
+    public byte[] getEmbeddedColorMap() {
+        return embeddedColorMap;
+    }
+
+    public ExtraSamples getExtraSamples() {
+        return extraSamples;
+    }
+
+    public short getGrayResponseCurve() {
+        return grayResponseCurve;
+    }
+
+    public GrayResponseUnit getGrayResponseUnit() {
+        return grayResponseUnit;
+    }
+
+    public int getSamplesPerPixel() {
+        return samplesPerPixel;
+    }
+
+    public List<WhitePoint> getWhitePoints() {
+        return whitePoints;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((bitsPerSampleUnit == null) ? 0 : bitsPerSampleUnit.hashCode());
+        result = prime * result + ((bitsPerSampleValue == null) ? 0 : bitsPerSampleValue.hashCode());
+        result = prime * result + ((colorMapReference == null) ? 0 : colorMapReference.hashCode());
+        result = prime * result + Arrays.hashCode(embeddedColorMap);
+        result = prime * result + ((extraSamples == null) ? 0 : extraSamples.hashCode());
+        result = prime * result + grayResponseCurve;
+        result = prime * result + ((grayResponseUnit == null) ? 0 : grayResponseUnit.hashCode());
+        result = prime * result + samplesPerPixel;
+        result = prime * result + ((whitePoints == null) ? 0 : whitePoints.hashCode());
+        return result;
+    }
+
+    public enum BitsPerSampleUnit {
+        FLOAT, INTEGER;
     }
 
     public static class Builder {
@@ -233,44 +232,11 @@ public class ImageColorEncoding {
         @XmlElement(name="primaryChromaticiesBlueY",namespace="http://www.loc.gov/mix/v10")
         private String primaryChromaticiesBlueY;
         
-        @SuppressWarnings("unused")
 		private PrimaryChromaticies() {
 			super();
 		}
 
-        public String getPrimaryChromaticieGreenY() {
-            return primaryChromaticieGreenY;
-        }
-        public String getPrimaryChromaticiesBlueX() {
-            return primaryChromaticiesBlueX;
-        }
-        public String getPrimaryChromaticiesBlueY() {
-            return primaryChromaticiesBlueY;
-        }
-        public String getPrimaryChromaticiesGreenX() {
-            return primaryChromaticiesGreenX;
-        }
-        public String getPrimaryChromaticiesRedX() {
-            return primaryChromaticiesRedX;
-        }
-        public String getPrimaryChromaticiesRedY() {
-            return primaryChromaticiesRedY;
-        }
-
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + ((primaryChromaticieGreenY == null) ? 0 : primaryChromaticieGreenY.hashCode());
-			result = prime * result + ((primaryChromaticiesBlueX == null) ? 0 : primaryChromaticiesBlueX.hashCode());
-			result = prime * result + ((primaryChromaticiesBlueY == null) ? 0 : primaryChromaticiesBlueY.hashCode());
-			result = prime * result + ((primaryChromaticiesGreenX == null) ? 0 : primaryChromaticiesGreenX.hashCode());
-			result = prime * result + ((primaryChromaticiesRedX == null) ? 0 : primaryChromaticiesRedX.hashCode());
-			result = prime * result + ((primaryChromaticiesRedY == null) ? 0 : primaryChromaticiesRedY.hashCode());
-			return result;
-		}
-
-		@Override
+        @Override
 		public boolean equals(Object obj) {
 			if (this == obj)
 				return true;
@@ -311,6 +277,38 @@ public class ImageColorEncoding {
 				return false;
 			return true;
 		}
+        public String getPrimaryChromaticieGreenY() {
+            return primaryChromaticieGreenY;
+        }
+        public String getPrimaryChromaticiesBlueX() {
+            return primaryChromaticiesBlueX;
+        }
+        public String getPrimaryChromaticiesBlueY() {
+            return primaryChromaticiesBlueY;
+        }
+        public String getPrimaryChromaticiesGreenX() {
+            return primaryChromaticiesGreenX;
+        }
+        public String getPrimaryChromaticiesRedX() {
+            return primaryChromaticiesRedX;
+        }
+
+		public String getPrimaryChromaticiesRedY() {
+            return primaryChromaticiesRedY;
+        }
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((primaryChromaticieGreenY == null) ? 0 : primaryChromaticieGreenY.hashCode());
+			result = prime * result + ((primaryChromaticiesBlueX == null) ? 0 : primaryChromaticiesBlueX.hashCode());
+			result = prime * result + ((primaryChromaticiesBlueY == null) ? 0 : primaryChromaticiesBlueY.hashCode());
+			result = prime * result + ((primaryChromaticiesGreenX == null) ? 0 : primaryChromaticiesGreenX.hashCode());
+			result = prime * result + ((primaryChromaticiesRedX == null) ? 0 : primaryChromaticiesRedX.hashCode());
+			result = prime * result + ((primaryChromaticiesRedY == null) ? 0 : primaryChromaticiesRedY.hashCode());
+			return result;
+		}
         
     }
 
@@ -332,24 +330,7 @@ public class ImageColorEncoding {
             this.whitePointYValue = whitePointYValue;
         }
 
-        public String getWhitePointXValue() {
-            return whitePointXValue;
-        }
-
-        public String getWhitePointYValue() {
-            return whitePointYValue;
-        }
-
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + ((whitePointXValue == null) ? 0 : whitePointXValue.hashCode());
-			result = prime * result + ((whitePointYValue == null) ? 0 : whitePointYValue.hashCode());
-			return result;
-		}
-
-		@Override
+        @Override
 		public boolean equals(Object obj) {
 			if (this == obj)
 				return true;
@@ -369,6 +350,23 @@ public class ImageColorEncoding {
 			} else if (!whitePointYValue.equals(other.whitePointYValue))
 				return false;
 			return true;
+		}
+
+        public String getWhitePointXValue() {
+            return whitePointXValue;
+        }
+
+		public String getWhitePointYValue() {
+            return whitePointYValue;
+        }
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((whitePointXValue == null) ? 0 : whitePointXValue.hashCode());
+			result = prime * result + ((whitePointYValue == null) ? 0 : whitePointYValue.hashCode());
+			return result;
 		}
 
     }

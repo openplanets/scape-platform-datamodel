@@ -172,6 +172,12 @@ public abstract class MetsUtil {
 		return docBuilder.build();
 	}
 
+	public static MetsFile convertFile(File file) {
+		return new MetsFile.Builder(file.getIdentifier().getValue())
+				.addFileLocation(new MetsFileLocation.Builder(file.getIdentifier().getValue()).href(file.getUri()).build())
+				.build();
+	}
+
 	public static MetsMDWrap createMetsWrapper(MetsMetadata data) {
 		MetsMDWrap.Builder builder = new MetsMDWrap.Builder(new MetsXMLData(data));
 		if (data instanceof DCMetadata) {
@@ -418,11 +424,5 @@ public abstract class MetsUtil {
 	private static TechnicalMetadata getTechnical(String admId, MetsDocument doc) {
 		MetsAMDSec amd = getAdmSec(admId, doc.getAmdSecs());
 		return (TechnicalMetadata) amd.getTechnicalMetadata().getMetadataWrapper().getXmlData().getData();
-	}
-
-	public static MetsFile convertFile(File file) {
-		return new MetsFile.Builder(file.getIdentifier().getValue())
-				.addFileLocation(new MetsFileLocation.Builder(file.getIdentifier().getValue()).href(file.getUri()).build())
-				.build();
 	}
 }

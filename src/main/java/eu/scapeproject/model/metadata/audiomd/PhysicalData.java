@@ -84,98 +84,6 @@ public class PhysicalData {
         this.notes = builder.notes;
     }
 
-    public List<String> getConditions() {
-        return conditions;
-    }
-
-    public List<Dimension> getDimensions() {
-        return dimensions;
-    }
-
-    public List<String> getDispositions() {
-        return dispositions;
-    }
-
-    public List<String> getEbuStorageMediaCodes() {
-        return ebuStorageMediaCodes;
-    }
-
-    public List<String> getEqualizations() {
-        return equalizations;
-    }
-
-    public List<String> getGenerations() {
-        return generations;
-    }
-
-    public List<String> getGrooves() {
-        return grooves;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public List<Material> getMaterials() {
-        return materials;
-    }
-
-    public List<String> getNoiseReductions() {
-        return noiseReductions;
-    }
-
-    public List<String> getNotes() {
-        return notes;
-    }
-
-    public List<String> getPhysFormats() {
-        return physFormats;
-    }
-
-    public List<String> getSpeedAdjustments() {
-        return speedAdjustments;
-    }
-
-    public List<String> getSpeedNotes() {
-        return speedNotes;
-    }
-
-    public List<String> getSpeeds() {
-        return speeds;
-    }
-
-    public List<String> getTrackFormats() {
-        return trackFormats;
-    }
-
-    public List<TrackingInfo> getTrackings() {
-        return trackings;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((conditions == null) ? 0 : conditions.hashCode());
-        result = prime * result + ((dimensions == null) ? 0 : dimensions.hashCode());
-        result = prime * result + ((dispositions == null) ? 0 : dispositions.hashCode());
-        result = prime * result + ((ebuStorageMediaCodes == null) ? 0 : ebuStorageMediaCodes.hashCode());
-        result = prime * result + ((equalizations == null) ? 0 : equalizations.hashCode());
-        result = prime * result + ((generations == null) ? 0 : generations.hashCode());
-        result = prime * result + ((grooves == null) ? 0 : grooves.hashCode());
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((materials == null) ? 0 : materials.hashCode());
-        result = prime * result + ((noiseReductions == null) ? 0 : noiseReductions.hashCode());
-        result = prime * result + ((notes == null) ? 0 : notes.hashCode());
-        result = prime * result + ((physFormats == null) ? 0 : physFormats.hashCode());
-        result = prime * result + ((speedAdjustments == null) ? 0 : speedAdjustments.hashCode());
-        result = prime * result + ((speedNotes == null) ? 0 : speedNotes.hashCode());
-        result = prime * result + ((speeds == null) ? 0 : speeds.hashCode());
-        result = prime * result + ((trackFormats == null) ? 0 : trackFormats.hashCode());
-        result = prime * result + ((trackings == null) ? 0 : trackings.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -271,6 +179,98 @@ public class PhysicalData {
         } else if (!trackings.equals(other.trackings))
             return false;
         return true;
+    }
+
+    public List<String> getConditions() {
+        return conditions;
+    }
+
+    public List<Dimension> getDimensions() {
+        return dimensions;
+    }
+
+    public List<String> getDispositions() {
+        return dispositions;
+    }
+
+    public List<String> getEbuStorageMediaCodes() {
+        return ebuStorageMediaCodes;
+    }
+
+    public List<String> getEqualizations() {
+        return equalizations;
+    }
+
+    public List<String> getGenerations() {
+        return generations;
+    }
+
+    public List<String> getGrooves() {
+        return grooves;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public List<Material> getMaterials() {
+        return materials;
+    }
+
+    public List<String> getNoiseReductions() {
+        return noiseReductions;
+    }
+
+    public List<String> getNotes() {
+        return notes;
+    }
+
+    public List<String> getPhysFormats() {
+        return physFormats;
+    }
+
+    public List<String> getSpeedAdjustments() {
+        return speedAdjustments;
+    }
+
+    public List<String> getSpeedNotes() {
+        return speedNotes;
+    }
+
+    public List<String> getSpeeds() {
+        return speeds;
+    }
+
+    public List<String> getTrackFormats() {
+        return trackFormats;
+    }
+
+    public List<TrackingInfo> getTrackings() {
+        return trackings;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((conditions == null) ? 0 : conditions.hashCode());
+        result = prime * result + ((dimensions == null) ? 0 : dimensions.hashCode());
+        result = prime * result + ((dispositions == null) ? 0 : dispositions.hashCode());
+        result = prime * result + ((ebuStorageMediaCodes == null) ? 0 : ebuStorageMediaCodes.hashCode());
+        result = prime * result + ((equalizations == null) ? 0 : equalizations.hashCode());
+        result = prime * result + ((generations == null) ? 0 : generations.hashCode());
+        result = prime * result + ((grooves == null) ? 0 : grooves.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((materials == null) ? 0 : materials.hashCode());
+        result = prime * result + ((noiseReductions == null) ? 0 : noiseReductions.hashCode());
+        result = prime * result + ((notes == null) ? 0 : notes.hashCode());
+        result = prime * result + ((physFormats == null) ? 0 : physFormats.hashCode());
+        result = prime * result + ((speedAdjustments == null) ? 0 : speedAdjustments.hashCode());
+        result = prime * result + ((speedNotes == null) ? 0 : speedNotes.hashCode());
+        result = prime * result + ((speeds == null) ? 0 : speeds.hashCode());
+        result = prime * result + ((trackFormats == null) ? 0 : trackFormats.hashCode());
+        result = prime * result + ((trackings == null) ? 0 : trackings.hashCode());
+        return result;
     }
 
     public static class Builder {

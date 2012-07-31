@@ -56,63 +56,6 @@ public class Material {
         this.usedSides = builder.usedSides;
     }
 
-    public List<String> getActiveLayers() {
-        return activeLayers;
-    }
-
-    public List<String> getBaseMaterials() {
-        return baseMaterials;
-    }
-
-    public List<String> getBinders() {
-        return binders;
-    }
-
-    public List<String> getDiscSurfaces() {
-        return discSurfaces;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public List<String> getMethods() {
-        return methods;
-    }
-
-    public List<String> getOxides() {
-        return oxides;
-    }
-
-    public List<String> getReflectiveLayers() {
-        return reflectiveLayers;
-    }
-
-    public List<String> getStockBrands() {
-        return stockBrands;
-    }
-
-    public List<String> getUsedSides() {
-        return usedSides;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((activeLayers == null) ? 0 : activeLayers.hashCode());
-        result = prime * result + ((baseMaterials == null) ? 0 : baseMaterials.hashCode());
-        result = prime * result + ((binders == null) ? 0 : binders.hashCode());
-        result = prime * result + ((discSurfaces == null) ? 0 : discSurfaces.hashCode());
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((methods == null) ? 0 : methods.hashCode());
-        result = prime * result + ((oxides == null) ? 0 : oxides.hashCode());
-        result = prime * result + ((reflectiveLayers == null) ? 0 : reflectiveLayers.hashCode());
-        result = prime * result + ((stockBrands == null) ? 0 : stockBrands.hashCode());
-        result = prime * result + ((usedSides == null) ? 0 : usedSides.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -173,6 +116,63 @@ public class Material {
         } else if (!usedSides.equals(other.usedSides))
             return false;
         return true;
+    }
+
+    public List<String> getActiveLayers() {
+        return activeLayers;
+    }
+
+    public List<String> getBaseMaterials() {
+        return baseMaterials;
+    }
+
+    public List<String> getBinders() {
+        return binders;
+    }
+
+    public List<String> getDiscSurfaces() {
+        return discSurfaces;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public List<String> getMethods() {
+        return methods;
+    }
+
+    public List<String> getOxides() {
+        return oxides;
+    }
+
+    public List<String> getReflectiveLayers() {
+        return reflectiveLayers;
+    }
+
+    public List<String> getStockBrands() {
+        return stockBrands;
+    }
+
+    public List<String> getUsedSides() {
+        return usedSides;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((activeLayers == null) ? 0 : activeLayers.hashCode());
+        result = prime * result + ((baseMaterials == null) ? 0 : baseMaterials.hashCode());
+        result = prime * result + ((binders == null) ? 0 : binders.hashCode());
+        result = prime * result + ((discSurfaces == null) ? 0 : discSurfaces.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((methods == null) ? 0 : methods.hashCode());
+        result = prime * result + ((oxides == null) ? 0 : oxides.hashCode());
+        result = prime * result + ((reflectiveLayers == null) ? 0 : reflectiveLayers.hashCode());
+        result = prime * result + ((stockBrands == null) ? 0 : stockBrands.hashCode());
+        result = prime * result + ((usedSides == null) ? 0 : usedSides.hashCode());
+        return result;
     }
 
     public static class Builder {

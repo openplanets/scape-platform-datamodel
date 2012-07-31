@@ -25,23 +25,6 @@ public class FitsIdentification {
         this.status = status;
     }
 
-    public List<FitsIdentity> getIdentities() {
-        return identities;
-    }
-
-    public FitsStatus getStatus() {
-        return status;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((identities == null) ? 0 : identities.hashCode());
-        result = prime * result + ((status == null) ? 0 : status.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -59,6 +42,23 @@ public class FitsIdentification {
         if (status != other.status)
             return false;
         return true;
+    }
+
+    public List<FitsIdentity> getIdentities() {
+        return identities;
+    }
+
+    public FitsStatus getStatus() {
+        return status;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((identities == null) ? 0 : identities.hashCode());
+        result = prime * result + ((status == null) ? 0 : status.hashCode());
+        return result;
     }
     
 }

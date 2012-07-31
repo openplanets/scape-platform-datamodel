@@ -24,11 +24,11 @@ public class VersionList {
         this.entityId = entitiyId;
     }
 
-    public List<String> getVersionIdentifiers() {
-        return versionIdentifiers;
-    };
-
     public String getEntityId() {
         return entityId;
+    };
+
+    public List<String> getVersionIdentifiers() {
+        return versionIdentifiers;
     }
 }

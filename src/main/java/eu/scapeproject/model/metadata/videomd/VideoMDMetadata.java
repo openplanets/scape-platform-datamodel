@@ -24,23 +24,6 @@ public class VideoMDMetadata extends TechnicalMetadata {
         this.videoSrc = videoSrc;
     }
 
-    public Video getVideoMD() {
-        return videoMD;
-    }
-
-    public Video getVideoSrc() {
-        return videoSrc;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((videoMD == null) ? 0 : videoMD.hashCode());
-        result = prime * result + ((videoSrc == null) ? 0 : videoSrc.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -61,6 +44,23 @@ public class VideoMDMetadata extends TechnicalMetadata {
         } else if (!videoSrc.equals(other.videoSrc))
             return false;
         return true;
+    }
+
+    public Video getVideoMD() {
+        return videoMD;
+    }
+
+    public Video getVideoSrc() {
+        return videoSrc;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((videoMD == null) ? 0 : videoMD.hashCode());
+        result = prime * result + ((videoSrc == null) ? 0 : videoSrc.hashCode());
+        return result;
     }
 
 }

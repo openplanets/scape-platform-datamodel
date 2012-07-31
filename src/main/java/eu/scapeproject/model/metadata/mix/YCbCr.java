@@ -19,20 +19,6 @@ public class YCbCr {
         this.yCbCrSubSampling = yCbCrSubSmapling;
     }
 
-    public YCbCrSubSampling getyCbCrSubSmapling() {
-        return yCbCrSubSampling;
-    }
-    
-    
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((yCbCrSubSampling == null) ? 0 : yCbCrSubSampling.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -48,6 +34,20 @@ public class YCbCr {
         } else if (!yCbCrSubSampling.equals(other.yCbCrSubSampling))
             return false;
         return true;
+    }
+    
+    
+
+    public YCbCrSubSampling getyCbCrSubSmapling() {
+        return yCbCrSubSampling;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((yCbCrSubSampling == null) ? 0 : yCbCrSubSampling.hashCode());
+        return result;
     }
 
 
@@ -70,23 +70,6 @@ public class YCbCr {
             this.vert = vert;
         }
 
-        public SubSampling getHoriz() {
-            return horiz;
-        }
-
-        public SubSampling getVert() {
-            return vert;
-        }
-        
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((horiz == null) ? 0 : horiz.hashCode());
-            result = prime * result + ((vert == null) ? 0 : vert.hashCode());
-            return result;
-        }
-
         @Override
         public boolean equals(Object obj) {
             if (this == obj)
@@ -101,6 +84,23 @@ public class YCbCr {
             if (vert != other.vert)
                 return false;
             return true;
+        }
+
+        public SubSampling getHoriz() {
+            return horiz;
+        }
+        
+        public SubSampling getVert() {
+            return vert;
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((horiz == null) ? 0 : horiz.hashCode());
+            result = prime * result + ((vert == null) ? 0 : vert.hashCode());
+            return result;
         }
 
         public enum SubSampling {

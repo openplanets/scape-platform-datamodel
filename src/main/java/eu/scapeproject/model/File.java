@@ -34,33 +34,6 @@ public class File {
         this.identifier=builder.identifier;
     }
 
-    public List<BitStream> getBitStreams() {
-        return bitStreams;
-    }
-
-    public TechnicalMetadata getTechnical() {
-        return technical;
-    }
-
-    public URI getUri() {
-        return uri;
-    }
-    
-    public Identifier getIdentifier() {
-        return identifier;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((bitStreams == null) ? 0 : bitStreams.hashCode());
-        result = prime * result + ((technical == null) ? 0 : technical.hashCode());
-        result = prime * result + ((uri == null) ? 0 : uri.hashCode());
-        result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -93,6 +66,33 @@ public class File {
         return true;
     }
 
+    public List<BitStream> getBitStreams() {
+        return bitStreams;
+    }
+
+    public Identifier getIdentifier() {
+        return identifier;
+    }
+    
+    public TechnicalMetadata getTechnical() {
+        return technical;
+    }
+
+    public URI getUri() {
+        return uri;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((bitStreams == null) ? 0 : bitStreams.hashCode());
+        result = prime * result + ((technical == null) ? 0 : technical.hashCode());
+        result = prime * result + ((uri == null) ? 0 : uri.hashCode());
+        result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
+        return result;
+    }
+
     public static class Builder {
         private TechnicalMetadata technical;
         private List<BitStream> bitStreams;
@@ -111,16 +111,16 @@ public class File {
         	this.identifier=orig.identifier;
         }
         
-        public Builder bitStreams(List<BitStream> bitStreams) {
-            this.bitStreams = bitStreams;
-            return this;
-        }
-
         public Builder bitStream(BitStream bitStream) {
         	if (this.bitStreams == null){
         		this.bitStreams=new ArrayList<BitStream>();
         	}
             this.bitStreams.add(bitStream);
+            return this;
+        }
+
+        public Builder bitStreams(List<BitStream> bitStreams) {
+            this.bitStreams = bitStreams;
             return this;
         }
 
@@ -131,18 +131,18 @@ public class File {
             return new File(this);
         }
 
+        public Builder identifier(Identifier identifier){
+            this.identifier=identifier;
+            return this;
+        }
+
         public Builder technical(TechnicalMetadata technical) {
             this.technical = technical;
             return this;
         }
-
+        
         public Builder uri(URI uri) {
             this.uri = uri;
-            return this;
-        }
-        
-        public Builder identifier(Identifier identifier){
-            this.identifier=identifier;
             return this;
         }
     }

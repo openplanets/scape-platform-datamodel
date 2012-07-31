@@ -41,48 +41,6 @@ public class DigitalCameraCapture {
         this.gpsData = builder.gpsData;
     }
 
-    public String getDigitalCameraManufacturer() {
-        return digitalCameraManufacturer;
-    }
-
-    public String getDigitalCameraModelName() {
-        return digitalCameraModelName;
-    }
-
-    public String getDigitalCameraModelNumber() {
-        return digitalCameraModelNumber;
-    }
-
-    public String getDigitalCameraModelSerialNo() {
-        return digitalCameraModelSerialNo;
-    }
-
-    public String getDigitalCameraSensor() {
-        return digitalCameraSensor;
-    }
-
-    public GPSData getGpsData() {
-        return gpsData;
-    }
-
-    public ImageData getImageData() {
-        return imageData;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((digitalCameraManufacturer == null) ? 0 : digitalCameraManufacturer.hashCode());
-        result = prime * result + ((digitalCameraModelName == null) ? 0 : digitalCameraModelName.hashCode());
-        result = prime * result + ((digitalCameraModelNumber == null) ? 0 : digitalCameraModelNumber.hashCode());
-        result = prime * result + ((digitalCameraModelSerialNo == null) ? 0 : digitalCameraModelSerialNo.hashCode());
-        result = prime * result + ((digitalCameraSensor == null) ? 0 : digitalCameraSensor.hashCode());
-        result = prime * result + ((gpsData == null) ? 0 : gpsData.hashCode());
-        result = prime * result + ((imageData == null) ? 0 : imageData.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -128,6 +86,48 @@ public class DigitalCameraCapture {
         } else if (!imageData.equals(other.imageData))
             return false;
         return true;
+    }
+
+    public String getDigitalCameraManufacturer() {
+        return digitalCameraManufacturer;
+    }
+
+    public String getDigitalCameraModelName() {
+        return digitalCameraModelName;
+    }
+
+    public String getDigitalCameraModelNumber() {
+        return digitalCameraModelNumber;
+    }
+
+    public String getDigitalCameraModelSerialNo() {
+        return digitalCameraModelSerialNo;
+    }
+
+    public String getDigitalCameraSensor() {
+        return digitalCameraSensor;
+    }
+
+    public GPSData getGpsData() {
+        return gpsData;
+    }
+
+    public ImageData getImageData() {
+        return imageData;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((digitalCameraManufacturer == null) ? 0 : digitalCameraManufacturer.hashCode());
+        result = prime * result + ((digitalCameraModelName == null) ? 0 : digitalCameraModelName.hashCode());
+        result = prime * result + ((digitalCameraModelNumber == null) ? 0 : digitalCameraModelNumber.hashCode());
+        result = prime * result + ((digitalCameraModelSerialNo == null) ? 0 : digitalCameraModelSerialNo.hashCode());
+        result = prime * result + ((digitalCameraSensor == null) ? 0 : digitalCameraSensor.hashCode());
+        result = prime * result + ((gpsData == null) ? 0 : gpsData.hashCode());
+        result = prime * result + ((imageData == null) ? 0 : imageData.hashCode());
+        return result;
     }
 
     public static class Builder {

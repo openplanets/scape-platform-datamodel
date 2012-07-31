@@ -3,9 +3,7 @@ package eu.scapeproject.model.test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.List;
 
 import javax.xml.XMLConstants;
@@ -58,31 +56,6 @@ public abstract class ValidationUtil {
         }
     }
     
-    public static void validateXML(InputStream metsIn,InputStream schemaIn) throws Exception{
-        SchemaFactory fac=SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema s=fac.newSchema(new StreamSource(schemaIn));
-        Validator validator=s.newValidator();
-        ErrorHandler h=new ErrorHandler() {
-            @Override
-            public void warning(SAXParseException exception) throws SAXException {
-                exception.printStackTrace();
-            }
-            
-            @Override
-            public void fatalError(SAXParseException exception) throws SAXException {
-                exception.printStackTrace();
-            }
-            
-            @Override
-            public void error(SAXParseException exception) throws SAXException {
-                exception.printStackTrace();
-            }
-        };
-        validator.setErrorHandler(h);
-        validator.validate(new StreamSource(metsIn));
-    }
-    
-
     public static void validateDescriptiveMetadata(DescriptiveMetadata metadata) {
         DCMetadata dc=(DCMetadata) metadata;
         assertNotNull(dc.getDescription());
@@ -101,6 +74,7 @@ public abstract class ValidationUtil {
         assertTrue(dc.getTitle().size() > 0);
         assertTrue(dc.getType().size() > 0);
     }
+    
 
     public static void validateEncoding(Encoding enc) {
         validateEncodingAgent(enc.getAgent());
@@ -112,12 +86,12 @@ public abstract class ValidationUtil {
         assertNotNull(ag.getRole());
     }
 
-
     public static void validateEncodingAgents(List<EncodingAgent> encodingAgents) {
         for (EncodingAgent ag : encodingAgents) {
             validateEncodingAgent(ag);
         }
     }
+
 
     public static void validateEncodingPlatform(EncodingPlatform pl) {
         assertNotNull(pl.getLineBreak());
@@ -173,5 +147,29 @@ public abstract class ValidationUtil {
             assertNotNull(niso.getBasicImageInformation().getBasicImageCharacteristics().getHeight());
             assertNotNull(niso.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getYbCbCr());
         }
+    }
+
+    public static void validateXML(InputStream metsIn,InputStream schemaIn) throws Exception{
+        SchemaFactory fac=SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        Schema s=fac.newSchema(new StreamSource(schemaIn));
+        Validator validator=s.newValidator();
+        ErrorHandler h=new ErrorHandler() {
+            @Override
+            public void error(SAXParseException exception) throws SAXException {
+                exception.printStackTrace();
+            }
+            
+            @Override
+            public void fatalError(SAXParseException exception) throws SAXException {
+                exception.printStackTrace();
+            }
+            
+            @Override
+            public void warning(SAXParseException exception) throws SAXException {
+                exception.printStackTrace();
+            }
+        };
+        validator.setErrorHandler(h);
+        validator.validate(new StreamSource(metsIn));
     }
 }

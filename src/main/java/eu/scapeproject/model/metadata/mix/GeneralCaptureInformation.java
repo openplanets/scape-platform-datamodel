@@ -34,28 +34,6 @@ public class GeneralCaptureInformation {
         this.captureDevice = captureDevice;
     }
 
-    public CaptureDevice getCaptureDevice() {
-        return captureDevice;
-    }
-
-    public Date getDateTimeCreated() {
-        return dateTimeCreated;
-    }
-
-    public List<String> getImageProducers() {
-        return imageProducers;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((captureDevice == null) ? 0 : captureDevice.hashCode());
-        result = prime * result + ((dateTimeCreated == null) ? 0 : dateTimeCreated.hashCode());
-        result = prime * result + ((imageProducers == null) ? 0 : imageProducers.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -78,6 +56,28 @@ public class GeneralCaptureInformation {
         } else if (!imageProducers.equals(other.imageProducers))
             return false;
         return true;
+    }
+
+    public CaptureDevice getCaptureDevice() {
+        return captureDevice;
+    }
+
+    public Date getDateTimeCreated() {
+        return dateTimeCreated;
+    }
+
+    public List<String> getImageProducers() {
+        return imageProducers;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((captureDevice == null) ? 0 : captureDevice.hashCode());
+        result = prime * result + ((dateTimeCreated == null) ? 0 : dateTimeCreated.hashCode());
+        result = prime * result + ((imageProducers == null) ? 0 : imageProducers.hashCode());
+        return result;
     }
 
     public enum CaptureDevice {

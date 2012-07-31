@@ -23,23 +23,6 @@ public class ChannelAssignment {
 		this.mapLocation = mapLocation;
 	}
 
-	public int getChannelNum() {
-		return channelNum;
-	}
-
-	public String getMapLocation() {
-		return mapLocation;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + channelNum;
-		result = prime * result + ((mapLocation == null) ? 0 : mapLocation.hashCode());
-		return result;
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -57,6 +40,23 @@ public class ChannelAssignment {
 		} else if (!mapLocation.equals(other.mapLocation))
 			return false;
 		return true;
+	}
+
+	public int getChannelNum() {
+		return channelNum;
+	}
+
+	public String getMapLocation() {
+		return mapLocation;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + channelNum;
+		result = prime * result + ((mapLocation == null) ? 0 : mapLocation.hashCode());
+		return result;
 	}
 
 }

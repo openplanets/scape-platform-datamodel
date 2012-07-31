@@ -85,98 +85,6 @@ public class VideoFileData extends MediaDataType {
 		this.sound = builder.sound;
 	}
 
-	public List<Integer> getBitsPerSample() {
-		return bitsPerSample;
-	}
-
-	public List<Integer> getByteOrder() {
-		return byteOrder;
-	}
-
-	public String getColor() {
-		return color;
-	}
-
-	public List<VideoCompression> getComressions() {
-		return comressions;
-	}
-
-	public List<String> getDataRateMode() {
-		return dataRateMode;
-	}
-
-	public List<String> getDataRateUnit() {
-		return dataRateUnit;
-	}
-
-	public List<VideoFormat> getFormats() {
-		return formats;
-	}
-
-	public VideoFrame getFrame() {
-		return frame;
-	}
-
-	public VideoVariableRate getFrameRate() {
-		return frameRate;
-	}
-
-	public List<String> getLocations() {
-		return locations;
-	}
-
-	public VideoMessageDigest getMessageDigest() {
-		return messageDigest;
-	}
-
-	public String getOtherColor() {
-		return otherColor;
-	}
-
-	public VideoVariableRate getSampleRate() {
-		return sampleRate;
-	}
-
-	public List<String> getSampling() {
-		return sampling;
-	}
-
-	public List<String> getSignalFormat() {
-		return signalFormat;
-	}
-
-	public List<String> getSound() {
-		return sound;
-	}
-
-	public List<VideoTrack> getTracks() {
-		return tracks;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((bitsPerSample == null) ? 0 : bitsPerSample.hashCode());
-		result = prime * result + ((byteOrder == null) ? 0 : byteOrder.hashCode());
-		result = prime * result + ((color == null) ? 0 : color.hashCode());
-		result = prime * result + ((comressions == null) ? 0 : comressions.hashCode());
-		result = prime * result + ((dataRateMode == null) ? 0 : dataRateMode.hashCode());
-		result = prime * result + ((dataRateUnit == null) ? 0 : dataRateUnit.hashCode());
-		result = prime * result + ((formats == null) ? 0 : formats.hashCode());
-		result = prime * result + ((frame == null) ? 0 : frame.hashCode());
-		result = prime * result + ((frameRate == null) ? 0 : frameRate.hashCode());
-		result = prime * result + ((locations == null) ? 0 : locations.hashCode());
-		result = prime * result + ((messageDigest == null) ? 0 : messageDigest.hashCode());
-		result = prime * result + ((otherColor == null) ? 0 : otherColor.hashCode());
-		result = prime * result + ((sampleRate == null) ? 0 : sampleRate.hashCode());
-		result = prime * result + ((sampling == null) ? 0 : sampling.hashCode());
-		result = prime * result + ((signalFormat == null) ? 0 : signalFormat.hashCode());
-		result = prime * result + ((sound == null) ? 0 : sound.hashCode());
-		result = prime * result + ((tracks == null) ? 0 : tracks.hashCode());
-		return result;
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -274,6 +182,98 @@ public class VideoFileData extends MediaDataType {
 		return true;
 	}
 
+	public List<Integer> getBitsPerSample() {
+		return bitsPerSample;
+	}
+
+	public List<Integer> getByteOrder() {
+		return byteOrder;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public List<VideoCompression> getComressions() {
+		return comressions;
+	}
+
+	public List<String> getDataRateMode() {
+		return dataRateMode;
+	}
+
+	public List<String> getDataRateUnit() {
+		return dataRateUnit;
+	}
+
+	public List<VideoFormat> getFormats() {
+		return formats;
+	}
+
+	public VideoFrame getFrame() {
+		return frame;
+	}
+
+	public VideoVariableRate getFrameRate() {
+		return frameRate;
+	}
+
+	public List<String> getLocations() {
+		return locations;
+	}
+
+	public VideoMessageDigest getMessageDigest() {
+		return messageDigest;
+	}
+
+	public String getOtherColor() {
+		return otherColor;
+	}
+
+	public VideoVariableRate getSampleRate() {
+		return sampleRate;
+	}
+
+	public List<String> getSampling() {
+		return sampling;
+	}
+
+	public List<String> getSignalFormat() {
+		return signalFormat;
+	}
+
+	public List<String> getSound() {
+		return sound;
+	}
+
+	public List<VideoTrack> getTracks() {
+		return tracks;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((bitsPerSample == null) ? 0 : bitsPerSample.hashCode());
+		result = prime * result + ((byteOrder == null) ? 0 : byteOrder.hashCode());
+		result = prime * result + ((color == null) ? 0 : color.hashCode());
+		result = prime * result + ((comressions == null) ? 0 : comressions.hashCode());
+		result = prime * result + ((dataRateMode == null) ? 0 : dataRateMode.hashCode());
+		result = prime * result + ((dataRateUnit == null) ? 0 : dataRateUnit.hashCode());
+		result = prime * result + ((formats == null) ? 0 : formats.hashCode());
+		result = prime * result + ((frame == null) ? 0 : frame.hashCode());
+		result = prime * result + ((frameRate == null) ? 0 : frameRate.hashCode());
+		result = prime * result + ((locations == null) ? 0 : locations.hashCode());
+		result = prime * result + ((messageDigest == null) ? 0 : messageDigest.hashCode());
+		result = prime * result + ((otherColor == null) ? 0 : otherColor.hashCode());
+		result = prime * result + ((sampleRate == null) ? 0 : sampleRate.hashCode());
+		result = prime * result + ((sampling == null) ? 0 : sampling.hashCode());
+		result = prime * result + ((signalFormat == null) ? 0 : signalFormat.hashCode());
+		result = prime * result + ((sound == null) ? 0 : sound.hashCode());
+		result = prime * result + ((tracks == null) ? 0 : tracks.hashCode());
+		return result;
+	}
+
 	public static class Builder {
 		private List<Integer> bitsPerSample;
 		private List<Integer> byteOrder;
@@ -302,51 +302,6 @@ public class VideoFileData extends MediaDataType {
 		private List<String> uses;
 		private List<String> otherUses;
 
-		public Builder duration(String duration) {
-			this.duration = duration;
-			return this;
-		}
-
-		public Builder trackingInfos(List<VideoTrackingInfo> trackingInfos) {
-			this.trackingInfos = trackingInfos;
-			return this;
-		}
-
-		public Builder language(List<VideoLanguage> languages) {
-			this.languages = languages;
-			return this;
-		}
-
-		public Builder security(String security) {
-			this.security = security;
-			return this;
-		}
-
-		public Builder size(int size) {
-			this.size = size;
-			return this;
-		}
-
-		public Builder dataRate(VideoVariableRate dataRate) {
-			this.dataRate = dataRate;
-			return this;
-		}
-
-		public Builder timeCodes(List<VideoTimeCode> timeCodes) {
-			this.timeCodes = timeCodes;
-			return this;
-		}
-
-		public Builder uses(List<String> uses) {
-			this.uses = uses;
-			return this;
-		}
-
-		public Builder otherUses(List<String> otherUses) {
-			this.otherUses = otherUses;
-			return this;
-		}
-
 		public Builder bitsPerSample(List<Integer> bitsPerSample) {
 			this.bitsPerSample = bitsPerSample;
 			return this;
@@ -371,6 +326,11 @@ public class VideoFileData extends MediaDataType {
 			return this;
 		}
 
+		public Builder dataRate(VideoVariableRate dataRate) {
+			this.dataRate = dataRate;
+			return this;
+		}
+
 		public Builder dataRateMode(List<String> dataRateMode) {
 			this.dataRateMode = dataRateMode;
 			return this;
@@ -378,6 +338,11 @@ public class VideoFileData extends MediaDataType {
 
 		public Builder dataRateUnit(List<String> dataRateUnit) {
 			this.dataRateUnit = dataRateUnit;
+			return this;
+		}
+
+		public Builder duration(String duration) {
+			this.duration = duration;
 			return this;
 		}
 
@@ -396,6 +361,11 @@ public class VideoFileData extends MediaDataType {
 			return this;
 		}
 
+		public Builder language(List<VideoLanguage> languages) {
+			this.languages = languages;
+			return this;
+		}
+
 		public Builder locations(List<String> locations) {
 			this.locations = locations;
 			return this;
@@ -411,6 +381,11 @@ public class VideoFileData extends MediaDataType {
 			return this;
 		}
 
+		public Builder otherUses(List<String> otherUses) {
+			this.otherUses = otherUses;
+			return this;
+		}
+
 		public Builder sampleRate(VideoVariableRate sampleRate) {
 			this.sampleRate = sampleRate;
 			return this;
@@ -421,8 +396,18 @@ public class VideoFileData extends MediaDataType {
 			return this;
 		}
 
+		public Builder security(String security) {
+			this.security = security;
+			return this;
+		}
+
 		public Builder signalFormat(List<String> signalFormat) {
 			this.signalFormat = signalFormat;
+			return this;
+		}
+
+		public Builder size(int size) {
+			this.size = size;
 			return this;
 		}
 
@@ -431,8 +416,23 @@ public class VideoFileData extends MediaDataType {
 			return this;
 		}
 
+		public Builder timeCodes(List<VideoTimeCode> timeCodes) {
+			this.timeCodes = timeCodes;
+			return this;
+		}
+
+		public Builder trackingInfos(List<VideoTrackingInfo> trackingInfos) {
+			this.trackingInfos = trackingInfos;
+			return this;
+		}
+
 		public Builder tracks(List<VideoTrack> tracks) {
 			this.tracks = tracks;
+			return this;
+		}
+
+		public Builder uses(List<String> uses) {
+			this.uses = uses;
 			return this;
 		}
 	}

@@ -36,38 +36,6 @@ public class Compression {
         this.codecQualities = builder.codecQualities;
     }
 
-    public List<String> getCodecCreatorApps() {
-        return codecCreatorApps;
-    }
-
-    public List<String> getCodecCreatorAppVersions() {
-        return codecCreatorAppVersions;
-    }
-
-    public List<String> getCodecNames() {
-        return codecNames;
-    }
-
-    public List<CodecQuality> getCodecQualities() {
-        return codecQualities;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((codecCreatorAppVersions == null) ? 0 : codecCreatorAppVersions.hashCode());
-        result = prime * result + ((codecCreatorApps == null) ? 0 : codecCreatorApps.hashCode());
-        result = prime * result + ((codecNames == null) ? 0 : codecNames.hashCode());
-        result = prime * result + ((codecQualities == null) ? 0 : codecQualities.hashCode());
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -103,6 +71,38 @@ public class Compression {
         } else if (!id.equals(other.id))
             return false;
         return true;
+    }
+
+    public List<String> getCodecCreatorApps() {
+        return codecCreatorApps;
+    }
+
+    public List<String> getCodecCreatorAppVersions() {
+        return codecCreatorAppVersions;
+    }
+
+    public List<String> getCodecNames() {
+        return codecNames;
+    }
+
+    public List<CodecQuality> getCodecQualities() {
+        return codecQualities;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((codecCreatorAppVersions == null) ? 0 : codecCreatorAppVersions.hashCode());
+        result = prime * result + ((codecCreatorApps == null) ? 0 : codecCreatorApps.hashCode());
+        result = prime * result + ((codecNames == null) ? 0 : codecNames.hashCode());
+        result = prime * result + ((codecQualities == null) ? 0 : codecQualities.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
     }
 
     public static class Builder {

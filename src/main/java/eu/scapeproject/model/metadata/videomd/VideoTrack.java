@@ -71,84 +71,6 @@ public class VideoTrack extends MediaDataType {
         this.signalFormat = builder.signalFormat;
     }
 
-    public float getBitsPerPixelStored() {
-        return bitsPerPixelStored;
-    }
-
-    public int getBitsPerSample() {
-        return bitsPerSample;
-    }
-
-    public VideoCodec getCodec() {
-        return codec;
-    }
-
-    public float getCompressionRatio() {
-        return compressionRatio;
-    }
-
-    public VideoFrame getFrame() {
-        return frame;
-    }
-
-    public VideoVariableRate getFrameRate() {
-        return frameRate;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public int getNum() {
-        return num;
-    }
-
-    public String getQuality() {
-        return quality;
-    }
-
-    public int getSampleCount() {
-        return sampleCount;
-    }
-
-    public VideoVariableRate getSampleRate() {
-        return sampleRate;
-    }
-
-    public String getSampling() {
-        return sampling;
-    }
-
-    public String getSignalFormat() {
-        return signalFormat;
-    }
-    
-
-    public String getType() {
-        return type;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + Float.floatToIntBits(bitsPerPixelStored);
-        result = prime * result + bitsPerSample;
-        result = prime * result + ((codec == null) ? 0 : codec.hashCode());
-        result = prime * result + Float.floatToIntBits(compressionRatio);
-        result = prime * result + ((frame == null) ? 0 : frame.hashCode());
-        result = prime * result + ((frameRate == null) ? 0 : frameRate.hashCode());
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + num;
-        result = prime * result + ((quality == null) ? 0 : quality.hashCode());
-        result = prime * result + sampleCount;
-        result = prime * result + ((sampleRate == null) ? 0 : sampleRate.hashCode());
-        result = prime * result + ((sampling == null) ? 0 : sampling.hashCode());
-        result = prime * result + ((signalFormat == null) ? 0 : signalFormat.hashCode());
-        result = prime * result + ((type == null) ? 0 : type.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -214,6 +136,84 @@ public class VideoTrack extends MediaDataType {
         } else if (!type.equals(other.type))
             return false;
         return true;
+    }
+
+    public float getBitsPerPixelStored() {
+        return bitsPerPixelStored;
+    }
+
+    public int getBitsPerSample() {
+        return bitsPerSample;
+    }
+
+    public VideoCodec getCodec() {
+        return codec;
+    }
+
+    public float getCompressionRatio() {
+        return compressionRatio;
+    }
+
+    public VideoFrame getFrame() {
+        return frame;
+    }
+
+    public VideoVariableRate getFrameRate() {
+        return frameRate;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public String getQuality() {
+        return quality;
+    }
+
+    public int getSampleCount() {
+        return sampleCount;
+    }
+
+    public VideoVariableRate getSampleRate() {
+        return sampleRate;
+    }
+
+    public String getSampling() {
+        return sampling;
+    }
+    
+
+    public String getSignalFormat() {
+        return signalFormat;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + Float.floatToIntBits(bitsPerPixelStored);
+        result = prime * result + bitsPerSample;
+        result = prime * result + ((codec == null) ? 0 : codec.hashCode());
+        result = prime * result + Float.floatToIntBits(compressionRatio);
+        result = prime * result + ((frame == null) ? 0 : frame.hashCode());
+        result = prime * result + ((frameRate == null) ? 0 : frameRate.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + num;
+        result = prime * result + ((quality == null) ? 0 : quality.hashCode());
+        result = prime * result + sampleCount;
+        result = prime * result + ((sampleRate == null) ? 0 : sampleRate.hashCode());
+        result = prime * result + ((sampling == null) ? 0 : sampling.hashCode());
+        result = prime * result + ((signalFormat == null) ? 0 : signalFormat.hashCode());
+        result = prime * result + ((type == null) ? 0 : type.hashCode());
+        return result;
     }
 
     public static class Builder {

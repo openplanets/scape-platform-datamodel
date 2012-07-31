@@ -30,23 +30,6 @@ public class LinkingAgent {
         this.linkingAgentRole = linkingAgentRole;
     }
 
-    public Identifier getLinkingAgentIdentifier() {
-        return linkingAgentIdentifier;
-    }
-
-    public List<String> getLinkingAgentRole() {
-        return linkingAgentRole;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((linkingAgentIdentifier == null) ? 0 : linkingAgentIdentifier.hashCode());
-        result = prime * result + ((linkingAgentRole == null) ? 0 : linkingAgentRole.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -67,6 +50,23 @@ public class LinkingAgent {
         } else if (!linkingAgentRole.equals(other.linkingAgentRole))
             return false;
         return true;
+    }
+
+    public Identifier getLinkingAgentIdentifier() {
+        return linkingAgentIdentifier;
+    }
+
+    public List<String> getLinkingAgentRole() {
+        return linkingAgentRole;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((linkingAgentIdentifier == null) ? 0 : linkingAgentIdentifier.hashCode());
+        result = prime * result + ((linkingAgentRole == null) ? 0 : linkingAgentRole.hashCode());
+        return result;
     }
     
     

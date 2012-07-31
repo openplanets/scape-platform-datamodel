@@ -13,31 +13,19 @@ public class PremisProvenanceMetadata extends ProvenanceMetadata {
     @XmlElement(name = "event",namespace="http://www.loc.gov/standards/premis")
     private final List<Event> events;
 
-    public PremisProvenanceMetadata(Builder b){
-    	super("premis");
-    	this.events=b.events;
-    }
-    
     private PremisProvenanceMetadata() {
         super("premis");
         this.events=null;
+    }
+    
+    public PremisProvenanceMetadata(Builder b){
+    	super("premis");
+    	this.events=b.events;
     }
 
     public PremisProvenanceMetadata(List<Event> events) {
         super("premis");
         this.events = events;
-    }
-
-    public List<Event> getEvents() {
-        return events;
-    }
-    
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((events == null) ? 0 : events.hashCode());
-        return result;
     }
 
     @Override
@@ -56,6 +44,18 @@ public class PremisProvenanceMetadata extends ProvenanceMetadata {
             return false;
         return true;
     }
+    
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((events == null) ? 0 : events.hashCode());
+        return result;
+    }
 
     public static class Builder{
     	private List<Event> events;
@@ -73,13 +73,13 @@ public class PremisProvenanceMetadata extends ProvenanceMetadata {
     		}
     	}
     	
+    	public PremisProvenanceMetadata build() {
+    		return new PremisProvenanceMetadata(this);
+    	}
+    	
     	public Builder events(List<Event> events) {
     		this.events=events;
     		return this;
-    	}
-    	
-    	public PremisProvenanceMetadata build() {
-    		return new PremisProvenanceMetadata(this);
     	}
     }
 }

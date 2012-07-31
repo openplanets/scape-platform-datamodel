@@ -53,48 +53,6 @@ public class Event {
         this.linkingObjects = builder.linkingObjects;
     }
 
-    public Date getDateTime() {
-        return dateTime;
-    }
-
-    public String getDetail() {
-        return detail;
-    }
-
-    public Identifier getIdentifier() {
-        return identifier;
-    }
-
-    public List<Agent> getLinkingAgents() {
-        return linkingAgents;
-    }
-
-    public List<IntellectualEntity> getLinkingObjects() {
-        return linkingObjects;
-    }
-
-    public List<Outcome> getOutcome() {
-        return outcome;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((dateTime == null) ? 0 : dateTime.hashCode());
-        result = prime * result + ((detail == null) ? 0 : detail.hashCode());
-        result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
-        result = prime * result + ((linkingAgents == null) ? 0 : linkingAgents.hashCode());
-        result = prime * result + ((linkingObjects == null) ? 0 : linkingObjects.hashCode());
-        result = prime * result + ((outcome == null) ? 0 : outcome.hashCode());
-        result = prime * result + ((type == null) ? 0 : type.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -140,6 +98,48 @@ public class Event {
         } else if (!type.equals(other.type))
             return false;
         return true;
+    }
+
+    public Date getDateTime() {
+        return dateTime;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public Identifier getIdentifier() {
+        return identifier;
+    }
+
+    public List<Agent> getLinkingAgents() {
+        return linkingAgents;
+    }
+
+    public List<IntellectualEntity> getLinkingObjects() {
+        return linkingObjects;
+    }
+
+    public List<Outcome> getOutcome() {
+        return outcome;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((dateTime == null) ? 0 : dateTime.hashCode());
+        result = prime * result + ((detail == null) ? 0 : detail.hashCode());
+        result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
+        result = prime * result + ((linkingAgents == null) ? 0 : linkingAgents.hashCode());
+        result = prime * result + ((linkingObjects == null) ? 0 : linkingObjects.hashCode());
+        result = prime * result + ((outcome == null) ? 0 : outcome.hashCode());
+        result = prime * result + ((type == null) ? 0 : type.hashCode());
+        return result;
     }
 
     public static class Builder {

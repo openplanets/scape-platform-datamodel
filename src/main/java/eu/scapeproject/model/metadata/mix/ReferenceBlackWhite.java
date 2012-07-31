@@ -25,6 +25,22 @@ public class ReferenceBlackWhite {
         this.referenceWhite = referenceWhite;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ReferenceBlackWhite other = (ReferenceBlackWhite) obj;
+        if (!Arrays.equals(referenceBlack, other.referenceBlack))
+            return false;
+        if (!Arrays.equals(referenceWhite, other.referenceWhite))
+            return false;
+        return true;
+    }
+
     public double[] getReferenceBlack() {
         return referenceBlack;
     }
@@ -40,22 +56,6 @@ public class ReferenceBlackWhite {
         result = prime * result + Arrays.hashCode(referenceBlack);
         result = prime * result + Arrays.hashCode(referenceWhite);
         return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        ReferenceBlackWhite other = (ReferenceBlackWhite) obj;
-        if (!Arrays.equals(referenceBlack, other.referenceBlack))
-            return false;
-        if (!Arrays.equals(referenceWhite, other.referenceWhite))
-            return false;
-        return true;
     }
     
 

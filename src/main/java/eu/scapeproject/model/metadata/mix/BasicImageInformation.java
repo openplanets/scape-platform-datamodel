@@ -19,18 +19,6 @@ public class BasicImageInformation {
         this.basicImageCharacteristics = basicImageCharacteristics;
     }
 
-    public BasicImageCharateristics getBasicImageCharacteristics() {
-        return basicImageCharacteristics;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((basicImageCharacteristics == null) ? 0 : basicImageCharacteristics.hashCode());
-        return result;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -46,6 +34,18 @@ public class BasicImageInformation {
         } else if (!basicImageCharacteristics.equals(other.basicImageCharacteristics))
             return false;
         return true;
+    }
+
+    public BasicImageCharateristics getBasicImageCharacteristics() {
+        return basicImageCharacteristics;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((basicImageCharacteristics == null) ? 0 : basicImageCharacteristics.hashCode());
+        return result;
     }
     
 }

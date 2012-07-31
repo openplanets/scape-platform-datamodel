@@ -26,6 +26,27 @@ public class BasicImageCharateristics {
         this.photometricInterpretation = photometricInterpretation;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        BasicImageCharateristics other = (BasicImageCharateristics) obj;
+        if (height != other.height)
+            return false;
+        if (photometricInterpretation == null) {
+            if (other.photometricInterpretation != null)
+                return false;
+        } else if (!photometricInterpretation.equals(other.photometricInterpretation))
+            return false;
+        if (width != other.width)
+            return false;
+        return true;
+    }
+
     public int getHeight() {
         return height;
     }
@@ -46,27 +67,6 @@ public class BasicImageCharateristics {
         result = prime * result + ((photometricInterpretation == null) ? 0 : photometricInterpretation.hashCode());
         result = prime * result + width;
         return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        BasicImageCharateristics other = (BasicImageCharateristics) obj;
-        if (height != other.height)
-            return false;
-        if (photometricInterpretation == null) {
-            if (other.photometricInterpretation != null)
-                return false;
-        } else if (!photometricInterpretation.equals(other.photometricInterpretation))
-            return false;
-        if (width != other.width)
-            return false;
-        return true;
     }
 
 }
