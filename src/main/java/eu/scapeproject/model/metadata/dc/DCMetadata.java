@@ -282,6 +282,7 @@ public class DCMetadata extends DescriptiveMetadata {
 			this.contributors = md.getConstributors();
 			this.rights = md.getRights();
 			this.coverages = md.getCoverages();
+			this.identifier=new Identifier(md.getId());
 		}
 
 		public DCMetadata build() {

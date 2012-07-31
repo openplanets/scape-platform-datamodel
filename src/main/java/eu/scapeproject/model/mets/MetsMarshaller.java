@@ -15,6 +15,7 @@ import org.apache.commons.lang3.SerializationException;
 import eu.scapeproject.dto.mets.MetsDMDSec;
 import eu.scapeproject.dto.mets.MetsDocument;
 import eu.scapeproject.dto.mets.MetsFile;
+import eu.scapeproject.dto.mets.MetsMetadata;
 import eu.scapeproject.model.File;
 import eu.scapeproject.model.Identifier;
 import eu.scapeproject.model.IntellectualEntity;
@@ -75,6 +76,8 @@ public class MetsMarshaller {
 			return (T) deserializeEntity(in);
 		} else if (type == DCMetadata.class) {
 			return (T) deserializeDC(in);
+        } else if (type == MetsMetadata.class) {
+            return (T) deserializeMetadata(in);
 		} else if (type == Representation.class) {
 			return (T) deserializeRepresentation(in);
 		}else if (type == File.class){
@@ -84,7 +87,15 @@ public class MetsMarshaller {
 		}
 	}
 
-	private DCMetadata deserializeDC(InputStream in) throws SerializationException {
+	private MetsMetadata deserializeMetadata(InputStream in) throws SerializationException {
+	    try {
+            return (MetsMetadata) unmarshaller.unmarshal(in);
+        } catch (JAXBException e) {
+            throw new SerializationException(e);
+        }
+	}
+
+    private DCMetadata deserializeDC(InputStream in) throws SerializationException {
 		try {
 			MetsDMDSec dmd = (MetsDMDSec) unmarshaller.unmarshal(in);
 			return (DCMetadata) MetsUtil.getDescriptiveMetadadata(dmd);
@@ -111,7 +122,7 @@ public class MetsMarshaller {
 		}
 	}
 
-	public IntellectualEntity deserializeEntity(MetsDocument doc) {
+	private IntellectualEntity deserializeEntity(MetsDocument doc) {
 		IntellectualEntity.Builder entityBuilder = new IntellectualEntity.Builder()
 				.identifier(new Identifier(doc.getObjId()))
 				.descriptive(MetsUtil.getDescriptiveMetadadata(doc.getDmdSec()))
@@ -159,6 +170,8 @@ public class MetsMarshaller {
 				serializeFile((File) subject, out);
 			} else if (subject instanceof Identifier) {
 				serializeIdentifier((Identifier) subject, out);
+            } else if (subject instanceof MetsMetadata) {
+                serializeMetadata((MetsMetadata) subject, out);
 			} else if (subject instanceof LifecycleState) {
 				serializeLifecycleState((LifecycleState) subject, out);
 			} else {
@@ -169,7 +182,11 @@ public class MetsMarshaller {
 		}
 	}
 
-	private void serializeEntity(IntellectualEntity entity, OutputStream out) throws JAXBException {
+	private void serializeMetadata(MetsMetadata subject, OutputStream out) throws JAXBException{
+	    marshaller.marshal(subject, out);
+	}
+
+    private void serializeEntity(IntellectualEntity entity, OutputStream out) throws JAXBException {
 		MetsDocument doc = MetsUtil.convertEntity(entity);
 		marshaller.marshal(doc, out);
 	}
