@@ -14,6 +14,7 @@ import org.apache.commons.lang3.SerializationException;
 import eu.scapeproject.dto.mets.MetsDMDSec;
 import eu.scapeproject.dto.mets.MetsDocument;
 import eu.scapeproject.dto.mets.MetsMetadata;
+import eu.scapeproject.model.BitStream;
 import eu.scapeproject.model.File;
 import eu.scapeproject.model.Identifier;
 import eu.scapeproject.model.IntellectualEntity;
@@ -80,12 +81,22 @@ public class SCAPEMarshaller {
 			return (T) deserializeRepresentation(in);
 		}else if (type == File.class){
 			return (T) deserializeFile(in);
+        }else if (type == BitStream.class){
+            return (T) deserializeBitStream(in);
 		} else {
 			throw new SerializationException("unable to deserialize into objects of type " + type);
 		}
 	}
 
-	private DCMetadata deserializeDC(InputStream in) throws SerializationException {
+	private BitStream deserializeBitStream(InputStream in) {
+        try {
+            return (BitStream) unmarshaller.unmarshal(in);
+        } catch (JAXBException e) {
+            throw new SerializationException(e);
+        }
+    }
+
+    private DCMetadata deserializeDC(InputStream in) throws SerializationException {
 		try {
 			MetsDMDSec dmd = (MetsDMDSec) unmarshaller.unmarshal(in);
 			return (DCMetadata) MetsUtil.getDescriptiveMetadadata(dmd);
@@ -166,6 +177,8 @@ public class SCAPEMarshaller {
 				serilizeRepresentation((Representation) subject, out);
 			} else if (subject instanceof File) {
 				serializeFile((File) subject, out);
+            } else if (subject instanceof BitStream) {
+                serializeBitStream((BitStream) subject, out);
 			} else if (subject instanceof Identifier) {
 				serializeIdentifier((Identifier) subject, out);
             } else if (subject instanceof MetsMetadata) {
@@ -180,7 +193,12 @@ public class SCAPEMarshaller {
 		}
 	}
 
-	private void serializeEntity(IntellectualEntity entity, OutputStream out) throws JAXBException {
+	private void serializeBitStream(BitStream subject, OutputStream out) throws JAXBException {
+        marshaller.marshal(subject, out);
+        
+    }
+
+    private void serializeEntity(IntellectualEntity entity, OutputStream out) throws JAXBException {
 		MetsDocument doc = MetsUtil.convertEntity(entity);
 		marshaller.marshal(doc, out);
 	}
