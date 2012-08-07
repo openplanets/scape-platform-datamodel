@@ -9,9 +9,10 @@ import eu.scapeproject.model.util.CopyUtil;
 
 public class DeepCopyTest {
     @Test
-    public void testDeepCopy1() throws Exception{
+    public void testDeepCopyIntellectualEntity() throws Exception{
         IntellectualEntity e=TestUtil.createMinimalEntity();
         IntellectualEntity copy=CopyUtil.deepCopy(IntellectualEntity.class, e);
         Assert.assertEquals(e.getVersionNumber(), copy.getVersionNumber());
+        Assert.assertEquals(e, copy);
     }
 }
