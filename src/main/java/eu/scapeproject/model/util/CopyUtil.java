@@ -17,6 +17,12 @@ public abstract class CopyUtil {
 			return (T) (Integer) obj;
 		} else if (type == Long.class || type == long.class) {
 			return (T) (Long) obj;
+		} else if (type == Double.class || type == double.class) {
+			return (T) (Double) obj;
+		} else if (type == Float.class || type == float.class) {
+			return (T) (Float) obj;
+		} else if (type == Short.class || type == short.class) {
+			return (T) (Short) obj;
 		} else if (type == Date.class) {
 			return (T) new Date(((Date) obj).getTime());
 		} else if (obj instanceof List) {
@@ -28,7 +34,29 @@ public abstract class CopyUtil {
 				}
 				return (T) newList;
 			}
+		}else if (obj instanceof double[]){
+			double[] origArr= (double[]) obj;
+			double[] newArr = new double[origArr.length];
+			for (int i=0;i<origArr.length;i++){
+				newArr[i]=origArr[i];
+			}
+			return (T) newArr;
+		}else if (obj instanceof byte[]){
+			byte[] origArr= (byte[]) obj;
+			byte[] newArr = new byte[origArr.length];
+			for (int i=0;i<origArr.length;i++){
+				newArr[i]=origArr[i];
+			}
+			return (T) newArr;
+		}else if (obj instanceof Object[]){
+			Object[] origArr= (Object[]) obj;
+			Object[] newArr = new Object[origArr.length];
+			for (int i=0;i<origArr.length;i++){
+				newArr[i]=deepCopy(origArr[i].getClass(), origArr[i]);
+			}
+			return (T) newArr;
 		}
+		
 
 		T copy = null;
 		if (type.isEnum()){
@@ -36,7 +64,7 @@ public abstract class CopyUtil {
 		}
 		for (Constructor<?> c : type.getDeclaredConstructors()) {
 			if (c.getParameterTypes().length == 0) {
-				if (Modifier.isPrivate(c.getModifiers())) {
+				if (!c.isAccessible()) {
 					c.setAccessible(true);
 				}
 				try {
