@@ -32,7 +32,6 @@ All objects are immutable and are constructed using their respective inner Build
     	IntellectualEntity entity = new IntellectualEntity.Builder()
     		.identifier(new Identifier("minimal-1"))
     		.descriptive(TestUtil.createMinimalDC())
-    		.representations(Arrays.asList(TestUtil.createMinimalRepresentation()))
     		.build();
 
 Deep Copying
@@ -45,7 +44,6 @@ or employ the Utility class CopyUtil to get a plain deep copy without the Builde
     	IntellectualEntity orig = new IntellectualEntity.Builder()
     		.identifier(new Identifier("minimal-1"))
     		.descriptive(TestUtil.createMinimalDC())
-    		.representations(Arrays.asList(TestUtil.createMinimalRepresentation()))
     		.build();
 
 		IntellectualEntity copy1=new IntellectualEntity.Builder(orig)
