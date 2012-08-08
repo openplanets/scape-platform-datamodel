@@ -3,7 +3,9 @@ package eu.scapeproject.model.metadata.fits;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import eu.scapeproject.model.BitStream;
 import eu.scapeproject.model.metadata.TechnicalMetadata;
+import eu.scapeproject.model.util.CopyUtil;
 
 @XmlRootElement(name = "fits", namespace = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output")
 public class FitsMetadata extends TechnicalMetadata {
@@ -147,7 +149,7 @@ public class FitsMetadata extends TechnicalMetadata {
         }
         
         public Builder(FitsMetadata orig){
-        	// TODO: deep copy
+			orig=CopyUtil.deepCopy(FitsMetadata.class, orig);
         	this.identification=orig.identification;
         	this.fileInfo=orig.fileInfo;
         	this.fileStatus=orig.fileStatus;

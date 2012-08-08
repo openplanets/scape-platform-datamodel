@@ -5,6 +5,7 @@ import java.util.List;
 
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
 import eu.scapeproject.model.metadata.dc.DCMetadata;
+import eu.scapeproject.model.util.CopyUtil;
 
 public class IntellectualEntity {
 
@@ -124,25 +125,12 @@ public class IntellectualEntity {
 		}
 
 		public Builder(IntellectualEntity orig) {
-			this.identifier = new Identifier(orig.getIdentifier().type, orig.getIdentifier().value) {
-			};
-			this.descriptive = new DCMetadata.Builder((DCMetadata) orig.descriptive).build();
-			if (orig.alternativeIdentifiers != null) {
-				this.alternativeIdentifiers = new ArrayList<Identifier>();
-				for (Identifier id : orig.alternativeIdentifiers) {
-					this.alternativeIdentifiers.add(new Identifier(new String(id.type), new String(id.value)) {
-					});
-				}
-			}
-			if (orig.representations != null) {
-				this.representations = new ArrayList<Representation>();
-				for (Representation r : orig.representations) {
-					this.representations.add(new Representation.Builder(r).build());
-				}
-			}
-			if (orig.lifeCycleState != null) {
-				this.lifecycleState = new LifecycleState(new String(orig.lifeCycleState.getDetails()), orig.lifeCycleState.getState());
-			}
+			orig=CopyUtil.deepCopy(IntellectualEntity.class, orig);
+			this.identifier = orig.getIdentifier();
+			this.descriptive = orig.descriptive;
+			this.alternativeIdentifiers = orig.alternativeIdentifiers;
+			this.representations = orig.representations;
+			this.lifecycleState = orig.lifeCycleState;
 			this.versionNumber = orig.versionNumber;
 		}
 

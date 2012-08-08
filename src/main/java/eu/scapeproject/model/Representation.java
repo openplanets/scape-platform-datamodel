@@ -16,25 +16,26 @@ import eu.scapeproject.model.metadata.fits.FitsMetadata;
 import eu.scapeproject.model.metadata.mix.NisoMixMetadata;
 import eu.scapeproject.model.metadata.premis.PremisProvenanceMetadata;
 import eu.scapeproject.model.metadata.textmd.TextMDMetadata;
+import eu.scapeproject.model.util.CopyUtil;
 import eu.scapeproject.model.util.ListUtil;
 
-@XmlRootElement(name="representation",namespace="http://scapeproject.eu/model")
+@XmlRootElement(name = "representation", namespace = "http://scapeproject.eu/model")
 public class Representation {
-	@XmlElement(name="identifier",namespace="http://scapeproject.eu/model")
+	@XmlElement(name = "identifier", namespace = "http://scapeproject.eu/model")
 	private final Identifier identifier;
-	@XmlElement(name="source",namespace="http://scapeproject.eu/model")
+	@XmlElement(name = "source", namespace = "http://scapeproject.eu/model")
 	private final DescriptiveMetadata source;
-	@XmlElement(name="provenance",namespace="http://scapeproject.eu/model")
+	@XmlElement(name = "provenance", namespace = "http://scapeproject.eu/model")
 	private final ProvenanceMetadata provenance;
-	@XmlElement(name="technical",namespace="http://scapeproject.eu/model")
+	@XmlElement(name = "technical", namespace = "http://scapeproject.eu/model")
 	private final TechnicalMetadata technical;
-	@XmlElement(name="rights",namespace="http://scapeproject.eu/model")
+	@XmlElement(name = "rights", namespace = "http://scapeproject.eu/model")
 	private final RightsMetadata rights;
-	@XmlElement(name="files",namespace="http://scapeproject.eu/model")
+	@XmlElement(name = "files", namespace = "http://scapeproject.eu/model")
 	private final List<File> files;
-	@XmlElement(name="title",namespace="http://scapeproject.eu/model")
+	@XmlElement(name = "title", namespace = "http://scapeproject.eu/model")
 	private final String title;
-	@XmlElement(name="usage",namespace="http://scapeproject.eu/model")
+	@XmlElement(name = "usage", namespace = "http://scapeproject.eu/model")
 	private final String usage;
 
 	private Representation() {
@@ -149,11 +150,14 @@ public class Representation {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((files == null) ? 0 : files.hashCode());
-		result = prime * result + ((provenance == null) ? 0 : provenance.hashCode());
+		result = prime * result
+				+ ((provenance == null) ? 0 : provenance.hashCode());
 		result = prime * result + ((rights == null) ? 0 : rights.hashCode());
 		result = prime * result + ((source == null) ? 0 : source.hashCode());
-		result = prime * result + ((technical == null) ? 0 : technical.hashCode());
-		result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
+		result = prime * result
+				+ ((technical == null) ? 0 : technical.hashCode());
+		result = prime * result
+				+ ((identifier == null) ? 0 : identifier.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((usage == null) ? 0 : usage.hashCode());
 		return result;
@@ -173,41 +177,16 @@ public class Representation {
 			super();
 		}
 
-		public Builder(Representation r) {
-			if (r.getSource() != null) {
-				this.source = new DCMetadata.Builder((DCMetadata) source).build();
-			}
-			if (r.getProvenance() != null) {
-				this.provenance = new PremisProvenanceMetadata.Builder((PremisProvenanceMetadata) r.getProvenance()).build();
-			}
-			if (r.getTechnical() != null) {
-				if (r.getTechnical() instanceof NisoMixMetadata) {
-					this.technical = new NisoMixMetadata.Builder((NisoMixMetadata) r.getTechnical()).build();
-				} else if (r.getTechnical() instanceof TextMDMetadata) {
-					this.technical = new TextMDMetadata.Builder((TextMDMetadata) r.getTechnical()).build();
-				} else if (r.getTechnical() instanceof AudioMDMetadata) {
-					this.technical = new AudioMDMetadata.Builder((AudioMDMetadata) r.getTechnical()).build();
-				} else if (r.getTechnical() instanceof FitsMetadata) {
-					this.technical = new FitsMetadata.Builder((FitsMetadata) r.getTechnical()).build();
-				}
-			}
-
-			// TODO: deep copy
-			if (r.getRights() != null) {
-				this.rights = r.rights;
-			}
-			if (r.getFiles() != null) {
-				this.files = r.files;
-			}
-			if (r.getIdentifier() != null) {
-				this.id = r.identifier;
-			}
-			if (r.getTitle() != null) {
-				this.title = r.title;
-			}
-			if (r.getUsage() != null) {
-				this.usage = r.usage;
-			}
+		public Builder(Representation orig) {
+			orig = CopyUtil.deepCopy(Representation.class, orig);
+			this.source = orig.source;
+			this.provenance = orig.provenance;
+			this.technical = orig.technical;
+			this.rights = orig.rights;
+			this.files = orig.files;
+			this.id = orig.identifier;
+			this.title = orig.title;
+			this.usage = orig.usage;
 		}
 
 		public Representation build() {
@@ -215,15 +194,15 @@ public class Representation {
 		}
 
 		public Builder file(File file) {
-			if (this.files==null){
-				this.files=new ArrayList<File>();
+			if (this.files == null) {
+				this.files = new ArrayList<File>();
 			}
 			this.files.add(file);
 			return this;
 		}
 
 		public Builder files(List<File> files) {
-			this.files=files;
+			this.files = files;
 			return this;
 		}
 
@@ -251,12 +230,14 @@ public class Representation {
 			this.technical = technical;
 			return this;
 		}
+
 		public Builder title(String title) {
-			this.title=title;
+			this.title = title;
 			return this;
 		}
+
 		public Builder usage(String usage) {
-			this.usage=usage;
+			this.usage = usage;
 			return this;
 		}
 	}

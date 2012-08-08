@@ -6,7 +6,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import eu.scapeproject.model.BitStream;
 import eu.scapeproject.model.metadata.TechnicalMetadata;
+import eu.scapeproject.model.util.CopyUtil;
 import eu.scapeproject.model.util.ListUtil;
 
 @XmlRootElement(name = "textMD", namespace = "info:lc/xmlns/textmd-v3")
@@ -65,71 +67,71 @@ public class TextMDMetadata extends TechnicalMetadata {
 	}
 
 	@Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        TextMDMetadata other = (TextMDMetadata) obj;
-        if (altLanguages == null) {
-            if (other.altLanguages != null)
-                return false;
-        } else if (!altLanguages.equals(other.altLanguages))
-            return false;
-        if (characterInfos == null) {
-            if (other.characterInfos != null)
-                return false;
-        } else if (!characterInfos.equals(other.characterInfos))
-            return false;
-        if (encodings == null) {
-            if (other.encodings != null)
-                return false;
-        } else if (!encodings.equals(other.encodings))
-            return false;
-        if (fontScripts == null) {
-            if (other.fontScripts != null)
-                return false;
-        } else if (!fontScripts.equals(other.fontScripts))
-            return false;
-        if (languages == null) {
-            if (other.languages != null)
-                return false;
-        } else if (!languages.equals(other.languages))
-            return false;
-        if (markupBases == null) {
-            if (other.markupBases != null)
-                return false;
-        } else if (!markupBases.equals(other.markupBases))
-            return false;
-        if (markupLanguages == null) {
-            if (other.markupLanguages != null)
-                return false;
-        } else if (!markupLanguages.equals(other.markupLanguages))
-            return false;
-        if (printRequirements == null) {
-            if (other.printRequirements != null)
-                return false;
-        } else if (!printRequirements.equals(other.printRequirements))
-            return false;
-        if (processingNotes == null) {
-            if (other.processingNotes != null)
-                return false;
-        } else if (!processingNotes.equals(other.processingNotes))
-            return false;
-        if (textNotes == null) {
-            if (other.textNotes != null)
-                return false;
-        } else if (!textNotes.equals(other.textNotes))
-            return false;
-        if (viewingRequirements == null) {
-            if (other.viewingRequirements != null)
-                return false;
-        } else if (!viewingRequirements.equals(other.viewingRequirements))
-            return false;
-        return true;
-    }
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TextMDMetadata other = (TextMDMetadata) obj;
+		if (altLanguages == null) {
+			if (other.altLanguages != null)
+				return false;
+		} else if (!altLanguages.equals(other.altLanguages))
+			return false;
+		if (characterInfos == null) {
+			if (other.characterInfos != null)
+				return false;
+		} else if (!characterInfos.equals(other.characterInfos))
+			return false;
+		if (encodings == null) {
+			if (other.encodings != null)
+				return false;
+		} else if (!encodings.equals(other.encodings))
+			return false;
+		if (fontScripts == null) {
+			if (other.fontScripts != null)
+				return false;
+		} else if (!fontScripts.equals(other.fontScripts))
+			return false;
+		if (languages == null) {
+			if (other.languages != null)
+				return false;
+		} else if (!languages.equals(other.languages))
+			return false;
+		if (markupBases == null) {
+			if (other.markupBases != null)
+				return false;
+		} else if (!markupBases.equals(other.markupBases))
+			return false;
+		if (markupLanguages == null) {
+			if (other.markupLanguages != null)
+				return false;
+		} else if (!markupLanguages.equals(other.markupLanguages))
+			return false;
+		if (printRequirements == null) {
+			if (other.printRequirements != null)
+				return false;
+		} else if (!printRequirements.equals(other.printRequirements))
+			return false;
+		if (processingNotes == null) {
+			if (other.processingNotes != null)
+				return false;
+		} else if (!processingNotes.equals(other.processingNotes))
+			return false;
+		if (textNotes == null) {
+			if (other.textNotes != null)
+				return false;
+		} else if (!textNotes.equals(other.textNotes))
+			return false;
+		if (viewingRequirements == null) {
+			if (other.viewingRequirements != null)
+				return false;
+		} else if (!viewingRequirements.equals(other.viewingRequirements))
+			return false;
+		return true;
+	}
 
 	public List<String> getAltLanguages() {
 		return altLanguages;
@@ -175,25 +177,40 @@ public class TextMDMetadata extends TechnicalMetadata {
 		return viewingRequirements;
 	}
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((altLanguages == null) ? 0 : altLanguages.hashCode());
-        result = prime * result + ((characterInfos == null) ? 0 : characterInfos.hashCode());
-        result = prime * result + ((encodings == null) ? 0 : encodings.hashCode());
-        result = prime * result + ((fontScripts == null) ? 0 : fontScripts.hashCode());
-        result = prime * result + ((languages == null) ? 0 : languages.hashCode());
-        result = prime * result + ((markupBases == null) ? 0 : markupBases.hashCode());
-        result = prime * result + ((markupLanguages == null) ? 0 : markupLanguages.hashCode());
-        result = prime * result + ((printRequirements == null) ? 0 : printRequirements.hashCode());
-        result = prime * result + ((processingNotes == null) ? 0 : processingNotes.hashCode());
-        result = prime * result + ((textNotes == null) ? 0 : textNotes.hashCode());
-        result = prime * result + ((viewingRequirements == null) ? 0 : viewingRequirements.hashCode());
-        return result;
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((altLanguages == null) ? 0 : altLanguages.hashCode());
+		result = prime * result
+				+ ((characterInfos == null) ? 0 : characterInfos.hashCode());
+		result = prime * result
+				+ ((encodings == null) ? 0 : encodings.hashCode());
+		result = prime * result
+				+ ((fontScripts == null) ? 0 : fontScripts.hashCode());
+		result = prime * result
+				+ ((languages == null) ? 0 : languages.hashCode());
+		result = prime * result
+				+ ((markupBases == null) ? 0 : markupBases.hashCode());
+		result = prime * result
+				+ ((markupLanguages == null) ? 0 : markupLanguages.hashCode());
+		result = prime
+				* result
+				+ ((printRequirements == null) ? 0 : printRequirements
+						.hashCode());
+		result = prime * result
+				+ ((processingNotes == null) ? 0 : processingNotes.hashCode());
+		result = prime * result
+				+ ((textNotes == null) ? 0 : textNotes.hashCode());
+		result = prime
+				* result
+				+ ((viewingRequirements == null) ? 0 : viewingRequirements
+						.hashCode());
+		return result;
+	}
 
-    public static class Builder {
+	public static class Builder {
 		private List<Encoding> encodings;
 		private List<CharacterInfo> characterInfos;
 		private List<String> languages;
@@ -211,19 +228,18 @@ public class TextMDMetadata extends TechnicalMetadata {
 		}
 
 		public Builder(TextMDMetadata orig) {
-			// TODO: deep copy for encodings
+			orig = CopyUtil.deepCopy(TextMDMetadata.class, orig);
 			this.encodings = orig.encodings;
 			this.characterInfos = orig.characterInfos;
-
-			this.languages = ListUtil.copyList(orig.languages);
-			this.altLanguages = ListUtil.copyList(orig.altLanguages);
-			this.fontScripts = ListUtil.copyList(orig.fontScripts);
-			this.markupBases = ListUtil.copyList(orig.markupBases);
-			this.markupLanguages = ListUtil.copyList(orig.markupLanguages);
-			this.processingNotes = ListUtil.copyList(orig.processingNotes);
-			this.printRequirements = ListUtil.copyList(orig.printRequirements);
-			this.viewingRequirements = ListUtil.copyList(orig.viewingRequirements);
-			this.textNotes = ListUtil.copyList(orig.textNotes);
+			this.languages = orig.languages;
+			this.altLanguages = orig.altLanguages;
+			this.fontScripts = orig.fontScripts;
+			this.markupBases = orig.markupBases;
+			this.markupLanguages = orig.markupLanguages;
+			this.processingNotes = orig.processingNotes;
+			this.printRequirements = orig.printRequirements;
+			this.viewingRequirements = orig.viewingRequirements;
+			this.textNotes = orig.textNotes;
 		}
 
 		public Builder altLanguages(List<String> altLanguages) {
@@ -312,29 +328,29 @@ public class TextMDMetadata extends TechnicalMetadata {
 		}
 
 		@Override
-        public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (getClass() != obj.getClass())
-                return false;
-            CharacterInfo other = (CharacterInfo) obj;
-            if (byteOrder != other.byteOrder)
-                return false;
-            if (byteSize != other.byteSize)
-                return false;
-            if (charSet != other.charSet)
-                return false;
-            if (characterSize == null) {
-                if (other.characterSize != null)
-                    return false;
-            } else if (!characterSize.equals(other.characterSize))
-                return false;
-            if (lineBreak != other.lineBreak)
-                return false;
-            return true;
-        }
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			CharacterInfo other = (CharacterInfo) obj;
+			if (byteOrder != other.byteOrder)
+				return false;
+			if (byteSize != other.byteSize)
+				return false;
+			if (charSet != other.charSet)
+				return false;
+			if (characterSize == null) {
+				if (other.characterSize != null)
+					return false;
+			} else if (!characterSize.equals(other.characterSize))
+				return false;
+			if (lineBreak != other.lineBreak)
+				return false;
+			return true;
+		}
 
 		public ByteOrder getByteOrder() {
 			return byteOrder;
@@ -351,24 +367,28 @@ public class TextMDMetadata extends TechnicalMetadata {
 		public Charset getCharSet() {
 			return charSet;
 		}
-		
+
 		public LineBreak getLineBreak() {
 			return lineBreak;
 		}
 
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((byteOrder == null) ? 0 : byteOrder.hashCode());
-            result = prime * result + byteSize;
-            result = prime * result + ((charSet == null) ? 0 : charSet.hashCode());
-            result = prime * result + ((characterSize == null) ? 0 : characterSize.hashCode());
-            result = prime * result + ((lineBreak == null) ? 0 : lineBreak.hashCode());
-            return result;
-        }
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result
+					+ ((byteOrder == null) ? 0 : byteOrder.hashCode());
+			result = prime * result + byteSize;
+			result = prime * result
+					+ ((charSet == null) ? 0 : charSet.hashCode());
+			result = prime * result
+					+ ((characterSize == null) ? 0 : characterSize.hashCode());
+			result = prime * result
+					+ ((lineBreak == null) ? 0 : lineBreak.hashCode());
+			return result;
+		}
 
-        public static class Builder {
+		public static class Builder {
 			private Charset charSet;
 			private ByteOrder byteOrder;
 			private int byteSize;
@@ -429,7 +449,8 @@ public class TextMDMetadata extends TechnicalMetadata {
 			super();
 		}
 
-		public Encoding(EncodingPlatform platform, List<String> software, EncodingAgent agent) {
+		public Encoding(EncodingPlatform platform, List<String> software,
+				EncodingAgent agent) {
 			super();
 			this.platform = platform;
 			this.software = software;
@@ -437,31 +458,31 @@ public class TextMDMetadata extends TechnicalMetadata {
 		}
 
 		@Override
-        public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (getClass() != obj.getClass())
-                return false;
-            Encoding other = (Encoding) obj;
-            if (agent == null) {
-                if (other.agent != null)
-                    return false;
-            } else if (!agent.equals(other.agent))
-                return false;
-            if (platform == null) {
-                if (other.platform != null)
-                    return false;
-            } else if (!platform.equals(other.platform))
-                return false;
-            if (software == null) {
-                if (other.software != null)
-                    return false;
-            } else if (!software.equals(other.software))
-                return false;
-            return true;
-        }
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Encoding other = (Encoding) obj;
+			if (agent == null) {
+				if (other.agent != null)
+					return false;
+			} else if (!agent.equals(other.agent))
+				return false;
+			if (platform == null) {
+				if (other.platform != null)
+					return false;
+			} else if (!platform.equals(other.platform))
+				return false;
+			if (software == null) {
+				if (other.software != null)
+					return false;
+			} else if (!software.equals(other.software))
+				return false;
+			return true;
+		}
 
 		public EncodingAgent getAgent() {
 			return agent;
@@ -470,26 +491,24 @@ public class TextMDMetadata extends TechnicalMetadata {
 		public EncodingPlatform getPlatform() {
 			return platform;
 		}
-		
-		
 
 		public List<String> getSoftware() {
 			return software;
 		}
 
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((agent == null) ? 0 : agent.hashCode());
-            result = prime * result + ((platform == null) ? 0 : platform.hashCode());
-            result = prime * result + ((software == null) ? 0 : software.hashCode());
-            return result;
-        }
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((agent == null) ? 0 : agent.hashCode());
+			result = prime * result
+					+ ((platform == null) ? 0 : platform.hashCode());
+			result = prime * result
+					+ ((software == null) ? 0 : software.hashCode());
+			return result;
+		}
 
-
-
-        @XmlRootElement(name = "encoding_agent", namespace = "info:lc/xmlns/textmd-v3")
+		@XmlRootElement(name = "encoding_agent", namespace = "info:lc/xmlns/textmd-v3")
 		public static class EncodingAgent {
 			@XmlElement(name = "role", namespace = "info:lc/xmlns/textmd-v3")
 			private Role role;
@@ -504,35 +523,36 @@ public class TextMDMetadata extends TechnicalMetadata {
 			}
 
 			@Override
-            public boolean equals(Object obj) {
-                if (this == obj)
-                    return true;
-                if (obj == null)
-                    return false;
-                if (getClass() != obj.getClass())
-                    return false;
-                EncodingAgent other = (EncodingAgent) obj;
-                if (role != other.role)
-                    return false;
-                return true;
-            }
+			public boolean equals(Object obj) {
+				if (this == obj)
+					return true;
+				if (obj == null)
+					return false;
+				if (getClass() != obj.getClass())
+					return false;
+				EncodingAgent other = (EncodingAgent) obj;
+				if (role != other.role)
+					return false;
+				return true;
+			}
 
 			public Role getRole() {
 				return role;
 			}
 
-            @Override
-            public int hashCode() {
-                final int prime = 31;
-                int result = 1;
-                result = prime * result + ((role == null) ? 0 : role.hashCode());
-                return result;
-            }
+			@Override
+			public int hashCode() {
+				final int prime = 31;
+				int result = 1;
+				result = prime * result
+						+ ((role == null) ? 0 : role.hashCode());
+				return result;
+			}
 
-            public enum Role {
+			public enum Role {
 				OCR, TRANSCRIBER, MARKUP, EDITOR;
 			}
-			
+
 		}
 
 		@XmlRootElement(name = "encoding_platform")
@@ -550,31 +570,32 @@ public class TextMDMetadata extends TechnicalMetadata {
 			}
 
 			@Override
-            public boolean equals(Object obj) {
-                if (this == obj)
-                    return true;
-                if (obj == null)
-                    return false;
-                if (getClass() != obj.getClass())
-                    return false;
-                EncodingPlatform other = (EncodingPlatform) obj;
-                if (lineBreak != other.lineBreak)
-                    return false;
-                return true;
-            }
+			public boolean equals(Object obj) {
+				if (this == obj)
+					return true;
+				if (obj == null)
+					return false;
+				if (getClass() != obj.getClass())
+					return false;
+				EncodingPlatform other = (EncodingPlatform) obj;
+				if (lineBreak != other.lineBreak)
+					return false;
+				return true;
+			}
 
-            public LineBreak getLineBreak() {
+			public LineBreak getLineBreak() {
 				return lineBreak;
 			}
 
-            @Override
-            public int hashCode() {
-                final int prime = 31;
-                int result = 1;
-                result = prime * result + ((lineBreak == null) ? 0 : lineBreak.hashCode());
-                return result;
-            }
-			
+			@Override
+			public int hashCode() {
+				final int prime = 31;
+				int result = 1;
+				result = prime * result
+						+ ((lineBreak == null) ? 0 : lineBreak.hashCode());
+				return result;
+			}
+
 		}
 	}
 
