@@ -2,13 +2,13 @@ package eu.scapeproject.model.util;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.Member;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-
-import com.sun.xml.bind.v2.schemagen.xmlschema.List;
+import java.util.Date;
+import java.util.List;
 
 public abstract class CopyUtil {
+    @SuppressWarnings("unchecked")
     public static <T> T deepCopy(Class<?> type, T obj) throws Exception {
         T copy = null;
         for (Constructor<?> c : type.getDeclaredConstructors()) {
@@ -30,12 +30,22 @@ public abstract class CopyUtil {
                 if (f.get(obj) != null) {
                     f.set(copy, f.get(obj));
                 }
+            } else if (f.getType() == Date.class) {
+                f.set(copy, new Date(((Date) f.get(obj)).getTime()));
             } else if (f.getType() == List.class) {
-                System.out.println("skipping list");
+                List<Object> data = new ArrayList<Object>();
+                List<Object> original = (List<Object>) f.get(obj);
+                if (original != null) {
+                    for (Object e : original) {
+                        data.add(deepCopy(Object.class, e));
+                    }
+                }
+                f.set(copy, data);
+
             } else {
-                if (f.get(obj) != null){
-                    System.out.println("recuring into " + f.getName() + " with type " + f.getType().getName());
-                    f.set(copy, deepCopy(f.getType(),f.get(obj)));
+                if (f.get(obj) != null) {
+                    System.out.println("recursing into " + f.getName() + " with type " + f.getType().getName());
+                    f.set(copy, deepCopy(f.getType(), f.get(obj)));
                 }
             }
         }
