@@ -12,6 +12,7 @@ import eu.scapeproject.model.Agent;
 import eu.scapeproject.model.Identifier;
 import eu.scapeproject.model.jaxb.DateAdapter;
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
+import eu.scapeproject.model.util.CopyUtil;
 import eu.scapeproject.model.util.ListUtil;
 
 @XmlRootElement(name = "dublin-core")
@@ -265,23 +266,23 @@ public class DCMetadata extends DescriptiveMetadata {
 			super();
 		}
 
-		public Builder(DCMetadata md) {
-			// TODO:deep copy
-			this.dates = md.getDate();
-			this.titles = md.getTitle();
-			this.creators = md.getCreator();
-			this.descriptions = md.getDescription();
-			this.formats = md.getFormat();
-			this.languages = md.getLanguage();
-			this.publishers = md.getPublisher();
-			this.subjects = md.getSubject();
-			this.types = md.getType();
-			this.sources = md.getSources();
-			this.relations = md.getRelations();
-			this.contributors = md.getConstributors();
-			this.rights = md.getRights();
-			this.coverages = md.getCoverages();
-			this.identifier=new Identifier(md.getId());
+		public Builder(DCMetadata orig) {
+			orig=CopyUtil.deepCopy(DCMetadata.class, orig);
+			this.dates = orig.getDate();
+			this.titles = orig.getTitle();
+			this.creators = orig.getCreator();
+			this.descriptions = orig.getDescription();
+			this.formats = orig.getFormat();
+			this.languages = orig.getLanguage();
+			this.publishers = orig.getPublisher();
+			this.subjects = orig.getSubject();
+			this.types = orig.getType();
+			this.sources = orig.getSources();
+			this.relations = orig.getRelations();
+			this.contributors = orig.getConstributors();
+			this.rights = orig.getRights();
+			this.coverages = orig.getCoverages();
+			this.identifier=new Identifier(orig.getId());
 		}
 
 		public DCMetadata build() {

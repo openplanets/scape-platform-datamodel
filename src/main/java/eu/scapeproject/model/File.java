@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import eu.scapeproject.model.metadata.TechnicalMetadata;
+import eu.scapeproject.model.util.CopyUtil;
 
 @XmlRootElement(name="file",namespace="http://scapeproject.eu/model")
 public class File {
@@ -104,7 +105,7 @@ public class File {
         }
         
         public Builder(File orig){
-        	//TODO: deep copy
+			orig=CopyUtil.deepCopy(File.class, orig);
         	this.technical = orig.technical;
         	this.bitStreams=orig.bitStreams;
         	this.uri=orig.uri;

@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import eu.scapeproject.model.metadata.TechnicalMetadata;
+import eu.scapeproject.model.util.CopyUtil;
 
 @XmlRootElement(name = "bitstream", namespace = "http://scapeproject.eu/model")
 public class BitStream {
@@ -99,7 +100,7 @@ public class BitStream {
 		}
 
 		public Builder(BitStream orig) {
-			// TODO: deep copy!
+			orig=CopyUtil.deepCopy(BitStream.class, orig);
 			this.title = orig.title;
 			this.type = orig.type;
 			this.technical = orig.technical;

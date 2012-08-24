@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import eu.scapeproject.model.File;
@@ -50,6 +51,26 @@ public abstract class ListUtil {
 			}
 		}
 		return true;
+	}
+	public static <T> boolean compareLists(Class<T> type, List<T> list1,List<T> list2){
+		List<T> tmp=new LinkedList<T>();
+		tmp.addAll(list2);
+		for (T element: list1){
+			boolean found=false;
+			Iterator<T> it=tmp.iterator();
+			while (it.hasNext()){
+				T e=it.next();
+				if (e.equals(element)){
+					tmp.remove(e);
+					found=true;
+					continue;
+				}
+			}
+			if (!found){
+				return false;
+			}
+		}
+		return tmp.size() == 0;
 	}
 	
 	public static List<String> copyList(List<String> orig) {

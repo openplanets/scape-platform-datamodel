@@ -2,6 +2,7 @@ package eu.scapeproject.model;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.net.URI;
 import java.util.Arrays;
@@ -21,6 +22,7 @@ import eu.scapeproject.model.metadata.dc.DCMetadata;
 import eu.scapeproject.model.metadata.fits.FitsMetadata;
 import eu.scapeproject.model.mets.SCAPEMarshaller;
 import eu.scapeproject.model.test.TestUtil;
+import eu.scapeproject.model.test.ValidationUtil;
 
 public class JaxbXMLSerializationTest {
     private static Marshaller marshaller;

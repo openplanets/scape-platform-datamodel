@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import eu.scapeproject.model.metadata.TechnicalMetadata;
+import eu.scapeproject.model.util.CopyUtil;
 
 @XmlRootElement(name = "mdWrap")
 public class NisoMixMetadata extends TechnicalMetadata {
@@ -113,24 +114,24 @@ public class NisoMixMetadata extends TechnicalMetadata {
         	super();
         }
         
-        public Builder(NisoMixMetadata technical) {
-        	this.width = technical.getBasicImageInformation().getBasicImageCharacteristics().getWidth();
-        	this.height = technical.getBasicImageInformation().getBasicImageCharacteristics().getHeight();
-        	this.orientation = technical.getImageCapture().getOrientation();
-        	// TODO: Deep copy necessary?
-        	this.methodology = technical.getImageCapture().getMethodology();
-        	this.colorspace = technical.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getColorSpace();
-        	this.colorProfile = technical.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getColorProfile();
-        	this.yCrCb = technical.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getYbCbCr();
-        	this.referencedBlackWhite = technical.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getReferencedBlackWhite();
-        	this.specialFormatCharacteristics = technical.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getSpecialFormatCharacteristics();
-        	this.source = technical.getImageCapture().getSourceInformation();
-        	this.generalCaptureInformation = technical.getImageCapture().getGeneralCaptureInformation();
-        	this.scannerCapture = technical.getImageCapture().getScannerCapture();
-        	this.digitalCameraCapture = technical.getImageCapture().getDigitalCameraCapture();
-        	this.spacialMetrics = technical.getImageAssessmentMetadata().getSpacialMetrics();
-        	this.imageColorEncoding = technical.getImageAssessmentMetadata().getImageColorEncoding();
-        	this.targetData = technical.getImageAssessmentMetadata().getTargetData();
+        public Builder(NisoMixMetadata orig) {
+			orig=CopyUtil.deepCopy(NisoMixMetadata.class, orig);
+        	this.width = orig.getBasicImageInformation().getBasicImageCharacteristics().getWidth();
+        	this.height = orig.getBasicImageInformation().getBasicImageCharacteristics().getHeight();
+        	this.orientation = orig.getImageCapture().getOrientation();
+        	this.methodology = orig.getImageCapture().getMethodology();
+        	this.colorspace = orig.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getColorSpace();
+        	this.colorProfile = orig.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getColorProfile();
+        	this.yCrCb = orig.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getYbCbCr();
+        	this.referencedBlackWhite = orig.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getReferencedBlackWhite();
+        	this.specialFormatCharacteristics = orig.getBasicImageInformation().getBasicImageCharacteristics().getPhotometricInterpretation().getSpecialFormatCharacteristics();
+        	this.source = orig.getImageCapture().getSourceInformation();
+        	this.generalCaptureInformation = orig.getImageCapture().getGeneralCaptureInformation();
+        	this.scannerCapture = orig.getImageCapture().getScannerCapture();
+        	this.digitalCameraCapture = orig.getImageCapture().getDigitalCameraCapture();
+        	this.spacialMetrics = orig.getImageAssessmentMetadata().getSpacialMetrics();
+        	this.imageColorEncoding = orig.getImageAssessmentMetadata().getImageColorEncoding();
+        	this.targetData = orig.getImageAssessmentMetadata().getTargetData();
         }
 
 		public NisoMixMetadata build() {

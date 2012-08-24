@@ -3,7 +3,9 @@ package eu.scapeproject.model.metadata.audiomd;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import eu.scapeproject.model.BitStream;
 import eu.scapeproject.model.metadata.TechnicalMetadata;
+import eu.scapeproject.model.util.CopyUtil;
 
 @XmlRootElement(name = "http://www.loc.gov/AMD/")
 public class AudioMDMetadata extends TechnicalMetadata {
@@ -72,7 +74,7 @@ public class AudioMDMetadata extends TechnicalMetadata {
 		}
 
 		public Builder(AudioMDMetadata orig) {
-			// TODO: deep copy
+			orig=CopyUtil.deepCopy(AudioMDMetadata.class, orig);
 			this.audioMd = orig.audioMD;
 			this.audioSrc = orig.audioSrc;
 		}

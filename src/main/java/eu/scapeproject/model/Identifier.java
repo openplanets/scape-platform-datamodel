@@ -29,7 +29,7 @@ public class Identifier {
         this.type = type;
         this.value = value;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

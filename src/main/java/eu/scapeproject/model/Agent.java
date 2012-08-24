@@ -4,6 +4,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import eu.scapeproject.model.util.CopyUtil;
+
 @XmlRootElement(name = "agent",namespace="http://www.loc.gov/standards/premis")
 public class Agent {
     @XmlElement(name = "name",namespace="http://www.loc.gov/standards/premis")
@@ -132,6 +134,7 @@ public class Agent {
         }
         
         public Builder(Agent orig){
+        	orig = CopyUtil.deepCopy(Agent.class, orig);
         	this.name=new String(orig.name);
         	this.note=new String(orig.note);
         	this.role=new String(orig.role);
