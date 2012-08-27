@@ -52,6 +52,7 @@ public abstract class ListUtil {
 		}
 		return true;
 	}
+	
 	public static <T> boolean compareLists(Class<T> type, List<T> list1,List<T> list2){
 		List<T> tmp=new LinkedList<T>();
 		tmp.addAll(list2);
@@ -61,7 +62,7 @@ public abstract class ListUtil {
 			while (it.hasNext()){
 				T e=it.next();
 				if (e.equals(element)){
-					tmp.remove(e);
+					it.remove();
 					found=true;
 					continue;
 				}
