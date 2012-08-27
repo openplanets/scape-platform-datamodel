@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import eu.scapeproject.dto.mets.MetsMetadata;
+import eu.scapeproject.dto.mets.MetsTechMD;
+import eu.scapeproject.model.Identifier;
+
 public abstract class CopyUtil {
     @SuppressWarnings("unchecked")
     public static <T> T deepCopy(Class<?> type, T obj) {
@@ -96,6 +100,16 @@ public abstract class CopyUtil {
                         e1.printStackTrace();
                     }
                 }
+            }
+        }
+        if (obj instanceof MetsMetadata){
+            Field id;
+            try {
+                id = MetsMetadata.class.getDeclaredField("id");
+                id.setAccessible(true);
+                id.set(copy, id.get(obj));
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         return copy;
