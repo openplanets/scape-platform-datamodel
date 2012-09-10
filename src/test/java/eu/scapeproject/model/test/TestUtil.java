@@ -214,7 +214,7 @@ public abstract class TestUtil {
 
     public static BitStream createRandomBitStream() {
         return new BitStream.Builder()
-                .identifier(new Identifier(UUID.randomUUID().toString()))
+                .identifier(new Identifier("BS-" + UUID.randomUUID().toString()))
                 .title(randomAlphabetic(16))
                 .type(Type.STREAM)
                 .technical(createRandomTechnicalMetadata())
@@ -341,7 +341,7 @@ public abstract class TestUtil {
 
     public static DescriptiveMetadata createRandomDescriptive() {
         DCMetadata.Builder builder = new DCMetadata.Builder();
-        builder.identifier(new Identifier(UUID.randomUUID().toString()));
+        builder.identifier(new Identifier("DC-" + UUID.randomUUID().toString()));
         Random rnd = new Random();
         int max = rnd.nextInt(9) + 1;
         for (int i = 0; i < max; i++) {
@@ -456,7 +456,7 @@ public abstract class TestUtil {
 
     public static IntellectualEntity createRandomEntity() {
         return new IntellectualEntity.Builder()
-                .identifier(new Identifier(UUID.randomUUID().toString()))
+                .identifier(new Identifier("IE-" + UUID.randomUUID().toString()))
                 .alternativeIdentifiers(createRandomIdentifiers())
                 .descriptive(createRandomDescriptive())
                 .representations(createRandomRepresentations())
@@ -465,7 +465,7 @@ public abstract class TestUtil {
 
     public static Event createRandomEvent() {
         return new Event.Builder()
-                .identifier(new Identifier(UUID.randomUUID().toString()))
+                .identifier(new Identifier("EVENT-" + UUID.randomUUID().toString()))
                 .linkingAgents(Arrays.asList(createRandomAgent()))
                 .build();
     }
@@ -526,7 +526,7 @@ public abstract class TestUtil {
                     .technical(createRandomTechnicalMetadata())
                     .uri(URI.create("http://example.com/" + randomAlphabetic(16)))
                     .bitStreams(createRandomBitStreams())
-                    .identifier(new Identifier(UUID.randomUUID().toString()))
+                    .identifier(new Identifier("FILE-" + UUID.randomUUID().toString()))
                     .build();
             files.add(f);
         }
@@ -673,7 +673,7 @@ public abstract class TestUtil {
         List<Identifier> identifiers = new ArrayList<Identifier>();
         int amount = rand.nextInt(2) + 1;
         for (int i = 0; i < amount; i++) {
-            identifiers.add(new Identifier(UUID.randomUUID().toString()));
+            identifiers.add(new Identifier("ID-" + UUID.randomUUID().toString()));
         }
         return identifiers;
     }
@@ -868,7 +868,7 @@ public abstract class TestUtil {
 
     public static Representation createRandomRepresentation(TechnicalMetadata.MetadataType type) {
         Representation.Builder b = new Representation.Builder()
-        		.identifier(new Identifier(UUID.randomUUID().toString()))
+        		.identifier(new Identifier("REP-" + UUID.randomUUID().toString()))
                 .provenance(createRandomProvenance())
                 .source(createRandomDescriptive())
                 .rights(createRandomRights())
