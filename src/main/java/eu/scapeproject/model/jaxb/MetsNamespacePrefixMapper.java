@@ -31,4 +31,5 @@ public class MetsNamespacePrefixMapper extends NamespacePrefixMapper {
             return suggestion;
         }
     }
+    
 }
