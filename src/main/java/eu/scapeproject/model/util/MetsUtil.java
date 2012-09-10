@@ -78,9 +78,10 @@ public abstract class MetsUtil {
             MetsAMDSec.Builder adm = new MetsAMDSec.Builder()
                     .id(admId);
             if (f.getTechnical() != null) {
+            	MetsMDWrap wrap=createMetsWrapper(f.getTechnical());
                 MetsTechMD metsTech = new MetsTechMD.Builder()
                 		.id("TECH-" + UUID.randomUUID())
-                        .metadataWrapper(new MetsMDWrap.Builder(new MetsXMLData(f.getTechnical())).build())
+                        .metadataWrapper(wrap)
                         .build();
                 adm.technicalMetadata(metsTech);
             }
