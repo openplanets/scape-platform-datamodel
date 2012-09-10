@@ -3,7 +3,11 @@ package eu.scapeproject.model.test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.List;
 
 import javax.xml.XMLConstants;
@@ -163,10 +167,11 @@ public abstract class ValidationUtil {
 		int numErrors;
 		int numFatal;
 		int numWarnings;
+		
 
 		@Override
 		public void error(SAXParseException exception) throws SAXException {
-			System.out.println("ERROR: " + exception.getMessage());
+			System.out.println("ERROR: line " + exception.getLineNumber() + ": " +  exception.getMessage());
 			numErrors++;
 		}
 
@@ -193,5 +198,6 @@ public abstract class ValidationUtil {
 		public int getNumWarnings() {
 			return numWarnings;
 		}
+		
 	}
 }
