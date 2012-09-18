@@ -1,4 +1,4 @@
-package eu.scapeproject.model.test;
+package eu.scapeproject.model.util;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;

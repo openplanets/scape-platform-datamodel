@@ -7,7 +7,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import eu.scapeproject.model.test.TestUtil;
+import eu.scapeproject.model.util.TestUtil;
 
 public class ModelBuilderTest {
 
