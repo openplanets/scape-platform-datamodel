@@ -63,7 +63,7 @@ public class DCMetadata extends DescriptiveMetadata {
 		this.relations = null;
 		this.contributors = null;
 		this.rights = null;
-		this.id=null;
+		this.id = null;
 	}
 
 	private DCMetadata(Builder builder) {
@@ -267,7 +267,7 @@ public class DCMetadata extends DescriptiveMetadata {
 		}
 
 		public Builder(DCMetadata orig) {
-			orig=CopyUtil.deepCopy(DCMetadata.class, orig);
+			orig = CopyUtil.deepCopy(DCMetadata.class, orig);
 			this.dates = orig.getDate();
 			this.titles = orig.getTitle();
 			this.creators = orig.getCreator();
@@ -282,10 +282,52 @@ public class DCMetadata extends DescriptiveMetadata {
 			this.contributors = orig.getConstributors();
 			this.rights = orig.getRights();
 			this.coverages = orig.getCoverages();
-			this.identifier=new Identifier(orig.getId());
+			this.identifier = new Identifier(orig.getId());
 		}
 
 		public DCMetadata build() {
+			if (this.contributors == null) {
+				this.contributors = new ArrayList<Agent>();
+			}
+			if (this.coverages == null) {
+				this.coverages = new ArrayList<String>();
+			}
+			if (this.creators == null) {
+				this.creators = new ArrayList<Agent>();
+			}
+			if (this.dates == null) {
+				this.dates = new ArrayList<Date>();
+			}
+			if (this.descriptions == null) {
+				this.descriptions = new ArrayList<String>();
+			}
+			if (this.formats == null) {
+				this.formats = new ArrayList<String>();
+			}
+			if (this.languages == null) {
+				this.languages = new ArrayList<String>();
+			}
+			if (this.publishers == null) {
+				this.publishers = new ArrayList<String>();
+			}
+			if (this.relations == null) {
+				this.relations = new ArrayList<String>();
+			}
+			if (this.rights == null) {
+				this.rights = new ArrayList<String>();
+			}
+			if (this.sources == null) {
+				this.sources = new ArrayList<String>();
+			}
+			if (this.subjects == null) {
+				this.subjects = new ArrayList<String>();
+			}
+			if (this.titles == null) {
+				this.titles = new ArrayList<String>();
+			}
+			if (this.types == null) {
+				this.types = new ArrayList<String>();
+			}
 			return new DCMetadata(this);
 		}
 
