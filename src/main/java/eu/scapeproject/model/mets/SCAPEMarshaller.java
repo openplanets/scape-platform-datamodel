@@ -1,5 +1,6 @@
 package eu.scapeproject.model.mets;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -69,7 +70,11 @@ public class SCAPEMarshaller {
 		marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new MetsNamespacePrefixMapper());
 		unmarshaller = ctx.createUnmarshaller();
 	}
-
+	
+	public <T> T deserialize(Class<T> type, String xml){
+		return this.deserialize(type,new ByteArrayInputStream(xml.getBytes()));
+	}
+	
 	@SuppressWarnings("unchecked")
     public <T> T deserialize(Class<T> type, InputStream in) throws SerializationException {
 		if (type == IntellectualEntity.class) {
