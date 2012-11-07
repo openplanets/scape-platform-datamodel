@@ -91,6 +91,14 @@ public class GrantedRights {
         result = prime * result + ((termOfGrant == null) ? 0 : termOfGrant.hashCode());
         return result;
     }
+
+	@Override
+	public String toString() {
+		return "GrantedRights [act=" + act + ", restriction=" + restriction
+				+ ", termOfGrant=" + termOfGrant + ", rightsGrantedNotes="
+				+ rightsGrantedNotes + "]";
+	}
+    
     
     
 }

@@ -78,10 +78,24 @@ public class CopyRightInformation {
         result = prime * result + ((copyrightStatusDeterminationDate == null) ? 0 : copyrightStatusDeterminationDate.hashCode());
         return result;
     }
+    
+    
 
 
 
-    public enum CopyrightStatus {
+    @Override
+	public String toString() {
+		return "CopyRightInformation [copyrightJurisdiction="
+				+ copyrightJurisdiction + ", copyrightStatusDeterminationDate="
+				+ copyrightStatusDeterminationDate + ", copyrightNote="
+				+ copyrightNote + "]";
+	}
+
+
+
+
+
+	public enum CopyrightStatus {
         COPYRIGHTED, PUBLIC_DOMAIN, UNKNOWN;
     }
     

@@ -6,7 +6,9 @@ import javax.xml.bind.annotation.XmlValue;
 
 @XmlRootElement
 public class LifecycleState {
-    @XmlValue
+   
+
+	@XmlValue
     private final String details;
     @XmlAttribute(name="lifecyclestate")
     private final State state;
@@ -58,6 +60,11 @@ public class LifecycleState {
         result = prime * result + ((state == null) ? 0 : state.hashCode());
         return result;
     }
+    
+    @Override
+   	public String toString() {
+   		return "LifecycleState [details=" + details + ", state=" + state + "]";
+   	}
 
     public enum State {
         INGESTED, INGESTING, INGEST_FAILED, OTHER;

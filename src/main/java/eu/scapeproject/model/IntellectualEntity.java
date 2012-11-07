@@ -111,6 +111,24 @@ public class IntellectualEntity {
 		result = prime * result + versionNumber;
 		return result;
 	}
+	
+	
+	@Override
+	public String toString() {
+		return "IntellectualEntity [identifier=" + identifier 
+				+ ", versionNumber=" + versionNumber 
+				+ ", alternativeIdentifiers=" + alternativeIdentifiers 
+				+ ", descriptive=" + descriptive  
+				+ ", representations=" + representations  
+				+ ", lifeCycleState=" + lifeCycleState 
+				+ "]";
+	}
+	
+	
+	
+	
+	
+	
 
 	public static class Builder {
 		private Identifier identifier;
@@ -168,6 +186,9 @@ public class IntellectualEntity {
 			this.versionNumber = versionNumber;
 			return this;
 		}
+		
+		
+		
 	}
 
 }

@@ -8,7 +8,9 @@ import eu.scapeproject.model.util.CopyUtil;
 
 @XmlRootElement(name = "agent",namespace="http://www.loc.gov/standards/premis")
 public class Agent {
-    @XmlElement(name = "name",namespace="http://www.loc.gov/standards/premis")
+   
+
+	@XmlElement(name = "name",namespace="http://www.loc.gov/standards/premis")
     private final String name;
     @XmlElement(name = "note",namespace="http://www.loc.gov/standards/premis")
     private final String note;
@@ -119,6 +121,18 @@ public class Agent {
         result = prime * result + ((type == null) ? 0 : type.hashCode());
         return result;
     }
+
+    
+    @Override
+   	public String toString() {
+   		return "Agent [name=" + name 
+   				+ ", note=" + note 
+   				+ ", role=" + role
+   				+ ", type=" + type 
+   				+ ", otherRole=" + otherRole
+   				+ ", otherType=" + otherType 
+   				+ "]";
+   	}
 
 
     public static class Builder {

@@ -64,4 +64,12 @@ public class TermOfGrant {
         return result;
     }
 
+	@Override
+	public String toString() {
+		return "TermOfGrant [startDate=" + startDate + ", endDate=" + endDate
+				+ "]";
+	}
+    
+    
+
 }

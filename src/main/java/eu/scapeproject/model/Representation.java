@@ -137,12 +137,28 @@ public class Representation {
 		return technical;
 	}
 
+	
+
 	public String getTitle() {
 		return title;
 	}
 
 	public String getUsage() {
 		return usage;
+	}
+	
+	@Override
+	public String toString() {
+		return "Representation [" 
+				+ "identifier=" + identifier 
+				+ ", source=" + source 
+				+ ", provenance=" + provenance 
+				+ ", technical=" + technical 
+				+ ", rights=" + rights 
+				+ ", files=" + files
+				+ ", title=" + title 
+				+ ", usage=" + usage 
+				+ "]";
 	}
 
 	@Override

@@ -7,6 +7,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="identifier",namespace="http://scapeproject.eu/model")
 public class Identifier {
+	
+
 	@XmlAttribute(name="type")
     protected final String type;
 	@XmlElement(name="value",namespace="http://scapeproject.eu/model")
@@ -66,5 +68,10 @@ public class Identifier {
         result = prime * result + ((value == null) ? 0 : value.hashCode());
         return result;
     }
+    
+    @Override
+	public String toString() {
+		return "Identifier [type=" + type + ", value=" + value + "]";
+	}
     
 }

@@ -141,8 +141,22 @@ public class Event {
         result = prime * result + ((type == null) ? 0 : type.hashCode());
         return result;
     }
+    
+    
+    
 
-    public static class Builder {
+    @Override
+	public String toString() {
+		return "Event [identifier=" + identifier + ", type=" + type
+				+ ", dateTime=" + dateTime + ", detail=" + detail
+				+ ", outcome=" + outcome + ", linkingAgents=" + linkingAgents
+				+ ", linkingObjects=" + linkingObjects + "]";
+	}
+
+
+
+
+	public static class Builder {
         private Identifier identifier;
         private String type;
         private Date dateTime;

@@ -82,5 +82,14 @@ public class LicenseInformation {
         result = prime * result + ((licenseTerms == null) ? 0 : licenseTerms.hashCode());
         return result;
     }
+
+	@Override
+	public String toString() {
+		return "LicenseInformation [licenseIdentifier=" + licenseIdentifier
+				+ ", licenseTerms=" + licenseTerms + ", licenseNotes="
+				+ licenseNotes + "]";
+	}
+    
+    
     
 }

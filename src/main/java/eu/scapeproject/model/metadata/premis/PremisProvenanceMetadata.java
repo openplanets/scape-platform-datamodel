@@ -56,8 +56,17 @@ public class PremisProvenanceMetadata extends ProvenanceMetadata {
         result = prime * result + ((events == null) ? 0 : events.hashCode());
         return result;
     }
+    
+    
 
-    public static class Builder{
+    @Override
+	public String toString() {
+		return "PremisProvenanceMetadata [events=" + events + "]";
+	}
+
+
+
+	public static class Builder{
     	private List<Event> events;
     	
     	public Builder(){

@@ -26,4 +26,12 @@ public abstract class RightsMetadata  extends MetsMetadata{
     public enum Type {
         PREMIS;
     }
+
+	@Override
+	public String toString() {
+		return "RightsMetadata [type=" + type + "]";
+	}
+    
+    
+    
 }

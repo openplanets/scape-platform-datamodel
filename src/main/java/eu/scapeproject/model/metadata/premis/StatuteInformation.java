@@ -93,4 +93,15 @@ public class StatuteInformation {
         return result;
     }
 
+	@Override
+	public String toString() {
+		return "StatuteInformation [statuteJurisdiction=" + statuteJurisdiction
+				+ ", statuteCitation=" + statuteCitation
+				+ ", statuteInformationDeterminationDate="
+				+ statuteInformationDeterminationDate + ", statuteNotes="
+				+ statuteNotes + "]";
+	}
+    
+    
+
 }

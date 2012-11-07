@@ -16,5 +16,7 @@ public abstract class DescriptiveMetadata extends MetsMetadata {
 	public enum MetadataType {
 		DC;
 	}
+	
+	
 
 }

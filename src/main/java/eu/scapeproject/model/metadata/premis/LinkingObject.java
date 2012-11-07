@@ -68,5 +68,14 @@ public class LinkingObject {
         result = prime * result + ((linkingObjectRole == null) ? 0 : linkingObjectRole.hashCode());
         return result;
     }
+
+	@Override
+	public String toString() {
+		return "LinkingObject [linkingObjectIdentifier="
+				+ linkingObjectIdentifier + ", linkingObjectRole="
+				+ linkingObjectRole + "]";
+	}
+    
+    
     
 }

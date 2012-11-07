@@ -68,6 +68,14 @@ public class LinkingAgent {
         result = prime * result + ((linkingAgentRole == null) ? 0 : linkingAgentRole.hashCode());
         return result;
     }
+
+	@Override
+	public String toString() {
+		return "LinkingAgent [linkingAgentIdentifier=" + linkingAgentIdentifier
+				+ ", linkingAgentRole=" + linkingAgentRole + "]";
+	}
+    
+    
     
     
 }

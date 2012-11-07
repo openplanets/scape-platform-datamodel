@@ -150,8 +150,25 @@ public class RightsStatement {
         result = prime * result + ((statuteInformation == null) ? 0 : statuteInformation.hashCode());
         return result;
     }
+    
+    
+    
 
-    public static class Builder {
+    @Override
+	public String toString() {
+		return "RightsStatement [rightsStatementIdentifier="
+				+ rightsStatementIdentifier + ", rightsBasis=" + rightsBasis
+				+ ", copyrightInformation=" + copyrightInformation
+				+ ", licenseInformation=" + licenseInformation
+				+ ", statuteInformation=" + statuteInformation
+				+ ", rightsGranted=" + rightsGranted + ", linkingObjects="
+				+ linkingObjects + ", linkingagents=" + linkingagents + "]";
+	}
+
+
+
+
+	public static class Builder {
         private Identifier rightsStatementIdentifier;
         private String rightsBasis;
         private CopyRightInformation copyrightInformation;

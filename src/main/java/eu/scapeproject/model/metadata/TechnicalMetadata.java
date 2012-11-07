@@ -29,4 +29,11 @@ public abstract class TechnicalMetadata extends MetsMetadata{
     public enum MetadataType {
         TEXTMD, NISO_MIX, FITS, AUDIOMD, VIDEOMD;
     }
+
+	@Override
+	public String toString() {
+		return "TechnicalMetadata [metadataType=" + metadataType + "]";
+	}
+    
+    
 }

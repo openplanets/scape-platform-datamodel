@@ -51,4 +51,12 @@ public class PremisRightsMetadata extends RightsMetadata{
         return result;
     }
 
+	@Override
+	public String toString() {
+		return "PremisRightsMetadata [rightsStatements=" + rightsStatements
+				+ "]";
+	}
+    
+    
+
 }

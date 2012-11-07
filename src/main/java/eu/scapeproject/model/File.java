@@ -12,6 +12,8 @@ import eu.scapeproject.model.util.CopyUtil;
 
 @XmlRootElement(name="file",namespace="http://scapeproject.eu/model")
 public class File {
+	
+
 	@XmlElement(name="technical",namespace="http://scapeproject.eu/model")
     private final TechnicalMetadata technical;
 	@XmlElement(name="bitstream",namespace="http://scapeproject.eu/model")
@@ -93,6 +95,15 @@ public class File {
         result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
         return result;
     }
+    
+    @Override
+	public String toString() {
+		return "File [technical=" + technical 
+				+ ", bitStreams=" + bitStreams
+				+ ", uri=" + uri 
+				+ ", identifier=" + identifier 
+				+ "]";
+	}
 
     public static class Builder {
         private TechnicalMetadata technical;

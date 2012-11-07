@@ -18,4 +18,11 @@ public abstract class ProvenanceMetadata extends MetsMetadata{
     public String getType() {
         return type;
     }
+
+	@Override
+	public String toString() {
+		return "ProvenanceMetadata [type=" + type + "]";
+	}
+    
+    
 }

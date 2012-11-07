@@ -9,6 +9,8 @@ import eu.scapeproject.model.util.CopyUtil;
 
 @XmlRootElement(name = "bitstream", namespace = "http://scapeproject.eu/model")
 public class BitStream {
+	
+
 	@XmlElement(name = "title", namespace = "http://scapeproject.eu/model")
 	private final String title;
 	@XmlElement(name = "type", namespace = "http://scapeproject.eu/model")
@@ -87,6 +89,15 @@ public class BitStream {
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
 		return result;
+	}
+	
+	@Override
+	public String toString() {
+		return "BitStream [title=" + title 
+				+ ", type=" + type 
+				+ ", technical="+ technical 
+				+ ", identifier=" + identifier 
+				+ "]";
 	}
 
 	public static class Builder {
