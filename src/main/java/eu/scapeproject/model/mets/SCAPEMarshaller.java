@@ -12,6 +12,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.lang3.SerializationException;
+import org.w3c.dom.Node;
 
 import eu.scapeproject.dto.mets.MetsDMDSec;
 import eu.scapeproject.dto.mets.MetsDocument;
@@ -173,6 +174,14 @@ public class SCAPEMarshaller {
 		return unmarshaller;
 	}
 
+	public Object deserialize(Node node) throws SerializationException {
+	    try {
+            return this.unmarshaller.unmarshal(node);
+        } catch (JAXBException e) {
+            throw new SerializationException(e);
+        }
+	}
+	
 	public String serialize(Object subject) {
 		final ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		this.serialize(subject,bos);
