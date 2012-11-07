@@ -1,7 +1,6 @@
 package eu.scapeproject.model.util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -320,7 +319,7 @@ public abstract class MetsUtil {
 	public static File getMetsFile(String fileId, MetsDocument doc) {
 		for (MetsFileGrp grp : doc.getFileSec().getFileGroups()) {
 			for (MetsFile metsFile : grp.getFiles()) {
-				if (metsFile.getAdmId().equals(fileId)) {
+				if (metsFile.getId().equals(fileId)) {
 					File.Builder f = new File.Builder()
 							.identifier(new Identifier(metsFile.getId()))
 							.uri(metsFile.getFileLocations().get(0).getHref());
