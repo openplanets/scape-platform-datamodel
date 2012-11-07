@@ -4,8 +4,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import eu.scapeproject.model.test.TestUtil;
 import eu.scapeproject.model.util.CopyUtil;
+import eu.scapeproject.model.util.TestUtil;
 
 public class DeepCopyTest {
     @Test

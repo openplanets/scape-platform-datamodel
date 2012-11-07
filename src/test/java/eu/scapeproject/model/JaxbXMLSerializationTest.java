@@ -21,8 +21,8 @@ import eu.scapeproject.model.jaxb.MetsNamespacePrefixMapper;
 import eu.scapeproject.model.metadata.dc.DCMetadata;
 import eu.scapeproject.model.metadata.fits.FitsMetadata;
 import eu.scapeproject.model.mets.SCAPEMarshaller;
-import eu.scapeproject.model.test.TestUtil;
 import eu.scapeproject.model.test.ValidationUtil;
+import eu.scapeproject.model.util.TestUtil;
 
 public class JaxbXMLSerializationTest {
     private static Marshaller marshaller;
@@ -51,7 +51,7 @@ public class JaxbXMLSerializationTest {
         IntellectualEntity entity=TestUtil.createRandomEntity();
         FileOutputStream out=new FileOutputStream(xmlFile);
         SCAPEMarshaller.getInstance().serialize(entity, out);
-//        ValidationUtil.validateXML(new FileInputStream(xmlFile),this.getClass().getClassLoader().getResourceAsStream("mets.xsd"));
+        ValidationUtil.validateXML(new FileInputStream(xmlFile),this.getClass().getClassLoader().getResourceAsStream("mets.xsd"));
     }
 
     @Test

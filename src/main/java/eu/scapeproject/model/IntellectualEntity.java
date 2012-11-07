@@ -158,6 +158,10 @@ public class IntellectualEntity {
 		}
 
 		public IntellectualEntity build() {
+			if (descriptive == null){
+				descriptive = new DCMetadata.Builder()
+				.build();
+			}
 			versionNumber = (versionNumber == 0) ? 1 : versionNumber;
 			return new IntellectualEntity(this);
 		}
