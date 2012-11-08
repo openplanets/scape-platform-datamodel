@@ -319,7 +319,7 @@ public abstract class MetsUtil {
 	public static File getMetsFile(String fileId, MetsDocument doc) {
 		for (MetsFileGrp grp : doc.getFileSec().getFileGroups()) {
 			for (MetsFile metsFile : grp.getFiles()) {
-				if (metsFile.getId().equals(fileId)) {
+				if (metsFile.getAdmId().equals(fileId)) {
 					File.Builder f = new File.Builder()
 							.identifier(new Identifier(metsFile.getId()))
 							.uri(metsFile.getFileLocations().get(0).getHref());
