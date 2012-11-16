@@ -130,7 +130,12 @@ public abstract class MetsUtil {
 
 	public static MetsDMDSec convertDCMetadata(DCMetadata dc) {
 
-		final Date created = dc.getDate().get(0);
+		Date created;
+		if (dc.getDate() != null && dc.getDate().size() > 0){
+			created = dc.getDate().get(0);
+		}else{
+			created = new Date();
+		}
 
 		return new MetsDMDSec.Builder(dc.getId())
 				.created(created)
