@@ -129,9 +129,12 @@ public abstract class MetsUtil {
 	}
 
 	public static MetsDMDSec convertDCMetadata(DCMetadata dc) {
-
-		final Date created = dc.getDate().isEmpty() || dc.getDate().get(0) == null ? new Date() : dc.getDate().get(0);
-
+		Date created;
+		if (dc.getDate() != null && dc.getDate().size() > 0){
+			created = dc.getDate().get(0);
+		}else{
+			created = new Date();
+		}
 		return new MetsDMDSec.Builder("dmd-" + UUID.randomUUID().toString())
 				.created(created)
 				.metadataWrapper(createMetsWrapper(dc))
