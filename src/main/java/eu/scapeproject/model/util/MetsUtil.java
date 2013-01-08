@@ -130,9 +130,9 @@ public abstract class MetsUtil {
 
 	public static MetsDMDSec convertDCMetadata(DCMetadata dc) {
 
-		final Date created = dc.getDate().get(0);
+		final Date created = dc.getDate().isEmpty() || dc.getDate().get(0) == null ? new Date() : dc.getDate().get(0);
 
-		return new MetsDMDSec.Builder(dc.getId())
+		return new MetsDMDSec.Builder("dmd-" + UUID.randomUUID().toString())
 				.created(created)
 				.metadataWrapper(createMetsWrapper(dc))
 				.build();
@@ -169,8 +169,13 @@ public abstract class MetsUtil {
 				.amdSecs(new ArrayList<MetsAMDSec>(amdSecs.values()))
 				.fileSec(new MetsFileSec("FILE-" + UUID.randomUUID(), fileGroups))
 				.structMaps(structMaps)
-				.label(((DCMetadata) entity.getDescriptive()).getTitle().get(0))
 				.objId(entity.getIdentifier() == null ? null : entity.getIdentifier().getValue());
+		if (entity.getDescriptive() != null){
+		    DCMetadata record = (DCMetadata) entity.getDescriptive();
+		    if (record.getTitle() != null && !record.getTitle().isEmpty()){
+		        docBuilder.label(record.getTitle().get(0));
+		    }
+		}
 		return docBuilder.build();
 	}
 
@@ -292,7 +297,6 @@ public abstract class MetsUtil {
 
 	public static DescriptiveMetadata getDescriptiveMetadadata(MetsDMDSec dmdSec) {
 		DCMetadata.Builder dc = new DCMetadata.Builder((DCMetadata) dmdSec.getMetadataWrapper().getXmlData().getData());
-		dc.identifier = new Identifier(dmdSec.getId());
 		return dc.build();
 	}
 

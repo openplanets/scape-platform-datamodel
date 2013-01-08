@@ -81,9 +81,7 @@ public class DCMetadata extends DescriptiveMetadata {
 		this.relations = builder.relations;
 		this.contributors = builder.contributors;
 		this.rights = builder.rights;
-		if (builder.identifier != null) {
-			this.setId(builder.identifier.getValue());
-		}
+		this.setId(builder.id);
 	}
 
 	@Override
@@ -246,6 +244,7 @@ public class DCMetadata extends DescriptiveMetadata {
 	}
 
 	public static class Builder {
+	    public String id;
 		public Identifier identifier;
 		private List<Date> dates;
 		private List<String> titles;
@@ -264,6 +263,10 @@ public class DCMetadata extends DescriptiveMetadata {
 
 		public Builder() {
 			super();
+		}
+		
+		public Builder(String id){
+		    this.id = id;
 		}
 
 		public Builder(DCMetadata orig) {
@@ -446,6 +449,11 @@ public class DCMetadata extends DescriptiveMetadata {
 			}
 			this.types.add(type);
 			return this;
+		}
+		
+		public Builder id(String id){
+		    this.id = id;
+		    return this;
 		}
 	}
 

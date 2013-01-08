@@ -12,6 +12,10 @@ public abstract class DescriptiveMetadata extends MetsMetadata {
 	public DescriptiveMetadata() {
 		super();
 	}
+	
+	public DescriptiveMetadata(String id){
+	    super(id);
+	}
 
 	public enum MetadataType {
 		DC;
