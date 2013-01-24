@@ -48,7 +48,7 @@ public class DCMetadata extends DescriptiveMetadata {
 	private final List<String> rights;
 
 	private DCMetadata() {
-		super();
+		super(MetadataType.DC);
 		this.dates = null;
 		this.titles = null;
 		this.creators = null;
@@ -67,6 +67,7 @@ public class DCMetadata extends DescriptiveMetadata {
 	}
 
 	private DCMetadata(Builder builder) {
+	    super(MetadataType.DC);
 		this.dates = builder.dates;
 		this.titles = builder.titles;
 		this.creators = builder.creators;

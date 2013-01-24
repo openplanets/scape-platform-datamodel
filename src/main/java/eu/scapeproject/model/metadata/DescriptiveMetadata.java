@@ -9,18 +9,20 @@ import eu.scapeproject.model.metadata.dc.DCMetadata;
 @XmlSeeAlso({ DCMetadata.class })
 @XmlRootElement(name = "descriptive", namespace = "http://scapeproject.eu/model")
 public abstract class DescriptiveMetadata extends MetsMetadata {
-	public DescriptiveMetadata() {
-		super();
-	}
-	
-	public DescriptiveMetadata(String id){
-	    super(id);
-	}
+    private final MetadataType type;
 
-	public enum MetadataType {
-		DC;
-	}
-	
-	
+    public DescriptiveMetadata(MetadataType type) {
+        super();
+        this.type = type;
+    }
+
+    public DescriptiveMetadata(MetadataType type, String id) {
+        super(id);
+        this.type = type;
+    }
+
+    public enum MetadataType {
+        DC, MARC21;
+    }
 
 }

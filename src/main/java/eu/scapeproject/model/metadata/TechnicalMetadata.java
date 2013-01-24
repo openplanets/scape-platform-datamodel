@@ -27,7 +27,7 @@ public abstract class TechnicalMetadata extends MetsMetadata{
     }
 
     public enum MetadataType {
-        TEXTMD, NISO_MIX, FITS, AUDIOMD, VIDEOMD;
+        TEXTMD, NISO_MIX, FITS, AUDIOMD, VIDEOMD, GOOGLE_BOOKS;
     }
 
 	@Override
