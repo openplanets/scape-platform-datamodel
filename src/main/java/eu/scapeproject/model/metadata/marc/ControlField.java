@@ -14,6 +14,13 @@ public class ControlField {
     @XmlAttribute(name = "xml:space")
     private final String xmlSpace;
 
+    private ControlField() {
+        super();
+        this.id = null;
+        this.tag = null;
+        this.xmlSpace = null;
+    }
+
     private ControlField(Builder b) {
         this.id = b.id;
         this.tag = b.tag;

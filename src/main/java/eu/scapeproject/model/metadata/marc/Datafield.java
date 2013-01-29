@@ -16,6 +16,13 @@ public class Datafield {
 
     @XmlAttribute(name = "id")
     private final String ind2;
+    
+    private Datafield(){
+        this.id = null;
+        this.tag = null;
+        this.ind1 = null;
+        this.ind2 = null;
+    }
 
     private Datafield(Builder b) {
         this.id = b.id;

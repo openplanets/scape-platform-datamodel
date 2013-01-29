@@ -16,6 +16,13 @@ public class Marc21Metadata extends DescriptiveMetadata {
 
     @XmlElement(name = "dataField", namespace = "http://www.loc.gov/MARC21/slim")
     private final Datafield dataField;
+    
+    private Marc21Metadata(){
+        super(MetadataType.MARC21);
+        this.leader = null;
+        this.controlField = null;
+        this.dataField = null;
+    }
 
     private Marc21Metadata(Builder b) {
         super(MetadataType.MARC21);

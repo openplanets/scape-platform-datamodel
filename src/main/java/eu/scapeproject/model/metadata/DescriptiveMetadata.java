@@ -11,6 +11,11 @@ import eu.scapeproject.model.metadata.dc.DCMetadata;
 public abstract class DescriptiveMetadata extends MetsMetadata {
     private final MetadataType type;
 
+    private DescriptiveMetadata() {
+        super();
+        this.type = null;
+    }
+
     public DescriptiveMetadata(MetadataType type) {
         super();
         this.type = type;

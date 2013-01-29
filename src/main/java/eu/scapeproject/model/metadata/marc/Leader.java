@@ -10,6 +10,12 @@ public class Leader {
 
     @XmlAttribute(name = "name")
     private final String name;
+    
+    private Leader(){
+        super();
+        this.id=null;
+        this.name=null;
+    }
 
     private Leader(Builder b) {
         this.id = b.id;
