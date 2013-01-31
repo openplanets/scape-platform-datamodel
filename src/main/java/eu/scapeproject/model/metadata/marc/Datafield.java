@@ -1,6 +1,7 @@
 package eu.scapeproject.model.metadata.marc;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "datafield")
@@ -16,6 +17,9 @@ public class Datafield {
 
     @XmlAttribute(name = "id")
     private final String ind2;
+    
+    @XmlElement(name="subfield",namespace="http://www.loc.gov/MARC21/slim")
+    private SubField subfield;
     
     private Datafield(){
         this.id = null;

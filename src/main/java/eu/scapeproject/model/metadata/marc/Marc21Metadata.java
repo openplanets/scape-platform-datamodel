@@ -59,8 +59,8 @@ public class Marc21Metadata extends DescriptiveMetadata {
             return this;
         }
 
-        public Builder controlFiled(ControlField controlFiled) {
-            this.controlField = controlFiled;
+        public Builder controlField(ControlField controlField) {
+            this.controlField = controlField;
             return this;
         }
 
