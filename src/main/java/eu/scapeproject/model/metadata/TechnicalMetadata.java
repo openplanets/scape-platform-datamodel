@@ -11,7 +11,6 @@ import eu.scapeproject.model.metadata.textmd.TextMDMetadata;
 import eu.scapeproject.model.metadata.videomd.VideoMDMetadata;
 
 @XmlSeeAlso({ NisoMixMetadata.class, FitsMetadata.class, TextMDMetadata.class, AudioMDMetadata.class, VideoMDMetadata.class })
-@XmlTransient
 public abstract class TechnicalMetadata extends MetsMetadata{
     protected MetadataType metadataType;
 

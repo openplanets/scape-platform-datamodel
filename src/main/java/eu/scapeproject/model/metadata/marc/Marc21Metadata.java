@@ -8,7 +8,7 @@ import eu.scapeproject.model.metadata.DescriptiveMetadata;
 @XmlRootElement(name = "marc-record")
 public class Marc21Metadata extends DescriptiveMetadata {
 	
-	@XmlElement(name="record")
+	@XmlElement(name="record", namespace="http://www.loc.gov/MARC21/slim")
 	private final Marc21Record record;
 
     

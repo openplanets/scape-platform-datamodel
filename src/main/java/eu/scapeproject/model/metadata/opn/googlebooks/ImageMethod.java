@@ -11,29 +11,20 @@ public class ImageMethod extends TechnicalMetadata{
 	
 	@XmlAttribute(name="scanner")
 	private final String scanner;
-	@XmlValue
-	private final String text;
 	
 	private ImageMethod(Builder b) {
 		super(MetadataType.GBS_IMAGE_METHOD);
 		this.scanner = b.scanner;
-		this.text = b.text;
 	}
 	
 	private ImageMethod() {
 		super(MetadataType.GBS_IMAGE_METHOD);
 		this.scanner = null;
-		this.text = null;
 	}
 
 	private static class Builder{
-		private String text;
 		private String scanner;
 		
-		public Builder text(String text){
-			this.text = text;
-			return this;
-		}
 		
 		public Builder scanner(String scanner){
 			this.scanner = scanner;
