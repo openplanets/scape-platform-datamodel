@@ -15,13 +15,20 @@ public class ReadingOrder extends TechnicalMetadata{
 	@XmlElement(name="coverTag",namespace="http://books.google.com/gbs")
 	private final String coverTag;
 
-	public ReadingOrder(Builder b) {
+	private ReadingOrder(Builder b) {
 		super(MetadataType.GBS_READING_ORDER);
 		this.pageOrder = b.pageOrder;
 		this.coverTag = b.coverTag;
 		this.pageSequence = b.pageSequence;
 	}
 	
+	private ReadingOrder() {
+		super(MetadataType.GBS_READING_ORDER);
+		this.pageOrder = null;
+		this.coverTag = null;
+		this.pageSequence = null;
+	}
+
 	private static class Builder{
 		private String pageOrder;
 		private String pageSequence;

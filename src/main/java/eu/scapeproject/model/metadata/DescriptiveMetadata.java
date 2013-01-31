@@ -5,8 +5,9 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 
 import eu.scapeproject.dto.mets.MetsMetadata;
 import eu.scapeproject.model.metadata.dc.DCMetadata;
+import eu.scapeproject.model.metadata.marc.Marc21Metadata;
 
-@XmlSeeAlso({ DCMetadata.class })
+@XmlSeeAlso({ DCMetadata.class, Marc21Metadata.class })
 @XmlRootElement(name = "descriptive", namespace = "http://scapeproject.eu/model")
 public abstract class DescriptiveMetadata extends MetsMetadata {
     private final MetadataType type;

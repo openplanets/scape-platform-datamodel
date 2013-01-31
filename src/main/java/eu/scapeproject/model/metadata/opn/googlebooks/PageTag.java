@@ -10,11 +10,16 @@ public class PageTag extends TechnicalMetadata{
 	@XmlValue
 	private final String text;
 	
-	public PageTag(Builder b) {
+	private PageTag(Builder b) {
 		super(MetadataType.GBS_PAGE_TAG);
 		this.text = b.text;
 	}
 	
+	private PageTag() {
+		super(MetadataType.GBS_PAGE_TAG);
+		this.text = null;
+	}
+
 	private static class Builder{
 		private String text;
 		

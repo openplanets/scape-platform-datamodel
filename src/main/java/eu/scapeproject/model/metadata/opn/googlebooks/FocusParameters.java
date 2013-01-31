@@ -10,12 +10,15 @@ public class FocusParameters extends TechnicalMetadata{
 	@XmlAttribute(name="threshold")
 	private final String threshold;
 	
-	public FocusParameters(Builder b) {
+	private FocusParameters(Builder b) {
 		super(MetadataType.GBS_FOCUS_PARAMETERS);
 		this.threshold = b.threshold;
 	}
 
-	
+	private FocusParameters(){
+		super(MetadataType.GBS_FOCUS_PARAMETERS);
+		this.threshold = null;
+	}
 	private static class Builder{
 		private String threshold;
 		

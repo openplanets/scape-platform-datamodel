@@ -299,6 +299,9 @@ public abstract class MetsUtil {
 	}
 
 	public static DescriptiveMetadata getDescriptiveMetadadata(MetsDMDSec dmdSec) {
+		String type = dmdSec.getMetadataWrapper().getMdType();
+		System.out.println("TYPE: " + type);
+		System.out.println(dmdSec.getMetadataWrapper().getXmlData().getData().getClass().getName());
 		DCMetadata.Builder dc = new DCMetadata.Builder((DCMetadata) dmdSec.getMetadataWrapper().getXmlData().getData());
 		return dc.build();
 	}

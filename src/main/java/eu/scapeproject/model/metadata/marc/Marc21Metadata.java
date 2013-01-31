@@ -5,67 +5,33 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
 
-@XmlRootElement(name = "record")
+@XmlRootElement(name = "marc-record")
 public class Marc21Metadata extends DescriptiveMetadata {
+	
+	@XmlElement(name="record")
+	private final Marc21Record record;
 
-    @XmlElement(name = "leader", namespace = "http://www.loc.gov/MARC21/slim")
-    private final Leader leader;
-
-    @XmlElement(name = "controlField", namespace = "http://www.loc.gov/MARC21/slim")
-    private final ControlField controlField;
-
-    @XmlElement(name = "dataField", namespace = "http://www.loc.gov/MARC21/slim")
-    private final Datafield dataField;
     
     private Marc21Metadata(){
         super(MetadataType.MARC21);
-        this.leader = null;
-        this.controlField = null;
-        this.dataField = null;
+        this.record = null;
     }
 
     private Marc21Metadata(Builder b) {
         super(MetadataType.MARC21);
-        this.leader = b.leader;
-        this.controlField = b.controlField;
-        this.dataField = b.dataField;
-    }
-
-    public ControlField getControlField() {
-        return controlField;
-    }
-
-    public Datafield getDataField() {
-        return dataField;
-    }
-
-    public Leader getLeader() {
-        return leader;
+        this.record = b.record;
     }
 
     public static class Builder {
-        private Leader leader;
-
-        private ControlField controlField;
-
-        private Datafield dataField;
+    	
+    	private Marc21Record record;
 
         public Builder() {
 
         }
 
-        public Builder leader(Leader leader) {
-            this.leader = leader;
-            return this;
-        }
-
-        public Builder controlField(ControlField controlField) {
-            this.controlField = controlField;
-            return this;
-        }
-
-        public Builder dataField(Datafield dataField) {
-            this.dataField = dataField;
+        public Builder record(Marc21Record record) {
+            this.record = record;
             return this;
         }
 

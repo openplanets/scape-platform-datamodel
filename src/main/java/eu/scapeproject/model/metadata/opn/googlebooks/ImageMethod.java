@@ -14,12 +14,18 @@ public class ImageMethod extends TechnicalMetadata{
 	@XmlValue
 	private final String text;
 	
-	public ImageMethod(Builder b) {
+	private ImageMethod(Builder b) {
 		super(MetadataType.GBS_IMAGE_METHOD);
 		this.scanner = b.scanner;
 		this.text = b.text;
 	}
 	
+	private ImageMethod() {
+		super(MetadataType.GBS_IMAGE_METHOD);
+		this.scanner = null;
+		this.text = null;
+	}
+
 	private static class Builder{
 		private String text;
 		private String scanner;

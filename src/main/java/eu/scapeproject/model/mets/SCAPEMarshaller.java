@@ -30,7 +30,14 @@ import eu.scapeproject.model.jaxb.MetsNamespacePrefixMapper;
 import eu.scapeproject.model.metadata.audiomd.AudioMDMetadata;
 import eu.scapeproject.model.metadata.dc.DCMetadata;
 import eu.scapeproject.model.metadata.fits.FitsMetadata;
+import eu.scapeproject.model.metadata.marc.Marc21Metadata;
 import eu.scapeproject.model.metadata.mix.NisoMixMetadata;
+import eu.scapeproject.model.metadata.opn.googlebooks.FocusParameters;
+import eu.scapeproject.model.metadata.opn.googlebooks.ImageMethod;
+import eu.scapeproject.model.metadata.opn.googlebooks.PageTag;
+import eu.scapeproject.model.metadata.opn.googlebooks.ProductionNotes;
+import eu.scapeproject.model.metadata.opn.googlebooks.ReadingOrder;
+import eu.scapeproject.model.metadata.opn.googlebooks.RecordSource;
 import eu.scapeproject.model.metadata.premis.PremisProvenanceMetadata;
 import eu.scapeproject.model.metadata.premis.PremisRightsMetadata;
 import eu.scapeproject.model.metadata.textmd.TextMDMetadata;
@@ -65,7 +72,14 @@ public class SCAPEMarshaller {
 				Identifier.class,
 				VersionList.class,
 				IntellectualEntityCollection.class,
-				Representation.class);
+				Representation.class,
+				Marc21Metadata.class,
+				FocusParameters.class,
+				ImageMethod.class,
+				PageTag.class,
+				ProductionNotes.class,
+				ReadingOrder.class,
+				RecordSource.class);
 		marshaller = ctx.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new MetsNamespacePrefixMapper());

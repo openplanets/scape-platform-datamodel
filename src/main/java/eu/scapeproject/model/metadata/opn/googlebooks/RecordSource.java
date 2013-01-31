@@ -12,10 +12,16 @@ public class RecordSource extends TechnicalMetadata {
 	@XmlElement(name = "sourceLibrary", namespace = "http://books.google.com/gbs")
 	private final String sourceIdentifier;
 
-	public RecordSource(Builder b) {
+	private RecordSource(Builder b) {
 		super(MetadataType.GBS_RECORD_SOURCE);
 		this.sourceLibrary = b.sourceLibrary;
 		this.sourceIdentifier = b.sourceIdentifier;
+	}
+
+	private RecordSource() {
+		super(MetadataType.GBS_RECORD_SOURCE);
+		this.sourceLibrary = null;
+		this.sourceIdentifier = null;
 	}
 
 	private static class Builder {

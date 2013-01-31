@@ -15,11 +15,18 @@ public class ProductionNotes extends TechnicalMetadata {
 	@XmlElement(name = "tightBoundPages", namespace = "http://books.google.com/gbs")
 	private final String tightBoundPages;
 
-	public ProductionNotes(Builder b) {
+	private ProductionNotes(Builder b) {
 		super(MetadataType.GBS_PRODUCTION_NOTES);
 		this.badPages = b.badPages;
 		this.missingPages = b.missingPages;
 		this.tightBoundPages = b.tightBoundPages;
+	}
+
+	private ProductionNotes() {
+		super(MetadataType.GBS_PRODUCTION_NOTES);
+		this.badPages = null;
+		this.missingPages = null;
+		this.tightBoundPages = null;
 	}
 
 	private static class Builder {

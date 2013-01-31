@@ -1,6 +1,7 @@
 package eu.scapeproject.model.metadata;
 
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 import eu.scapeproject.dto.mets.MetsMetadata;
 import eu.scapeproject.model.metadata.audiomd.AudioMDMetadata;
@@ -10,6 +11,7 @@ import eu.scapeproject.model.metadata.textmd.TextMDMetadata;
 import eu.scapeproject.model.metadata.videomd.VideoMDMetadata;
 
 @XmlSeeAlso({ NisoMixMetadata.class, FitsMetadata.class, TextMDMetadata.class, AudioMDMetadata.class, VideoMDMetadata.class })
+@XmlTransient
 public abstract class TechnicalMetadata extends MetsMetadata{
     protected MetadataType metadataType;
 
