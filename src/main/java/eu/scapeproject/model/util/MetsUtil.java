@@ -1,11 +1,23 @@
 package eu.scapeproject.model.util;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.stream.events.StartElement;
+
+import org.apache.commons.io.IOUtils;
 
 import eu.scapeproject.dto.mets.MetsAMDSec;
 import eu.scapeproject.dto.mets.MetsAgent;
@@ -35,6 +47,7 @@ import eu.scapeproject.model.File;
 import eu.scapeproject.model.Identifier;
 import eu.scapeproject.model.IntellectualEntity;
 import eu.scapeproject.model.Representation;
+import eu.scapeproject.model.jaxb.MetsNamespacePrefixMapper;
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
 import eu.scapeproject.model.metadata.ProvenanceMetadata;
 import eu.scapeproject.model.metadata.RightsMetadata;
@@ -42,11 +55,16 @@ import eu.scapeproject.model.metadata.TechnicalMetadata;
 import eu.scapeproject.model.metadata.audiomd.AudioMDMetadata;
 import eu.scapeproject.model.metadata.dc.DCMetadata;
 import eu.scapeproject.model.metadata.fits.FitsMetadata;
+import eu.scapeproject.model.metadata.marc.Datafield;
+import eu.scapeproject.model.metadata.marc.Leader;
+import eu.scapeproject.model.metadata.marc.Marc21Record;
+import eu.scapeproject.model.metadata.marc.SubField;
 import eu.scapeproject.model.metadata.mix.NisoMixMetadata;
 import eu.scapeproject.model.metadata.premis.PremisProvenanceMetadata;
 import eu.scapeproject.model.metadata.premis.PremisRightsMetadata;
 import eu.scapeproject.model.metadata.textmd.TextMDMetadata;
 import eu.scapeproject.model.metadata.videomd.VideoMDMetadata;
+import eu.scapeproject.model.mets.SCAPEMarshaller;
 
 public abstract class MetsUtil {
 
@@ -298,7 +316,7 @@ public abstract class MetsUtil {
 		return amdSecs;
 	}
 
-	public static DescriptiveMetadata getDescriptiveMetadadata(MetsDMDSec dmdSec) {
+	public static DescriptiveMetadata getDescriptiveMetadata(MetsDMDSec dmdSec) {
 		String type = dmdSec.getMetadataWrapper().getMdType();
 		System.out.println("TYPE: " + type);
 		System.out.println(dmdSec.getMetadataWrapper().getXmlData().getClass().getName());
@@ -463,5 +481,54 @@ public abstract class MetsUtil {
 	private static TechnicalMetadata getTechnical(String admId, MetsDocument doc) {
 		MetsAMDSec amd = getAdmSec(admId, doc.getAmdSecs());
 		return (TechnicalMetadata) amd.getTechnicalMetadata().getMetadataWrapper().getXmlData().getData();
+	}
+	
+	/**
+	 * Wrap all MARC21 records from ONB objects into <metadata>-elements
+	 * @param src
+	 * @param sink
+	 * @throws IOException
+	 */
+	//TODO: This is a workaround, ONB mets files are not a 100% fit for our schema.
+	// this should maybe be checked for performance
+	public static void normalizeONBXml(InputStream src, OutputStream sink) throws IOException{
+		String xml = IOUtils.toString(src);
+		int start = xml.indexOf("<record xmlns=\"http://www.loc.gov/MARC21/slim\"");
+		int end = -1;
+		while (start != -1){
+			end = xml.indexOf("</record>",start) + 9;
+			int recElementEnd = xml.indexOf('>',start);
+			String recordXml = "<record>" + xml.substring(recElementEnd, end);
+			try {
+				String dc = getDCMetadata(recordXml);
+				sink.write(xml.substring(0, start).getBytes());
+				sink.write(dc.getBytes());
+			} catch (JAXBException e) {
+				e.printStackTrace();
+			}
+			start = xml.indexOf("<record xmlns=\"http://www.loc.gov/MARC21/slim\"", end);
+		}
+		if (end > 0){
+			sink.write(xml.substring(end).getBytes());
+		}
+	}
+	
+	private static String getDCMetadata(String marc21Record) throws JAXBException{
+		StringBuilder dcBuilder = new StringBuilder("<metadata xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:type=\"dcMetadata\">");
+		JAXBContext ctx = JAXBContext.newInstance(Marc21Record.class);
+		Unmarshaller u = ctx.createUnmarshaller();
+		Marc21Record rec = (Marc21Record) u.unmarshal(new StringReader(marc21Record));
+		for (Datafield df : rec.getDataFields()){
+			if (df.getTag().equals("245")){
+				for (SubField sf : df.getSubfields()){
+					if (sf.getCode().equals("a")){
+						// extract the title field
+						dcBuilder.append("<dc:title>" + sf.getValue() + "</dc:title>");
+					}
+				}
+			}
+		}
+		dcBuilder.append("</metadata>");
+		return dcBuilder.toString();
 	}
 }

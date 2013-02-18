@@ -1,7 +1,10 @@
 package eu.scapeproject.model.metadata.marc;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "datafield")
@@ -9,23 +12,24 @@ public class Datafield {
     @XmlAttribute(name = "id")
     private final String id;
 
-    @XmlAttribute(name = "id")
+    @XmlAttribute(name = "tag")
     private final String tag;
 
-    @XmlAttribute(name = "id")
+    @XmlAttribute(name = "ind1")
     private final String ind1;
 
-    @XmlAttribute(name = "id")
+    @XmlAttribute(name = "ind2")
     private final String ind2;
     
-    @XmlElement(name="subfield",namespace="http://www.loc.gov/MARC21/slim")
-    private SubField subfield;
+    @XmlElements(@XmlElement(name="subfield"))
+    private List<SubField> subfields;
     
     private Datafield(){
         this.id = null;
         this.tag = null;
         this.ind1 = null;
         this.ind2 = null;
+        this.subfields = null;
     }
 
     private Datafield(Builder b) {
@@ -33,6 +37,7 @@ public class Datafield {
         this.tag = b.tag;
         this.ind1 = b.ind1;
         this.ind2 = b.ind2;
+        this.subfields = b.subfields;
     }
 
     public String getId() {
@@ -51,6 +56,10 @@ public class Datafield {
         return ind2;
     }
 
+    public List<SubField> getSubfields() {
+		return subfields;
+	}
+    
     public static class Builder {
         private String id;
 
@@ -59,6 +68,8 @@ public class Datafield {
         private String ind1;
 
         private String ind2;
+        
+        private List<SubField> subfields;
 
         public Builder id(String id) {
             this.id = id;
@@ -77,6 +88,11 @@ public class Datafield {
 
         public Builder ind2(String ind2) {
             this.ind2 = ind2;
+            return this;
+        }
+
+        public Builder subfields(List<SubField> subfields) {
+            this.subfields = subfields;
             return this;
         }
 

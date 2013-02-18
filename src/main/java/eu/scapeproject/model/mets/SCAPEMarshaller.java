@@ -30,7 +30,6 @@ import eu.scapeproject.model.jaxb.MetsNamespacePrefixMapper;
 import eu.scapeproject.model.metadata.audiomd.AudioMDMetadata;
 import eu.scapeproject.model.metadata.dc.DCMetadata;
 import eu.scapeproject.model.metadata.fits.FitsMetadata;
-import eu.scapeproject.model.metadata.marc.Marc21Metadata;
 import eu.scapeproject.model.metadata.mix.NisoMixMetadata;
 import eu.scapeproject.model.metadata.opn.googlebooks.FocusParameters;
 import eu.scapeproject.model.metadata.opn.googlebooks.ImageMethod;
@@ -73,7 +72,6 @@ public class SCAPEMarshaller {
 				VersionList.class,
 				IntellectualEntityCollection.class,
 				Representation.class,
-				Marc21Metadata.class,
 				FocusParameters.class,
 				ImageMethod.class,
 				PageTag.class,
@@ -120,7 +118,7 @@ public class SCAPEMarshaller {
     private DCMetadata deserializeDC(InputStream in) throws SerializationException {
 		try {
 			MetsDMDSec dmd = (MetsDMDSec) unmarshaller.unmarshal(in);
-			return (DCMetadata) MetsUtil.getDescriptiveMetadadata(dmd);
+			return (DCMetadata) MetsUtil.getDescriptiveMetadata(dmd);
 		} catch (JAXBException e) {
 			throw new SerializationException(e);
 		}
@@ -131,7 +129,7 @@ public class SCAPEMarshaller {
 			MetsDocument doc = (MetsDocument) unmarshaller.unmarshal(in);
 			IntellectualEntity.Builder entityBuilder = new IntellectualEntity.Builder()
 					.identifier(new Identifier(doc.getObjId()))
-					.descriptive(MetsUtil.getDescriptiveMetadadata(doc.getDmdSec()))
+					.descriptive(MetsUtil.getDescriptiveMetadata(doc.getDmdSec()))
 					.representations(MetsUtil.getRepresentations(doc))
 					.alternativeIdentifiers(MetsUtil.getAlternativeIdentifiers(doc.getHeaders()));
 			if (doc.getHeaders().get(0).getRecordStatus() != null) {
@@ -147,7 +145,7 @@ public class SCAPEMarshaller {
 	public IntellectualEntity deserializeEntity(MetsDocument doc) {
 		IntellectualEntity.Builder entityBuilder = new IntellectualEntity.Builder()
 				.identifier(new Identifier(doc.getObjId()))
-				.descriptive(MetsUtil.getDescriptiveMetadadata(doc.getDmdSec()))
+				.descriptive(MetsUtil.getDescriptiveMetadata(doc.getDmdSec()))
 				.representations(MetsUtil.getRepresentations(doc))
 				.alternativeIdentifiers(MetsUtil.getAlternativeIdentifiers(doc.getHeaders()));
 		if (doc.getHeaders().get(0).getRecordStatus() != null) {

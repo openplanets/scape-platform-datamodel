@@ -1,0 +1,23 @@
+<metadata xmlns:premis="http://www.loc.gov/standards/premis" xmlns:scape="http://scapeproject.eu/model" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:type="dcMetadata" scape:identifier="DC-a8e7f65a-3ebe-409d-99bd-69bfb6060a91">
+	<dc:date>0796-07-20 00:00:00.000</dc:date>
+	<dc:title>A Simple test entity</dc:title>
+	<dc:creator premis:role="OTHER" premis:type="INDIVIDUAL">
+		<premis:name>PREMIS-AGENT-2</premis:name>
+		<premis:note>agent for premis</premis:note>
+	</dc:creator>
+	<dc:coverage>xDjogJBNmeijvPxL</dc:coverage>
+	<dc:description>NgFYXdWtXvGiVEHn</dc:description>
+	<dc:format>LZqTQtpdSRfYxkeZ</dc:format>
+	<dc:language>AGaVqFhDdWhvxJTd</dc:language>
+	<dc:publisher>ywxtqXScaFNKYnIh</dc:publisher>
+	<dc:subject>hmnULjcqAQSEjrRn</dc:subject>
+	<dc:type>JkxTECpIFibkBVbV</dc:type>
+	<dc:source>dpHDZeCcKJXLZBpU</dc:source>
+	<dc:relation>HyfHRwTsmpnuockH</dc:relation>
+	<dc:contributor premis:role="OTHER" premis:type="INDIVIDUAL">
+		<premis:name>CONTRIBUTOR-1</premis:name>
+		<premis:note>a test contributor</premis:note>
+	</dc:contributor>
+	<dc:rights>MihsGpVCXRzDdrty</dc:rights>
+</metadata>

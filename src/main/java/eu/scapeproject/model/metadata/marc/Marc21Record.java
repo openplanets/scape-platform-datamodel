@@ -1,63 +1,90 @@
 package eu.scapeproject.model.metadata.marc;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import eu.scapeproject.model.metadata.marc.Marc21Metadata.Builder;
+import eu.scapeproject.model.metadata.DescriptiveMetadata;
+import eu.scapeproject.model.util.CopyUtil;
 
-@XmlRootElement(name="record",namespace="http://www.loc.gov/MARC21/slim")
-public class Marc21Record {
-    @XmlElement(name = "leader", namespace = "http://www.loc.gov/MARC21/slim")
-    private final Leader leader;
+@XmlRootElement(name = "record")
+public class Marc21Record extends DescriptiveMetadata {
+	@XmlElement(name = "leader")
+	private final Leader leader;
 
-    @XmlElement(name = "controlField", namespace = "http://www.loc.gov/MARC21/slim")
-    private final ControlField controlField;
+	@XmlElements(@XmlElement(name = "controlfield"))
+	private final List<ControlField> controlFields;
 
-    @XmlElement(name = "dataField", namespace = "http://www.loc.gov/MARC21/slim")
-    private final Datafield dataField;
-    
-    private Marc21Record() {
-        this.leader = null;
-        this.controlField = null;
-        this.dataField = null;
+	@XmlElements(@XmlElement(name = "datafield"))
+	private final List<Datafield> dataFields;
+
+	private Marc21Record() {
+		super(MetadataType.MARC21);
+		this.leader = null;
+		this.controlFields = null;
+		this.dataFields = null;
+		this.id = null;
 	}
 
-    private Marc21Record(Builder b) {
-        this.leader = b.leader;
-        this.controlField = b.controlField;
-        this.dataField = b.dataField;
+	private Marc21Record(Builder b) {
+		super(MetadataType.MARC21);
+		this.leader = b.leader;
+		this.controlFields = b.controlFields;
+		this.dataFields = b.dataFields;
+		this.id = null;
 	}
-    
-    public static class Builder {
-        private Leader leader;
 
-        private ControlField controlField;
+	public List<ControlField> getControlFields() {
+		return controlFields;
+	}
 
-        private Datafield dataField;
+	public List<Datafield> getDataFields() {
+		return dataFields;
+	}
 
-        public Builder() {
+	public Leader getLeader() {
+		return leader;
+	}
 
-        }
+	public static class Builder {
+		private Leader leader;
 
-        public Builder leader(Leader leader) {
-            this.leader = leader;
-            return this;
-        }
+		private List<ControlField> controlFields;
 
-        public Builder controlField(ControlField controlField) {
-            this.controlField = controlField;
-            return this;
-        }
+		private List<Datafield> dataFields;
 
-        public Builder dataField(Datafield dataField) {
-            this.dataField = dataField;
-            return this;
-        }
+		public Builder() {
 
-        public Marc21Record build() {
-            return new Marc21Record(this);
-        }
+		}
 
-    }
+		public Builder(Marc21Record orig) {
+			orig = CopyUtil.deepCopy(Marc21Record.class, orig);
+			this.leader = orig.leader;
+			this.controlFields = orig.controlFields;
+			this.dataFields = orig.dataFields;
+		}
+
+		public Builder leader(Leader leader) {
+			this.leader = leader;
+			return this;
+		}
+
+		public Builder controlFields(List<ControlField> controlFields) {
+			this.controlFields = controlFields;
+			return this;
+		}
+
+		public Builder dataField(List<Datafield> dataFields) {
+			this.dataFields = dataFields;
+			return this;
+		}
+
+		public Marc21Record build() {
+			return new Marc21Record(this);
+		}
+
+	}
 
 }
