@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import eu.scapeproject.model.metadata.TechnicalMetadata;
 
-@XmlRootElement(name = "video-md", namespace = "http://www.loc.gov/videoMD/")
+@XmlRootElement(name = "video", namespace = "http://www.loc.gov/videoMD/")
 public class VideoMDMetadata extends TechnicalMetadata {
     @XmlElement(name = "videomd", namespace = "http://www.loc.gov/videoMD/")
     private final Video videoMD;

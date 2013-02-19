@@ -21,11 +21,6 @@
 			<version>1.6</version>
 		</dependency>
 		<dependency>
-			<groupId>eu.scapeproject</groupId>
-			<artifactId>mets-dto</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.10</version>

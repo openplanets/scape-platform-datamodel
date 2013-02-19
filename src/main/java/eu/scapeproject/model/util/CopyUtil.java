@@ -14,6 +14,9 @@ import eu.scapeproject.model.Identifier;
 public abstract class CopyUtil {
 	@SuppressWarnings("unchecked")
 	public static <T> T deepCopy(Class<?> type, T obj) {
+		if (obj==null){
+			return null;
+		}
 		if (type == String.class) {
 			return (T) new String((String) obj);
 		} else if (type == Integer.class || type == int.class) {

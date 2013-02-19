@@ -7,7 +7,7 @@ import eu.scapeproject.model.BitStream;
 import eu.scapeproject.model.metadata.TechnicalMetadata;
 import eu.scapeproject.model.util.CopyUtil;
 
-@XmlRootElement(name = "audio")
+@XmlRootElement(name = "audio", namespace = "http://www.loc.gov/AMD/")
 public class AudioMDMetadata extends TechnicalMetadata {
 	@XmlElement(name = "audiomd", namespace = "http://www.loc.gov/AMD/")
 	private final Audio audioMD;

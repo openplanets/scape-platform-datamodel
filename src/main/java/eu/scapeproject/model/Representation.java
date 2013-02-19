@@ -189,8 +189,9 @@ public class Representation {
 		private String title;
 		private String usage;
 
-		public Builder() {
+		public Builder(Identifier id) {
 			super();
+			this.id = id;
 		}
 
 		public Builder(Representation orig) {

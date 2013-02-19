@@ -76,7 +76,7 @@ public abstract class ValidationUtil {
 		assertTrue(dc.getSources().size() > 0);
 		assertTrue(dc.getSubject().size() > 0);
 		assertTrue(dc.getTitle().size() > 0);
-		assertTrue(dc.getType().size() > 0);
+		assertTrue(dc.getTypes().size() > 0);
 	}
 
 	public static void validateEncoding(Encoding enc) {

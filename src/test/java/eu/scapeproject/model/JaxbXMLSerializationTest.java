@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -15,6 +16,8 @@ import junit.framework.Assert;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import com.sun.xml.bind.marshaller.DumbEscapeHandler;
 
 import eu.scapeproject.model.BitStream.Type;
 import eu.scapeproject.model.jaxb.MetsNamespacePrefixMapper;
@@ -56,8 +59,13 @@ public class JaxbXMLSerializationTest {
 
     @Test
     public void testEntitySerialization2() throws Exception {
-    	ByteArrayOutputStream bos=new ByteArrayOutputStream();
-    	SCAPEMarshaller.getInstance().serialize(TestUtil.createMinimalEntity(), bos);
+    	IntellectualEntity e = TestUtil.createMinimalEntity();
+    	Representation r = new Representation.Builder(new Identifier("rep-" + UUID.randomUUID().toString()))
+    		.technical(TestUtil.createRandomFitsMetadata())
+    		.build();
+    	IntellectualEntity.Builder builder = new IntellectualEntity.Builder(e)
+    		.representations(Arrays.asList(r));
+    	SCAPEMarshaller.getInstance().serialize(builder.build(),System.out);
     }
 
     @Test
@@ -102,8 +110,7 @@ public class JaxbXMLSerializationTest {
             .uri(URI.create("http://example.com/testfile-1"))
             .bitStreams(Arrays.asList(bs1))
             .build();
-        Representation r1=new Representation.Builder()
-            .identifier(new Identifier("Representation-1"))
+        Representation r1=new Representation.Builder(new Identifier("Representation-1"))
             .title("representation-1")
             .file(file1)
             .build();

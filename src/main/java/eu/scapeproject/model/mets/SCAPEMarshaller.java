@@ -14,6 +14,8 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.commons.lang3.SerializationException;
 import org.w3c.dom.Node;
 
+import com.sun.xml.bind.marshaller.DumbEscapeHandler;
+
 import eu.scapeproject.dto.mets.MetsDMDSec;
 import eu.scapeproject.dto.mets.MetsDocument;
 import eu.scapeproject.dto.mets.MetsMetadata;
@@ -69,6 +71,7 @@ public class SCAPEMarshaller {
 		marshaller = ctx.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new MetsNamespacePrefixMapper());
+		marshaller.setProperty("com.sun.xml.bind.characterEscapeHandler", DumbEscapeHandler.theInstance);
 		unmarshaller = ctx.createUnmarshaller();
 	}
 	
@@ -130,7 +133,7 @@ public class SCAPEMarshaller {
 		}
 	}
 
-	public IntellectualEntity deserializeEntity(MetsDocument doc) {
+	public IntellectualEntity deserializeEntity(MetsDocument doc) throws JAXBException {
 		IntellectualEntity.Builder entityBuilder = new IntellectualEntity.Builder()
 				.identifier(new Identifier(doc.getObjId()))
 				.descriptive(MetsUtil.getDescriptiveMetadadata(doc.getDmdSec()))

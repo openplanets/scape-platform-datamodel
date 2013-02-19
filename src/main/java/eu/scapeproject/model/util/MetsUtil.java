@@ -1,11 +1,17 @@
 package eu.scapeproject.model.util;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+
+import com.sun.xml.bind.marshaller.DumbEscapeHandler;
 
 import eu.scapeproject.dto.mets.MetsAMDSec;
 import eu.scapeproject.dto.mets.MetsAgent;
@@ -39,14 +45,9 @@ import eu.scapeproject.model.metadata.DescriptiveMetadata;
 import eu.scapeproject.model.metadata.ProvenanceMetadata;
 import eu.scapeproject.model.metadata.RightsMetadata;
 import eu.scapeproject.model.metadata.TechnicalMetadata;
-import eu.scapeproject.model.metadata.audiomd.AudioMDMetadata;
 import eu.scapeproject.model.metadata.dc.DCMetadata;
-import eu.scapeproject.model.metadata.fits.FitsMetadata;
-import eu.scapeproject.model.metadata.mix.NisoMixMetadata;
-import eu.scapeproject.model.metadata.premis.PremisProvenanceMetadata;
-import eu.scapeproject.model.metadata.premis.PremisRightsMetadata;
-import eu.scapeproject.model.metadata.textmd.TextMDMetadata;
-import eu.scapeproject.model.metadata.videomd.VideoMDMetadata;
+import eu.scapeproject.model.metadata.marc.Marc21Metadata;
+import eu.scapeproject.model.mets.SCAPEMarshaller;
 
 public abstract class MetsUtil {
 
@@ -69,7 +70,7 @@ public abstract class MetsUtil {
 		}
 	}
 
-	private static void addFileGroups(Representation r, Map<Object, MetsAMDSec> amdSecs, List<MetsFileGrp> fileGroups) {
+	private static void addFileGroups(Representation r, Map<Object, MetsAMDSec> amdSecs, List<MetsFileGrp> fileGroups) throws JAXBException {
 		MetsFileGrp.Builder group = new MetsFileGrp.Builder(new Identifier("GRP-" + UUID.randomUUID().toString()).getValue())
 				.admId(amdSecs.get(r).getId());
 		for (File f : r.getFiles()) {
@@ -100,7 +101,7 @@ public abstract class MetsUtil {
 	}
 
 	private static void addRepresentations(IntellectualEntity entity, MetsDiv.Builder entityDiv, Map<Object, MetsAMDSec> amdSecs,
-			List<MetsFileGrp> fileGroups) {
+			List<MetsFileGrp> fileGroups) throws JAXBException {
 		if (entity.getRepresentations() != null) {
 			for (Representation r : entity.getRepresentations()) {
 				MetsAMDSec.Builder amdBuilder = new MetsAMDSec.Builder();
@@ -128,16 +129,23 @@ public abstract class MetsUtil {
 		entityDiv.addSubDiv(repDiv.build());
 	}
 
-	public static MetsDMDSec convertDCMetadata(DCMetadata dc) {
+	public static MetsDMDSec convertDescriptiveMetadata(DescriptiveMetadata md) throws JAXBException {
 		Date created;
-		if (dc.getDate() != null && dc.getDate().size() > 0){
-			created = dc.getDate().get(0);
-		}else{
+		if (md instanceof DCMetadata) {
+			DCMetadata dc = (DCMetadata) md;
+			if (dc.getDate() != null && dc.getDate().size() > 0) {
+				created = dc.getDate().get(0);
+			} else {
+				created = new Date();
+			}
+		} else if (md instanceof Marc21Metadata) {
 			created = new Date();
+		} else {
+			throw new JAXBException("Unable to parse descriptive metadata of type " + md.getClass().getName());
 		}
 		return new MetsDMDSec.Builder("dmd-" + UUID.randomUUID().toString())
 				.created(created)
-				.metadataWrapper(createMetsWrapper(dc))
+				.metadataWrapper(createMetsWrapper(md))
 				.build();
 	}
 
@@ -147,10 +155,10 @@ public abstract class MetsUtil {
 	 * @param entity
 	 *            the {@link IntellectualEntity} to be converted
 	 * @return a {@link MetsDocument}
+	 * @throws JAXBException
 	 */
-	public static MetsDocument convertEntity(IntellectualEntity entity) {
-		DCMetadata dc = (DCMetadata) entity.getDescriptive();
-		MetsDMDSec dmdSec = convertDCMetadata(dc);
+	public static MetsDocument convertEntity(IntellectualEntity entity) throws JAXBException {
+		MetsDMDSec dmdSec = convertDescriptiveMetadata(entity.getDescriptive());
 		Map<Object, MetsAMDSec> amdSecs = new HashMap<Object, MetsAMDSec>();
 		MetsDocument.Builder docBuilder = new MetsDocument.Builder();
 
@@ -173,13 +181,23 @@ public abstract class MetsUtil {
 				.fileSec(new MetsFileSec("FILE-" + UUID.randomUUID(), fileGroups))
 				.structMaps(structMaps)
 				.objId(entity.getIdentifier() == null ? null : entity.getIdentifier().getValue());
-		if (entity.getDescriptive() != null){
-		    DCMetadata record = (DCMetadata) entity.getDescriptive();
-		    if (record.getTitle() != null && !record.getTitle().isEmpty()){
-		        docBuilder.label(record.getTitle().get(0));
-		    }
+		if (entity.getDescriptive() != null) {
+			String title = getTitle(entity.getDescriptive());
+			docBuilder.label(title);
 		}
 		return docBuilder.build();
+	}
+
+	private static String getTitle(DescriptiveMetadata descriptive) {
+		if (descriptive instanceof DCMetadata) {
+			DCMetadata record = (DCMetadata) descriptive;
+			if (record.getTitle() != null && !record.getTitle().isEmpty()) {
+				return record.getTitle().get(0);
+			}
+		} else if (descriptive instanceof Marc21Metadata) {
+			return "Marc21 Title";
+		}
+		return "Unititled";
 	}
 
 	public static MetsFile convertFile(File file) {
@@ -188,27 +206,8 @@ public abstract class MetsUtil {
 				.build();
 	}
 
-	public static MetsMDWrap createMetsWrapper(MetsMetadata data) {
-		MetsMDWrap.Builder builder = new MetsMDWrap.Builder(new MetsXMLData(data));
-		if (data instanceof DCMetadata) {
-			builder.mdType("DC");
-		} else if (data instanceof VideoMDMetadata) {
-			builder.mdType("OTHER");
-			builder.otherMdType("VIDEOMD");
-		} else if (data instanceof AudioMDMetadata) {
-			builder.mdType("OTHER");
-			builder.otherMdType("AudioMD");
-		} else if (data instanceof TextMDMetadata) {
-			builder.mdType("TEXTMD");
-		} else if (data instanceof NisoMixMetadata) {
-			builder.mdType("NISOIMG");
-		} else if (data instanceof PremisProvenanceMetadata) {
-			builder.mdType("PREMIS:EVENT");
-		} else if (data instanceof PremisRightsMetadata) {
-			builder.mdType("PREMIS:RIGHTS");
-		} else if (data instanceof FitsMetadata) {
-			builder.mdType("PREMIS:RIGHTS");
-		}
+	public static MetsMDWrap createMetsWrapper(MetsMetadata md) throws JAXBException {
+		MetsMDWrap.Builder builder = new MetsMDWrap.Builder(new MetsXMLData(md));
 		return builder.build();
 	}
 
@@ -224,37 +223,44 @@ public abstract class MetsUtil {
 		return null;
 	}
 
-	public static List<MetsAgent> getAgentList(DCMetadata dc) {
-		List<MetsAgent> agents = new ArrayList<MetsAgent>();
-		if (dc.getConstributors() != null) {
-			for (final Agent contributor : dc.getConstributors()) {
-				final MetsAgent agent = new MetsAgent.Builder()
-						.id(new Identifier("AGENT-" + UUID.randomUUID().toString()).getValue())
-						.name(contributor.getName())
-						.role(contributor.getRole())
-						.otherRole(contributor.getOtherRole())
-						.type(contributor.getType())
-						.otherType(contributor.getOtherType())
-						.note(contributor.getNote())
-						.build();
-				agents.add(agent);
+	public static List<MetsAgent> getAgentList(DescriptiveMetadata md) throws JAXBException {
+		if (md instanceof DCMetadata) {
+			DCMetadata dc = (DCMetadata) md;
+			List<MetsAgent> agents = new ArrayList<MetsAgent>();
+			if (dc.getConstributors() != null) {
+				for (final Agent contributor : dc.getConstributors()) {
+					final MetsAgent agent = new MetsAgent.Builder()
+							.id(new Identifier("AGENT-" + UUID.randomUUID().toString()).getValue())
+							.name(contributor.getName())
+							.role(contributor.getRole())
+							.otherRole(contributor.getOtherRole())
+							.type(contributor.getType())
+							.otherType(contributor.getOtherType())
+							.note(contributor.getNote())
+							.build();
+					agents.add(agent);
+				}
 			}
-		}
-		if (dc.getCreator() != null) {
-			for (final Agent creator : dc.getCreator()) {
-				final MetsAgent agent = new MetsAgent.Builder()
-						.id(new Identifier("AGENT-" + UUID.randomUUID().toString()).getValue())
-						.name(creator.getName())
-						.role(creator.getRole())
-						.otherRole(creator.getOtherRole())
-						.type(creator.getType())
-						.otherType(creator.getOtherType())
-						.note(creator.getNote())
-						.build();
-				agents.add(agent);
+			if (dc.getCreator() != null) {
+				for (final Agent creator : dc.getCreator()) {
+					final MetsAgent agent = new MetsAgent.Builder()
+							.id(new Identifier("AGENT-" + UUID.randomUUID().toString()).getValue())
+							.name(creator.getName())
+							.role(creator.getRole())
+							.otherRole(creator.getOtherRole())
+							.type(creator.getType())
+							.otherType(creator.getOtherType())
+							.note(creator.getNote())
+							.build();
+					agents.add(agent);
+				}
 			}
+			return agents;
+		} else if (md instanceof Marc21Metadata) {
+			return new ArrayList<MetsAgent>();
+		} else {
+			throw new JAXBException("Unable to extract agents from descrptive metadata of type " + md.getClass().getName());
 		}
-		return agents;
 	}
 
 	public static List<MetsAlternativeIdentifer> getAlternativeIdentifiers(IntellectualEntity entity) {
@@ -298,9 +304,17 @@ public abstract class MetsUtil {
 		return amdSecs;
 	}
 
-	public static DescriptiveMetadata getDescriptiveMetadadata(MetsDMDSec dmdSec) {
-		DCMetadata.Builder dc = new DCMetadata.Builder((DCMetadata) dmdSec.getMetadataWrapper().getXmlData().getData());
-		return dc.build();
+	public static DescriptiveMetadata getDescriptiveMetadadata(MetsDMDSec dmdSec) throws JAXBException {
+		DescriptiveMetadata md = (DescriptiveMetadata) dmdSec.getMetadataWrapper().getXmlData().getData();
+		if (md instanceof DCMetadata) {
+			DCMetadata.Builder dc = new DCMetadata.Builder((DCMetadata) md);
+			return dc.build();
+		}
+		if (md instanceof Marc21Metadata){
+			Marc21Metadata.Builder marc21 = new Marc21Metadata.Builder((Marc21Metadata) md);
+			return marc21.build();
+		}
+		throw new JAXBException("Unable to handle descriptive metadata of type " + md.getClass().getName());
 	}
 
 	public static MetsDiv getDiv(String type, String id) {
@@ -368,9 +382,9 @@ public abstract class MetsUtil {
 		return bitstreams;
 	}
 
-	public static MetsHeader getMetsHeader(IntellectualEntity entity) {
+	public static MetsHeader getMetsHeader(IntellectualEntity entity) throws JAXBException {
 		MetsHeader.Builder hdrBuilder = new MetsHeader.Builder(new Identifier("HDR-" + UUID.randomUUID().toString()).getValue())
-				.agents(getAgentList((DCMetadata) entity.getDescriptive()))
+				.agents(getAgentList(entity.getDescriptive()))
 				.alternativeIdentifiers(getAlternativeIdentifiers(entity));
 		if (entity.getLifecycleState() != null) {
 			hdrBuilder.recordStatus(entity.getLifecycleState().getState().name());
@@ -378,7 +392,7 @@ public abstract class MetsUtil {
 		return hdrBuilder.build();
 	}
 
-	public static MetsDigiProvMD getProvenance(Representation r) {
+	public static MetsDigiProvMD getProvenance(Representation r) throws JAXBException {
 		return new MetsDigiProvMD.Builder()
 				.metadataWrapper(createMetsWrapper(r.getProvenance()))
 				.id("DP-" + UUID.randomUUID())
@@ -393,8 +407,7 @@ public abstract class MetsUtil {
 	public static List<Representation> getRepresentations(MetsDiv div, MetsDocument doc) {
 		List<Representation> reps = new ArrayList<Representation>();
 		if (div.getType().equals("Representation")) {
-			Representation.Builder repBuilder = new Representation.Builder()
-					.identifier(new Identifier(div.getAdmId()))
+			Representation.Builder repBuilder = new Representation.Builder(new Identifier(div.getAdmId()))
 					.files(getFiles(div.getFilePointers(), doc))
 					.title(div.getLabel())
 					.provenance(getProvenance(div.getAdmId(), doc))
@@ -426,7 +439,7 @@ public abstract class MetsUtil {
 		return reps;
 	}
 
-	public static MetsRightsMD getRights(Representation r) {
+	public static MetsRightsMD getRights(Representation r) throws JAXBException {
 		return new MetsRightsMD.Builder()
 				.metadataWrapper(createMetsWrapper(r.getRights()))
 				.id("RIGHTS-" + UUID.randomUUID())
@@ -438,7 +451,7 @@ public abstract class MetsUtil {
 		return (RightsMetadata) amd.getRightsMetadata().getMetadataWrapper().getXmlData().getData();
 	}
 
-	public static MetsSourceMD getSource(Representation r) {
+	public static MetsSourceMD getSource(Representation r) throws JAXBException {
 		return new MetsSourceMD.Builder()
 				.metadataWrapper(createMetsWrapper(r.getSource()))
 				.id("SOURCE-" + UUID.randomUUID())
@@ -450,7 +463,7 @@ public abstract class MetsUtil {
 		return (DescriptiveMetadata) amd.getSourceMetadata().getMetadataWrapper().getXmlData().getData();
 	}
 
-	public static MetsTechMD getTechnical(Representation r) {
+	public static MetsTechMD getTechnical(Representation r) throws JAXBException {
 		return new MetsTechMD.Builder()
 				.metadataWrapper(createMetsWrapper(r.getTechnical()))
 				.id("TECH-" + UUID.randomUUID())

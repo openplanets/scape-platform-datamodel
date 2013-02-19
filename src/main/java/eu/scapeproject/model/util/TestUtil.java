@@ -156,8 +156,7 @@ public abstract class TestUtil {
 
 
 	public static Representation createMinimalRepresentation() {
-    	return new Representation.Builder()
-    		.identifier(new Identifier("minimal-representation-1"))
+    	return new Representation.Builder(new Identifier("minimal-representation-1"))
     		.file(createMinimalFile())
     		.build();
     }
@@ -400,7 +399,7 @@ public abstract class TestUtil {
             builder.title(randomAlphabetic(16));
         }
         for (int i = 0; i < max; i++) {
-            builder.type(randomAlphabetic(16));
+            builder.types(randomAlphabetic(16));
         }
         return builder.build();
     }
@@ -867,8 +866,7 @@ public abstract class TestUtil {
     }
 
     public static Representation createRandomRepresentation(TechnicalMetadata.MetadataType type) {
-        Representation.Builder b = new Representation.Builder()
-        		.identifier(new Identifier("REP-" + UUID.randomUUID().toString()))
+        Representation.Builder b = new Representation.Builder(new Identifier("REP-" + UUID.randomUUID().toString()))
                 .provenance(createRandomProvenance())
                 .source(createRandomDescriptive())
                 .rights(createRandomRights())

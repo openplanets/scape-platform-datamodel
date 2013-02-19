@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import eu.scapeproject.model.metadata.TechnicalMetadata;
 import eu.scapeproject.model.util.CopyUtil;
 
-@XmlRootElement(name = "mdWrap")
+@XmlRootElement(name = "niso-mix", namespace = "http://www.loc.gov/mix/v10")
 public class NisoMixMetadata extends TechnicalMetadata {
     @XmlElement(name = "basicImageInformation", namespace = "http://www.loc.gov/mix/v10")
     private final BasicImageInformation basicImageInformation;

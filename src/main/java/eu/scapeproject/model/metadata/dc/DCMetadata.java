@@ -15,7 +15,7 @@ import eu.scapeproject.model.metadata.DescriptiveMetadata;
 import eu.scapeproject.model.util.CopyUtil;
 import eu.scapeproject.model.util.ListUtil;
 
-@XmlRootElement(name = "dublin-core")
+@XmlRootElement(name = "dublin-core", namespace = "http://purl.org/dc/elements/1.1/")
 public class DCMetadata extends DescriptiveMetadata {
 	@XmlElement(name = "date", namespace = "http://purl.org/dc/elements/1.1/")
 	@XmlJavaTypeAdapter(DateAdapter.class)
@@ -218,7 +218,7 @@ public class DCMetadata extends DescriptiveMetadata {
 		return titles;
 	}
 
-	public List<String> getType() {
+	public List<String> getTypes() {
 		return types;
 	}
 
@@ -270,6 +270,9 @@ public class DCMetadata extends DescriptiveMetadata {
 		}
 
 		public Builder(DCMetadata orig) {
+			if (orig == null){
+				return;
+			}
 			orig = CopyUtil.deepCopy(DCMetadata.class, orig);
 			this.dates = orig.getDate();
 			this.titles = orig.getTitle();
@@ -279,7 +282,7 @@ public class DCMetadata extends DescriptiveMetadata {
 			this.languages = orig.getLanguage();
 			this.publishers = orig.getPublisher();
 			this.subjects = orig.getSubject();
-			this.types = orig.getType();
+			this.types = orig.getTypes();
 			this.sources = orig.getSources();
 			this.relations = orig.getRelations();
 			this.contributors = orig.getConstributors();
@@ -443,7 +446,7 @@ public class DCMetadata extends DescriptiveMetadata {
 			return this;
 		}
 
-		public Builder type(String type) {
+		public Builder types(String type) {
 			if (this.types == null) {
 				this.types = new ArrayList<String>();
 			}
