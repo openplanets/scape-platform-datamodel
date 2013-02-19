@@ -167,8 +167,15 @@ public abstract class MetsUtil {
 	 * @return a {@link MetsDocument}
 	 */
 	public static MetsDocument convertEntity(IntellectualEntity entity) {
-		DCMetadata dc = (DCMetadata) entity.getDescriptive();
-		MetsDMDSec dmdSec = convertDCMetadata(dc);
+		DescriptiveMetadata descMd = entity.getDescriptive();
+		MetsDMDSec dmdSec = null;
+		if (descMd instanceof DCMetadata){
+			DCMetadata dc = (DCMetadata) descMd;
+			dmdSec = convertDCMetadata(dc);
+		}else if (descMd instanceof Marc21Record){
+			Marc21Record marc = (Marc21Record) descMd;
+			dmdSec = convertMarc21Metadata(marc);
+		}
 		Map<Object, MetsAMDSec> amdSecs = new HashMap<Object, MetsAMDSec>();
 		MetsDocument.Builder docBuilder = new MetsDocument.Builder();
 
@@ -192,12 +199,32 @@ public abstract class MetsUtil {
 				.structMaps(structMaps)
 				.objId(entity.getIdentifier() == null ? null : entity.getIdentifier().getValue());
 		if (entity.getDescriptive() != null){
-		    DCMetadata record = (DCMetadata) entity.getDescriptive();
-		    if (record.getTitle() != null && !record.getTitle().isEmpty()){
-		        docBuilder.label(record.getTitle().get(0));
-		    }
+			String title = getTitleFromDesc(entity.getDescriptive());
+			docBuilder.label(title);
 		}
 		return docBuilder.build();
+	}
+
+	private static String getTitleFromDesc(DescriptiveMetadata descriptive) {
+		if (descriptive instanceof DCMetadata){
+		    DCMetadata record = (DCMetadata) descriptive;
+		    if (record.getTitle() == null || record.getTitle().isEmpty()){
+		    	return "DC Untitled";
+		    }
+		    return record.getTitle().get(0);
+		}else if (descriptive instanceof Marc21Record){
+			return "Marc21 Untitled";
+		}else{
+			return "Untitled";
+		}
+	}
+
+	private static MetsDMDSec convertMarc21Metadata(Marc21Record marc) {
+		return new MetsDMDSec.Builder("dmd" + UUID.randomUUID().toString())
+			.created(new Date())
+			.metadataWrapper(createMetsWrapper(marc))
+			.build();
+			
 	}
 
 	public static MetsFile convertFile(File file) {
@@ -210,6 +237,8 @@ public abstract class MetsUtil {
 		MetsMDWrap.Builder builder = new MetsMDWrap.Builder(new MetsXMLData(data));
 		if (data instanceof DCMetadata) {
 			builder.mdType("DC");
+		}else if (data instanceof Marc21Record) {
+			builder.mdType("MARC");
 		} else if (data instanceof VideoMDMetadata) {
 			builder.mdType("OTHER");
 			builder.otherMdType("VIDEOMD");
@@ -390,9 +419,15 @@ public abstract class MetsUtil {
 	}
 
 	public static MetsHeader getMetsHeader(IntellectualEntity entity) {
+		List<MetsAgent> agents= null;
+		if (entity.getDescriptive() instanceof DCMetadata){
+			agents = getAgentList((DCMetadata) entity.getDescriptive());
+		}
 		MetsHeader.Builder hdrBuilder = new MetsHeader.Builder(new Identifier("HDR-" + UUID.randomUUID().toString()).getValue())
-				.agents(getAgentList((DCMetadata) entity.getDescriptive()))
 				.alternativeIdentifiers(getAlternativeIdentifiers(entity));
+		if (agents != null) {
+			hdrBuilder.agents(agents);
+		}
 		if (entity.getLifecycleState() != null) {
 			hdrBuilder.recordStatus(entity.getLifecycleState().getState().name());
 		}

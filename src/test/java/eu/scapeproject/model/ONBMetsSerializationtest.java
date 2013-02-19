@@ -59,15 +59,15 @@ public class ONBMetsSerializationtest {
 	public void serializeMarc21Record() throws Exception {
 		List<ControlField> fields = new ArrayList<ControlField>();
 		fields.add(new ControlField.Builder().value("ahan").build());
-		DescriptiveMetadata rec = new Marc21Record.Builder()
+		Marc21Record rec = new Marc21Record.Builder()
 				.leader(new Leader.Builder().value("odod").build())
 				.controlFields(fields)
 				.build();
-		JAXBContext ctx = JAXBContext.newInstance(DescriptiveMetadata.class);
-		Marshaller m = ctx.createMarshaller();
-		m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		m.setProperty("com.sun.xml.bind.namespacePrefixMapper", new MetsNamespacePrefixMapper());
-		m.marshal(rec, System.out);
+		JAXBContext ctx = JAXBContext.newInstance(IntellectualEntity.class,Marc21Record.class);
+		IntellectualEntity e = new IntellectualEntity.Builder()
+			.descriptive(rec)
+			.build();
+		System.out.println(SCAPEMarshaller.getInstance().serialize(e));
 	}
 
 	@Test

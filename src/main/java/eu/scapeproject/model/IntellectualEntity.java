@@ -3,10 +3,13 @@ package eu.scapeproject.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
 import eu.scapeproject.model.metadata.dc.DCMetadata;
 import eu.scapeproject.model.util.CopyUtil;
 
+@XmlRootElement(name = "entity", namespace = "http://scapeproject.eu/model")
 public class IntellectualEntity {
 
 	private final Identifier identifier;
@@ -90,7 +93,7 @@ public class IntellectualEntity {
 	public LifecycleState getLifecycleState() {
 		return lifeCycleState;
 	}
-	
+
 	public List<Representation> getRepresentations() {
 		return representations;
 	}
@@ -111,24 +114,17 @@ public class IntellectualEntity {
 		result = prime * result + versionNumber;
 		return result;
 	}
-	
-	
+
 	@Override
 	public String toString() {
-		return "IntellectualEntity [identifier=" + identifier 
-				+ ", versionNumber=" + versionNumber 
-				+ ", alternativeIdentifiers=" + alternativeIdentifiers 
-				+ ", descriptive=" + descriptive  
-				+ ", representations=" + representations  
-				+ ", lifeCycleState=" + lifeCycleState 
+		return "IntellectualEntity [identifier=" + identifier
+				+ ", versionNumber=" + versionNumber
+				+ ", alternativeIdentifiers=" + alternativeIdentifiers
+				+ ", descriptive=" + descriptive
+				+ ", representations=" + representations
+				+ ", lifeCycleState=" + lifeCycleState
 				+ "]";
 	}
-	
-	
-	
-	
-	
-	
 
 	public static class Builder {
 		private Identifier identifier;
@@ -143,7 +139,7 @@ public class IntellectualEntity {
 		}
 
 		public Builder(IntellectualEntity orig) {
-			orig=CopyUtil.deepCopy(IntellectualEntity.class, orig);
+			orig = CopyUtil.deepCopy(IntellectualEntity.class, orig);
 			this.identifier = orig.getIdentifier();
 			this.descriptive = orig.descriptive;
 			this.alternativeIdentifiers = orig.alternativeIdentifiers;
@@ -158,9 +154,9 @@ public class IntellectualEntity {
 		}
 
 		public IntellectualEntity build() {
-			if (descriptive == null){
+			if (descriptive == null) {
 				descriptive = new DCMetadata.Builder()
-				.build();
+						.build();
 			}
 			versionNumber = (versionNumber == 0) ? 1 : versionNumber;
 			return new IntellectualEntity(this);
@@ -190,9 +186,7 @@ public class IntellectualEntity {
 			this.versionNumber = versionNumber;
 			return this;
 		}
-		
-		
-		
+
 	}
 
 }
