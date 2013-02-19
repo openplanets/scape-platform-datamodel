@@ -10,15 +10,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 import eu.scapeproject.model.metadata.DescriptiveMetadata;
 import eu.scapeproject.model.util.CopyUtil;
 
-@XmlRootElement(name = "record")
+@XmlRootElement(name = "record", namespace="http://www.loc.gov/MARC21/slim")
 public class Marc21Metadata extends DescriptiveMetadata {
-	@XmlElement(name = "leader")
+	@XmlElement(name = "leader", namespace="http://www.loc.gov/MARC21/slim")
 	private final Leader leader;
 
-	@XmlElements(@XmlElement(name = "controlfield"))
+	@XmlElements(@XmlElement(name = "controlfield", namespace="http://www.loc.gov/MARC21/slim"))
 	private final List<ControlField> controlFields;
 
-	@XmlElements(@XmlElement(name = "datafield"))
+	@XmlElements(@XmlElement(name = "datafield", namespace="http://www.loc.gov/MARC21/slim"))
 	private final List<Datafield> dataFields;
 
 	private Marc21Metadata() {
