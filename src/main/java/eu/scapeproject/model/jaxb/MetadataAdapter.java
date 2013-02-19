@@ -16,13 +16,11 @@ import eu.scapeproject.model.metadata.videomd.VideoMDMetadata;
 public class MetadataAdapter extends XmlAdapter<MetsMetadata, MetsMetadata> {
 	@Override
 	public MetsMetadata marshal(MetsMetadata v) throws Exception {
-		System.out.println(v.getClass().getName());
 		return v;
 	}
 
 	@Override
 	public MetsMetadata unmarshal(MetsMetadata v) throws Exception {
-		System.out.println(v.getClass().getName());
 		return v;
 	}
 }

@@ -10,7 +10,6 @@ import eu.scapeproject.model.jaxb.MetadataAdapter;
 public class MetsXMLData {
     
     @XmlAnyElement(lax=true)
-    @XmlJavaTypeAdapter(MetadataAdapter.class)
     private MetsMetadata data;
 
     @SuppressWarnings("unused")
