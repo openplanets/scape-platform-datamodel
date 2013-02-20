@@ -12,6 +12,8 @@ import javax.xml.bind.Unmarshaller;
 
 import org.junit.Test;
 
+import com.sun.xml.bind.api.ClassResolver;
+
 import eu.scapeproject.model.metadata.gbs.GoogleBookScanMetadata;
 import eu.scapeproject.model.metadata.marc.ControlField;
 import eu.scapeproject.model.metadata.marc.Datafield;
@@ -26,7 +28,7 @@ public class ONBSerializationTest {
     @Test
     public void testEntitySerialization() throws Exception {
         IntellectualEntity.Builder e = new IntellectualEntity.Builder();
-        
+
         // create a MARC21 record as it is used in the ONB assets
         ControlField cf = new ControlField.Builder()
                 .tag("245")
@@ -49,16 +51,16 @@ public class ONBSerializationTest {
 
         // create a dummy google book scan technical metadata
         GoogleBookScanMetadata gbs = new GoogleBookScanMetadata.Builder()
-            .coverTag("The Cover Tag")
-            .build();
+                .coverTag("The Cover Tag")
+                .build();
         File scapeFile = new File.Builder()
-            .identifier(new Identifier(UUID.randomUUID().toString()))
-            .build();
+                .identifier(new Identifier(UUID.randomUUID().toString()))
+                .build();
         Representation r = new Representation.Builder(new Identifier("rep" + UUID.randomUUID().toString()))
-            .technical(gbs)
-            .file(scapeFile)
-            .build();
-        
+                .technical(gbs)
+                .file(scapeFile)
+                .build();
+
         e.representations(Arrays.asList(r));
         e.descriptive(rec);
         ByteArrayOutputStream sink = new ByteArrayOutputStream();
@@ -83,16 +85,24 @@ public class ONBSerializationTest {
         assertTrue(e.getDescriptive() instanceof Marc21Metadata);
     }
 
-    
     @Test
-    public void testONBGooglBookScan() throws Exception {
+    public void testONBGoogleBookScan() throws Exception {
         GoogleBookScanMetadata.Builder g = new GoogleBookScanMetadata.Builder();
         g.coverTag("The Cover Tag");
         String xml = SCAPEMarshaller.getInstance().serialize(g.build());
         assertTrue(xml.indexOf("The Cover Tag") > 0);
         System.out.println(xml);
     }
-    
+
+    @Test
+    public void testONBGoogleBookScanDeserialization() throws Exception {
+        IntellectualEntity e = SCAPEMarshaller.getInstance().deserialize(IntellectualEntity.class,
+                this.getClass().getClassLoader().getResourceAsStream("ONB_mets_example.xml"));
+        for (Representation r: e.getRepresentations()){
+            System.out.println(r.getTechnical().getClass().getName());
+        }
+    }
+
     @Test
     public void testONBMarcDeserialization() throws Exception {
         Unmarshaller u = SCAPEMarshaller.getInstance().getJaxbUnmarshaller();
@@ -111,6 +121,13 @@ public class ONBSerializationTest {
                 assertNotNull(sf.getValue());
                 assertTrue(sf.getValue().length() > 0);
             }
+        }
+    }
+
+    public static class MyClassResolver extends ClassResolver {
+        @Override
+        public Class<?> resolveElementName(String nsUri, String localName) throws Exception {
+            return null;
         }
     }
 
