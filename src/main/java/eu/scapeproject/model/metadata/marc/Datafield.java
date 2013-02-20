@@ -21,7 +21,7 @@ public class Datafield {
     @XmlAttribute(name = "ind2")
     private final String ind2;
     
-    @XmlElements(@XmlElement(name="subfield"))
+    @XmlElements(@XmlElement(name="subfield", namespace="http://www.loc.gov/MARC21/slim"))
     private List<SubField> subfields;
     
     private Datafield(){

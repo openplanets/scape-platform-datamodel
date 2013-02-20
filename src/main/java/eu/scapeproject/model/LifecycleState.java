@@ -67,7 +67,7 @@ public class LifecycleState {
    	}
 
     public enum State {
-        INGESTED, INGESTING, INGEST_FAILED, OTHER;
+        INGESTED, INGESTING, INGEST_FAILED, OTHER, NEW;
     }
     
 }
