@@ -32,6 +32,7 @@ import eu.scapeproject.model.jaxb.MetsNamespacePrefixMapper;
 import eu.scapeproject.model.metadata.audiomd.AudioMDMetadata;
 import eu.scapeproject.model.metadata.dc.DCMetadata;
 import eu.scapeproject.model.metadata.fits.FitsMetadata;
+import eu.scapeproject.model.metadata.gbs.GoogleBookScanMetadata;
 import eu.scapeproject.model.metadata.mix.NisoMixMetadata;
 import eu.scapeproject.model.metadata.premis.PremisProvenanceMetadata;
 import eu.scapeproject.model.metadata.premis.PremisRightsMetadata;
@@ -63,6 +64,7 @@ public class SCAPEMarshaller {
 				AudioMDMetadata.class,
 				VideoMDMetadata.class,
 				FitsMetadata.class,
+				GoogleBookScanMetadata.class,
 				LifecycleState.class,
 				Identifier.class,
 				VersionList.class,

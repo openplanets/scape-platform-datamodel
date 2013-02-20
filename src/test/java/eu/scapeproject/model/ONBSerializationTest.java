@@ -12,6 +12,7 @@ import javax.xml.bind.Unmarshaller;
 
 import org.junit.Test;
 
+import eu.scapeproject.model.metadata.gbs.GoogleBookScanMetadata;
 import eu.scapeproject.model.metadata.marc.ControlField;
 import eu.scapeproject.model.metadata.marc.Datafield;
 import eu.scapeproject.model.metadata.marc.Leader;
@@ -68,6 +69,15 @@ public class ONBSerializationTest {
         assertTrue(e.getDescriptive() instanceof Marc21Metadata);
     }
 
+    
+    @Test
+    public void testONBGooglBookScan() throws Exception {
+        GoogleBookScanMetadata.Builder g = new GoogleBookScanMetadata.Builder();
+        g.coverTag("The Cover Tag");
+        String xml = SCAPEMarshaller.getInstance().serialize(g.build());
+        assertTrue(xml.indexOf("The Cover Tag") > 0);
+    }
+    
     @Test
     public void testONBMarcDeserialization() throws Exception {
         Unmarshaller u = SCAPEMarshaller.getInstance().getJaxbUnmarshaller();
