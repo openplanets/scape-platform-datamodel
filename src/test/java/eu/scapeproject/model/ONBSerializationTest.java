@@ -24,9 +24,11 @@ import eu.scapeproject.model.util.TestUtil;
 public class ONBSerializationTest {
 
     @Test
-    public void testMarcSerialization() throws Exception {
+    public void testEntitySerialization() throws Exception {
         IntellectualEntity.Builder e = new IntellectualEntity.Builder();
-        ControlField f = new ControlField.Builder()
+        
+        // create a MARC21 record as it is used in the ONB assets
+        ControlField cf = new ControlField.Builder()
                 .tag("245")
                 .id("id1")
                 .build();
@@ -39,13 +41,25 @@ public class ONBSerializationTest {
                 .tag("2552")
                 .subfields(Arrays.asList(sf))
                 .build();
-
         Marc21Metadata rec = new Marc21Metadata.Builder()
                 .dataField(Arrays.asList(df))
-                .controlFields(Arrays.asList(f))
+                .controlFields(Arrays.asList(cf))
                 .leader(new Leader.Builder().name("leader1").build())
                 .build();
 
+        // create a dummy google book scan technical metadata
+        GoogleBookScanMetadata gbs = new GoogleBookScanMetadata.Builder()
+            .coverTag("The Cover Tag")
+            .build();
+        File scapeFile = new File.Builder()
+            .identifier(new Identifier(UUID.randomUUID().toString()))
+            .build();
+        Representation r = new Representation.Builder(new Identifier("rep" + UUID.randomUUID().toString()))
+            .technical(gbs)
+            .file(scapeFile)
+            .build();
+        
+        e.representations(Arrays.asList(r));
         e.descriptive(rec);
         ByteArrayOutputStream sink = new ByteArrayOutputStream();
         SCAPEMarshaller.getInstance().serialize(e.build(), sink);
@@ -76,6 +90,7 @@ public class ONBSerializationTest {
         g.coverTag("The Cover Tag");
         String xml = SCAPEMarshaller.getInstance().serialize(g.build());
         assertTrue(xml.indexOf("The Cover Tag") > 0);
+        System.out.println(xml);
     }
     
     @Test

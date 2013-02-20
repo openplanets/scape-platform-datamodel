@@ -1,6 +1,5 @@
 package eu.scapeproject.model.util;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,9 +8,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-
-import com.sun.xml.bind.marshaller.DumbEscapeHandler;
 
 import eu.scapeproject.dto.mets.MetsAMDSec;
 import eu.scapeproject.dto.mets.MetsAgent;
@@ -47,7 +43,6 @@ import eu.scapeproject.model.metadata.RightsMetadata;
 import eu.scapeproject.model.metadata.TechnicalMetadata;
 import eu.scapeproject.model.metadata.dc.DCMetadata;
 import eu.scapeproject.model.metadata.marc.Marc21Metadata;
-import eu.scapeproject.model.mets.SCAPEMarshaller;
 
 public abstract class MetsUtil {
 
