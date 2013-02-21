@@ -64,7 +64,9 @@ public abstract class MetsUtil {
 			metsFile.addStream(stream);
 		}
 	}
+	
 
+	
 	private static void addFileGroups(Representation r, Map<Object, MetsAMDSec> amdSecs, List<MetsFileGrp> fileGroups) throws JAXBException {
 		MetsFileGrp.Builder group = new MetsFileGrp.Builder(new Identifier("GRP-" + UUID.randomUUID().toString()).getValue())
 				.admId(amdSecs.get(r).getId());
@@ -183,7 +185,19 @@ public abstract class MetsUtil {
 		return docBuilder.build();
 	}
 
-	private static String getTitle(DescriptiveMetadata descriptive) {
+	public static String getDescription(DescriptiveMetadata desc){
+        if (desc instanceof DCMetadata) {
+            DCMetadata dc = (DCMetadata) desc;
+            if (dc.getDescription() != null && !dc.getDescription().isEmpty()) {
+                return dc.getDescription().get(0);
+            }
+        } else if (desc instanceof Marc21Metadata) {
+            return "Marc21 Description";
+        }
+        return "";
+    }
+
+	public static String getTitle(DescriptiveMetadata descriptive) {
 		if (descriptive instanceof DCMetadata) {
 			DCMetadata record = (DCMetadata) descriptive;
 			if (record.getTitle() != null && !record.getTitle().isEmpty()) {
