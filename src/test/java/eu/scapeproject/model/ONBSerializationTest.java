@@ -104,6 +104,12 @@ public class ONBSerializationTest {
     }
 
     @Test
+    public void testScapeMarshaller() throws Exception {
+        IntellectualEntity e = TestUtil.createRandomEntity();
+        System.out.println(SCAPEMarshaller.getInstance().serialize(e.getDescriptive()));
+    }
+
+    @Test
     public void testONBMarcDeserialization() throws Exception {
         Unmarshaller u = SCAPEMarshaller.getInstance().getJaxbUnmarshaller();
         Object o = u.unmarshal(this.getClass().getClassLoader().getResourceAsStream("ONB_marc_example.xml"));

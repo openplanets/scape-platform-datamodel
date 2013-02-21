@@ -11,7 +11,7 @@ import eu.scapeproject.model.metadata.TechnicalMetadata;
 import eu.scapeproject.model.util.CopyUtil;
 import eu.scapeproject.model.util.ListUtil;
 
-@XmlRootElement(name = "textMD", namespace = "info:lc/xmlns/textmd-v3")
+@XmlRootElement(name = "textmd", namespace = "info:lc/xmlns/textmd-v3")
 public class TextMDMetadata extends TechnicalMetadata {
 	@XmlElement(name = "encoding", namespace = "info:lc/xmlns/textmd-v3")
 	private final List<Encoding> encodings;

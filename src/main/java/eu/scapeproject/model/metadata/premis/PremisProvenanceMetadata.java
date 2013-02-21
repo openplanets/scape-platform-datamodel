@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import eu.scapeproject.model.metadata.ProvenanceMetadata;
 
-@XmlRootElement(name = "digiprovMD", namespace = "http://www.loc.gov/standards/premis")
+@XmlRootElement(name = "provenance", namespace = "http://www.loc.gov/standards/premis")
 public class PremisProvenanceMetadata extends ProvenanceMetadata {
     @XmlElement(name = "event",namespace="http://www.loc.gov/standards/premis")
     private final List<Event> events;

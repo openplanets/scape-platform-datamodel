@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import eu.scapeproject.model.metadata.RightsMetadata;
 
-@XmlRootElement(name="premisRightsMetadata",namespace="http://www.loc.gov/standards/premis")
+@XmlRootElement(name="rights",namespace="http://www.loc.gov/standards/premis")
 public class PremisRightsMetadata extends RightsMetadata{
     @XmlElement(name="rightsStatements",namespace="http://www.loc.gov/standards/premis")
     private final List<RightsStatement> rightsStatements;
