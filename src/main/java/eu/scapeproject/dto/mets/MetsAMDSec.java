@@ -1,15 +1,18 @@
 package eu.scapeproject.dto.mets;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "amdSec", namespace = "http://www.loc.gov/METS/")
 public class MetsAMDSec {
     @XmlAttribute(name = "ID")
     private String id;
-    @XmlElement(name = "techMD", namespace = "http://www.loc.gov/METS/")
-    private MetsTechMD technicalMetadata;
+    @XmlElements(@XmlElement(name = "techMD", namespace = "http://www.loc.gov/METS/"))
+    private List<MetsTechMD> technicalMetadata;
     @XmlElement(name = "rightsMD", namespace = "http://www.loc.gov/METS/")
     private MetsRightsMD rightsMetadata;
     @XmlElement(name = "sourceMD", namespace = "http://www.loc.gov/METS/")
@@ -45,13 +48,13 @@ public class MetsAMDSec {
         return sourceMetadata;
     }
 
-    public MetsTechMD getTechnicalMetadata() {
+    public List<MetsTechMD> getTechnicalMetadata() {
         return technicalMetadata;
     }
 
     public static class Builder {
         private String id;
-        private MetsTechMD technicalMetadata;
+        private List<MetsTechMD> technicalMetadata;
         private MetsDigiProvMD provenanceMetadata;
         private MetsSourceMD sourceMetadata;
         private MetsRightsMD rightsMetadata;
@@ -80,7 +83,7 @@ public class MetsAMDSec {
             return this;
         }
 
-        public Builder technicalMetadata(MetsTechMD technicalMetadata) {
+        public Builder technicalMetadata(List<MetsTechMD> technicalMetadata) {
             this.technicalMetadata = technicalMetadata;
             return this;
         }

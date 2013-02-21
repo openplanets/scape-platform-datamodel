@@ -2,7 +2,9 @@ package eu.scapeproject.model.metadata.gbs;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import eu.scapeproject.model.jaxb.MetadataAdapter;
 import eu.scapeproject.model.metadata.TechnicalMetadata;
 
 @XmlRootElement(name = "google-bookscan", namespace = "http://books.google.com/gbs")

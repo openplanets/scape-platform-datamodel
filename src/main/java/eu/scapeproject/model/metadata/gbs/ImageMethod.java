@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
-@XmlRootElement(name = "productionNotes", namespace = "http://books.google.com/gbs")
+@XmlRootElement(name = "imageMethod", namespace = "http://books.google.com/gbs")
 public class ImageMethod {
     @XmlAttribute(name = "scanner")
     private final String scanner;

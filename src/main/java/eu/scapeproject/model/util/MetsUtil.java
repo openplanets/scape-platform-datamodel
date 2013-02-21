@@ -1,6 +1,8 @@
 package eu.scapeproject.model.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +10,8 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.xml.bind.JAXBException;
+
+import org.apache.commons.lang3.ArrayUtils;
 
 import eu.scapeproject.dto.mets.MetsAMDSec;
 import eu.scapeproject.dto.mets.MetsAgent;
@@ -42,7 +46,9 @@ import eu.scapeproject.model.metadata.ProvenanceMetadata;
 import eu.scapeproject.model.metadata.RightsMetadata;
 import eu.scapeproject.model.metadata.TechnicalMetadata;
 import eu.scapeproject.model.metadata.dc.DCMetadata;
+import eu.scapeproject.model.metadata.gbs.ProductionNotes;
 import eu.scapeproject.model.metadata.marc.Marc21Metadata;
+import eu.scapeproject.model.mets.SCAPEMarshaller;
 
 public abstract class MetsUtil {
 
@@ -64,9 +70,7 @@ public abstract class MetsUtil {
 			metsFile.addStream(stream);
 		}
 	}
-	
 
-	
 	private static void addFileGroups(Representation r, Map<Object, MetsAMDSec> amdSecs, List<MetsFileGrp> fileGroups) throws JAXBException {
 		MetsFileGrp.Builder group = new MetsFileGrp.Builder(new Identifier("GRP-" + UUID.randomUUID().toString()).getValue())
 				.admId(amdSecs.get(r).getId());
@@ -80,7 +84,7 @@ public abstract class MetsUtil {
 						.id("TECH-" + UUID.randomUUID())
 						.metadataWrapper(wrap)
 						.build();
-				adm.technicalMetadata(metsTech);
+				adm.technicalMetadata(Arrays.asList(metsTech));
 			}
 
 			amdSecs.put(f, adm.build());
@@ -105,7 +109,7 @@ public abstract class MetsUtil {
 				amdBuilder.provenanceMetadata(getProvenance(r))
 						.rightsMetadata(getRights(r))
 						.sourceMetadata(getSource(r))
-						.technicalMetadata(getTechnical(r))
+						.technicalMetadata(Arrays.asList(getTechnical(r)))
 						.id(r.getIdentifier().getValue());
 				amdSecs.put(r, amdBuilder.build());
 				addFileGroups(r, amdSecs, fileGroups);
@@ -185,17 +189,17 @@ public abstract class MetsUtil {
 		return docBuilder.build();
 	}
 
-	public static String getDescription(DescriptiveMetadata desc){
-        if (desc instanceof DCMetadata) {
-            DCMetadata dc = (DCMetadata) desc;
-            if (dc.getDescription() != null && !dc.getDescription().isEmpty()) {
-                return dc.getDescription().get(0);
-            }
-        } else if (desc instanceof Marc21Metadata) {
-            return "Marc21 Description";
-        }
-        return "";
-    }
+	public static String getDescription(DescriptiveMetadata desc) {
+		if (desc instanceof DCMetadata) {
+			DCMetadata dc = (DCMetadata) desc;
+			if (dc.getDescription() != null && !dc.getDescription().isEmpty()) {
+				return dc.getDescription().get(0);
+			}
+		} else if (desc instanceof Marc21Metadata) {
+			return "Marc21 Description";
+		}
+		return "";
+	}
 
 	public static String getTitle(DescriptiveMetadata descriptive) {
 		if (descriptive instanceof DCMetadata) {
@@ -319,7 +323,7 @@ public abstract class MetsUtil {
 			DCMetadata.Builder dc = new DCMetadata.Builder((DCMetadata) md);
 			return dc.build();
 		}
-		if (md instanceof Marc21Metadata){
+		if (md instanceof Marc21Metadata) {
 			Marc21Metadata.Builder marc21 = new Marc21Metadata.Builder((Marc21Metadata) md);
 			return marc21.build();
 		}
@@ -334,7 +338,7 @@ public abstract class MetsUtil {
 				.build();
 	}
 
-	public static List<File> getFiles(List<MetsFilePtr> pointers, MetsDocument doc) {
+	public static List<File> getMETSFiles(List<MetsFilePtr> pointers, MetsDocument doc) {
 		if (pointers == null) {
 			return null;
 		}
@@ -356,7 +360,8 @@ public abstract class MetsUtil {
 					for (MetsAMDSec amd : doc.getAmdSecs()) {
 						if (amd.getId().equals(metsFile.getAdmId())) {
 							if (amd.getTechnicalMetadata() != null) {
-								f.technical((TechnicalMetadata) amd.getTechnicalMetadata().getMetadataWrapper().getXmlData().getData());
+								f.technical((TechnicalMetadata) amd.getTechnicalMetadata().get(0).getMetadataWrapper().getXmlData()
+										.getData());
 							}
 						}
 					}
@@ -377,7 +382,7 @@ public abstract class MetsUtil {
 			for (MetsAMDSec amd : doc.getAmdSecs()) {
 				if (amd.getId().equals(st.getId())) {
 					if (amd.getTechnicalMetadata() != null) {
-						bs.technical((TechnicalMetadata) amd.getTechnicalMetadata().getMetadataWrapper().getXmlData().getData());
+						bs.technical((TechnicalMetadata) amd.getTechnicalMetadata().get(0).getMetadataWrapper().getXmlData().getData());
 					}
 				}
 			}
@@ -413,11 +418,25 @@ public abstract class MetsUtil {
 		return (ProvenanceMetadata) amd.getProvenanceMetadata().getMetadataWrapper().getXmlData().getData();
 	}
 
+	public static List<Representation> getONBRepresentations(MetsDiv div, MetsDocument doc) {
+		String[] ids = div.getAdmId().split("\\s");
+		Representation.Builder r = new Representation.Builder(new Identifier(div.getType() + "-" + UUID.randomUUID().toString()))
+			.title("Volume");
+		for (MetsTechMD techMd : doc.getAmdSecs().get(0).getTechnicalMetadata()) {
+			if (ArrayUtils.contains(ids, techMd.getId())) {
+				if (techMd.getMetadataWrapper().getXmlData().getData() instanceof ProductionNotes){
+					r.technical((TechnicalMetadata) techMd.getMetadataWrapper().getXmlData().getData());
+				}
+			}
+		}
+		return Arrays.asList(r.build());
+	}
+
 	public static List<Representation> getRepresentations(MetsDiv div, MetsDocument doc) {
 		List<Representation> reps = new ArrayList<Representation>();
 		if (div.getType().equals("Representation")) {
 			Representation.Builder repBuilder = new Representation.Builder(new Identifier(div.getAdmId()))
-					.files(getFiles(div.getFilePointers(), doc))
+					.files(getMETSFiles(div.getFilePointers(), doc))
 					.title(div.getLabel())
 					.provenance(getProvenance(div.getAdmId(), doc))
 					.technical(getTechnical(div.getAdmId(), doc))
@@ -437,8 +456,11 @@ public abstract class MetsUtil {
 		List<Representation> reps = new ArrayList<Representation>();
 		for (MetsStructMap structMap : doc.getStructMaps()) {
 			for (MetsDiv div : structMap.getDivisions()) {
-				if (div.getType().equals("Intellectual entity")) {
+				if (div.getType().equalsIgnoreCase("Intellectual entity")) {
 					reps.addAll(getRepresentations(div, doc));
+				}
+				if (div.getType().equalsIgnoreCase("volume")) {
+					reps.addAll(getONBRepresentations(div, doc));
 				}
 			}
 		}
@@ -481,6 +503,6 @@ public abstract class MetsUtil {
 
 	private static TechnicalMetadata getTechnical(String admId, MetsDocument doc) {
 		MetsAMDSec amd = getAdmSec(admId, doc.getAmdSecs());
-		return (TechnicalMetadata) amd.getTechnicalMetadata().getMetadataWrapper().getXmlData().getData();
+		return (TechnicalMetadata) amd.getTechnicalMetadata().get(0).getMetadataWrapper().getXmlData().getData();
 	}
 }
