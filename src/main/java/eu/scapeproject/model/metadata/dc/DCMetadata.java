@@ -221,7 +221,7 @@ public class DCMetadata extends DescriptiveMetadata {
 	public List<String> getTypes() {
 		return types;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -288,6 +288,7 @@ public class DCMetadata extends DescriptiveMetadata {
 			this.contributors = orig.getConstributors();
 			this.rights = orig.getRights();
 			this.coverages = orig.getCoverages();
+			this.id = orig.getId();
 			this.identifier = new Identifier(orig.getId());
 		}
 
@@ -387,6 +388,7 @@ public class DCMetadata extends DescriptiveMetadata {
 
 		public Builder identifier(Identifier identifier) {
 			this.identifier = identifier;
+			this.id = identifier.getValue();
 			return this;
 		}
 
@@ -454,10 +456,6 @@ public class DCMetadata extends DescriptiveMetadata {
 			return this;
 		}
 		
-		public Builder id(String id){
-		    this.id = id;
-		    return this;
-		}
 	}
 
 }
