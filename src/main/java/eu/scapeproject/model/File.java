@@ -1,20 +1,17 @@
 package eu.scapeproject.model;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import eu.scapeproject.model.metadata.TechnicalMetadata;
 
 @XmlRootElement(name="file",namespace="http://scapeproject.eu/model")
 public class File {
 	
 
 	@XmlElement(name="technical",namespace="http://scapeproject.eu/model")
-    private final TechnicalMetadata technical;
+    private final Object technical;
 	@XmlElement(name="bitstream",namespace="http://scapeproject.eu/model")
     private final List<BitStream> bitStreams;
 	@XmlElement(name="uri",namespace="http://scapeproject.eu/model")
@@ -45,7 +42,7 @@ public class File {
         return identifier;
     }
     
-    public TechnicalMetadata getTechnical() {
+    public Object getTechnical() {
         return technical;
     }
 
@@ -63,7 +60,7 @@ public class File {
 	}
 
     public static class Builder {
-        private TechnicalMetadata technical;
+        private Object technical;
         private List<BitStream> bitStreams;
         private URI uri;
         private Identifier identifier;
@@ -94,7 +91,7 @@ public class File {
             return this;
         }
 
-        public Builder technical(TechnicalMetadata technical) {
+        public Builder technical(Object technical) {
             this.technical = technical;
             return this;
         }

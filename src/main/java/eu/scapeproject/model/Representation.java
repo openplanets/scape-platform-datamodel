@@ -6,23 +6,18 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import eu.scapeproject.model.metadata.DescriptiveMetadata;
-import eu.scapeproject.model.metadata.ProvenanceMetadata;
-import eu.scapeproject.model.metadata.RightsMetadata;
-import eu.scapeproject.model.metadata.TechnicalMetadata;
-
 @XmlRootElement(name = "representation", namespace = "http://scapeproject.eu/model")
 public class Representation {
 	@XmlElement(name = "identifier", namespace = "http://scapeproject.eu/model")
 	private final Identifier identifier;
 	@XmlElement(name = "source", namespace = "http://scapeproject.eu/model")
-	private final DescriptiveMetadata source;
+	private final Object source;
 	@XmlElement(name = "provenance", namespace = "http://scapeproject.eu/model")
-	private final ProvenanceMetadata provenance;
+	private final Object provenance;
 	@XmlElement(name = "technical", namespace = "http://scapeproject.eu/model")
-	private final TechnicalMetadata technical;
+	private final Object technical;
 	@XmlElement(name = "rights", namespace = "http://scapeproject.eu/model")
-	private final RightsMetadata rights;
+	private final Object rights;
 	@XmlElement(name = "files", namespace = "http://scapeproject.eu/model")
 	private final List<File> files;
 	@XmlElement(name = "title", namespace = "http://scapeproject.eu/model")
@@ -61,19 +56,19 @@ public class Representation {
 		return identifier;
 	}
 
-	public ProvenanceMetadata getProvenance() {
+	public Object getProvenance() {
 		return provenance;
 	}
 
-	public RightsMetadata getRights() {
+	public Object getRights() {
 		return rights;
 	}
 
-	public DescriptiveMetadata getSource() {
+	public Object getSource() {
 		return source;
 	}
 
-	public TechnicalMetadata getTechnical() {
+	public Object getTechnical() {
 		return technical;
 	}
 
@@ -102,10 +97,10 @@ public class Representation {
 	}
 
 	public static class Builder {
-		private DescriptiveMetadata source;
-		private ProvenanceMetadata provenance;
-		private TechnicalMetadata technical;
-		private RightsMetadata rights;
+		private Object source;
+		private Object provenance;
+		private Object technical;
+		private Object rights;
 		private List<File> files = new ArrayList<File>();
 		private Identifier id;
 		private String title;
@@ -138,22 +133,22 @@ public class Representation {
 			return this;
 		}
 
-		public Builder provenance(ProvenanceMetadata provenance) {
+		public Builder provenance(Object provenance) {
 			this.provenance = provenance;
 			return this;
 		}
 
-		public Builder rights(RightsMetadata rights) {
+		public Builder rights(Object rights) {
 			this.rights = rights;
 			return this;
 		}
 
-		public Builder source(DescriptiveMetadata source) {
+		public Builder source(Object source) {
 			this.source = source;
 			return this;
 		}
 
-		public Builder technical(TechnicalMetadata technical) {
+		public Builder technical(Object technical) {
 			this.technical = technical;
 			return this;
 		}

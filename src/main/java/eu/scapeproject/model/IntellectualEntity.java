@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import eu.scapeproject.model.metadata.DescriptiveMetadata;
-
 
 @XmlRootElement(name = "entity", namespace = "http://scapeproject.eu/model")
 public class IntellectualEntity {
@@ -14,7 +12,7 @@ public class IntellectualEntity {
     private final Identifier identifier;
     private final int versionNumber;
     private final List<Identifier> alternativeIdentifiers;
-    private final DescriptiveMetadata descriptive;
+    private final Object descriptive;
     private final List<Representation> representations;
     private final LifecycleState lifeCycleState;
 
@@ -43,7 +41,7 @@ public class IntellectualEntity {
         return alternativeIdentifiers;
     }
 
-    public DescriptiveMetadata getDescriptive() {
+    public Object getDescriptive() {
         return descriptive;
     }
 
@@ -78,7 +76,7 @@ public class IntellectualEntity {
         private Identifier identifier;
         private int versionNumber;
         private List<Identifier> alternativeIdentifiers;
-        private DescriptiveMetadata descriptive;
+        private Object descriptive;
         private List<Representation> representations;
         private LifecycleState lifecycleState;
 
@@ -96,7 +94,7 @@ public class IntellectualEntity {
             return new IntellectualEntity(this);
         }
 
-        public Builder descriptive(DescriptiveMetadata descriptive) {
+        public Builder descriptive(Object descriptive) {
             this.descriptive = descriptive;
             return this;
         }

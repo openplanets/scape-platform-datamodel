@@ -4,8 +4,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import eu.scapeproject.model.metadata.TechnicalMetadata;
-
 @XmlRootElement(name = "bitstream", namespace = "http://scapeproject.eu/model")
 public class BitStream {
 	
@@ -15,7 +13,7 @@ public class BitStream {
 	@XmlElement(name = "type", namespace = "http://scapeproject.eu/model")
 	private final Type type;
 	@XmlElement(name = "technical", namespace = "http://scapeproject.eu/model")
-	private final TechnicalMetadata technical;
+	private final Object technical;
 	@XmlElement(name = "identifier", namespace = "http://scapeproject.eu/model")
 	private final Identifier identifier;
 
@@ -38,7 +36,7 @@ public class BitStream {
 		return identifier;
 	}
 
-	public TechnicalMetadata getTechnical() {
+	public Object getTechnical() {
 		return technical;
 	}
 
@@ -62,7 +60,7 @@ public class BitStream {
 	public static class Builder {
 		private String title;
 		private Type type;
-		private TechnicalMetadata technical;
+		private Object technical;
 		private Identifier identifier;
 
 		public Builder() {
@@ -78,7 +76,7 @@ public class BitStream {
 			return this;
 		}
 
-		public Builder technical(TechnicalMetadata technical) {
+		public Builder technical(Object technical) {
 			this.technical = technical;
 			return this;
 		}
