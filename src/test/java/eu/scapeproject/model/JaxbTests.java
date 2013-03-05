@@ -12,6 +12,7 @@ import gov.loc.mets.MetsType;
 
 public class JaxbTests {
 
+    
     @Test
     public void testONBMarc21Deserialization() throws Exception {
         Object o = ScapeMarshaller.getInstance().deserialize(this.getClass().getClassLoader().getResourceAsStream("ONB_marc_example.xml"));
@@ -47,5 +48,16 @@ public class JaxbTests {
                 assertTrue(f.getUri().toASCIIString().length() > 0);
             }
         }
+    }
+    
+    @Test
+    public void testScapeEntityDeserialization() throws Exception {
+        Object o = ScapeMarshaller.getInstance().deserialize(IntellectualEntity.class,
+                this.getClass().getClassLoader().getResourceAsStream("SCAPE_entity_example.xml"));
+        assertTrue(o instanceof IntellectualEntity);
+        IntellectualEntity e = (IntellectualEntity)o;
+        assertTrue(e.getRepresentations().size() == 1);
+        Representation r = e.getRepresentations().get(0);
+        assertTrue(r.getFiles().size() == 1);
     }
 }

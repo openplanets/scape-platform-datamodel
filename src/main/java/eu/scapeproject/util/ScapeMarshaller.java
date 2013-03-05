@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,17 +20,17 @@ import javax.xml.bind.Unmarshaller;
 import org.purl.dc.elements._1.ElementContainer;
 
 import edu.harvard.hul.ois.xml.ns.fits.fits_output.Fits;
-import edu.harvard.hul.ois.xml.ns.fits.fits_output.TechnicalMetadata;
 import eu.scapeproject.model.File;
 import eu.scapeproject.model.Identifier;
 import eu.scapeproject.model.IntellectualEntity;
 import eu.scapeproject.model.LifecycleState;
 import eu.scapeproject.model.Representation;
+import eu.scapeproject.model.Representation.Builder;
 import generated.TextMD;
 import gov.loc.audiomd.AudioType;
-import gov.loc.mets.AmdSecType;
 import gov.loc.mets.DivType;
 import gov.loc.mets.DivType.Fptr;
+import gov.loc.mets.AmdSecType;
 import gov.loc.mets.FileType;
 import gov.loc.mets.MdSecType;
 import gov.loc.mets.MetsType;
@@ -76,22 +77,81 @@ public class ScapeMarshaller {
 
     private IntellectualEntity createEntity(Object obj) {
         MetsType mets = (MetsType) obj;
-        List<Representation> reps = createRepresentations(mets);
-        Object desc = createDescriptive(mets);
-        if (desc == null) {
-            throw new IllegalArgumentException("Unable to find descriptive metadata in METS file");
+        if (mets.getPROFILE() == null || mets.getPROFILE().equals("scape")) {
+            /* create a SCAPE entity */
+            List<Representation> reps = createScapeRepresentations(mets);
+            IntellectualEntity.Builder entity = new IntellectualEntity.Builder()
+                    .identifier(new Identifier(mets.getOBJID()))
+                    .representations(reps);
+            return entity.build();
+        } else if (mets.getPROFILE().equals("gps")) {
+            /* create an ONB entity */
+            List<Representation> reps = createONBRepresentations(mets);
+            Object desc = createDescriptive(mets);
+            if (desc == null) {
+                throw new IllegalArgumentException("Unable to find descriptive metadata in METS file");
+            }
+            LifecycleState lifecycle = createLifecycleState(mets);
+            List<Identifier> altIds = createAlternateIdentifiers(mets);
+            int versionNumber = createVersionNumber(mets);
+            IntellectualEntity.Builder entity = new IntellectualEntity.Builder()
+                    .identifier(new Identifier(mets.getOBJID()))
+                    .representations(reps)
+                    .descriptive(desc)
+                    .alternativeIdentifiers(altIds)
+                    .lifecycleState(lifecycle)
+                    .versionNumber(versionNumber);
+            return entity.build();
+        } else {
+            return null;
         }
-        LifecycleState lifecycle = createLifecycleState(mets);
-        List<Identifier> altIds = createAlternateIdentifiers(mets);
-        int versionNumber = createVersionNumber(mets);
-        IntellectualEntity.Builder entity = new IntellectualEntity.Builder()
-                .identifier(new Identifier(mets.getOBJID()))
-                .representations(reps)
-                .descriptive(desc)
-                .alternativeIdentifiers(altIds)
-                .lifecycleState(lifecycle)
-                .versionNumber(versionNumber);
-        return entity.build();
+    }
+
+    private List<Representation> createScapeRepresentations(MetsType mets) {
+        List<Representation> reps = new ArrayList<Representation>();
+        for (StructMapType structmap : mets.getStructMap()) {
+            DivType div = structmap.getDiv();
+            if (div.getTYPE().equals("Intellectual entity")) {
+                for (DivType subDiv : div.getDiv()) {
+                    reps.add(createScapeRepresentation(subDiv, mets));
+                }
+            }
+        }
+        return reps;
+    }
+
+    private Representation createScapeRepresentation(DivType div, MetsType mets) {
+        Representation.Builder rep = new Representation.Builder(new Identifier("rep" + UUID.randomUUID().toString()));
+        for (Object o : div.getADMID()) {
+            AmdSecType amdSec = (AmdSecType) o;
+            if (amdSec.getTechMD().size() > 0) {
+                rep.technical(amdSec.getTechMD().get(0));
+            }
+            if (amdSec.getSourceMD().size() > 0) {
+                rep.source(amdSec.getSourceMD().get(0));
+            }
+            if (amdSec.getRightsMD().size() > 0) {
+                rep.rights(amdSec.getRightsMD().get(0));
+            }
+            if (amdSec.getDigiprovMD().size() > 0) {
+                rep.provenance(amdSec.getDigiprovMD().get(0));
+            }
+        }
+        for (Fptr ptr : div.getFptr()) {
+            File.Builder f = new File.Builder();
+            FileType metsFile = (FileType) ptr.getFILEID();
+            f.identifier(new Identifier(metsFile.getID()));
+            if (metsFile.getADMID() != null && metsFile.getADMID().size() > 0) {
+                AmdSecType amd = (AmdSecType) metsFile.getADMID().get(0);
+                if (amd.getTechMD() != null && amd.getTechMD().size() > 0) {
+                    MdSecType mdSec = (MdSecType) amd.getTechMD().get(0);
+                    f.technical(mdSec.getMdWrap().getXmlData());
+                }
+            }
+            f.uri(URI.create(metsFile.getFLocat().get(0).getHref()));
+            rep.file(f.build());
+        }
+        return rep.build();
     }
 
     private int createVersionNumber(MetsType mets) {
@@ -122,7 +182,7 @@ public class ScapeMarshaller {
         return null;
     }
 
-    private List<Representation> createRepresentations(MetsType mets) {
+    private List<Representation> createONBRepresentations(MetsType mets) {
         List<Representation> reps = new ArrayList<Representation>();
         for (StructMapType structmap : mets.getStructMap()) {
             DivType div = structmap.getDiv();
@@ -139,7 +199,6 @@ public class ScapeMarshaller {
         Representation.Builder text = new Representation.Builder(new Identifier("text-" + idPrefix));
         Representation.Builder image = new Representation.Builder(new Identifier("image-" + idPrefix));
         Representation.Builder html = new Representation.Builder(new Identifier("html-" + idPrefix));
-
 
         /* and try to find the metadata in the mets document */
         for (Object mdSec : div.getADMID()) {
@@ -195,7 +254,7 @@ public class ScapeMarshaller {
             if (metsFile.getID().startsWith(prefix)) {
                 /* get the technical metadata for this file */
                 List<Object> admIds = metsFile.getADMID();
-                if (admIds != null && admIds.size() > 0){
+                if (admIds != null && admIds.size() > 0) {
                     MdSecType mdSec = (MdSecType) metsFile.getADMID().get(0);
                     Object o = mdSec.getMdWrap().getXmlData().getAny().get(0);
                     f.technical(o);
