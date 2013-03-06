@@ -18,13 +18,17 @@ import gov.loc.mets.MetsType;
 import gov.loc.mets.MetsType.FileSec;
 import gov.loc.mets.MetsType.FileSec.FileGrp;
 import gov.loc.mets.MetsType.MetsHdr;
-import gov.loc.mets.MetsType.StructLink;
 import gov.loc.mets.StructMapType;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+
+import org.purl.dc.elements._1.ElementContainer;
 
 public class DefaultConverter extends IntellectualEntityConverter {
     public DefaultConverter() {
@@ -34,29 +38,18 @@ public class DefaultConverter extends IntellectualEntityConverter {
     @Override
     public MetsType convertEntity(IntellectualEntity entity) {
         Mets mets = new Mets();
-        mets.setID(entity.getIdentifier().getValue());
-        mets.setOBJID(entity.getIdentifier().getValue());
+        if (entity.getIdentifier() != null){
+            mets.setID(entity.getIdentifier().getValue());
+            mets.setOBJID(entity.getIdentifier().getValue());
+        }
         mets.setPROFILE("scape");
 
         /* the header part of the mets document */
-        MetsHdr header = new MetsHdr();
-        if (entity.getLifecycleState() == null){
-            header.setRECORDSTATUS(LifecycleState.State.NEW.toString());
-        }else{
-            header.setRECORDSTATUS(entity.getLifecycleState().getState().toString());
-        }
-        mets.setMetsHdr(header);
+        addMetsHeader(mets, entity);
 
         /* create the dmdSec part holding the descriptive metadata */
-        MdSecType dmdSec = new MdSecType();
-        MdWrap wrap = new MdWrap();
-        XmlData data = new XmlData();
-        System.out.println(entity.getDescriptive().getClass());
-        data.getAny().add(entity.getDescriptive());
-        wrap.setXmlData(data);
-        dmdSec.setMdWrap(wrap);
-        mets.getDmdSec().add(dmdSec);
-        
+        addDmdSec(mets, entity);
+
         /* create the interlocked filesec, structmap and amdsec part */
         AmdSecType amdSec = new AmdSecType();
         FileSec fileSec = new FileSec();
@@ -65,80 +58,34 @@ public class DefaultConverter extends IntellectualEntityConverter {
         StructMapType structMap = new StructMapType();
         DivType mainDiv = new DivType();
         mainDiv.setTYPE("Intellectual entity");
-        int fileCount = 0;
-        int repCount = 0;
-        
+
         /* handle all representations of the intellectual entity */
-        for (Representation r : entity.getRepresentations()) {
-            String repId = "REP-" + repCount;
-            DivType repDiv = new DivType();
-            repDiv.setTYPE("Representation");
-            repDiv.setID(repId);
-            
-            /* convert the technical metadata of this representation */
-            String techId = "TECH-REP-" + ++repCount;
-            MdSecType techMd= new MdSecType();
-            MdWrap techWrap = new MdWrap();
-            XmlData techData = new XmlData();
-            techData.getAny().add(r.getTechnical());
-            techWrap.setXmlData(techData);
-            techMd.setMdWrap(techWrap);
-            techMd.setID(techId);
-            repDiv.getADMID().add(techMd);
-            amdSec.getTechMD().add(techMd);
+        if (entity.getRepresentations() != null) {
+            for (Representation r : entity.getRepresentations()) {
+                String repId = "REP-" + UUID.randomUUID().toString();
+                DivType repDiv = new DivType();
+                repDiv.setTYPE("Representation");
+                repDiv.setID(repId);
 
-            /* convert the provenance metadata of this representation */
-            String provId = "PROV-REP-" + ++repCount;
-            MdSecType provMd= new MdSecType();
-            MdWrap provWrap = new MdWrap();
-            XmlData provData = new XmlData();
-            provData.getAny().add(r.getProvenance());
-            provWrap.setXmlData(provData);
-            provMd.setMdWrap(provWrap);
-            provMd.setID(provId);
-            repDiv.getADMID().add(provMd);
-            amdSec.getDigiprovMD().add(provMd);
-            
-            /* convert the source metadata of this representation */
-            String sourceId = "SOURCE-REP-" + ++repCount;
-            MdSecType sourceMd= new MdSecType();
-            MdWrap sourceWrap = new MdWrap();
-            XmlData sourceData = new XmlData();
-            sourceData.getAny().add(r.getSource());
-            sourceWrap.setXmlData(sourceData);
-            sourceMd.setMdWrap(sourceWrap);
-            sourceMd.setID(sourceId);
-            repDiv.getADMID().add(sourceMd);
-            amdSec.getSourceMD().add(sourceMd);
+                /* convert the technical metadata of this representation */
+                addMetadata(repDiv.getADMID(), amdSec.getTechMD(), r.getTechnical());
 
-            /* convert the rights metadata of this representation */
-            String rightsId = "RIGHTS-REP-" + ++repCount;
-            MdSecType rightsMd= new MdSecType();
-            MdWrap rightsWrap = new MdWrap();
-            XmlData rightsData = new XmlData();
-            rightsData.getAny().add(r.getRights());
-            rightsWrap.setXmlData(rightsData);
-            rightsMd.setMdWrap(rightsWrap);
-            rightsMd.setID(rightsId);
-            repDiv.getADMID().add(rightsMd);
-            amdSec.getRightsMD().add(rightsMd);
+                /* convert the provenance metadata of this representation */
+                addMetadata(repDiv.getADMID(), amdSec.getDigiprovMD(), r.getProvenance());
 
-            /* handle all files of this representation */
-            for (File f : r.getFiles()) {
-                String fileId = "file-" + ++fileCount;
-                Fptr ptr = new Fptr();
-                FileType metsFile = new FileType();
-                metsFile.setID(fileId);
-                metsFile.setSEQ(0);
-                FLocat locat = new FLocat();
-                locat.setLOCTYPE("URL");
-                locat.setHref(f.getUri().toASCIIString());
-                metsFile.getFLocat().add(locat);
-                ptr.setFILEID(metsFile);
-                repDiv.getFptr().add(ptr);
-                fileGrp.getFile().add(metsFile);
+                /* convert the source metadata of this representation */
+                addMetadata(repDiv.getADMID(), amdSec.getSourceMD(), r.getSource());
+
+                /* convert the rights metadata of this representation */
+                addMetadata(repDiv.getADMID(), amdSec.getRightsMD(), r.getRights());
+
+                /* handle all files of this representation */
+                for (File f : r.getFiles()) {
+                    /* add each file to the file and Fptr sets */
+                    addFile(repDiv.getFptr(), fileGrp.getFile(), f);
+                }
+                mainDiv.getDiv().add(repDiv);
             }
-            mainDiv.getDiv().add(repDiv);
         }
         structMap.setDiv(mainDiv);
         mets.getStructMap().add(structMap);
@@ -148,7 +95,68 @@ public class DefaultConverter extends IntellectualEntityConverter {
         return mets;
     }
 
+    private void addFile(List<Fptr> pointerList, List<FileType> fileList, File f) {
+        String fileId = "FILE-" + UUID.randomUUID();
+        Fptr ptr = new Fptr();
+        FileType metsFile = new FileType();
+        metsFile.setID(fileId);
+        metsFile.setSEQ(0);
+        FLocat locat = new FLocat();
+        locat.setLOCTYPE("URL");
+        locat.setHref(f.getUri().toASCIIString());
+        metsFile.getFLocat().add(locat);
+        ptr.setFILEID(metsFile);
+        pointerList.add(ptr);
+        fileList.add(metsFile);
+    }
 
+    private void addMetadata(List<Object> adm, List<MdSecType> mdSet, Object metadata) {
+        String mdId = "MD-" + UUID.randomUUID().toString();
+        MdSecType mdSec = new MdSecType();
+        MdWrap mdWrap = new MdWrap();
+        XmlData data = new XmlData();
+        if (metadata instanceof ElementContainer) {
+            /* workaround for missing root element of ElementContainer */
+            @SuppressWarnings({ "rawtypes", "unchecked" })
+            JAXBElement jaxor = new JAXBElement(new QName("http://purl.org/dc/elements/1.1/", "dublin-core"), ElementContainer.class, metadata);
+            data.getAny().add(jaxor);
+        }else{
+            data.getAny().add(metadata);
+        }
+        mdWrap.setXmlData(data);
+        mdSec.setMdWrap(mdWrap);
+        mdSec.setID(mdId);
+        adm.add(mdSec);
+        mdSet.add(mdSec);
+    }
+
+    private void addDmdSec(Mets mets, IntellectualEntity entity) {
+        MdSecType dmdSec = new MdSecType();
+        MdWrap wrap = new MdWrap();
+        XmlData data = new XmlData();
+        Object md = entity.getDescriptive();
+        if (md instanceof ElementContainer){
+            /* workaround for missing root element of ElementContainer */
+            @SuppressWarnings({ "rawtypes", "unchecked" })
+            JAXBElement jaxor = new JAXBElement(new QName("http://purl.org/dc/elements/1.1/", "dublin-core"), ElementContainer.class, md);
+            data.getAny().add(jaxor);
+        }else{
+            data.getAny().add(entity.getDescriptive());
+        }
+        wrap.setXmlData(data);
+        dmdSec.setMdWrap(wrap);
+        mets.getDmdSec().add(dmdSec);
+    }
+
+    private void addMetsHeader(Mets mets, IntellectualEntity entity) {
+        MetsHdr header = new MetsHdr();
+        if (entity.getLifecycleState() == null) {
+            header.setRECORDSTATUS(LifecycleState.State.NEW.toString());
+        } else {
+            header.setRECORDSTATUS(entity.getLifecycleState().getState().toString());
+        }
+        mets.setMetsHdr(header);
+    }
 
     @Override
     public IntellectualEntity convertMets(MetsType mets) {
@@ -164,7 +172,12 @@ public class DefaultConverter extends IntellectualEntityConverter {
     private Object createDC(MetsType mets) {
         /* use the firs dmdSec as the descriptive metadata */
         MdSecType dmdSec = mets.getDmdSec().get(0);
-        return dmdSec.getMdWrap().getXmlData().getAny().get(0);
+        if (dmdSec.getMdWrap().getXmlData().getAny().size() > 0){
+            @SuppressWarnings({ "rawtypes", "unchecked" })
+            JAXBElement e = new JAXBElement(new QName("http://purl.org/dc/elements/1.1/","doblin-core"), ElementContainer.class, dmdSec.getMdWrap().getXmlData().getAny().get(0));
+            return e;
+        }
+        return null;
     }
 
     private List<Representation> createScapeRepresentations(MetsType mets) {
