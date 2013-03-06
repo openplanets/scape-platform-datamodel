@@ -35,6 +35,11 @@ public class ONBConverter extends IntellectualEntityConverter {
     }
 
     @Override
+    public MetsType convertEntity(IntellectualEntity entity) {
+        throw new UnsupportedOperationException("Serialization to ONB documents iis not available");
+    }
+
+    @Override
     public IntellectualEntity convertMets(MetsType mets) {
         /* create an ONB entity */
         List<Representation> reps = createRepresentations(mets);
@@ -74,8 +79,11 @@ public class ONBConverter extends IntellectualEntityConverter {
         String idPrefix = UUID.randomUUID().toString();
         List<Representation> reps = new ArrayList<Representation>();
         Representation.Builder text = new Representation.Builder(new Identifier("text-" + idPrefix));
+        text.title("Text representation");
         Representation.Builder image = new Representation.Builder(new Identifier("image-" + idPrefix));
+        image.title("Image representaion");
         Representation.Builder html = new Representation.Builder(new Identifier("html-" + idPrefix));
+        html.title("HTML representation");
 
         /* and try to find the metadata in the mets document */
         for (Object mdSec : div.getADMID()) {

@@ -8,9 +8,11 @@ import java.util.Map;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.PropertyException;
 import javax.xml.bind.Unmarshaller;
 
 import eu.scapeproject.model.IntellectualEntity;
+import eu.scapeproject.model.jaxb.ScapeNamespacePrefixMapper;
 import gov.loc.mets.MetsType;
 
 public class ScapeMarshaller {
@@ -23,6 +25,7 @@ public class ScapeMarshaller {
     private ScapeMarshaller(IntellectualEntityConverter[] converter) throws JAXBException {
         this.context = JAXBContext.newInstance("edu.harvard.hul.ois.xml.ns.fits.fits_output:generated:gov.loc.audiomd:gov.loc.marc21.slim:gov.loc.mets:gov.loc.mix.v20:gov.loc.videomd:info.lc.xmlns.premis_v2:org.purl.dc.elements._1");
         this.marshaller = context.createMarshaller();
+        this.marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new ScapeNamespacePrefixMapper());
         this.unmarshaller = context.createUnmarshaller();
 
         /*
@@ -59,7 +62,19 @@ public class ScapeMarshaller {
     }
 
     public void serialize(Object obj, OutputStream sink) throws JAXBException {
-        marshaller.marshal(obj, sink);
+        if (obj instanceof IntellectualEntity) {
+            marshaller.marshal(this.converters.get("scape").convertEntity((IntellectualEntity) obj), sink);
+        } else {
+            marshaller.marshal(obj, sink);
+        }
+    }
+
+    public void setMarshallerProperty(String property, Object value) throws PropertyException {
+        this.marshaller.setProperty(property, value);
+    }
+
+    public void setUnmarshallerProperty(String property, Object value) throws PropertyException {
+        this.unmarshaller.setProperty(property, value);
     }
 
     @SuppressWarnings("unchecked")

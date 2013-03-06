@@ -16,4 +16,6 @@ public abstract class IntellectualEntityConverter {
     }
 
     public abstract IntellectualEntity convertMets(MetsType mets);
+
+    public abstract MetsType convertEntity(IntellectualEntity entity);
 }

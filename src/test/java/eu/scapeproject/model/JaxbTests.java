@@ -3,6 +3,7 @@ package eu.scapeproject.model;
 import static org.junit.Assert.*;
 
 import javax.xml.bind.JAXBElement;
+import javax.xml.bind.Marshaller;
 
 import org.junit.Test;
 
@@ -33,7 +34,6 @@ public class JaxbTests {
         assertTrue(o instanceof MetsType);
     }
 
-
     @Test
     public void testONBIntellectualEntityDeserialization() throws Exception {
         Object o = ScapeMarshaller.newInstance(new ONBConverter()).deserialize(IntellectualEntity.class,
@@ -51,7 +51,20 @@ public class JaxbTests {
         }
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test
+    public void testIntellectualEntitySerialization() throws Exception {
+        IntellectualEntity e = TestUtil.createTestEntity();
+        assertNotNull("test entity is not complete check deserialization first", e.getDescriptive());
+        assertNotNull("test entity is not complete check deserialization first", e.getRepresentations().get(0));
+        assertNotNull("test entity is not complete check deserialization first", e.getRepresentations().get(0).getFiles().get(0));
+        assertNotNull("test entity is not complete check deserialization first", e.getRepresentations().get(0).getFiles().get(0).getTechnical());
+        assertNotNull("test entity is not complete check deserialization first", e.getRepresentations().get(0).getFiles().get(0).getUri());
+        ScapeMarshaller marshaller = ScapeMarshaller.newInstance();
+        marshaller.setMarshallerProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        marshaller.serialize(e, System.out);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void testONBIntellectualEntityDeserializationMissingProfileName() throws Exception {
         Object o = ScapeMarshaller.newInstance().deserialize(IntellectualEntity.class,
                 this.getClass().getClassLoader().getResourceAsStream("ONB_mets_example.xml"));

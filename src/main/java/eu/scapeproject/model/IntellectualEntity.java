@@ -1,19 +1,19 @@
 package eu.scapeproject.model;
 
-
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import eu.scapeproject.util.CopyUtil;
 
 @XmlRootElement(name = "entity", namespace = "http://scapeproject.eu/model")
 public class IntellectualEntity {
 
-    private final Identifier identifier;
     private final int versionNumber;
     private final List<Identifier> alternativeIdentifiers;
     private final Object descriptive;
     private final List<Representation> representations;
+    private final Identifier identifier;
     private final LifecycleState lifeCycleState;
 
     @SuppressWarnings("unused")
@@ -35,7 +35,6 @@ public class IntellectualEntity {
         this.lifeCycleState = builder.lifecycleState;
         this.versionNumber = builder.versionNumber;
     }
-
 
     public List<Identifier> getAlternativeIdentifiers() {
         return alternativeIdentifiers;
@@ -82,6 +81,15 @@ public class IntellectualEntity {
 
         public Builder() {
             super();
+        }
+        
+        public Builder(IntellectualEntity orig){
+            IntellectualEntity copy = CopyUtil.deepCopy(IntellectualEntity.class, orig);
+            this.identifier = copy.identifier;
+            this.versionNumber = copy.versionNumber;
+            this.alternativeIdentifiers = copy.alternativeIdentifiers;
+            this.representations = copy.representations;
+            this.lifecycleState = copy.lifeCycleState;
         }
 
         public Builder alternativeIdentifiers(List<Identifier> alternativeIdentifiers) {
