@@ -2,6 +2,11 @@ package eu.scapeproject.model;
 
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 
@@ -60,8 +65,19 @@ public class JaxbTests {
         assertNotNull("test entity is not complete check deserialization first", e.getRepresentations().get(0).getFiles().get(0).getTechnical());
         assertNotNull("test entity is not complete check deserialization first", e.getRepresentations().get(0).getFiles().get(0).getUri());
         ScapeMarshaller marshaller = ScapeMarshaller.newInstance();
-        marshaller.setMarshallerProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        marshaller.serialize(e, System.out);
+
+        /* marshall to a temp file */
+        java.io.File tmp = new java.io.File("target/entity_serialized.xml");
+        FileOutputStream sink = new FileOutputStream(tmp);
+        marshaller.setMarshallerProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        marshaller.serialize(e, sink);
+        
+        FileInputStream src = new FileInputStream(tmp);
+        /* and create a new instance from the marshalled XML */
+        IntellectualEntity des = marshaller.deserialize(IntellectualEntity.class, src);
+        assertTrue("Identifier does not match", e.getIdentifier().getValue().equals(des.getIdentifier().getValue()));
+        
+        
     }
 
     @Test(expected = IllegalArgumentException.class)

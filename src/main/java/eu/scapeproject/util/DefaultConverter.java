@@ -18,6 +18,7 @@ import gov.loc.mets.MetsType;
 import gov.loc.mets.MetsType.FileSec;
 import gov.loc.mets.MetsType.FileSec.FileGrp;
 import gov.loc.mets.MetsType.MetsHdr;
+import gov.loc.mets.MetsType.MetsHdr.Agent;
 import gov.loc.mets.StructMapType;
 
 import java.net.URI;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.xml.bind.Element;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
@@ -155,6 +157,9 @@ public class DefaultConverter extends IntellectualEntityConverter {
         } else {
             header.setRECORDSTATUS(entity.getLifecycleState().getState().toString());
         }
+        for (Representation r: entity.getRepresentations()) {
+            System.out.println(entity.getRepresentations().get(0).getProvenance().getClass().getName());
+        }
         mets.setMetsHdr(header);
     }
 
@@ -174,7 +179,7 @@ public class DefaultConverter extends IntellectualEntityConverter {
         MdSecType dmdSec = mets.getDmdSec().get(0);
         if (dmdSec.getMdWrap().getXmlData().getAny().size() > 0){
             @SuppressWarnings({ "rawtypes", "unchecked" })
-            JAXBElement e = new JAXBElement(new QName("http://purl.org/dc/elements/1.1/","doblin-core"), ElementContainer.class, dmdSec.getMdWrap().getXmlData().getAny().get(0));
+            JAXBElement e = new JAXBElement(new QName("http://purl.org/dc/elements/1.1/","dublin-core"), ElementContainer.class, dmdSec.getMdWrap().getXmlData().getAny().get(0));
             return e;
         }
         return null;
