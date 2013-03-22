@@ -13,7 +13,6 @@ public class CopyTest {
         assertTrue(ent.getIdentifier().getValue().equals(copy.getIdentifier().getValue()));
         assertTrue(ent != copy);
         assertTrue(ent.getRepresentations().size() == copy.getRepresentations().size());
-        System.out.println(ent.getDescriptive().getClass());
-        assertTrue(ent.getRepresentations().get(0).getTitle().equals(copy.getRepresentations().get(0).getTitle()));
+        assertTrue(ent.getRepresentations().get(0).getIdentifier().getValue().equals(copy.getRepresentations().get(0).getIdentifier().getValue()));
     }
 }
