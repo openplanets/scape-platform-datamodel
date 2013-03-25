@@ -77,11 +77,6 @@ public class File {
             this.identifier = copy.identifier;
         }
 
-        public Builder bitStream(BitStream bitStream) {
-            this.bitStreams.add(bitStream);
-            return this;
-        }
-
         public Builder bitStreams(List<BitStream> bitStreams) {
             this.bitStreams = bitStreams;
             return this;

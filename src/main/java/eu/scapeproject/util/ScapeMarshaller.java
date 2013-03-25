@@ -23,7 +23,7 @@ public class ScapeMarshaller {
     private final JAXBContext context;
 
     private ScapeMarshaller(IntellectualEntityConverter[] converter) throws JAXBException {
-        this.context = JAXBContext.newInstance("edu.harvard.hul.ois.xml.ns.fits.fits_output:generated:gov.loc.audiomd:gov.loc.marc21.slim:gov.loc.mets:gov.loc.mix.v20:gov.loc.videomd:info.lc.xmlns.premis_v2:org.purl.dc.elements._1");
+        this.context = JAXBContext.newInstance("edu.harvard.hul.ois.xml.ns.fits.fits_output:info.lc.xmlns.textmd_v3:gov.loc.audiomd:gov.loc.marc21.slim:gov.loc.mets:gov.loc.mix.v20:gov.loc.videomd:info.lc.xmlns.premis_v2:org.purl.dc.elements._1");
         this.marshaller = context.createMarshaller();
         this.marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new ScapeNamespacePrefixMapper());
         this.unmarshaller = context.createUnmarshaller();
@@ -32,7 +32,7 @@ public class ScapeMarshaller {
          * create and add a default converter which is used by the scape
          * marshaller to convert MetsTypes to IntellectualEntities
          */
-        DefaultConverter dc = new DefaultConverter();
+        DefaultConverter dc = new DefaultConverter(this);
         this.converters.put(dc.getProfileName(), dc);
 
         /*
@@ -47,6 +47,14 @@ public class ScapeMarshaller {
                 this.converters.put(c.getProfileName(), c);
             }
         }
+    }
+    
+    public Marshaller getJaxbMarshaller() {
+        return marshaller;
+    }
+    
+    public Unmarshaller getJaxbUnmarshaller() {
+        return unmarshaller;
     }
 
     public static ScapeMarshaller newInstance() throws JAXBException {

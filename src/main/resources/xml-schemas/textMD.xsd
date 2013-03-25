@@ -2,7 +2,7 @@
 <!-- edited with XML Spy v4.2 U (http://www.xmlspy.com) by Jerome McDonough (private) -->
 <!-- TextMD Schema Version 2.2 -->
 <!-- Jerome McDonough, New York University -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="info:lc/xmlns/textmd-v3" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="info:lc/xmlns/textmd-v3">
 	<!-- Root element for textMD -->
 	<xs:element name="textMD">
 		<xs:annotation>

@@ -2,10 +2,17 @@ package eu.scapeproject.model;
 
 import static org.junit.Assert.*;
 
+import info.lc.xmlns.textmd_v3.TextMD;
+import info.lc.xmlns.textmd_v3.TextMD.Encoding;
+import info.lc.xmlns.textmd_v3.TextMD.Encoding.EncodingAgent;
+import info.lc.xmlns.textmd_v3.TextMD.Encoding.EncodingPlatform;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.net.URI;
+import java.util.Arrays;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
@@ -58,7 +65,34 @@ public class JaxbTests {
 
     @Test
     public void testIntellectualEntitySerialization() throws Exception {
-        IntellectualEntity e = TestUtil.createTestEntity();
+        BitStream bs_1 = new BitStream.Builder()
+            .identifier(new Identifier("bitstream:1"))
+            .title("Sequence 1")
+            .technical(TestUtil.createTextMDRecord())
+            .build();
+        
+        File f = new File.Builder()
+            .bitStreams(Arrays.asList(bs_1))
+            .identifier(new Identifier("file-1"))
+            .uri(URI.create("http://example.com/data"))
+            .technical(TestUtil.createTextMDRecord())
+            .build();
+        
+        Representation rep = new Representation.Builder(new Identifier("representation-1"))
+            .files(Arrays.asList(f))
+            .technical(TestUtil.createTextMDRecord())
+            .title("Text representation")
+            .provenance(TestUtil.createPremisDigiProvRecord())
+            .rights(TestUtil.createPremisRightsRecord())
+            .source(TestUtil.createDCSourceRecord())
+            .build();
+            
+        IntellectualEntity e = new IntellectualEntity.Builder()
+            .identifier(new Identifier("entity-1"))
+            .representations(Arrays.asList(rep))
+            .descriptive(TestUtil.createDCRecord())
+            .build();
+        
         assertNotNull("test entity is not complete check deserialization first", e.getDescriptive());
         assertNotNull("test entity is not complete check deserialization first", e.getRepresentations().get(0));
         assertNotNull("test entity is not complete check deserialization first", e.getRepresentations().get(0).getFiles().get(0));

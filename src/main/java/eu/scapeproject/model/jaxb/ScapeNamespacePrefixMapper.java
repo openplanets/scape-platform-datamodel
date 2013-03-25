@@ -9,7 +9,7 @@ public class ScapeNamespacePrefixMapper extends NamespacePrefixMapper {
             return "mets";
         } else if (namespaceUri.toLowerCase().equals("http://purl.org/dc/elements/1.1/")) {
             return "dc";
-        } else if (namespaceUri.toLowerCase().equals("http://www.loc.gov/standards/premis")) {
+        } else if (namespaceUri.toLowerCase().equals("info:lc/xmlns/premis-v2") || namespaceUri.toLowerCase().equals("http://www.loc.gov/standards/premis")) {
             return "premis";
         } else if (namespaceUri.toLowerCase().equals("info:lc/xmlns/textmd-v3")) {
             return "textmd";

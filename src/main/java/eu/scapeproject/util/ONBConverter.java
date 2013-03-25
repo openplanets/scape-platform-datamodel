@@ -1,7 +1,23 @@
 package eu.scapeproject.util;
 
+import edu.harvard.hul.ois.xml.ns.fits.fits_output.Fits;
+import eu.scapeproject.model.File;
+import eu.scapeproject.model.Identifier;
+import eu.scapeproject.model.IntellectualEntity;
+import eu.scapeproject.model.LifecycleState;
+import eu.scapeproject.model.Representation;
+import gov.loc.audiomd.AudioType;
+import gov.loc.mets.DivType;
+import gov.loc.mets.DivType.Fptr;
+import gov.loc.mets.FileType;
+import gov.loc.mets.MdSecType;
+import gov.loc.mets.MetsType;
+import gov.loc.mets.StructMapType;
+import gov.loc.mix.v20.Mix;
+import gov.loc.videomd.VideoType;
 import info.lc.xmlns.premis_v2.PremisComplexType;
 import info.lc.xmlns.premis_v2.RightsComplexType;
+import info.lc.xmlns.textmd_v3.TextMD;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -11,23 +27,6 @@ import java.util.UUID;
 import javax.xml.bind.JAXBElement;
 
 import org.purl.dc.elements._1.ElementContainer;
-
-import edu.harvard.hul.ois.xml.ns.fits.fits_output.Fits;
-import eu.scapeproject.model.File;
-import eu.scapeproject.model.Identifier;
-import eu.scapeproject.model.IntellectualEntity;
-import eu.scapeproject.model.LifecycleState;
-import eu.scapeproject.model.Representation;
-import generated.TextMD;
-import gov.loc.audiomd.AudioType;
-import gov.loc.mets.DivType;
-import gov.loc.mets.FileType;
-import gov.loc.mets.MdSecType;
-import gov.loc.mets.MetsType;
-import gov.loc.mets.StructMapType;
-import gov.loc.mets.DivType.Fptr;
-import gov.loc.mix.v20.Mix;
-import gov.loc.videomd.VideoType;
 
 public class ONBConverter extends IntellectualEntityConverter {
     public ONBConverter() {

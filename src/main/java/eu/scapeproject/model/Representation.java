@@ -127,14 +127,6 @@ public class Representation {
             return new Representation(this);
         }
 
-        public Builder file(File file) {
-            if (this.files == null) {
-                this.files = new ArrayList<File>();
-            }
-            this.files.add(file);
-            return this;
-        }
-
         public Builder files(List<File> files) {
             this.files = files;
             return this;

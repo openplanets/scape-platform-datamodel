@@ -43,7 +43,7 @@
 		<mets:techMD ID="TECH-MD-1">
 			<mets:mdWrap MDTYPE="TEXTMD" SIZE="0">
 				<mets:xmlData>
-					<textmd:textmd xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+					<textmd:textMD xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 						<textmd:encoding>
 							<textmd:encoding_platform>
 								<textmd:line_break>CR_LF</textmd:line_break>
@@ -88,7 +88,7 @@
 						<textmd:printRequirements>dFKjmsmJaKIcEhGn</textmd:printRequirements>
 						<textmd:viewingRequirements>ECKbgqylTJBYkSem</textmd:viewingRequirements>
 						<textmd:textNote>GcogObznWwTPmsfA</textmd:textNote>
-					</textmd:textmd>
+					</textmd:textMD>
 				</mets:xmlData>
 			</mets:mdWrap>
 		</mets:techMD>

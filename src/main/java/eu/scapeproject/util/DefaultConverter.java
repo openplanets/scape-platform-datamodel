@@ -21,6 +21,8 @@ import gov.loc.mets.MetsType.MetsHdr;
 import gov.loc.mets.MetsType.MetsHdr.Agent;
 import gov.loc.mets.StructMapType;
 
+import info.lc.xmlns.textmd_v3.TextMD;
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,19 +30,25 @@ import java.util.UUID;
 
 import javax.xml.bind.Element;
 import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
 import javax.xml.namespace.QName;
 
 import org.purl.dc.elements._1.ElementContainer;
+import org.w3c.dom.Node;
 
 public class DefaultConverter extends IntellectualEntityConverter {
-    public DefaultConverter() {
+    
+    private final ScapeMarshaller marshaller;
+    
+    public DefaultConverter(ScapeMarshaller marshaller) {
         super("scape");
+        this.marshaller = marshaller;
     }
 
     @Override
     public MetsType convertEntity(IntellectualEntity entity) {
         Mets mets = new Mets();
-        if (entity.getIdentifier() != null){
+        if (entity.getIdentifier() != null) {
             mets.setID(entity.getIdentifier().getValue());
             mets.setOBJID(entity.getIdentifier().getValue());
         }
@@ -122,7 +130,7 @@ public class DefaultConverter extends IntellectualEntityConverter {
             @SuppressWarnings({ "rawtypes", "unchecked" })
             JAXBElement jaxor = new JAXBElement(new QName("http://purl.org/dc/elements/1.1/", "dublin-core"), ElementContainer.class, metadata);
             data.getAny().add(jaxor);
-        }else{
+        } else {
             data.getAny().add(metadata);
         }
         mdWrap.setXmlData(data);
@@ -137,12 +145,12 @@ public class DefaultConverter extends IntellectualEntityConverter {
         MdWrap wrap = new MdWrap();
         XmlData data = new XmlData();
         Object md = entity.getDescriptive();
-        if (md instanceof ElementContainer){
+        if (md instanceof ElementContainer) {
             /* workaround for missing root element of ElementContainer */
             @SuppressWarnings({ "rawtypes", "unchecked" })
             JAXBElement jaxor = new JAXBElement(new QName("http://purl.org/dc/elements/1.1/", "dublin-core"), ElementContainer.class, md);
             data.getAny().add(jaxor);
-        }else{
+        } else {
             data.getAny().add(entity.getDescriptive());
         }
         wrap.setXmlData(data);
@@ -157,7 +165,7 @@ public class DefaultConverter extends IntellectualEntityConverter {
         } else {
             header.setRECORDSTATUS(entity.getLifecycleState().getState().toString());
         }
-        for (Representation r: entity.getRepresentations()) {
+        for (Representation r : entity.getRepresentations()) {
             System.out.println(entity.getRepresentations().get(0).getProvenance().getClass().getName());
         }
         mets.setMetsHdr(header);
@@ -177,9 +185,10 @@ public class DefaultConverter extends IntellectualEntityConverter {
     private Object createDC(MetsType mets) {
         /* use the firs dmdSec as the descriptive metadata */
         MdSecType dmdSec = mets.getDmdSec().get(0);
-        if (dmdSec.getMdWrap().getXmlData().getAny().size() > 0){
+        if (dmdSec.getMdWrap().getXmlData().getAny().size() > 0) {
             @SuppressWarnings({ "rawtypes", "unchecked" })
-            JAXBElement e = new JAXBElement(new QName("http://purl.org/dc/elements/1.1/","dublin-core"), ElementContainer.class, dmdSec.getMdWrap().getXmlData().getAny().get(0));
+            JAXBElement e = new JAXBElement(new QName("http://purl.org/dc/elements/1.1/", "dublin-core"), ElementContainer.class,
+                    dmdSec.getMdWrap().getXmlData().getAny().get(0));
             return e;
         }
         return null;
@@ -201,20 +210,29 @@ public class DefaultConverter extends IntellectualEntityConverter {
     private Representation createScapeRepresentation(DivType div, MetsType mets) {
         Representation.Builder rep = new Representation.Builder(new Identifier("rep" + UUID.randomUUID().toString()));
         for (Object o : div.getADMID()) {
-            AmdSecType amdSec = (AmdSecType) o;
-            if (amdSec.getTechMD().size() > 0) {
-                rep.technical(amdSec.getTechMD().get(0).getMdWrap().getXmlData().getAny().get(0));
-            }
-            if (amdSec.getSourceMD().size() > 0) {
-                rep.source(amdSec.getSourceMD().get(0).getMdWrap().getXmlData().getAny().get(0));
-            }
-            if (amdSec.getRightsMD().size() > 0) {
-                rep.rights(amdSec.getRightsMD().get(0).getMdWrap().getXmlData().getAny().get(0));
-            }
-            if (amdSec.getDigiprovMD().size() > 0) {
-                rep.provenance(amdSec.getDigiprovMD().get(0).getMdWrap().getXmlData().getAny().get(0));
+            if (o instanceof AmdSecType) {
+                AmdSecType amdSec = (AmdSecType) o;
+                if (amdSec.getTechMD().size() > 0) {
+                    rep.technical(amdSec.getTechMD().get(0).getMdWrap().getXmlData().getAny().get(0));
+                }
+                if (amdSec.getSourceMD().size() > 0) {
+                    rep.source(amdSec.getSourceMD().get(0).getMdWrap().getXmlData().getAny().get(0));
+                }
+                if (amdSec.getRightsMD().size() > 0) {
+                    rep.rights(amdSec.getRightsMD().get(0).getMdWrap().getXmlData().getAny().get(0));
+                }
+                if (amdSec.getDigiprovMD().size() > 0) {
+                    rep.provenance(amdSec.getDigiprovMD().get(0).getMdWrap().getXmlData().getAny().get(0));
+                }
+            }else if (o instanceof MdSecType){
+                MdSecType mdSec = (MdSecType) o;
+                Object mdObj = mdSec.getMdWrap().getXmlData().getAny().get(0);
+                if (mdObj instanceof TextMD){
+                    rep.technical(mdSec);
+                }
             }
         }
+        List<File> files =new ArrayList<File>();
         for (Fptr ptr : div.getFptr()) {
             File.Builder f = new File.Builder();
             FileType metsFile = (FileType) ptr.getFILEID();
@@ -227,8 +245,9 @@ public class DefaultConverter extends IntellectualEntityConverter {
                 }
             }
             f.uri(URI.create(metsFile.getFLocat().get(0).getHref()));
-            rep.file(f.build());
+            files.add(f.build());
         }
+        rep.files(files);
         return rep.build();
     }
 }
