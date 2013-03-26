@@ -3,6 +3,7 @@ package eu.scapeproject.util;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +21,8 @@ public abstract class CopyUtil {
             return (T) new String((String) obj);
         } else if (type == Integer.class || type == int.class) {
             return (T) (Integer) obj;
+        } else if (type == BigInteger.class) {
+            return (T) (BigInteger) obj;
         } else if (type == Long.class || type == long.class) {
             return (T) (Long) obj;
         } else if (type == Double.class || type == double.class) {
