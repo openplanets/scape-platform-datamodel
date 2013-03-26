@@ -26,7 +26,7 @@ import gov.loc.marc21.slim.RecordType;
 import gov.loc.mets.MdSecType;
 import gov.loc.mets.MetsType;
 
-public class JaxbTests {
+public class JaxbTest {
 
     @Test
     public void testONBMarc21Deserialization() throws Exception {
