@@ -39,6 +39,7 @@ public abstract class TestUtil {
         EncodingPlatform pf = new EncodingPlatform();
         pf.setLinebreak("LF");
         enc.getEncodingPlatform().add(pf);
+        textMd.getEncoding().add(enc);
         return textMd;
     }
 

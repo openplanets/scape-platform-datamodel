@@ -126,9 +126,9 @@ public class JaxbTests {
         File fdes = rdes.getFiles().get(0);
         assertTrue("File identifiers do not match", forig.getIdentifier().getValue().equals(fdes.getIdentifier().getValue()));
         
-//        BitStream bsorig = forig.getBitStreams().get(0);
-//        BitStream bsdes = fdes.getBitStreams().get(0);
-//        assertTrue("BitStream identifiers do not match",bsorig.getIdentifier().getValue().equals(bsdes.getIdentifier().getValue()));
+        BitStream bsorig = forig.getBitStreams().get(0);
+        BitStream bsdes = fdes.getBitStreams().get(0);
+        assertTrue("BitStream identifiers do not match",bsorig.getIdentifier().getValue().equals(bsdes.getIdentifier().getValue()));
     }
 
     @Test(expected = IllegalArgumentException.class)
