@@ -18,10 +18,12 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 
 import org.junit.Test;
+import org.purl.dc.elements._1.ElementContainer;
 
 import eu.scapeproject.util.ONBConverter;
 import eu.scapeproject.util.ScapeMarshaller;
 import gov.loc.marc21.slim.RecordType;
+import gov.loc.mets.MdSecType;
 import gov.loc.mets.MetsType;
 
 public class JaxbTests {
@@ -66,33 +68,33 @@ public class JaxbTests {
     @Test
     public void testIntellectualEntitySerialization() throws Exception {
         BitStream bs_1 = new BitStream.Builder()
-            .identifier(new Identifier("bitstream:1"))
-            .title("Sequence 1")
-            .technical(TestUtil.createTextMDRecord())
-            .build();
-        
+                .identifier(new Identifier("bitstream:1"))
+                .title("Sequence 1")
+                .technical(TestUtil.createTextMDRecord())
+                .build();
+
         File f = new File.Builder()
-            .bitStreams(Arrays.asList(bs_1))
-            .identifier(new Identifier("file-1"))
-            .uri(URI.create("http://example.com/data"))
-            .technical(TestUtil.createTextMDRecord())
-            .build();
-        
+                .bitStreams(Arrays.asList(bs_1))
+                .identifier(new Identifier("file-1"))
+                .uri(URI.create("http://example.com/data"))
+                .technical(TestUtil.createTextMDRecord())
+                .build();
+
         Representation rep = new Representation.Builder(new Identifier("representation-1"))
-            .files(Arrays.asList(f))
-            .technical(TestUtil.createTextMDRecord())
-            .title("Text representation")
-            .provenance(TestUtil.createPremisDigiProvRecord())
-            .rights(TestUtil.createPremisRightsRecord())
-            .source(TestUtil.createDCSourceRecord())
-            .build();
-            
+                .files(Arrays.asList(f))
+                .technical(TestUtil.createTextMDRecord())
+                .title("Text representation")
+                .provenance(TestUtil.createPremisDigiProvRecord())
+                .rights(TestUtil.createPremisRightsRecord())
+                .source(TestUtil.createDCSourceRecord())
+                .build();
+
         IntellectualEntity e = new IntellectualEntity.Builder()
-            .identifier(new Identifier("entity-1"))
-            .representations(Arrays.asList(rep))
-            .descriptive(TestUtil.createDCRecord())
-            .build();
-        
+                .identifier(new Identifier("entity-1"))
+                .representations(Arrays.asList(rep))
+                .descriptive(TestUtil.createDCRecord())
+                .build();
+
         assertNotNull("test entity is not complete check deserialization first", e.getDescriptive());
         assertNotNull("test entity is not complete check deserialization first", e.getRepresentations().get(0));
         assertNotNull("test entity is not complete check deserialization first", e.getRepresentations().get(0).getFiles().get(0));
@@ -105,13 +107,28 @@ public class JaxbTests {
         FileOutputStream sink = new FileOutputStream(tmp);
         marshaller.setMarshallerProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         marshaller.serialize(e, sink);
-        
+
         FileInputStream src = new FileInputStream(tmp);
         /* and create a new instance from the marshalled XML */
         IntellectualEntity des = marshaller.deserialize(IntellectualEntity.class, src);
+
         assertTrue("Identifier does not match", e.getIdentifier().getValue().equals(des.getIdentifier().getValue()));
+
+        ElementContainer dcorig = (ElementContainer) e.getDescriptive();
+        ElementContainer dcdes = (ElementContainer) des.getDescriptive();
+        assertTrue("DC metadata does not match", dcorig.getAny().get(0).getValue().getContent().equals(dcdes.getAny().get(0).getValue().getContent()));
+
+        Representation rorig = e.getRepresentations().get(0);
+        Representation rdes = des.getRepresentations().get(0);
+        assertTrue("Representation identifier does not match",rorig.getIdentifier().getValue().equals(rdes.getIdentifier().getValue()));
         
+        File forig = rorig.getFiles().get(0);
+        File fdes = rdes.getFiles().get(0);
+        assertTrue("File identifiers do not match", forig.getIdentifier().getValue().equals(fdes.getIdentifier().getValue()));
         
+//        BitStream bsorig = forig.getBitStreams().get(0);
+//        BitStream bsdes = fdes.getBitStreams().get(0);
+//        assertTrue("BitStream identifiers do not match",bsorig.getIdentifier().getValue().equals(bsdes.getIdentifier().getValue()));
     }
 
     @Test(expected = IllegalArgumentException.class)

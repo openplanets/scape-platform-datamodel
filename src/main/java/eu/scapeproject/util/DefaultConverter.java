@@ -1,10 +1,12 @@
 package eu.scapeproject.util;
 
+import edu.harvard.hul.ois.xml.ns.fits.fits_output.Fits;
 import eu.scapeproject.model.File;
 import eu.scapeproject.model.Identifier;
 import eu.scapeproject.model.IntellectualEntity;
 import eu.scapeproject.model.LifecycleState;
 import eu.scapeproject.model.Representation;
+import gov.loc.audiomd.AudioType;
 import gov.loc.mets.AmdSecType;
 import gov.loc.mets.DivType;
 import gov.loc.mets.DivType.Fptr;
@@ -20,7 +22,11 @@ import gov.loc.mets.MetsType.FileSec.FileGrp;
 import gov.loc.mets.MetsType.MetsHdr;
 import gov.loc.mets.MetsType.MetsHdr.Agent;
 import gov.loc.mets.StructMapType;
+import gov.loc.mix.v20.Mix;
+import gov.loc.videomd.VideoType;
 
+import info.lc.xmlns.premis_v2.PremisComplexType;
+import info.lc.xmlns.premis_v2.RightsComplexType;
 import info.lc.xmlns.textmd_v3.TextMD;
 
 import java.net.URI;
@@ -34,6 +40,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.namespace.QName;
 
 import org.purl.dc.elements._1.ElementContainer;
+import org.purl.dc.elements._1.ObjectFactory;
 import org.w3c.dom.Node;
 
 public class DefaultConverter extends IntellectualEntityConverter {
@@ -72,7 +79,7 @@ public class DefaultConverter extends IntellectualEntityConverter {
         /* handle all representations of the intellectual entity */
         if (entity.getRepresentations() != null) {
             for (Representation r : entity.getRepresentations()) {
-                String repId = "REP-" + UUID.randomUUID().toString();
+                String repId = (r.getIdentifier() != null) ? r.getIdentifier().getValue() : "REP-" + UUID.randomUUID().toString();
                 DivType repDiv = new DivType();
                 repDiv.setTYPE("Representation");
                 repDiv.setID(repId);
@@ -106,7 +113,7 @@ public class DefaultConverter extends IntellectualEntityConverter {
     }
 
     private void addFile(List<Fptr> pointerList, List<FileType> fileList, File f) {
-        String fileId = "FILE-" + UUID.randomUUID();
+        String fileId = (f.getIdentifier()!= null) ? f.getIdentifier().getValue() : "FILE-" + UUID.randomUUID();
         Fptr ptr = new Fptr();
         FileType metsFile = new FileType();
         metsFile.setID(fileId);
@@ -183,13 +190,15 @@ public class DefaultConverter extends IntellectualEntityConverter {
     }
 
     private Object createDC(MetsType mets) {
-        /* use the firs dmdSec as the descriptive metadata */
+        /* use the first dmdSec as the descriptive metadata */
         MdSecType dmdSec = mets.getDmdSec().get(0);
         if (dmdSec.getMdWrap().getXmlData().getAny().size() > 0) {
-            @SuppressWarnings({ "rawtypes", "unchecked" })
-            JAXBElement e = new JAXBElement(new QName("http://purl.org/dc/elements/1.1/", "dublin-core"), ElementContainer.class,
-                    dmdSec.getMdWrap().getXmlData().getAny().get(0));
-            return e;
+            Node n = (Node) dmdSec.getMdWrap().getXmlData().getAny().get(0);
+            try {
+                return marshaller.getJaxbUnmarshaller().unmarshal(n, ElementContainer.class).getValue();
+            } catch (JAXBException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -208,7 +217,8 @@ public class DefaultConverter extends IntellectualEntityConverter {
     }
 
     private Representation createScapeRepresentation(DivType div, MetsType mets) {
-        Representation.Builder rep = new Representation.Builder(new Identifier("rep" + UUID.randomUUID().toString()));
+        String repId = (div.getID() != null) ? div.getID() : "rep" + UUID.randomUUID().toString();
+        Representation.Builder rep = new Representation.Builder(new Identifier(repId));
         for (Object o : div.getADMID()) {
             if (o instanceof AmdSecType) {
                 AmdSecType amdSec = (AmdSecType) o;
@@ -227,8 +237,32 @@ public class DefaultConverter extends IntellectualEntityConverter {
             }else if (o instanceof MdSecType){
                 MdSecType mdSec = (MdSecType) o;
                 Object mdObj = mdSec.getMdWrap().getXmlData().getAny().get(0);
-                if (mdObj instanceof TextMD){
-                    rep.technical(mdSec);
+                if (mdObj instanceof TextMD || mdObj instanceof Fits || mdObj instanceof Mix || mdObj instanceof VideoType || mdObj instanceof AudioType){
+                    /* it's tech md */
+                    rep.technical(mdObj);
+                }else if (mdObj instanceof JAXBElement<?>){
+                    /* Both premis rights and premis events come in JaxbElements<?> so handling is a bit different here */
+                    JAXBElement<?> e = (JAXBElement<?>) mdObj;
+                    if (e.getDeclaredType().equals(PremisComplexType.class)){
+                        /* it's propveancen md */
+                        rep.provenance(e.getValue());
+                    }else if (e.getDeclaredType().equals(RightsComplexType.class)){
+                        /* it's rights md */
+                        rep.rights(e.getValue());
+                    }
+                    rep.provenance(mdObj);
+                }else if(mdObj instanceof Node){
+                    /* it's dc metadata in the representation therefore it's source md */
+                    JAXBElement<ElementContainer> cnt;
+                    try {
+                        cnt = marshaller.getJaxbUnmarshaller().unmarshal((Node) mdObj,ElementContainer.class);
+                        rep.source(cnt.getValue());
+                    } catch (JAXBException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    /* What is it? */
+                    System.err.println("Unable to deserialize objects of type " + mdObj.getClass().getName());
                 }
             }
         }

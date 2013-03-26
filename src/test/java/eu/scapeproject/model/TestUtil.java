@@ -2,6 +2,7 @@ package eu.scapeproject.model;
 
 import info.lc.xmlns.premis_v2.CopyrightInformationComplexType;
 import info.lc.xmlns.premis_v2.EventComplexType;
+import info.lc.xmlns.premis_v2.LinkingAgentIdentifierComplexType;
 import info.lc.xmlns.premis_v2.ObjectFactory;
 import info.lc.xmlns.premis_v2.PremisComplexType;
 import info.lc.xmlns.premis_v2.RightsComplexType;
@@ -47,6 +48,10 @@ public abstract class TestUtil {
         EventComplexType e = premisFac.createEventComplexType();
         e.setEventDetail("inital ingest");
         e.setEventType("INGEST");
+        LinkingAgentIdentifierComplexType agentId = premisFac.createLinkingAgentIdentifierComplexType();
+        agentId.setRole("CREATOR");
+        agentId.setTitle("Testman Testrevicz");
+        e.getLinkingAgentIdentifier().add(agentId);
         premis.getEvent().add(e);
         return premisFac.createPremis(premis);
     }
@@ -64,20 +69,20 @@ public abstract class TestUtil {
     }
 
     public static ElementContainer createDCSourceRecord() {
-        ElementContainer cnt = new ElementContainer();
+        org.purl.dc.elements._1.ObjectFactory dcFac = new org.purl.dc.elements._1.ObjectFactory();
+        ElementContainer cnt = dcFac.createElementContainer();
         SimpleLiteral lit_title = new SimpleLiteral();
         lit_title.getContent().add("Source object 1");
-        JAXBElement<SimpleLiteral> e_title = new JAXBElement<SimpleLiteral>(new QName("http://purl.org/dc/elements/1.1/", "title"), SimpleLiteral.class, lit_title);
-        cnt.getAny().add(e_title);
+        cnt.getAny().add(dcFac.createTitle(lit_title));
         return cnt;
     }
 
     public static ElementContainer createDCRecord() {
-        ElementContainer cnt = new ElementContainer();
+        org.purl.dc.elements._1.ObjectFactory dcFac = new org.purl.dc.elements._1.ObjectFactory();
+        ElementContainer cnt = dcFac.createElementContainer();
         SimpleLiteral lit_title = new SimpleLiteral();
         lit_title.getContent().add("Object 1");
-        JAXBElement<SimpleLiteral> e_title = new JAXBElement<SimpleLiteral>(new QName("http://purl.org/dc/elements/1.1/", "title"), SimpleLiteral.class, lit_title);
-        cnt.getAny().add(e_title);
+        cnt.getAny().add(dcFac.createTitle(lit_title));
         return cnt;
     }
 
