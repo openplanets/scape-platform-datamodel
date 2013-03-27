@@ -117,21 +117,24 @@ public class DefaultConverter extends IntellectualEntityConverter {
 		metsFile.setID(fileId);
 		metsFile.setSEQ(0);
 		FLocat locat = new FLocat();
-		locat.setLOCTYPE("URL");
-		locat.setHref(f.getUri().toASCIIString());
+		if (f.getUri() != null){
+			locat.setLOCTYPE("URL");
+			locat.setHref(f.getUri().toASCIIString());
+		}
 		metsFile.getFLocat().add(locat);
 		
 		/* iterate over and add the bitstreams to the mets file and amdsec elements */
-		for (BitStream bs : f.getBitStreams()) {
-			Object md = bs.getTechnical();
-			MdSecType mdsec = createMdSec(md);
-			amdSec.getTechMD().add(mdsec);
-			FileType.Stream stream = new FileType.Stream();
-			stream.setID(bs.getIdentifier().getValue());
-			stream.getADMID().add(mdsec);
-			metsFile.getStream().add(stream);
+		if (f.getBitStreams() != null){
+			for (BitStream bs : f.getBitStreams()) {
+				Object md = bs.getTechnical();
+				MdSecType mdsec = createMdSec(md);
+				amdSec.getTechMD().add(mdsec);
+				FileType.Stream stream = new FileType.Stream();
+				stream.setID(bs.getIdentifier().getValue());
+				stream.getADMID().add(mdsec);
+				metsFile.getStream().add(stream);
+			}
 		}
-		
 		ptr.setFILEID(metsFile);
 		pointerList.add(ptr);
 		fileList.add(metsFile);
