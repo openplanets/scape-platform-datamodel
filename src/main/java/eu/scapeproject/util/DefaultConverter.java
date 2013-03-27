@@ -273,7 +273,6 @@ public class DefaultConverter extends IntellectualEntityConverter {
 						/* it's rights md */
 						rep.rights(e.getValue());
 					}
-					rep.provenance(mdObj);
 				} else if (mdObj instanceof Node) {
 					/* it's dc metadata in the representation therefore it's source md */
 					JAXBElement<ElementContainer> cnt;
