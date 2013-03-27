@@ -297,14 +297,15 @@ public class DefaultConverter extends IntellectualEntityConverter {
 				AmdSecType amd = (AmdSecType) metsFile.getADMID().get(0);
 				if (amd.getTechMD() != null && amd.getTechMD().size() > 0) {
 					MdSecType mdSec = (MdSecType) amd.getTechMD().get(0);
-					f.technical(mdSec.getMdWrap().getXmlData());
+					f.technical(mdSec.getMdWrap().getXmlData().getAny().get(0));
 				}
 			}
 			List<BitStream> bitstreams = new ArrayList<BitStream>();
 			for (Stream stream: metsFile.getStream()){
+				MdSecType mdSec = (MdSecType) stream.getADMID().get(0);
 				BitStream bs = new BitStream.Builder()
 					.identifier(new Identifier(stream.getID()))
-					.technical(stream.getADMID().get(0))
+					.technical(mdSec.getMdWrap().getXmlData().getAny().get(0))
 					.build();
 				bitstreams.add(bs);
 			}
