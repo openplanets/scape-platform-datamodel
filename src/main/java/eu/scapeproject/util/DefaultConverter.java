@@ -194,9 +194,6 @@ public class DefaultConverter extends IntellectualEntityConverter {
 		} else {
 			header.setRECORDSTATUS(entity.getLifecycleState().getState().toString());
 		}
-		for (Representation r : entity.getRepresentations()) {
-			System.out.println(entity.getRepresentations().get(0).getProvenance().getClass().getName());
-		}
 		mets.setMetsHdr(header);
 	}
 
