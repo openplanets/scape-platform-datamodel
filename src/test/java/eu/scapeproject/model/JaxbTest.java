@@ -125,6 +125,7 @@ public class JaxbTest {
         File forig = rorig.getFiles().get(0);
         File fdes = rdes.getFiles().get(0);
         assertTrue("File identifiers do not match", forig.getIdentifier().getValue().equals(fdes.getIdentifier().getValue()));
+        assertNotNull("technical md does not match", fdes.getTechnical());
         
         BitStream bsorig = forig.getBitStreams().get(0);
         BitStream bsdes = fdes.getBitStreams().get(0);
