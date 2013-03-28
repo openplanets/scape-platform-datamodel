@@ -121,6 +121,10 @@ public class DefaultConverter extends IntellectualEntityConverter {
 			locat.setLOCTYPE("URL");
 			locat.setHref(f.getUri().toASCIIString());
 		}
+		Object filemd = f.getTechnical();
+		MdSecType filemdsec = createMdSec(filemd);
+		amdSec.getTechMD().add(filemdsec);
+		metsFile.getADMID().add(filemdsec);
 		metsFile.getFLocat().add(locat);
 		
 		/* iterate over and add the bitstreams to the mets file and amdsec elements */
@@ -294,9 +298,8 @@ public class DefaultConverter extends IntellectualEntityConverter {
 			FileType metsFile = (FileType) ptr.getFILEID();
 			f.identifier(new Identifier(metsFile.getID()));
 			if (metsFile.getADMID() != null && metsFile.getADMID().size() > 0) {
-				AmdSecType amd = (AmdSecType) metsFile.getADMID().get(0);
-				if (amd.getTechMD() != null && amd.getTechMD().size() > 0) {
-					MdSecType mdSec = (MdSecType) amd.getTechMD().get(0);
+				MdSecType mdSec = (MdSecType) metsFile.getADMID().get(0);
+				if (mdSec != null) {
 					f.technical(mdSec.getMdWrap().getXmlData().getAny().get(0));
 				}
 			}

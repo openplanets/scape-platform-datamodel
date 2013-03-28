@@ -140,7 +140,7 @@ public class JaxbTest {
     @Test
     public void testScapeEntityDeserialization() throws Exception {
         Object o = ScapeMarshaller.newInstance().deserialize(IntellectualEntity.class,
-                this.getClass().getClassLoader().getResourceAsStream("SCAPE_entity_example.xml"));
+                this.getClass().getClassLoader().getResourceAsStream("SCAPE_entity_serialized.xml"));
         assertTrue(o instanceof IntellectualEntity);
         IntellectualEntity e = (IntellectualEntity) o;
         assertTrue(e.getRepresentations().size() == 1);
