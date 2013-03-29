@@ -106,6 +106,10 @@ public class Representation {
         private String title;
         private String usage;
 
+        public Builder(){
+        	super();
+        }
+        
         public Builder(Identifier id) {
             super();
             this.id = id;

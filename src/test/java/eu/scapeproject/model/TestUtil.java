@@ -30,7 +30,7 @@ public abstract class TestUtil {
     public static final DateFormat dateFormatter = new SimpleDateFormat("d-M-y hh:mm:ss");
 
     public static IntellectualEntity createTestEntity() throws JAXBException {
-        return ScapeMarshaller.newInstance().deserialize(IntellectualEntity.class, TestUtil.class.getClassLoader().getResourceAsStream("SCAPE_entity_serialized.xml"));
+        return ScapeMarshaller.newInstance().deserialize(IntellectualEntity.class, TestUtil.class.getClassLoader().getResourceAsStream("entity-minimal.xml"));
     }
     
     public static TextMD createTextMDRecord(){

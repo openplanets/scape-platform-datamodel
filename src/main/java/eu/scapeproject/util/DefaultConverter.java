@@ -77,7 +77,7 @@ public class DefaultConverter extends IntellectualEntityConverter {
 		/* handle all representations of the intellectual entity */
 		if (entity.getRepresentations() != null) {
 			for (Representation r : entity.getRepresentations()) {
-				String repId = (r.getIdentifier() != null) ? r.getIdentifier().getValue() : "REP-" + UUID.randomUUID().toString();
+				String repId = (r.getIdentifier() != null) ? r.getIdentifier().getValue() : "METS_ID:" + UUID.randomUUID().toString();
 				DivType repDiv = new DivType();
 				repDiv.setTYPE("Representation");
 				repDiv.setID(repId);
@@ -111,9 +111,9 @@ public class DefaultConverter extends IntellectualEntityConverter {
 	}
 
 	private void addFile(AmdSecType amdSec, List<Fptr> pointerList, List<FileType> fileList, File f) {
-		String fileId = (f.getIdentifier() != null) ? f.getIdentifier().getValue() : "FILE-" + UUID.randomUUID();
 		Fptr ptr = new Fptr();
 		FileType metsFile = new FileType();
+		String fileId = (f.getIdentifier()!=null) ? f.getIdentifier().getValue() : "METS_ID:" + UUID.randomUUID().toString();
 		metsFile.setID(fileId);
 		metsFile.setSEQ(0);
 		FLocat locat = new FLocat();
@@ -134,7 +134,8 @@ public class DefaultConverter extends IntellectualEntityConverter {
 				MdSecType mdsec = createMdSec(md);
 				amdSec.getTechMD().add(mdsec);
 				FileType.Stream stream = new FileType.Stream();
-				stream.setID(bs.getIdentifier().getValue());
+				String bsId = (bs.getIdentifier() != null) ? bs.getIdentifier().getValue() : "METS_ID:" + UUID.randomUUID().toString();
+				stream.setID(bsId);
 				stream.getADMID().add(mdsec);
 				metsFile.getStream().add(stream);
 			}
@@ -313,7 +314,9 @@ public class DefaultConverter extends IntellectualEntityConverter {
 				bitstreams.add(bs);
 			}
 			f.bitStreams(bitstreams);
-			f.uri(URI.create(metsFile.getFLocat().get(0).getHref()));
+			if (metsFile.getFLocat().get(0).getHref()!= null){
+				f.uri(URI.create(metsFile.getFLocat().get(0).getHref()));
+			}
 			files.add(f.build());
 		}
 		rep.files(files);
