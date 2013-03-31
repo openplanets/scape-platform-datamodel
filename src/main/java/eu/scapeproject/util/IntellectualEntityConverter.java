@@ -1,5 +1,7 @@
 package eu.scapeproject.util;
 
+import javax.xml.bind.JAXBException;
+
 import eu.scapeproject.model.IntellectualEntity;
 import gov.loc.mets.MetsType;
 
@@ -15,7 +17,7 @@ public abstract class IntellectualEntityConverter {
         return profileName;
     }
 
-    public abstract IntellectualEntity convertMets(MetsType mets);
+    public abstract IntellectualEntity convertMets(MetsType mets) throws JAXBException;
 
     public abstract MetsType convertEntity(IntellectualEntity entity);
 }

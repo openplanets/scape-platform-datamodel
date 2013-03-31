@@ -161,15 +161,7 @@ public class DefaultConverter extends IntellectualEntityConverter {
 		MdSecType mdSec = new MdSecType();
 		MdWrap mdWrap = new MdWrap();
 		XmlData data = new XmlData();
-		if (metadata instanceof ElementContainer) {
-			/* workaround for missing root element of ElementContainer */
-			@SuppressWarnings({ "rawtypes", "unchecked" })
-			JAXBElement jaxor = new JAXBElement(new QName("http://purl.org/dc/elements/1.1/", "dublin-core"), ElementContainer.class,
-					metadata);
-			data.getAny().add(jaxor);
-		} else {
-			data.getAny().add(metadata);
-		}
+		data.getAny().add(metadata);
 		mdWrap.setXmlData(data);
 		mdSec.setMdWrap(mdWrap);
 		mdSec.setID(mdId);
@@ -182,14 +174,7 @@ public class DefaultConverter extends IntellectualEntityConverter {
 		MdWrap wrap = new MdWrap();
 		XmlData data = new XmlData();
 		Object md = entity.getDescriptive();
-		if (md instanceof ElementContainer) {
-			/* workaround for missing root element of ElementContainer */
-			@SuppressWarnings({ "rawtypes", "unchecked" })
-			JAXBElement jaxor = new JAXBElement(new QName("http://purl.org/dc/elements/1.1/", "dublin-core"), ElementContainer.class, md);
-			data.getAny().add(jaxor);
-		} else {
-			data.getAny().add(entity.getDescriptive());
-		}
+		data.getAny().add(entity.getDescriptive());
 		wrap.setXmlData(data);
 		dmdSec.setMdWrap(wrap);
 		mets.getDmdSec().add(dmdSec);
@@ -206,7 +191,7 @@ public class DefaultConverter extends IntellectualEntityConverter {
 	}
 
 	@Override
-	public IntellectualEntity convertMets(MetsType mets) {
+	public IntellectualEntity convertMets(MetsType mets) throws JAXBException{
 		/* create a SCAPE entity */
 		List<Representation> reps = createScapeRepresentations(mets);
 		IntellectualEntity.Builder entity = new IntellectualEntity.Builder()
@@ -220,17 +205,12 @@ public class DefaultConverter extends IntellectualEntityConverter {
 		/* use the first dmdSec as the descriptive metadata */
 		MdSecType dmdSec = mets.getDmdSec().get(0);
 		if (dmdSec.getMdWrap().getXmlData().getAny().size() > 0) {
-			Node n = (Node) dmdSec.getMdWrap().getXmlData().getAny().get(0);
-			try {
-				return marshaller.getJaxbUnmarshaller().unmarshal(n, ElementContainer.class).getValue();
-			} catch (JAXBException e) {
-				e.printStackTrace();
-			}
+			return dmdSec.getMdWrap().getXmlData().getAny().get(0);
 		}
 		return null;
 	}
 
-	private List<Representation> createScapeRepresentations(MetsType mets) {
+	private List<Representation> createScapeRepresentations(MetsType mets) throws JAXBException {
 		List<Representation> reps = new ArrayList<Representation>();
 		for (StructMapType structmap : mets.getStructMap()) {
 			DivType div = structmap.getDiv();
@@ -243,7 +223,7 @@ public class DefaultConverter extends IntellectualEntityConverter {
 		return reps;
 	}
 
-	private Representation createScapeRepresentation(DivType div, MetsType mets) {
+	private Representation createScapeRepresentation(DivType div, MetsType mets) throws JAXBException{
 		String repId = (div.getID() != null) ? div.getID() : "rep" + UUID.randomUUID().toString();
 		Representation.Builder rep = new Representation.Builder(new Identifier(repId));
 		for (Object o : div.getADMID()) {
@@ -264,32 +244,23 @@ public class DefaultConverter extends IntellectualEntityConverter {
 			} else if (o instanceof MdSecType) {
 				MdSecType mdSec = (MdSecType) o;
 				Object mdObj = mdSec.getMdWrap().getXmlData().getAny().get(0);
-				if (mdObj instanceof TextMD || mdObj instanceof Fits || mdObj instanceof Mix || mdObj instanceof VideoType
-						|| mdObj instanceof AudioType) {
+				if (mdObj instanceof TextMD || mdObj instanceof Fits || mdObj instanceof Mix || mdObj instanceof VideoType || mdObj instanceof AudioType) {
 					/* it's tech md */
 					rep.technical(mdObj);
-				} else if (mdObj instanceof JAXBElement<?>) {
-					/* Both premis rights and premis events come in JaxbElements<?> so handling is a bit different here */
-					JAXBElement<?> e = (JAXBElement<?>) mdObj;
-					if (e.getDeclaredType().equals(PremisComplexType.class)) {
-						/* it's propveancen md */
-						rep.provenance(e.getValue());
-					} else if (e.getDeclaredType().equals(RightsComplexType.class)) {
+				} else if (mdObj instanceof JAXBElement<?> ) {
+					JAXBElement<?> jaxb = (JAXBElement<?>) mdObj;
+					if (jaxb.getDeclaredType() == PremisComplexType.class) {
+						/* it's provenance md */
+						rep.provenance(jaxb.getValue());
+					} else if (jaxb.getDeclaredType() ==  RightsComplexType.class) {
 						/* it's rights md */
-						rep.rights(e.getValue());
+						rep.rights(jaxb.getValue());
 					}
-				} else if (mdObj instanceof Node) {
+				} else if (mdObj instanceof ElementContainer) {
 					/* it's dc metadata in the representation therefore it's source md */
-					JAXBElement<ElementContainer> cnt;
-					try {
-						cnt = marshaller.getJaxbUnmarshaller().unmarshal((Node) mdObj, ElementContainer.class);
-						rep.source(cnt.getValue());
-					} catch (JAXBException e) {
-						e.printStackTrace();
-					}
+					rep.source(mdObj);
 				} else {
-					/* What is it? */
-					System.err.println("Unable to deserialize objects of type " + mdObj.getClass().getName());
+					throw new JAXBException("Unable to deserialize objects of type " + ((JAXBElement<?>) mdObj).getDeclaredType().getName());
 				}
 			}
 		}

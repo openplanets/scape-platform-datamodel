@@ -95,7 +95,7 @@ public class JaxbTest {
 		ScapeMarshaller marshaller = ScapeMarshaller.newInstance();
 
 		/* marshall to a temp file */
-		java.io.File tmp = new java.io.File("target/entity_minimal.xml");
+		java.io.File tmp = new java.io.File("target/entity-noids.xml");
 		FileOutputStream sink = new FileOutputStream(tmp);
 		marshaller.setMarshallerProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		marshaller.serialize(e, sink);
@@ -143,7 +143,7 @@ public class JaxbTest {
 		ScapeMarshaller marshaller = ScapeMarshaller.newInstance();
 
 		/* marshall to a temp file */
-		java.io.File tmp = new java.io.File("target/entity_minimal.xml");
+		java.io.File tmp = new java.io.File("target/entity-minimal.xml");
 		FileOutputStream sink = new FileOutputStream(tmp);
 		marshaller.setMarshallerProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		marshaller.serialize(e, sink);

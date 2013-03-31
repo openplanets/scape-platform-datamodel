@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	xmlns:annox="http://annox.dev.java.net"
+	version="2.0">
+  <jaxb:bindings schemaLocation="dc.xsd" node="/xs:schema">
+  	<jaxb:bindings node="xs:complexType[@name='elementContainer']">
+      <annox:annotate>
+  	    <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="dublin-core" namespace="http://purl.org/dc/elements/1.1/" />
+	  </annox:annotate>  		
+  	</jaxb:bindings>
+  </jaxb:bindings>
+  <jaxb:bindings schemaLocation="premis.xsd" node="/xs:schema">
+  	<jaxb:bindings node="xs:complexType[@name='premisComplexType']">
+      <annox:annotate>
+  	    <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="premis" namespace="info:lc/xmlns/premis-v2" />
+	  </annox:annotate>  		
+  	</jaxb:bindings>
+  	<jaxb:bindings node="xs:complexType[@name='rightsComplexType']">
+      <annox:annotate>
+  	    <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="rights" namespace="info:lc/xmlns/premis-v2" />
+	  </annox:annotate>  		
+  	</jaxb:bindings>
+  </jaxb:bindings>
+</jaxb:bindings>
