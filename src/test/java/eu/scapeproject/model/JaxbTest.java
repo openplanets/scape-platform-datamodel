@@ -17,6 +17,7 @@ import java.util.Arrays;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.purl.dc.elements._1.ElementContainer;
 
@@ -110,6 +111,19 @@ public class JaxbTest {
 				dcorig.getAny().get(0).getValue().getContent().equals(dcdes.getAny().get(0).getValue().getContent()));
 	}
 
+	@Test
+	public void testEntitySetSerializationDeserialization() throws Exception {
+		IntellectualEntityCollection c = new IntellectualEntityCollection(Arrays.asList(TestUtil.createTestEntity(), TestUtil.createTestEntity(), TestUtil.createTestEntity()));
+		ScapeMarshaller marshaller = ScapeMarshaller.newInstance();
+		ByteArrayOutputStream sink =new ByteArrayOutputStream();
+		marshaller.serialize(c, sink);
+		System.out.println(IOUtils.toString(new ByteArrayInputStream(sink.toByteArray())));
+		__IntellectualEntityCollection internal_coll = (__IntellectualEntityCollection) marshaller.deserialize(new ByteArrayInputStream(sink.toByteArray()));
+		assertTrue(internal_coll.getMets().size() == 3);
+		IntellectualEntityCollection coll = marshaller.deserialize(IntellectualEntityCollection.class, new ByteArrayInputStream(sink.toByteArray()));
+		assertTrue(coll.getEntities().size() == 3);
+	}
+	
 	@Test
 	public void testEntitySerialization() throws Exception {
 		BitStream bs_1 = new BitStream.Builder()

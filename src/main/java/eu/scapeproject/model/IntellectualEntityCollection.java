@@ -7,21 +7,20 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "entity-list", namespace = "http://scapeproject.eu/model")
 public class IntellectualEntityCollection {
-    @XmlElement(name = "mets", namespace = "http://www.loc.gov/METS/")
-    private final List<MetsType> entities;
+	private final List<IntellectualEntity> entities;
 
-    @SuppressWarnings("unused")
-    private IntellectualEntityCollection() {
-        this.entities = null;
-    }
+	public IntellectualEntityCollection(List<IntellectualEntity> entities) {
+		super();
+		this.entities = entities;
+	}
 
-    public IntellectualEntityCollection(List<MetsType> documents) {
-        this.entities = documents;
-    }
+	@SuppressWarnings("unused")
+	private IntellectualEntityCollection() {
+		this.entities = null;
+	}
 
-    public List<MetsType> getEntities() {
-        return entities;
-    }
+	public List<IntellectualEntity> getEntities() {
+		return entities;
+	}
 }
