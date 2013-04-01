@@ -3,6 +3,7 @@ package eu.scapeproject.model;
 import java.net.URI;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -11,6 +12,8 @@ import eu.scapeproject.util.CopyUtil;
 @XmlRootElement(name = "file", namespace = "http://scapeproject.eu/model")
 public class File {
 
+	@XmlAttribute(name="mimetype")
+	private final String mimetype;
     @XmlElement(name = "technical", namespace = "http://scapeproject.eu/model")
     private final Object technical;
     @XmlElement(name = "bitstream", namespace = "http://scapeproject.eu/model")
@@ -21,6 +24,7 @@ public class File {
     private final Identifier identifier;
 
     private File() {
+    	this.mimetype=null;
         this.technical = null;
         this.bitStreams = null;
         this.uri = null;
@@ -28,6 +32,7 @@ public class File {
     }
 
     private File(Builder builder) {
+    	this.mimetype = builder.mimetype;
         this.technical = builder.technical;
         this.bitStreams = builder.bitStreams;
         this.uri = builder.uri;
@@ -49,6 +54,10 @@ public class File {
     public URI getUri() {
         return uri;
     }
+    
+    public String getMimetype() {
+		return mimetype;
+	}
 
     @Override
     public String toString() {
@@ -56,6 +65,7 @@ public class File {
                 + ", bitStreams=" + bitStreams
                 + ", uri=" + uri
                 + ", identifier=" + identifier
+                + ", mimetype=" + mimetype
                 + "]";
     }
 
@@ -64,6 +74,7 @@ public class File {
         private List<BitStream> bitStreams;
         private URI uri;
         private Identifier identifier;
+        private String mimetype;
 
         public Builder() {
             super();
@@ -71,6 +82,7 @@ public class File {
 
         public Builder(File orig) {
             File copy = CopyUtil.deepCopy(File.class, orig);
+            this.mimetype = copy.mimetype;
             this.technical = copy.technical;
             this.bitStreams = copy.bitStreams;
             this.uri = copy.uri;
@@ -97,6 +109,11 @@ public class File {
         public Builder technical(Object technical) {
             this.technical = technical;
             return this;
+        }
+        
+        public Builder mimetype(String mimetype){
+        	this.mimetype = mimetype;
+        	return this;
         }
 
         public Builder uri(URI uri) {
