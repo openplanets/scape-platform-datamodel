@@ -118,6 +118,7 @@ public class DefaultConverter extends IntellectualEntityConverter {
 		metsFile.setSEQ(0);
 		metsFile.setMIMETYPE(f.getMimetype());
 		FLocat locat = new FLocat();
+		locat.setTitle(f.getFilename());
 		if (f.getUri() != null){
 			locat.setLOCTYPE("URL");
 			locat.setHref(f.getUri().toASCIIString());

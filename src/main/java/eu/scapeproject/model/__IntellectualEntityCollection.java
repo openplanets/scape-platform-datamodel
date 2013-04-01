@@ -9,6 +9,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "entity-list", namespace = "http://scapeproject.eu/model")
+/**
+ * For internal use. This is needed for mapping in between scape model and mets model
+ * should probably done using an XmlAdapter, but time is of the essence atm...
+ * @author fasseg
+ *
+ */
 public class __IntellectualEntityCollection {
 	@XmlElement(name = "mets", namespace = "http://www.loc.gov/METS/")
 	private final List<Mets> mets;
