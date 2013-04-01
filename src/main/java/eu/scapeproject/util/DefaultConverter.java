@@ -116,6 +116,7 @@ public class DefaultConverter extends IntellectualEntityConverter {
 		String fileId = (f.getIdentifier()!=null) ? f.getIdentifier().getValue() : "METS_ID:" + UUID.randomUUID().toString();
 		metsFile.setID(fileId);
 		metsFile.setSEQ(0);
+		metsFile.setMIMETYPE(f.getMimetype());
 		FLocat locat = new FLocat();
 		if (f.getUri() != null){
 			locat.setLOCTYPE("URL");
