@@ -113,13 +113,13 @@ public class DefaultConverter extends IntellectualEntityConverter {
 	private void addFile(AmdSecType amdSec, List<Fptr> pointerList, List<FileType> fileList, File f) {
 		Fptr ptr = new Fptr();
 		FileType metsFile = new FileType();
-		String fileId = (f.getIdentifier()!=null) ? f.getIdentifier().getValue() : "METS_ID:" + UUID.randomUUID().toString();
+		String fileId = (f.getIdentifier() != null) ? f.getIdentifier().getValue() : "FILE-" + UUID.randomUUID().toString();
 		metsFile.setID(fileId);
 		metsFile.setSEQ(0);
 		metsFile.setMIMETYPE(f.getMimetype());
 		FLocat locat = new FLocat();
 		locat.setTitle(f.getFilename());
-		if (f.getUri() != null){
+		if (f.getUri() != null) {
 			locat.setLOCTYPE("URL");
 			locat.setHref(f.getUri().toASCIIString());
 		}
@@ -128,15 +128,15 @@ public class DefaultConverter extends IntellectualEntityConverter {
 		amdSec.getTechMD().add(filemdsec);
 		metsFile.getADMID().add(filemdsec);
 		metsFile.getFLocat().add(locat);
-		
+
 		/* iterate over and add the bitstreams to the mets file and amdsec elements */
-		if (f.getBitStreams() != null){
+		if (f.getBitStreams() != null) {
 			for (BitStream bs : f.getBitStreams()) {
 				Object md = bs.getTechnical();
 				MdSecType mdsec = createMdSec(md);
 				amdSec.getTechMD().add(mdsec);
 				FileType.Stream stream = new FileType.Stream();
-				String bsId = (bs.getIdentifier() != null) ? bs.getIdentifier().getValue() : "METS_ID:" + UUID.randomUUID().toString();
+				String bsId = (bs.getIdentifier() != null) ? bs.getIdentifier().getValue() : "BITSTREAM-" + UUID.randomUUID().toString();
 				stream.setID(bsId);
 				stream.getADMID().add(mdsec);
 				metsFile.getStream().add(stream);
@@ -193,7 +193,7 @@ public class DefaultConverter extends IntellectualEntityConverter {
 	}
 
 	@Override
-	public IntellectualEntity convertMets(MetsType mets) throws JAXBException{
+	public IntellectualEntity convertMets(MetsType mets) throws JAXBException {
 		/* create a SCAPE entity */
 		List<Representation> reps = createScapeRepresentations(mets);
 		IntellectualEntity.Builder entity = new IntellectualEntity.Builder()
@@ -225,7 +225,7 @@ public class DefaultConverter extends IntellectualEntityConverter {
 		return reps;
 	}
 
-	private Representation createScapeRepresentation(DivType div, MetsType mets) throws JAXBException{
+	private Representation createScapeRepresentation(DivType div, MetsType mets) throws JAXBException {
 		String repId = (div.getID() != null) ? div.getID() : "rep" + UUID.randomUUID().toString();
 		Representation.Builder rep = new Representation.Builder(new Identifier(repId));
 		for (Object o : div.getADMID()) {
@@ -246,15 +246,16 @@ public class DefaultConverter extends IntellectualEntityConverter {
 			} else if (o instanceof MdSecType) {
 				MdSecType mdSec = (MdSecType) o;
 				Object mdObj = mdSec.getMdWrap().getXmlData().getAny().get(0);
-				if (mdObj instanceof TextMD || mdObj instanceof Fits || mdObj instanceof Mix || mdObj instanceof VideoType || mdObj instanceof AudioType) {
+				if (mdObj instanceof TextMD || mdObj instanceof Fits || mdObj instanceof Mix || mdObj instanceof VideoType
+						|| mdObj instanceof AudioType) {
 					/* it's tech md */
 					rep.technical(mdObj);
-				} else if (mdObj instanceof JAXBElement<?> ) {
+				} else if (mdObj instanceof JAXBElement<?>) {
 					JAXBElement<?> jaxb = (JAXBElement<?>) mdObj;
 					if (jaxb.getDeclaredType() == PremisComplexType.class) {
 						/* it's provenance md */
 						rep.provenance(jaxb.getValue());
-					} else if (jaxb.getDeclaredType() ==  RightsComplexType.class) {
+					} else if (jaxb.getDeclaredType() == RightsComplexType.class) {
 						/* it's rights md */
 						rep.rights(jaxb.getValue());
 					}
@@ -278,18 +279,19 @@ public class DefaultConverter extends IntellectualEntityConverter {
 				}
 			}
 			List<BitStream> bitstreams = new ArrayList<BitStream>();
-			for (Stream stream: metsFile.getStream()){
+			for (Stream stream : metsFile.getStream()) {
 				MdSecType mdSec = (MdSecType) stream.getADMID().get(0);
 				BitStream bs = new BitStream.Builder()
-					.identifier(new Identifier(stream.getID()))
-					.technical(mdSec.getMdWrap().getXmlData().getAny().get(0))
-					.build();
+						.identifier(new Identifier(stream.getID()))
+						.technical(mdSec.getMdWrap().getXmlData().getAny().get(0))
+						.build();
 				bitstreams.add(bs);
 			}
 			f.bitStreams(bitstreams);
-			if (metsFile.getFLocat().get(0).getHref()!= null){
+			if (metsFile.getFLocat().get(0).getHref() != null) {
 				f.uri(URI.create(metsFile.getFLocat().get(0).getHref()));
 			}
+			f.mimetype(metsFile.getMIMETYPE());
 			files.add(f.build());
 		}
 		rep.files(files);
