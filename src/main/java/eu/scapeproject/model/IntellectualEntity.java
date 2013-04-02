@@ -86,6 +86,7 @@ public class IntellectualEntity {
         public Builder(IntellectualEntity orig){
             IntellectualEntity copy = CopyUtil.deepCopy(IntellectualEntity.class, orig);
             this.identifier = copy.identifier;
+            this.descriptive = copy.descriptive;
             this.versionNumber = copy.versionNumber;
             this.alternativeIdentifiers = copy.alternativeIdentifiers;
             this.representations = copy.representations;

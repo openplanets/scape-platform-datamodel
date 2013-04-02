@@ -21,6 +21,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.purl.dc.elements._1.ElementContainer;
 
+import eu.scapeproject.model.LifecycleState.State;
 import eu.scapeproject.util.ONBConverter;
 import eu.scapeproject.util.ScapeMarshaller;
 import gov.loc.marc21.slim.RecordType;
@@ -202,5 +203,15 @@ public class JaxbTest {
 		assertTrue(e.getRepresentations().size() == 1);
 		Representation r = e.getRepresentations().get(0);
 		assertTrue(r.getFiles().size() == 1);
+	}
+	
+	@Test
+	public void testSerializeLifecycle() throws Exception {
+	    ScapeMarshaller marshaller = ScapeMarshaller.newInstance();
+	    LifecycleState state = new LifecycleState("updated by system", State.INGESTING);
+	    ByteArrayOutputStream sink = new ByteArrayOutputStream();
+	    marshaller.serialize(state, sink);
+	    System.out.println(new String(sink.toByteArray()));
+	    LifecycleState des = (LifecycleState) marshaller.deserialize(new ByteArrayInputStream(sink.toByteArray())); 
 	}
 }
