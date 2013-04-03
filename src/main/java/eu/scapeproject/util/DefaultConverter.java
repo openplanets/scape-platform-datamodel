@@ -291,6 +291,9 @@ public class DefaultConverter extends IntellectualEntityConverter {
 			if (metsFile.getFLocat().get(0).getHref() != null) {
 				f.uri(URI.create(metsFile.getFLocat().get(0).getHref()));
 			}
+			if (metsFile.getFLocat().get(0).getTitle() != null) {
+			    f.filename(metsFile.getFLocat().get(0).getTitle());
+			}
 			f.mimetype(metsFile.getMIMETYPE());
 			files.add(f.build());
 		}
