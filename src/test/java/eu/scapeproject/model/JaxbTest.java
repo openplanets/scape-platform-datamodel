@@ -18,6 +18,7 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 
 import org.apache.commons.io.IOUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.purl.dc.elements._1.ElementContainer;
 
@@ -208,4 +209,20 @@ public class JaxbTest {
 	    System.out.println(new String(sink.toByteArray()));
 	    LifecycleState des = (LifecycleState) marshaller.deserialize(new ByteArrayInputStream(sink.toByteArray())); 
 	}
+
+	@Test
+	@Ignore
+	public void testSerializerepresentation() throws Exception {
+		ScapeMarshaller m = ScapeMarshaller.newInstance();
+		Representation r = TestUtil.createTestEntity().getRepresentations().get(0);
+		m.serialize(r, System.out);
+	}
+
+	@Test
+	public void testSerializeTextMD() throws Exception {
+		ScapeMarshaller m = ScapeMarshaller.newInstance();
+		TextMD textmd = TestUtil.createTextMDRecord();
+		m.serialize(textmd, System.out);
+	}
+
 }

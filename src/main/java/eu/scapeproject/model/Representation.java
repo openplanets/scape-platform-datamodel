@@ -1,10 +1,17 @@
 package eu.scapeproject.model;
 
+import info.lc.xmlns.premis_v2.PremisComplexType;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+
+import org.purl.dc.elements._1.ElementContainer;
 
 import eu.scapeproject.util.CopyUtil;
 
@@ -12,13 +19,13 @@ import eu.scapeproject.util.CopyUtil;
 public class Representation {
     @XmlElement(name = "identifier", namespace = "http://scapeproject.eu/model")
     private final Identifier identifier;
-    @XmlElement(name = "source", namespace = "http://scapeproject.eu/model")
+    @XmlAnyElement(lax=true)
     private final Object source;
-    @XmlElement(name = "provenance", namespace = "http://scapeproject.eu/model")
+    @XmlAnyElement(lax=true)
     private final Object provenance;
-    @XmlElement(name = "technical", namespace = "http://scapeproject.eu/model")
+    @XmlAnyElement(lax=true)
     private final Object technical;
-    @XmlElement(name = "rights", namespace = "http://scapeproject.eu/model")
+    @XmlAnyElement(lax=true)
     private final Object rights;
     @XmlElement(name = "files", namespace = "http://scapeproject.eu/model")
     private final List<File> files;
