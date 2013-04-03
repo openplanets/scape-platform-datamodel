@@ -52,7 +52,7 @@ public class JaxbTest {
 
 	@Test
 	public void testONBEntityDeserialization() throws Exception {
-		Object o = ScapeMarshaller.newInstance(new ONBConverter()).deserialize(IntellectualEntity.class,
+		Object o = ScapeMarshaller.newInstance().deserialize(IntellectualEntity.class,
 				this.getClass().getClassLoader().getResourceAsStream("ONB_mets_example.xml"));
 		assertTrue(o instanceof IntellectualEntity);
 		IntellectualEntity ent = (IntellectualEntity) o;
@@ -186,12 +186,6 @@ public class JaxbTest {
 		BitStream bsorig = forig.getBitStreams().get(0);
 		BitStream bsdes = fdes.getBitStreams().get(0);
 		assertTrue("BitStream identifiers do not match", bsorig.getIdentifier().getValue().equals(bsdes.getIdentifier().getValue()));
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testONBEntityDeserializationMissingProfileName() throws Exception {
-		Object o = ScapeMarshaller.newInstance().deserialize(IntellectualEntity.class,
-				this.getClass().getClassLoader().getResourceAsStream("ONB_mets_example.xml"));
 	}
 
 	@Test

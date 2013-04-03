@@ -45,6 +45,12 @@ public class ScapeMarshaller {
 		 */
 		DefaultConverter dc = new DefaultConverter(this);
 		this.converters.put(dc.getProfileName(), dc);
+		
+		/*
+		 * create and add the ONB mets converter to convert ONB mets files into IntellectualEntities
+		 */
+		ONBConverter onb = new ONBConverter();
+		this.converters.put(onb.getProfileName(), onb);
 
 		/*
 		 * add the user supplied converters for later availability for the ScapeMarshaller
