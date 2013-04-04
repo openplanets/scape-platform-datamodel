@@ -88,14 +88,14 @@ public abstract class TestUtil {
 	    return mix;
 	}
 
-    public static JAXBElement<TextMD> createTextMDRecord() {
+    public static TextMD createTextMDRecord() {
 		TextMD textMd = new TextMD();
 		Encoding enc = new Encoding();
 		EncodingPlatform pf = new EncodingPlatform();
 		pf.setLinebreak("LF");
 		enc.getEncodingPlatform().add(pf);
 		textMd.getEncoding().add(enc);
-		return new JAXBElement<TextMD>(new QName("info:lc/xmlns/textmd-v3", "textmd", "textMD"), TextMD.class, textMd);
+		return textMd;
 	}
 
 	public static JAXBElement<PremisComplexType> createPremisDigiProvRecord() {
