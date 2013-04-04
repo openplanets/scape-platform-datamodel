@@ -4,7 +4,7 @@
 	<groupId>eu.scapeproject.model</groupId>
 	<artifactId>scape-platform-datamodel</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
-	<name>scape-dto</name>
+	<name>scape-platform-datamodel</name>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.commons</groupId>

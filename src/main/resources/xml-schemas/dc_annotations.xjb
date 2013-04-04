@@ -11,6 +11,7 @@
 	  </annox:annotate>  		
   	</jaxb:bindings>
   </jaxb:bindings>
+
   <jaxb:bindings schemaLocation="premis.xsd" node="/xs:schema">
   	<jaxb:bindings node="xs:complexType[@name='premisComplexType']">
       <annox:annotate>
@@ -23,6 +24,7 @@
 	  </annox:annotate>  		
   	</jaxb:bindings>
   </jaxb:bindings>
+  
   <jaxb:bindings schemaLocation="MARC21slim.xsd" node="/xs:schema">
   	<jaxb:bindings node="xs:complexType[@name='recordType']">
       <annox:annotate>

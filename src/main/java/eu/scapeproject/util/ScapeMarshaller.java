@@ -1,5 +1,7 @@
 package eu.scapeproject.util;
 
+import info.lc.xmlns.textmd_v3.TextMD;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;

@@ -1,11 +1,7 @@
 package eu.scapeproject.model;
 
-import static org.junit.Assert.*;
-
-import info.lc.xmlns.textmd_v3.TextMD;
-import info.lc.xmlns.textmd_v3.TextMD.Encoding;
-import info.lc.xmlns.textmd_v3.TextMD.Encoding.EncodingAgent;
-import info.lc.xmlns.textmd_v3.TextMD.Encoding.EncodingPlatform;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -18,15 +14,12 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 
 import org.apache.commons.io.IOUtils;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.purl.dc.elements._1.ElementContainer;
 
 import eu.scapeproject.model.LifecycleState.State;
-import eu.scapeproject.util.ONBConverter;
 import eu.scapeproject.util.ScapeMarshaller;
 import gov.loc.marc21.slim.RecordType;
-import gov.loc.mets.MdSecType;
 import gov.loc.mets.MetsType;
 
 public class JaxbTest {
@@ -211,8 +204,7 @@ public class JaxbTest {
 	}
 
 	@Test
-	@Ignore
-	public void testSerializerepresentation() throws Exception {
+	public void testSerializeRepresentation() throws Exception {
 		ScapeMarshaller m = ScapeMarshaller.newInstance();
 		Representation r = TestUtil.createTestEntity().getRepresentations().get(0);
 		m.serialize(r, System.out);
@@ -221,8 +213,8 @@ public class JaxbTest {
 	@Test
 	public void testSerializeTextMD() throws Exception {
 		ScapeMarshaller m = ScapeMarshaller.newInstance();
-		TextMD textmd = TestUtil.createTextMDRecord();
-		m.serialize(textmd, System.out);
+		Object o = TestUtil.createTextMDRecord();
+		m.serialize(o, System.out);
 	}
 
 }
