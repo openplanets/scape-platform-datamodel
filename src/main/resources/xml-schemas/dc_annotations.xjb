@@ -23,4 +23,11 @@
 	  </annox:annotate>  		
   	</jaxb:bindings>
   </jaxb:bindings>
+  <jaxb:bindings schemaLocation="MARC21slim.xsd" node="/xs:schema">
+  	<jaxb:bindings node="xs:complexType[@name='recordType']">
+      <annox:annotate>
+  	    <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="record" namespace="http://www.loc.gov/MARC21/slim" />
+	  </annox:annotate>  		
+  	</jaxb:bindings>
+  </jaxb:bindings>
 </jaxb:bindings>
