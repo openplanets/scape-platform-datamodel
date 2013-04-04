@@ -3,9 +3,11 @@ package eu.scapeproject.model;
 import java.net.URI;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import eu.scapeproject.util.CopyUtil;
 
@@ -16,7 +18,7 @@ public class File {
 	private final String mimetype;
 	@XmlAttribute(name = "filename")
 	private final String filename;
-	@XmlElement(name = "technical", namespace = "http://scapeproject.eu/model")
+	@XmlAnyElement
 	private final Object technical;
 	@XmlElement(name = "bitstream", namespace = "http://scapeproject.eu/model")
 	private final List<BitStream> bitStreams;

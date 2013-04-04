@@ -1,5 +1,9 @@
 package eu.scapeproject.model;
 
+import gov.loc.mix.v20.ImageCaptureMetadataType;
+import gov.loc.mix.v20.ImageCaptureMetadataType.DigitalCameraCapture;
+import gov.loc.mix.v20.Mix;
+import gov.loc.mix.v20.StringType;
 import info.lc.xmlns.premis_v2.CopyrightInformationComplexType;
 import info.lc.xmlns.premis_v2.EventComplexType;
 import info.lc.xmlns.premis_v2.LinkingAgentIdentifierComplexType;
@@ -15,6 +19,7 @@ import java.net.URI;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Random;
 
 import javax.xml.bind.JAXBElement;
@@ -24,6 +29,8 @@ import javax.xml.namespace.QName;
 import org.purl.dc.elements._1.ElementContainer;
 import org.purl.dc.elements._1.SimpleLiteral;
 
+import edu.harvard.hul.ois.xml.ns.fits.fits_output.FileInfoType;
+import edu.harvard.hul.ois.xml.ns.fits.fits_output.Fits;
 import eu.scapeproject.util.ScapeMarshaller;
 
 public abstract class TestUtil {
@@ -35,14 +42,14 @@ public abstract class TestUtil {
 		BitStream bs_1 = new BitStream.Builder()
 				.identifier(new Identifier("bitstream:1"))
 				.title("Sequence 1")
-				.technical(TestUtil.createTextMDRecord())
+				.technical(TestUtil.createFITSRecord())
 				.build();
 
 		File f = new File.Builder()
 				.bitStreams(Arrays.asList(bs_1))
 				.identifier(new Identifier("file-1"))
 				.uri(URI.create("http://example.com/data"))
-				.technical(TestUtil.createTextMDRecord())
+				.technical(TestUtil.createMIXRecord())
 				.build();
 
 		Representation rep = new Representation.Builder(new Identifier("representation-1"))
@@ -62,14 +69,33 @@ public abstract class TestUtil {
 		return e;
 	}
 
-	public static TextMD createTextMDRecord() {
+	private static Fits createFITSRecord() {
+	    Fits f = new Fits();
+	    f.setTimestamp(String.valueOf(new Date().getTime()));
+	    return f;
+	}
+
+    private static Mix createMIXRecord() {
+	    Mix mix = new Mix();
+	    ImageCaptureMetadataType capture = new ImageCaptureMetadataType();
+	    DigitalCameraCapture camera = new DigitalCameraCapture();
+	    StringType val = new StringType();
+	    val.setValue("Nikon");
+	    val.setUse("ALL");
+	    camera.setDigitalCameraManufacturer(val);
+	    capture.setDigitalCameraCapture(camera);
+	    mix.setImageCaptureMetadata(capture);
+	    return mix;
+	}
+
+    public static JAXBElement<TextMD> createTextMDRecord() {
 		TextMD textMd = new TextMD();
 		Encoding enc = new Encoding();
 		EncodingPlatform pf = new EncodingPlatform();
 		pf.setLinebreak("LF");
 		enc.getEncodingPlatform().add(pf);
 		textMd.getEncoding().add(enc);
-		return textMd;
+		return new JAXBElement<TextMD>(new QName("info:lc/xmlns/textmd-v3", "textmd", "textMD"), TextMD.class, textMd);
 	}
 
 	public static JAXBElement<PremisComplexType> createPremisDigiProvRecord() {
