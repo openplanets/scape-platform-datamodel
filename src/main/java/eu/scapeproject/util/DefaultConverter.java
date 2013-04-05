@@ -245,6 +245,9 @@ public class DefaultConverter extends IntellectualEntityConverter {
 				}
 			} else if (o instanceof MdSecType) {
 				MdSecType mdSec = (MdSecType) o;
+				if (mdSec.getMdWrap().getXmlData().getAny().size() == 0){
+					continue;
+				}
 				Object mdObj = mdSec.getMdWrap().getXmlData().getAny().get(0);
 				if (mdObj instanceof TextMD || mdObj instanceof Fits || mdObj instanceof Mix || mdObj instanceof VideoType
 						|| mdObj instanceof AudioType) {
