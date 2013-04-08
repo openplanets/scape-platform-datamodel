@@ -32,4 +32,12 @@
 	  </annox:annotate>  		
   	</jaxb:bindings>
   </jaxb:bindings>
+
+  <jaxb:bindings schemaLocation="gbs.xsd" node="/xs:schema">
+  	<jaxb:bindings node="xs:complexType[@name='gbsType']">
+      <annox:annotate>
+  	    <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="gbs" namespace="http://books.google.com/gbs" />
+	  </annox:annotate>  		
+  	</jaxb:bindings>
+  </jaxb:bindings>
 </jaxb:bindings>

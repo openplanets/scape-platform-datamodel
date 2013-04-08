@@ -36,7 +36,7 @@ public class ScapeMarshaller {
 
 	private ScapeMarshaller(IntellectualEntityConverter[] converter) throws JAXBException {
 		this.context = JAXBContext
-				.newInstance("eu.scapeproject.model:edu.harvard.hul.ois.xml.ns.fits.fits_output:info.lc.xmlns.textmd_v3:gov.loc.audiomd:gov.loc.marc21.slim:gov.loc.mets:gov.loc.mix.v20:gov.loc.videomd:info.lc.xmlns.premis_v2:org.purl.dc.elements._1");
+				.newInstance("eu.scapeproject.model:com.google.books.gbs:edu.harvard.hul.ois.xml.ns.fits.fits_output:info.lc.xmlns.textmd_v3:gov.loc.audiomd:gov.loc.marc21.slim:gov.loc.mets:gov.loc.mix.v20:gov.loc.videomd:info.lc.xmlns.premis_v2:org.purl.dc.elements._1");
 		this.marshaller = context.createMarshaller();
 		this.marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new ScapeNamespacePrefixMapper());
 		this.unmarshaller = context.createUnmarshaller();
