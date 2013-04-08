@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://books.google.com/gbs" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="gbs" type="gbs:gbsType" xmlns:gbs="http://books.google.com/gbs"/>
+  <xs:complexType name="productionNotesType">
+    <xs:sequence>
+      <xs:element type="xs:float" name="badPages"/>
+      <xs:element type="xs:float" name="missingPages"/>
+      <xs:element type="xs:float" name="tightBoundPages"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="gbsType">
+    <xs:sequence>
+      <xs:element type="gbs:productionNotesType" name="productionNotes" xmlns:gbs="http://books.google.com/gbs"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
