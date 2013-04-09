@@ -276,10 +276,14 @@ public class DefaultConverter extends IntellectualEntityConverter {
 			FileType metsFile = (FileType) ptr.getFILEID();
 			f.identifier(new Identifier(metsFile.getID()));
 			if (metsFile.getADMID() != null && metsFile.getADMID().size() > 0) {
-				MdSecType mdSec = (MdSecType) metsFile.getADMID().get(0);
-				if (mdSec != null) {
-					f.technical(mdSec.getMdWrap().getXmlData().getAny().get(0));
-				}
+			    Object o =  metsFile.getADMID().get(0);
+			    if (o instanceof MdSecType){
+			        MdSecType mdSec = (MdSecType) o;
+			        f.technical(mdSec.getMdWrap().getXmlData().getAny().get(0));
+			    }else if (o instanceof AmdSecType){
+			        MdSecType mdsec = ((AmdSecType)o).getTechMD().get(0);
+			        f.technical(mdsec);
+			    }
 			}
 			List<BitStream> bitstreams = new ArrayList<BitStream>();
 			for (Stream stream : metsFile.getStream()) {

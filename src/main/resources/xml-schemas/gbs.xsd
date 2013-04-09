@@ -8,9 +8,31 @@
       <xs:element type="xs:float" name="tightBoundPages"/>
     </xs:sequence>
   </xs:complexType>
+  <xs:complexType name="imageMethodType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="scanner"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="focusParametersType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="threshold"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
   <xs:complexType name="gbsType">
     <xs:sequence>
       <xs:element type="gbs:productionNotesType" name="productionNotes" xmlns:gbs="http://books.google.com/gbs"/>
+      <xs:element type="gbs:imageMethodType" name="imageMethod" xmlns:gbs="http://books.google.com/gbs"/>
+      <xs:element type="gbs:focusParametersType" name="focusParameters" xmlns:gbs="http://books.google.com/gbs"/>
+      <xs:element type="xs:string" name="pageTag"/>
+      <xs:element type="xs:string" name="pageOrder"/>
+      <xs:element type="xs:string" name="pageSequence"/>
+      <xs:element type="xs:string" name="coverTag"/>
+      <xs:element type="xs:string" name="sourceLibrary"/>
+      <xs:element type="xs:string" name="sourceIdentifier"/>
     </xs:sequence>
   </xs:complexType>
 </xs:schema>

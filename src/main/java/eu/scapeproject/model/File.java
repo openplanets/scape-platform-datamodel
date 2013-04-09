@@ -18,7 +18,7 @@ public class File {
 	private final String mimetype;
 	@XmlAttribute(name = "filename")
 	private final String filename;
-	@XmlAnyElement
+	@XmlAnyElement(lax=true)
 	private final Object technical;
 	@XmlElement(name = "bitstream", namespace = "http://scapeproject.eu/model")
 	private final List<BitStream> bitStreams;

@@ -21,7 +21,7 @@ public class Representation {
     private final Object source;
     @XmlAnyElement
     private final Object provenance;
-    @XmlAnyElement
+    @XmlAnyElement(lax=true)
     private final Object technical;
     @XmlAnyElement
     private final Object rights;

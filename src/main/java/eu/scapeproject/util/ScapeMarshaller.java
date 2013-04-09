@@ -1,7 +1,5 @@
 package eu.scapeproject.util;
 
-import info.lc.xmlns.textmd_v3.TextMD;
-
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
@@ -39,6 +37,7 @@ public class ScapeMarshaller {
 				.newInstance("eu.scapeproject.model:com.google.books.gbs:edu.harvard.hul.ois.xml.ns.fits.fits_output:info.lc.xmlns.textmd_v3:gov.loc.audiomd:gov.loc.marc21.slim:gov.loc.mets:gov.loc.mix.v20:gov.loc.videomd:info.lc.xmlns.premis_v2:org.purl.dc.elements._1");
 		this.marshaller = context.createMarshaller();
 		this.marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new ScapeNamespacePrefixMapper());
+		this.marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
 		this.unmarshaller = context.createUnmarshaller();
 
 		/*
