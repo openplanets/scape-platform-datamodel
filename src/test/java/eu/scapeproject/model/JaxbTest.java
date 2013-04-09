@@ -2,6 +2,7 @@ package eu.scapeproject.model;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -16,6 +17,9 @@ import javax.xml.bind.Marshaller;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.purl.dc.elements._1.ElementContainer;
+import org.w3c.dom.Element;
+
+import com.google.books.gbs.GbsType;
 
 import eu.scapeproject.model.LifecycleState.State;
 import eu.scapeproject.util.ScapeMarshaller;
@@ -52,9 +56,19 @@ public class JaxbTest {
 		IntellectualEntity ent = (IntellectualEntity) o;
 		assertTrue(ent.getDescriptive() instanceof RecordType);
 		assertTrue(ent.getRepresentations().size() == 3);
+		ScapeMarshaller m = ScapeMarshaller.newInstance();
+		m.setMarshallerProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		for (Representation r : ent.getRepresentations()) {
 			assertTrue(r.getFiles().size() == 924);
+			if (r.getTechnical() != null){
+				assertTrue("technical md of representation " + r.getIdentifier().getValue() + " is of type " + r.getTechnical().getClass().getName(), r.getTechnical() instanceof GbsType);
+				m.getJaxbMarshaller().marshal(r.getTechnical(), System.out);
+			}
 			for (File f : r.getFiles()) {
+				if (f.getTechnical() != null) {
+					assertTrue("technical md of file " + f.getFilename() + " is of type " + f.getTechnical().getClass().getName(), f.getTechnical() instanceof GbsType);
+					m.getJaxbMarshaller().marshal(f.getTechnical(), System.out);
+				}
 				assertNotNull(f.getUri());
 				assertTrue(f.getUri().toASCIIString().length() > 0);
 			}
@@ -108,17 +122,20 @@ public class JaxbTest {
 
 	@Test
 	public void testEntitySetSerializationDeserialization() throws Exception {
-		IntellectualEntityCollection c = new IntellectualEntityCollection(Arrays.asList(TestUtil.createTestEntity(), TestUtil.createTestEntity(), TestUtil.createTestEntity()));
+		IntellectualEntityCollection c = new IntellectualEntityCollection(Arrays.asList(TestUtil.createTestEntity(),
+				TestUtil.createTestEntity(), TestUtil.createTestEntity()));
 		ScapeMarshaller marshaller = ScapeMarshaller.newInstance();
-		ByteArrayOutputStream sink =new ByteArrayOutputStream();
+		ByteArrayOutputStream sink = new ByteArrayOutputStream();
 		marshaller.serialize(c, sink);
 		System.out.println(IOUtils.toString(new ByteArrayInputStream(sink.toByteArray())));
-		__IntellectualEntityCollection internal_coll = (__IntellectualEntityCollection) marshaller.deserialize(new ByteArrayInputStream(sink.toByteArray()));
+		__IntellectualEntityCollection internal_coll = (__IntellectualEntityCollection) marshaller.deserialize(new ByteArrayInputStream(
+				sink.toByteArray()));
 		assertTrue(internal_coll.getMets().size() == 3);
-		IntellectualEntityCollection coll = marshaller.deserialize(IntellectualEntityCollection.class, new ByteArrayInputStream(sink.toByteArray()));
+		IntellectualEntityCollection coll = marshaller.deserialize(IntellectualEntityCollection.class,
+				new ByteArrayInputStream(sink.toByteArray()));
 		assertTrue(coll.getEntities().size() == 3);
 	}
-	
+
 	@Test
 	public void testEntitySerialization() throws Exception {
 		BitStream bs_1 = new BitStream.Builder()
@@ -192,15 +209,15 @@ public class JaxbTest {
 		Representation r = e.getRepresentations().get(0);
 		assertTrue(r.getFiles().size() == 1);
 	}
-	
+
 	@Test
 	public void testSerializeLifecycle() throws Exception {
-	    ScapeMarshaller marshaller = ScapeMarshaller.newInstance();
-	    LifecycleState state = new LifecycleState("updated by system", State.INGESTING);
-	    ByteArrayOutputStream sink = new ByteArrayOutputStream();
-	    marshaller.serialize(state, sink);
-	    System.out.println(new String(sink.toByteArray()));
-	    LifecycleState des = (LifecycleState) marshaller.deserialize(new ByteArrayInputStream(sink.toByteArray())); 
+		ScapeMarshaller marshaller = ScapeMarshaller.newInstance();
+		LifecycleState state = new LifecycleState("updated by system", State.INGESTING);
+		ByteArrayOutputStream sink = new ByteArrayOutputStream();
+		marshaller.serialize(state, sink);
+		System.out.println(new String(sink.toByteArray()));
+		LifecycleState des = (LifecycleState) marshaller.deserialize(new ByteArrayInputStream(sink.toByteArray()));
 	}
 
 	@Test
