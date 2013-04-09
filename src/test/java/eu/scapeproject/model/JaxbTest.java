@@ -64,6 +64,7 @@ public class JaxbTest {
 				assertTrue("technical md of representation " + r.getIdentifier().getValue() + " is of type " + r.getTechnical().getClass().getName(), r.getTechnical() instanceof GbsType);
 				m.getJaxbMarshaller().marshal(r.getTechnical(), System.out);
 			}
+			assertNotNull(r.getProvenance());
 			for (File f : r.getFiles()) {
 				if (f.getTechnical() != null) {
 					assertTrue("technical md of file " + f.getFilename() + " is of type " + f.getTechnical().getClass().getName(), f.getTechnical() instanceof GbsType);

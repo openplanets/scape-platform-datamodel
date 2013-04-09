@@ -92,6 +92,15 @@ public class ONBConverter extends IntellectualEntityConverter {
 		Representation.Builder html = new Representation.Builder(new Identifier("html-" + idPrefix));
 		html.title("HTML representation");
 
+		/* get the non linked PREMIS1 md set */
+		MdSecType digiprov = mets.getAmdSec().get(0).getDigiprovMD().get(0);
+		if (digiprov != null) {
+			JAXBElement<?> j = (JAXBElement<?>) digiprov.getMdWrap().getXmlData().getAny().get(0);
+			text.provenance(j.getValue());
+			image.provenance(j.getValue());
+			html.provenance(j.getValue());
+		}
+		
 		/* and try to find the metadata in the mets document */
 		for (Object mdSec : div.getADMID()) {
 			MdSecType md = (MdSecType) mdSec;
@@ -103,6 +112,14 @@ public class ONBConverter extends IntellectualEntityConverter {
 					text.technical(tech);
 					image.technical(tech);
 					html.technical(tech);
+				}else if (md.getID().startsWith("PD")) {
+					/* TODO: Dont know! */
+				}else if (md.getID().startsWith("S")){
+					/* source metadata */
+					Object source = deserializeElement((Element) o);
+					text.source(source);
+					html.source(source);
+					image.source(source);
 				}
 			}
 			if (o instanceof ElementContainer) {
@@ -133,9 +150,9 @@ public class ONBConverter extends IntellectualEntityConverter {
 		List<File> imageFiles = new ArrayList<File>();
 		for (DivType subDiv : div.getDiv()) {
 			if (subDiv.getTYPE().equals("page")) {
-				textFiles.add(getPage("TXT", subDiv, mets));
-				htmlFiles.add(getPage("HTML", subDiv, mets));
-				imageFiles.add(getPage("IMG", subDiv, mets));
+				textFiles.add(createPages("TXT", subDiv, mets));
+				htmlFiles.add(createPages("HTML", subDiv, mets));
+				imageFiles.add(createPages("IMG", subDiv, mets));
 			}
 		}
 
@@ -148,7 +165,7 @@ public class ONBConverter extends IntellectualEntityConverter {
 		return reps;
 	}
 
-	private File getPage(String prefix, DivType subDiv, MetsType mets) {
+	private File createPages(String prefix, DivType subDiv, MetsType mets) {
 		File.Builder f = new File.Builder();
 		for (Fptr ptr : subDiv.getFptr()) {
 			FileType metsFile = (FileType) ptr.getFILEID();
