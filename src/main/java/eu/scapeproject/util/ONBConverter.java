@@ -213,9 +213,9 @@ public class ONBConverter extends IntellectualEntityConverter {
 
 			if (e.getLocalName().equals("imageMethod")) {
 				ImageMethodType img = fac.createImageMethodType();
+				img.setValue(e.getTextContent());
 				if (e.getAttributeNode("scanner") != null) {
 					img.setScanner(e.getAttribute("scanner"));
-					img.setValue(e.getNodeValue());
 				}
 				gbs.setImageMethod(img);
 			}
