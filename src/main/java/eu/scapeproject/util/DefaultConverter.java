@@ -43,11 +43,9 @@ import org.w3c.dom.Node;
 
 public class DefaultConverter extends IntellectualEntityConverter {
 
-	private final ScapeMarshaller marshaller;
 
-	public DefaultConverter(ScapeMarshaller marshaller) {
+	public DefaultConverter() {
 		super("scape");
-		this.marshaller = marshaller;
 	}
 
 	@Override

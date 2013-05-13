@@ -44,7 +44,7 @@ public class ScapeMarshaller {
 		 * create and add a default converter which is used by the scape marshaller to convert MetsTypes to
 		 * IntellectualEntities
 		 */
-		DefaultConverter dc = new DefaultConverter(this);
+		DefaultConverter dc = new DefaultConverter();
 		this.converters.put(dc.getProfileName(), dc);
 		
 		/*
