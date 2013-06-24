@@ -10,6 +10,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.net.URI;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
@@ -225,14 +227,27 @@ public class JaxbTest {
 	public void testSerializeRepresentation() throws Exception {
 		ScapeMarshaller m = ScapeMarshaller.newInstance();
 		Representation r = TestUtil.createTestEntity().getRepresentations().get(0);
-		m.serialize(r, System.out);
+		ByteArrayOutputStream sink = new ByteArrayOutputStream();
+		m.serialize(r, sink);
+		assertTrue(sink.toString().length() > 0);
 	}
 
 	@Test
 	public void testSerializeTextMD() throws Exception {
 		ScapeMarshaller m = ScapeMarshaller.newInstance();
 		Object o = TestUtil.createTextMDRecord();
-		m.serialize(o, System.out);
+		ByteArrayOutputStream sink = new ByteArrayOutputStream();
+		m.serialize(o, sink);
+		assertTrue(sink.toString().length() > 0);
+	}
+
+	@Test
+	public void testSerializeVersionList() throws Exception {
+		ScapeMarshaller m = ScapeMarshaller.newInstance();
+		Object o = TestUtil.createVersionList();
+		ByteArrayOutputStream sink = new ByteArrayOutputStream();
+		m.serialize(o, sink);
+		assertTrue(sink.toString().length() > 0);
 	}
 
 }
