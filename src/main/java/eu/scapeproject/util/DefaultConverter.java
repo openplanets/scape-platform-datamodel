@@ -296,11 +296,12 @@ public class DefaultConverter extends IntellectualEntityConverter {
 			List<BitStream> bitstreams = new ArrayList<BitStream>();
 			for (Stream stream : metsFile.getStream()) {
 				MdSecType mdSec = (MdSecType) stream.getADMID().get(0);
-				BitStream bs = new BitStream.Builder()
-						.identifier(new Identifier(stream.getID()))
-						.technical(mdSec.getMdWrap().getXmlData().getAny().get(0))
-						.build();
-				bitstreams.add(bs);
+				BitStream.Builder bs = new BitStream.Builder()
+						.identifier(new Identifier(stream.getID()));
+				if (mdSec.getMdWrap().getXmlData().getAny().size() > 0){
+					bs.technical(mdSec.getMdWrap().getXmlData().getAny().get(0));
+				}
+				bitstreams.add(bs.build());
 			}
 			f.bitStreams(bitstreams);
 			if (metsFile.getFLocat().get(0).getHref() != null) {
