@@ -1,7 +1,6 @@
 package eu.scapeproject.model;
 
 import gov.loc.mets.Mets;
-import gov.loc.mets.MetsType;
 
 import java.util.List;
 

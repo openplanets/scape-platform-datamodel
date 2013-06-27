@@ -194,11 +194,21 @@ public class DefaultConverter extends IntellectualEntityConverter {
 	public IntellectualEntity convertMets(MetsType mets) throws JAXBException {
 		/* create a SCAPE entity */
 		List<Representation> reps = createScapeRepresentations(mets);
+		LifecycleState lifecycle = createLifecycleState(mets);
 		IntellectualEntity.Builder entity = new IntellectualEntity.Builder()
 				.identifier(new Identifier(mets.getOBJID()))
 				.descriptive(createDC(mets))
+				.lifecycleState(lifecycle)
 				.representations(reps);
 		return entity.build();
+	}
+	
+	private LifecycleState createLifecycleState(MetsType mets) {
+		String state = mets.getMetsHdr().getRECORDSTATUS();
+		if (state == null || state.length() == 0) {
+			state = "NEW";
+		}
+		return new LifecycleState("", LifecycleState.State.valueOf(state));
 	}
 
 	private Object createDC(MetsType mets) {

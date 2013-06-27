@@ -142,4 +142,8 @@ public abstract class TestUtil {
 		return cnt;
 	}
 
+	public static VersionList createVersionList() {
+		return new VersionList("test-id-1",Arrays.asList("v1","v2","v3"));
+	}
+
 }
