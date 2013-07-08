@@ -82,7 +82,6 @@ public class JaxbTest {
 	@Test
 	public void testEntitySerializationNoIds() throws Exception {
 		BitStream bs_1 = new BitStream.Builder()
-				.title("Sequence 1")
 				.technical(TestUtil.createTextMDRecord())
 				.build();
 
@@ -143,7 +142,6 @@ public class JaxbTest {
 	public void testEntitySerialization() throws Exception {
 		BitStream bs_1 = new BitStream.Builder()
 				.identifier(new Identifier("bitstream:1"))
-				.title("Sequence 1")
 				.technical(TestUtil.createTextMDRecord())
 				.build();
 
@@ -200,6 +198,30 @@ public class JaxbTest {
 		BitStream bsorig = forig.getBitStreams().get(0);
 		BitStream bsdes = fdes.getBitStreams().get(0);
 		assertTrue("BitStream identifiers do not match", bsorig.getIdentifier().getValue().equals(bsdes.getIdentifier().getValue()));
+	}
+
+	@Test
+	public void testEntityDeserializationTitleAndUsage() throws Exception {
+		Representation rep = new Representation.Builder(new Identifier("representation-1"))
+				.technical(TestUtil.createTextMDRecord())
+				.title("Text representation")
+				.provenance(TestUtil.createPremisDigiProvRecord())
+				.rights(TestUtil.createPremisRightsRecord())
+				.source(TestUtil.createDCSourceRecord())
+				.build();
+
+		IntellectualEntity e = new IntellectualEntity.Builder()
+				.identifier(new Identifier("entity-1"))
+				.representations(Arrays.asList(rep))
+				.descriptive(TestUtil.createDCRecord())
+				.build();
+
+		ScapeMarshaller marshaller = ScapeMarshaller.newInstance();
+		marshaller.serialize(e, System.out);
+		ByteArrayOutputStream sink = new ByteArrayOutputStream();
+		marshaller.serialize(e, sink);
+		IntellectualEntity des = marshaller.deserialize(IntellectualEntity.class,new ByteArrayInputStream(sink.toByteArray()));
+		assertEquals("Title does not match on representation", rep.getTitle(), des.getRepresentations().get(0).getTitle());
 	}
 
 	@Test

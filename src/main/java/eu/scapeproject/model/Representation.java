@@ -29,8 +29,6 @@ public class Representation {
     private final List<File> files;
     @XmlElement(name = "title", namespace = "http://scapeproject.eu/model")
     private final String title;
-    @XmlElement(name = "usage", namespace = "http://scapeproject.eu/model")
-    private final String usage;
 
     private Representation() {
         super();
@@ -41,7 +39,6 @@ public class Representation {
         this.files = null;
         this.identifier = null;
         this.title = null;
-        this.usage = null;
     }
 
     private Representation(Builder builder) {
@@ -52,7 +49,6 @@ public class Representation {
         this.files = builder.files;
         this.identifier = builder.id;
         this.title = builder.title;
-        this.usage = builder.usage;
     }
 
     public List<File> getFiles() {
@@ -83,10 +79,6 @@ public class Representation {
         return title;
     }
 
-    public String getUsage() {
-        return usage;
-    }
-
     @Override
     public String toString() {
         return "Representation ["
@@ -97,7 +89,6 @@ public class Representation {
                 + ", rights=" + rights
                 + ", files=" + files
                 + ", title=" + title
-                + ", usage=" + usage
                 + "]";
     }
 
@@ -109,7 +100,6 @@ public class Representation {
         private List<File> files = new ArrayList<File>();
         private Identifier id;
         private String title;
-        private String usage;
 
         public Builder(){
         	super();
@@ -129,7 +119,6 @@ public class Representation {
             this.files = copy.files;
             this.id = copy.identifier;
             this.title = copy.title;
-            this.usage = copy.usage;
         }
 
         public Representation build() {
@@ -171,9 +160,5 @@ public class Representation {
             return this;
         }
 
-        public Builder usage(String usage) {
-            this.usage = usage;
-            return this;
-        }
     }
 }

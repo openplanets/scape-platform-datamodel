@@ -79,6 +79,9 @@ public class DefaultConverter extends IntellectualEntityConverter {
 				DivType repDiv = new DivType();
 				repDiv.setTYPE("Representation");
 				repDiv.setID(repId);
+				if (r.getTitle() != null){
+					repDiv.setLabel(r.getTitle());
+				}
 
 				/* convert the technical metadata of this representation */
 				addMetadata(repDiv.getADMID(), amdSec.getTechMD(), r.getTechnical());
@@ -236,6 +239,9 @@ public class DefaultConverter extends IntellectualEntityConverter {
 	private Representation createScapeRepresentation(DivType div, MetsType mets) throws JAXBException {
 		String repId = (div.getID() != null) ? div.getID() : "rep" + UUID.randomUUID().toString();
 		Representation.Builder rep = new Representation.Builder(new Identifier(repId));
+		if (div.getLabel() != null){
+			rep.title(div.getLabel());
+		}
 		for (Object o : div.getADMID()) {
 			if (o instanceof AmdSecType) {
 				AmdSecType amdSec = (AmdSecType) o;
@@ -287,7 +293,9 @@ public class DefaultConverter extends IntellectualEntityConverter {
 			    Object o =  metsFile.getADMID().get(0);
 			    if (o instanceof MdSecType){
 			        MdSecType mdSec = (MdSecType) o;
-			        f.technical(mdSec.getMdWrap().getXmlData().getAny().get(0));
+			        if (mdSec.getMdWrap().getXmlData().getAny().size() > 0){
+			        	f.technical(mdSec.getMdWrap().getXmlData().getAny().get(0));
+			        }
 			    }else if (o instanceof AmdSecType){
 			        MdSecType mdsec = ((AmdSecType)o).getTechMD().get(0);
 			        f.technical(mdsec);

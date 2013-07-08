@@ -11,8 +11,6 @@ import eu.scapeproject.util.CopyUtil;
 @XmlRootElement(name = "bitstream", namespace = "http://scapeproject.eu/model")
 public class BitStream {
 
-    @XmlElement(name = "title", namespace = "http://scapeproject.eu/model")
-    private final String title;
     @XmlElement(name = "type", namespace = "http://scapeproject.eu/model")
     private final Type type;
     @XmlAnyElement
@@ -21,7 +19,6 @@ public class BitStream {
     private final Identifier identifier;
 
     private BitStream() {
-        this.title = null;
         this.type = null;
         this.technical = null;
         this.identifier = null;
@@ -29,7 +26,6 @@ public class BitStream {
 
     private BitStream(Builder b) {
         super();
-        this.title = b.title;
         this.type = b.type;
         this.technical = b.technical;
         this.identifier = b.identifier;
@@ -43,25 +39,19 @@ public class BitStream {
         return technical;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
     public Type getType() {
         return type;
     }
 
     @Override
     public String toString() {
-        return "BitStream [title=" + title
-                + ", type=" + type
+        return "BitStream [type=" + type
                 + ", technical=" + technical
                 + ", identifier=" + identifier
                 + "]";
     }
 
     public static class Builder {
-        private String title;
         private Type type;
         private Object technical;
         private Identifier identifier;
@@ -72,7 +62,6 @@ public class BitStream {
 
         public Builder(BitStream orig) {
             BitStream copy = CopyUtil.deepCopy(BitStream.class, orig);
-            this.title = copy.title;
             this.technical = copy.technical;
             this.type = copy.type;
             this.identifier = copy.identifier;
@@ -89,11 +78,6 @@ public class BitStream {
 
         public Builder technical(Object technical) {
             this.technical = technical;
-            return this;
-        }
-
-        public Builder title(String title) {
-            this.title = title;
             return this;
         }
 

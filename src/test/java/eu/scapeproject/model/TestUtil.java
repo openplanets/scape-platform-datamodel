@@ -41,7 +41,6 @@ public abstract class TestUtil {
 	public static IntellectualEntity createTestEntity() throws JAXBException {
 		BitStream bs_1 = new BitStream.Builder()
 				.identifier(new Identifier("bitstream:1"))
-				.title("Sequence 1")
 				.technical(TestUtil.createFITSRecord())
 				.build();
 
