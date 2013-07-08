@@ -1,5 +1,6 @@
 package eu.scapeproject.model;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
@@ -130,7 +131,6 @@ public class JaxbTest {
 		ScapeMarshaller marshaller = ScapeMarshaller.newInstance();
 		ByteArrayOutputStream sink = new ByteArrayOutputStream();
 		marshaller.serialize(c, sink);
-		System.out.println(IOUtils.toString(new ByteArrayInputStream(sink.toByteArray())));
 		__IntellectualEntityCollection internal_coll = (__IntellectualEntityCollection) marshaller.deserialize(new ByteArrayInputStream(
 				sink.toByteArray()));
 		assertTrue(internal_coll.getMets().size() == 3);
@@ -219,7 +219,6 @@ public class JaxbTest {
 		LifecycleState state = new LifecycleState("updated by system", State.INGESTING);
 		ByteArrayOutputStream sink = new ByteArrayOutputStream();
 		marshaller.serialize(state, sink);
-		System.out.println(new String(sink.toByteArray()));
 		LifecycleState des = (LifecycleState) marshaller.deserialize(new ByteArrayInputStream(sink.toByteArray()));
 	}
 
@@ -229,6 +228,17 @@ public class JaxbTest {
 		Representation r = TestUtil.createTestEntity().getRepresentations().get(0);
 		ByteArrayOutputStream sink = new ByteArrayOutputStream();
 		m.serialize(r, sink);
+		assertTrue(sink.toString().length() > 0);
+	}
+
+	@Test
+	public void testDeserializeRepresentation() throws Exception {
+		ScapeMarshaller m = ScapeMarshaller.newInstance();
+		Representation r = TestUtil.createTestEntity().getRepresentations().get(0);
+		ByteArrayOutputStream sink = new ByteArrayOutputStream();
+		m.serialize(r, sink);
+		Representation deserialized= m.deserialize(Representation.class, new ByteArrayInputStream(sink.toByteArray()));
+		assertEquals("Ids do not match",r.getIdentifier().getValue(),deserialized.getIdentifier().getValue());
 		assertTrue(sink.toString().length() > 0);
 	}
 

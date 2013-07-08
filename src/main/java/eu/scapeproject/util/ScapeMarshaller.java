@@ -1,5 +1,7 @@
 package eu.scapeproject.util;
 
+import info.lc.xmlns.premis_v2.Bitstream;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
@@ -18,8 +20,10 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import eu.scapeproject.model.File;
 import eu.scapeproject.model.IntellectualEntity;
 import eu.scapeproject.model.IntellectualEntityCollection;
+import eu.scapeproject.model.Representation;
 import eu.scapeproject.model.__IntellectualEntityCollection;
 import eu.scapeproject.model.jaxb.ScapeNamespacePrefixMapper;
 import gov.loc.mets.Mets;
@@ -145,6 +149,8 @@ public class ScapeMarshaller {
 				entities.add(conv.convertMets(m));
 			}
 			return (T) new IntellectualEntityCollection(entities);
+		}else if (type == Representation.class || type == File.class || type == Bitstream.class){
+			return (T) unmarshaller.unmarshal(src);
 		}
 		else {
 			throw new IllegalArgumentException("Unable to deserilialize type " + type.getName());
