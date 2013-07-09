@@ -67,14 +67,14 @@ public class JaxbTest {
             if (r.getTechnical() != null) {
                 assertTrue("technical md of representation " + r.getIdentifier().getValue() + " is of type "
                         + r.getTechnical().getClass().getName(), r.getTechnical() instanceof GbsType);
-                m.getJaxbMarshaller().marshal(r.getTechnical(), System.out);
+                m.getJaxbMarshaller().marshal(r.getTechnical(), new ByteArrayOutputStream());
             }
             assertNotNull(r.getProvenance());
             for (File f : r.getFiles()) {
                 if (f.getTechnical() != null) {
                     assertTrue("technical md of file " + f.getFilename() + " is of type " + f.getTechnical().getClass().getName(),
                             f.getTechnical() instanceof GbsType);
-                    m.getJaxbMarshaller().marshal(f.getTechnical(), System.out);
+                    m.getJaxbMarshaller().marshal(f.getTechnical(), new ByteArrayOutputStream());
                 }
                 assertNotNull(f.getUri());
                 assertTrue(f.getUri().toASCIIString().length() > 0);
@@ -220,7 +220,6 @@ public class JaxbTest {
                 .build();
 
         ScapeMarshaller marshaller = ScapeMarshaller.newInstance();
-        marshaller.serialize(e, System.out);
         ByteArrayOutputStream sink = new ByteArrayOutputStream();
         marshaller.serialize(e, sink);
         IntellectualEntity des = marshaller.deserialize(IntellectualEntity.class, new ByteArrayInputStream(sink.toByteArray()));
