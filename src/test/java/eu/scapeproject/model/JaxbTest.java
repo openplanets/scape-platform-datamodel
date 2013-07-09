@@ -24,6 +24,7 @@ import com.google.books.gbs.GbsType;
 
 import eu.scapeproject.model.LifecycleState.State;
 import eu.scapeproject.model.plan.PlanExecutionState;
+import eu.scapeproject.model.plan.PlanExecutionStateCollection;
 import eu.scapeproject.util.ScapeMarshaller;
 import gov.loc.marc21.slim.RecordType;
 import gov.loc.mets.MetsType;
@@ -312,5 +313,24 @@ public class JaxbTest {
         PlanExecutionState des = m.deserialize(PlanExecutionState.class, new ByteArrayInputStream(sink.toByteArray()));
         assertEquals(state.getTimeStamp(), des.getTimeStamp());
         assertEquals(state.getState(), des.getState());
+    }
+
+    @Test
+    public void testPlanExecutionStateCollectionDeserialization() throws Exception {
+        List<PlanExecutionState> states = new ArrayList<PlanExecutionState>();
+        states.add(new PlanExecutionState(new Date(),eu.scapeproject.model.plan.PlanExecutionState.ExecutionState.ENABLED));
+        states.add(new PlanExecutionState(new Date(),eu.scapeproject.model.plan.PlanExecutionState.ExecutionState.EXECUTION_FAIL));
+        states.add(new PlanExecutionState(new Date(),eu.scapeproject.model.plan.PlanExecutionState.ExecutionState.DISABLED));
+        states.add(new PlanExecutionState(new Date(),eu.scapeproject.model.plan.PlanExecutionState.ExecutionState.EXECUTION_IN_PROGRESS));
+        states.add(new PlanExecutionState(new Date(),eu.scapeproject.model.plan.PlanExecutionState.ExecutionState.EXECUTION_SUCCESS));
+        states.add(new PlanExecutionState(new Date(),eu.scapeproject.model.plan.PlanExecutionState.ExecutionState.ENABLED));
+        
+        PlanExecutionStateCollection coll = new PlanExecutionStateCollection("http://localhost:8080/rest/objects/plans/plan-1",states);
+
+        ScapeMarshaller m = ScapeMarshaller.newInstance();
+        ByteArrayOutputStream sink = new ByteArrayOutputStream();
+        m.serialize(coll, sink);
+        PlanExecutionStateCollection des = m.deserialize(PlanExecutionStateCollection.class, new ByteArrayInputStream(sink.toByteArray()));
+        assertEquals(coll.getExecutionStates().size(), des.getExecutionStates().size());
     }
 }
