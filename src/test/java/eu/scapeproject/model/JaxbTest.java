@@ -3,7 +3,6 @@ package eu.scapeproject.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -12,20 +11,19 @@ import java.io.FileOutputStream;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.purl.dc.elements._1.ElementContainer;
-import org.w3c.dom.Element;
 
 import com.google.books.gbs.GbsType;
 
 import eu.scapeproject.model.LifecycleState.State;
+import eu.scapeproject.model.plan.PlanExecutionState;
 import eu.scapeproject.util.ScapeMarshaller;
 import gov.loc.marc21.slim.RecordType;
 import gov.loc.mets.MetsType;
@@ -292,17 +290,27 @@ public class JaxbTest {
         altIds.add(new Identifier("alt-3"));
         altIds.add(new Identifier("alt-4"));
         altIds.add(new Identifier("alt-5"));
-        
+
         IntellectualEntity e = new IntellectualEntity.Builder()
-            .alternativeIdentifiers(altIds)
-            .build();
-        
+                .alternativeIdentifiers(altIds)
+                .build();
+
         ScapeMarshaller m = ScapeMarshaller.newInstance();
         ByteArrayOutputStream sink = new ByteArrayOutputStream();
         m.serialize(e, sink);
-        
+
         IntellectualEntity des = m.deserialize(IntellectualEntity.class, new ByteArrayInputStream(sink.toByteArray()));
-        assertEquals(5,des.getAlternativeIdentifiers().size());
+        assertEquals(5, des.getAlternativeIdentifiers().size());
     }
 
+    @Test
+    public void testPlanExecutionStateDeserialization() throws Exception {
+        PlanExecutionState state = new PlanExecutionState(new Date(),eu.scapeproject.model.plan.PlanExecutionState.ExecutionState.ENABLED);
+        ScapeMarshaller m = ScapeMarshaller.newInstance();
+        ByteArrayOutputStream sink = new ByteArrayOutputStream();
+        m.serialize(state, sink);
+        PlanExecutionState des = m.deserialize(PlanExecutionState.class, new ByteArrayInputStream(sink.toByteArray()));
+        assertEquals(state.getTimeStamp(), des.getTimeStamp());
+        assertEquals(state.getState(), des.getState());
+    }
 }
