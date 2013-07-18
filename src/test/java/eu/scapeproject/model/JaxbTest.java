@@ -306,7 +306,7 @@ public class JaxbTest {
 
     @Test
     public void testPlanExecutionStateDeserialization() throws Exception {
-        PlanExecutionState state = new PlanExecutionState(new Date(),eu.scapeproject.model.plan.PlanExecutionState.ExecutionState.ENABLED);
+        PlanExecutionState state = new PlanExecutionState(new Date(),eu.scapeproject.model.plan.PlanExecutionState.ExecutionState.EXECUTION_SUCCESS);
         ScapeMarshaller m = ScapeMarshaller.newInstance();
         ByteArrayOutputStream sink = new ByteArrayOutputStream();
         m.serialize(state, sink);
@@ -318,13 +318,10 @@ public class JaxbTest {
     @Test
     public void testPlanExecutionStateCollectionDeserialization() throws Exception {
         List<PlanExecutionState> states = new ArrayList<PlanExecutionState>();
-        states.add(new PlanExecutionState(new Date(),eu.scapeproject.model.plan.PlanExecutionState.ExecutionState.ENABLED));
         states.add(new PlanExecutionState(new Date(),eu.scapeproject.model.plan.PlanExecutionState.ExecutionState.EXECUTION_FAIL));
-        states.add(new PlanExecutionState(new Date(),eu.scapeproject.model.plan.PlanExecutionState.ExecutionState.DISABLED));
         states.add(new PlanExecutionState(new Date(),eu.scapeproject.model.plan.PlanExecutionState.ExecutionState.EXECUTION_IN_PROGRESS));
         states.add(new PlanExecutionState(new Date(),eu.scapeproject.model.plan.PlanExecutionState.ExecutionState.EXECUTION_SUCCESS));
-        states.add(new PlanExecutionState(new Date(),eu.scapeproject.model.plan.PlanExecutionState.ExecutionState.ENABLED));
-        
+
         PlanExecutionStateCollection coll = new PlanExecutionStateCollection("http://localhost:8080/rest/objects/plans/plan-1",states);
 
         ScapeMarshaller m = ScapeMarshaller.newInstance();

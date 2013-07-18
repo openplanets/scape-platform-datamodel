@@ -6,9 +6,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="plan-execution-state",namespace="http://scapeproject.eu/model")
-public class PlanExecutionState {
+public class PlanExecutionState implements Comparable<PlanExecutionState>{
     public enum ExecutionState {
-        ENABLED, DISABLED, EXECUTION_IN_PROGRESS, EXECUTION_SUCCESS, EXECUTION_FAIL;
+        EXECUTION_IN_PROGRESS, EXECUTION_SUCCESS, EXECUTION_FAIL;
     }
 
     @XmlAttribute(name="timestamp")
@@ -33,6 +33,14 @@ public class PlanExecutionState {
 
     public ExecutionState getState() {
         return state;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    @Override
+    public int compareTo(PlanExecutionState o) {
+        return (int) (timeStamp.getTime() - o.getTimeStamp().getTime());
     }
 
 }
