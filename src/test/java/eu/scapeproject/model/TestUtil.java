@@ -1,9 +1,5 @@
 package eu.scapeproject.model;
 
-import gov.loc.mix.v20.ImageCaptureMetadataType;
-import gov.loc.mix.v20.ImageCaptureMetadataType.DigitalCameraCapture;
-import gov.loc.mix.v20.Mix;
-import gov.loc.mix.v20.StringType;
 import info.lc.xmlns.premis_v2.CopyrightInformationComplexType;
 import info.lc.xmlns.premis_v2.EventComplexType;
 import info.lc.xmlns.premis_v2.LinkingAgentIdentifierComplexType;
@@ -24,14 +20,15 @@ import java.util.Random;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
-import javax.xml.namespace.QName;
 
 import org.purl.dc.elements._1.ElementContainer;
 import org.purl.dc.elements._1.SimpleLiteral;
 
-import edu.harvard.hul.ois.xml.ns.fits.fits_output.FileInfoType;
 import edu.harvard.hul.ois.xml.ns.fits.fits_output.Fits;
-import eu.scapeproject.util.ScapeMarshaller;
+import gov.loc.mix.v20.ImageCaptureMetadataType;
+import gov.loc.mix.v20.ImageCaptureMetadataType.DigitalCameraCapture;
+import gov.loc.mix.v20.Mix;
+import gov.loc.mix.v20.StringType;
 
 public abstract class TestUtil {
 
@@ -40,7 +37,7 @@ public abstract class TestUtil {
 
 	public static IntellectualEntity createTestEntity() throws JAXBException {
 		BitStream bs_1 = new BitStream.Builder()
-				.identifier(new Identifier("bitstream:1"))
+				.identifier(new Identifier("bitstream-1"))
 				.technical(TestUtil.createFITSRecord())
 				.build();
 
