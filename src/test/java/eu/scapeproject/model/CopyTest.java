@@ -1,14 +1,17 @@
 package eu.scapeproject.model;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.UUID;
+
 import org.junit.Test;
-import static org.junit.Assert.*; 
 
 import eu.scapeproject.util.CopyUtil;
 
 public class CopyTest {
     @Test
     public void testCopyIntellectualEntity() throws Exception{
-        IntellectualEntity ent = TestUtil.createTestEntity();
+        IntellectualEntity ent = TestUtil.createTestEntity(UUID.randomUUID().toString());
         IntellectualEntity copy = CopyUtil.deepCopy(IntellectualEntity.class, ent);
         assertTrue(ent.getIdentifier().getValue().equals(copy.getIdentifier().getValue()));
         assertTrue(ent != copy);

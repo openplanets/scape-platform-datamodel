@@ -127,8 +127,8 @@ public class JaxbTest {
 
     @Test
     public void testEntitySetSerializationDeserialization() throws Exception {
-        IntellectualEntityCollection c = new IntellectualEntityCollection(Arrays.asList(TestUtil.createTestEntity(),
-                TestUtil.createTestEntity(), TestUtil.createTestEntity()));
+        IntellectualEntityCollection c = new IntellectualEntityCollection(Arrays.asList(TestUtil.createTestEntity("entity-1"),
+                TestUtil.createTestEntity("entity-2"), TestUtil.createTestEntity("entity-3")));
         ScapeMarshaller marshaller = ScapeMarshaller.newInstance();
         ByteArrayOutputStream sink = new ByteArrayOutputStream();
         marshaller.serialize(c, sink);
@@ -248,7 +248,7 @@ public class JaxbTest {
     @Test
     public void testSerializeRepresentation() throws Exception {
         ScapeMarshaller m = ScapeMarshaller.newInstance();
-        Representation r = TestUtil.createTestEntity().getRepresentations().get(0);
+        Representation r = TestUtil.createTestEntity("entity-4").getRepresentations().get(0);
         ByteArrayOutputStream sink = new ByteArrayOutputStream();
         m.serialize(r, sink);
         assertTrue(sink.toString().length() > 0);
@@ -257,7 +257,7 @@ public class JaxbTest {
     @Test
     public void testDeserializeRepresentation() throws Exception {
         ScapeMarshaller m = ScapeMarshaller.newInstance();
-        Representation r = TestUtil.createTestEntity().getRepresentations().get(0);
+        Representation r = TestUtil.createTestEntity("entity-5").getRepresentations().get(0);
         ByteArrayOutputStream sink = new ByteArrayOutputStream();
         m.serialize(r, sink);
         Representation deserialized = m.deserialize(Representation.class, new ByteArrayInputStream(sink.toByteArray()));
