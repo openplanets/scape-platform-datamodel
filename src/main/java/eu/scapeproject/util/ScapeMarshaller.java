@@ -92,20 +92,24 @@ public class ScapeMarshaller {
         return unmarshaller.unmarshal(src);
     }
 
-    public void serialize(Object obj, OutputStream sink) throws JAXBException {
+    public void serialize(Object obj, OutputStream sink, boolean useMdRef) throws JAXBException{
         if (obj instanceof IntellectualEntity) {
-            marshaller.marshal(this.converters.get("scape").convertEntity((IntellectualEntity) obj), sink);
+            marshaller.marshal(this.converters.get("scape").convertEntity((IntellectualEntity) obj,useMdRef), sink);
         } else if (obj instanceof IntellectualEntityCollection) {
             IntellectualEntityCollection coll = (IntellectualEntityCollection) obj;
             List<Mets> mets = new ArrayList<Mets>();
             for (IntellectualEntity e : coll.getEntities()) {
-                mets.add((Mets) this.converters.get("scape").convertEntity(e));
+                mets.add((Mets) this.converters.get("scape").convertEntity(e, useMdRef));
             }
             __IntellectualEntityCollection _int = new __IntellectualEntityCollection(mets);
             marshaller.marshal(_int, sink);
         } else {
             marshaller.marshal(obj, sink);
         }
+    }
+
+    public void serialize(Object obj, OutputStream sink) throws JAXBException {
+        this.serialize(obj, sink, false);
     }
 
     public void setMarshallerProperty(String property, Object value) throws PropertyException {

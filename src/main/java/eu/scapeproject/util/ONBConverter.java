@@ -28,7 +28,6 @@ import javax.xml.bind.JAXBElement;
 
 import org.purl.dc.elements._1.ElementContainer;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.google.books.gbs.FocusParametersType;
@@ -43,7 +42,7 @@ public class ONBConverter extends IntellectualEntityConverter {
 	}
 
 	@Override
-	public MetsType convertEntity(IntellectualEntity entity) {
+	public MetsType convertEntity(IntellectualEntity entity, boolean useMdRef) {
 		throw new UnsupportedOperationException("Serialization to ONB documents iis not available");
 	}
 
@@ -100,7 +99,7 @@ public class ONBConverter extends IntellectualEntityConverter {
 			image.provenance(j.getValue());
 			html.provenance(j.getValue());
 		}
-		
+
 		/* and try to find the metadata in the mets document */
 		for (Object mdSec : div.getADMID()) {
 			MdSecType md = (MdSecType) mdSec;

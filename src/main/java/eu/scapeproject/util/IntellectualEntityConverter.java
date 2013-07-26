@@ -19,5 +19,10 @@ public abstract class IntellectualEntityConverter {
 
     public abstract IntellectualEntity convertMets(MetsType mets) throws JAXBException;
 
-    public abstract MetsType convertEntity(IntellectualEntity entity);
+
+    public MetsType convertEntity(IntellectualEntity entity) {
+        return this.convertEntity(entity, false);
+    }
+
+    public abstract MetsType convertEntity(IntellectualEntity entity, boolean useMdRef);
 }
