@@ -94,7 +94,7 @@ public class ScapeMarshaller {
 
     public void serialize(Object obj, OutputStream sink, boolean useMdRef) throws JAXBException{
         if (obj instanceof IntellectualEntity) {
-            marshaller.marshal(this.converters.get("scape").convertEntity((IntellectualEntity) obj,useMdRef), sink);
+            marshaller.marshal(this.converters.get("scape").convertEntity((IntellectualEntity) obj, useMdRef), sink);
         } else if (obj instanceof IntellectualEntityCollection) {
             IntellectualEntityCollection coll = (IntellectualEntityCollection) obj;
             List<Mets> mets = new ArrayList<Mets>();
