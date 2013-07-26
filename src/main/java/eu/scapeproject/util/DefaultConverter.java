@@ -8,6 +8,7 @@ import eu.scapeproject.model.Identifier;
 import eu.scapeproject.model.IntellectualEntity;
 import eu.scapeproject.model.LifecycleState;
 import eu.scapeproject.model.Representation;
+import eu.scapeproject.model.VersionMetadata;
 import gov.loc.audiomd.AudioType;
 import gov.loc.mets.AmdSecType;
 import gov.loc.mets.DivType;
@@ -62,6 +63,7 @@ public class DefaultConverter extends IntellectualEntityConverter {
 
         /* create the dmdSec part holding the descriptive metadata */
         addDmdSec(mets, entity, useMdRef);
+        addVersionDmdSec(mets,entity.getVersionNumber());
 
         /* create the interlocked filesec, structmap and amdsec part */
         AmdSecType amdSec = new AmdSecType();
@@ -203,9 +205,19 @@ public class DefaultConverter extends IntellectualEntityConverter {
             mdSet.add(mdSec);
         }
     }
+    private void  addVersionDmdSec(Mets mets,int versionNumber){
+        MdSecType dmdSec = new MdSecType();
+        MdWrap wrap = new MdWrap();
+        XmlData data = new XmlData();
+        data.getAny().add(new VersionMetadata(versionNumber));
+        wrap.setXmlData(data);
+        dmdSec.setMdWrap(wrap);
+        mets.getDmdSec().add(dmdSec);
+    }
 
     private void addDmdSec(Mets mets, IntellectualEntity entity,
-            boolean useMdRef) {        MdSecType dmdSec = new MdSecType();
+            boolean useMdRef) {
+        MdSecType dmdSec = new MdSecType();
         if (useMdRef) {
             String mdId = "MD-" + UUID.randomUUID().toString();
             MdRef ref = new MdRef();
@@ -256,7 +268,8 @@ public class DefaultConverter extends IntellectualEntityConverter {
                 new IntellectualEntity.Builder().identifier(
                         new Identifier(mets.getOBJID())).descriptive(
                         createDC(mets)).lifecycleState(lifecycle)
-                        .representations(reps);
+                        .representations(reps)
+                        .versionNumber(getVersionNumber(mets));
 
         /* read the alt IDs from the MetsHeader if they exist */
         if (mets.getMetsHdr().getAltRecordID().size() > 0) {
@@ -268,6 +281,17 @@ public class DefaultConverter extends IntellectualEntityConverter {
         }
 
         return entity.build();
+    }
+
+    private int getVersionNumber(MetsType mets) {
+        for (MdSecType dmd: mets.getDmdSec()){
+            final List<Object> mds = dmd.getMdWrap().getXmlData().getAny();
+            if (!mds.isEmpty() && mds.get(0).getClass() == VersionMetadata.class){
+                VersionMetadata data = (VersionMetadata) dmd.getMdWrap().getXmlData().getAny().get(0);
+                return data.getVersionNumber();
+            }
+        }
+        return 1;
     }
 
     private LifecycleState createLifecycleState(MetsType mets) {

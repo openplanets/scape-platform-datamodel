@@ -46,10 +46,13 @@ public abstract class TestUtil {
                         TestUtil.createFITSRecord()).build();
 
         File f =
-                new File.Builder().bitStreams(Arrays.asList(bs_1)).identifier(
-                        new Identifier("file-1")).uri(
-                        URI.create("http://example.com/data")).technical(
-                        TestUtil.createMIXRecord()).build();
+                new File.Builder()
+                    .mimetype("image/png")
+                    .bitStreams(Arrays.asList(bs_1))
+                    .identifier(new Identifier("file-1"))
+                    .uri(URI.create(TestUtil.class.getClassLoader().getResource("scape_logo.png").toString()))
+                    .technical(TestUtil.createMIXRecord())
+                    .build();
 
         Representation rep =
                 new Representation.Builder(new Identifier("representation-1"))
