@@ -72,13 +72,13 @@ public abstract class TestUtil {
         return e;
     }
 
-    private static Fits createFITSRecord() {
+    public static Fits createFITSRecord() {
         Fits f = new Fits();
         f.setTimestamp(String.valueOf(new Date().getTime()));
         return f;
     }
 
-    private static Mix createMIXRecord() {
+    public static Mix createMIXRecord() {
         Mix mix = new Mix();
         ImageCaptureMetadataType capture = new ImageCaptureMetadataType();
         DigitalCameraCapture camera = new DigitalCameraCapture();
