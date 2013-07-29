@@ -3,6 +3,7 @@ package eu.scapeproject.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import info.lc.xmlns.textmd_v3.TextMD;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -257,12 +258,29 @@ public class JaxbTest {
     @Test
     public void testDeserializeRepresentation() throws Exception {
         ScapeMarshaller m = ScapeMarshaller.newInstance();
-        Representation r = TestUtil.createTestEntity("entity-5").getRepresentations().get(0);
+
+        Representation r = new Representation.Builder()
+            .identifier(new Identifier("rep-1"))
+            .technical(TestUtil.createTextMDRecord())
+            .source(TestUtil.createDCSourceRecord())
+            .provenance(TestUtil.createPremisDigiProvRecord())
+            .rights(TestUtil.createPremisRightsRecord())
+            .build();
+
         ByteArrayOutputStream sink = new ByteArrayOutputStream();
         m.serialize(r, sink);
         Representation deserialized = m.deserialize(Representation.class, new ByteArrayInputStream(sink.toByteArray()));
         assertEquals("Ids do not match", r.getIdentifier().getValue(), deserialized.getIdentifier().getValue());
         assertTrue(sink.toString().length() > 0);
+        assertNotNull(deserialized.getTechnical());
+        assertNotNull(deserialized.getSource());
+        assertNotNull(deserialized.getRights());
+        assertNotNull(deserialized.getProvenance());
+
+        assertEquals(TextMD.class, deserialized.getTechnical().getClass());
+        assertEquals(ElementContainer.class, deserialized.getSource().getClass());
+        assertEquals(JAXBElement.class, deserialized.getRights().getClass());
+        assertEquals(JAXBElement.class, deserialized.getProvenance().getClass());
     }
 
     @Test

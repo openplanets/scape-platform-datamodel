@@ -1,32 +1,60 @@
+
 package eu.scapeproject.model;
+
+import gov.loc.mix.v20.Mix;
+import info.lc.xmlns.textmd_v3.TextMD;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlElementRefs;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
+import org.purl.dc.elements._1.ElementContainer;
+
+import com.google.books.gbs.GbsType;
+
+import edu.harvard.hul.ois.xml.ns.fits.fits_output.Fits;
 import eu.scapeproject.util.CopyUtil;
 
 @XmlRootElement(name = "representation", namespace = "http://scapeproject.eu/model")
-@XmlAccessorType(XmlAccessType.FIELD)    
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Representation {
+
     @XmlElement(name = "identifier", namespace = "http://scapeproject.eu/model")
     private final Identifier identifier;
+
     @XmlAnyElement
+    @XmlElementRef(name = "sourceMD", type = ElementContainer.class)
     private final Object source;
+
     @XmlAnyElement
+    @XmlElementRef(name = "premis", namespace = "info:lc/xmlns/premis-v2", type = JAXBElement.class)
     private final Object provenance;
-    @XmlAnyElement(lax=true)
-    private final Object technical;
+
     @XmlAnyElement
+    @XmlElementRefs({
+            @XmlElementRef(name = "textMD", type = TextMD.class),
+            @XmlElementRef(name = "fits", type = Fits.class),
+            @XmlElementRef(name = "mix", type = Mix.class),
+            @XmlElementRef(name = "gbs", type = GbsType.class),
+            @XmlElementRef(name = "VIDEOMD", namespace = "http://www.loc.gov/videoMD/", type = JAXBElement.class),
+            @XmlElementRef(name = "AUDIOMD", namespace = "http://www.loc.gov/audioMD/", type = JAXBElement.class)})
+    private final Object technical;
+
+    @XmlAnyElement
+    @XmlElementRef(name = "rights", namespace = "info:lc/xmlns/premis-v2", type = JAXBElement.class)
     private final Object rights;
+
     @XmlElement(name = "files", namespace = "http://scapeproject.eu/model")
     private final List<File> files;
+
     @XmlElement(name = "title", namespace = "http://scapeproject.eu/model")
     private final String title;
 
@@ -81,30 +109,32 @@ public class Representation {
 
     @Override
     public String toString() {
-        return "Representation ["
-                + "identifier=" + identifier
-                + ", source=" + source
-                + ", provenance=" + provenance
-                + ", technical=" + technical
-                + ", rights=" + rights
-                + ", files=" + files
-                + ", title=" + title
-                + "]";
+        return "Representation [" + "identifier=" + identifier + ", source=" +
+                source + ", provenance=" + provenance + ", technical=" +
+                technical + ", rights=" + rights + ", files=" + files +
+                ", title=" + title + "]";
     }
 
     public static class Builder {
+
         private Object source;
+
         private Object provenance;
+
         private Object technical;
+
         private Object rights;
+
         private List<File> files = new ArrayList<File>();
+
         private Identifier id;
+
         private String title;
 
-        public Builder(){
-        	super();
+        public Builder() {
+            super();
         }
-        
+
         public Builder(Identifier id) {
             super();
             this.id = id;

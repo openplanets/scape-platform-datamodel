@@ -56,12 +56,13 @@ public abstract class TestUtil {
 
         Representation rep =
                 new Representation.Builder(new Identifier("representation-1"))
-                        .files(Arrays.asList(f)).technical(
-                                TestUtil.createTextMDRecord()).title(
-                                "Text representation").provenance(
-                                TestUtil.createPremisDigiProvRecord()).rights(
-                                TestUtil.createPremisRightsRecord()).source(
-                                TestUtil.createDCSourceRecord()).build();
+                        .files(Arrays.asList(f))
+                        .title("Text representation")
+                        .technical(TestUtil.createTextMDRecord())
+                        .provenance(TestUtil.createPremisDigiProvRecord())
+                        .rights(TestUtil.createPremisRightsRecord())
+                        .source(TestUtil.createDCSourceRecord())
+                        .build();
 
         IntellectualEntity e =
                 new IntellectualEntity.Builder().identifier(
