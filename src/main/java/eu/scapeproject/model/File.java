@@ -26,7 +26,7 @@ public class File {
 	private final String mimetype;
 	@XmlAttribute(name = "filename")
 	private final String filename;
-	@XmlAnyElement
+	@XmlAnyElement(lax = true)
     @XmlElementRefs({
         @XmlElementRef(name = "textMD", type = TextMD.class),
         @XmlElementRef(name = "fits", type = Fits.class),

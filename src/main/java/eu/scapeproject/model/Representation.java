@@ -30,15 +30,15 @@ public class Representation {
     @XmlElement(name = "identifier", namespace = "http://scapeproject.eu/model")
     private final Identifier identifier;
 
-    @XmlAnyElement
+    @XmlAnyElement(lax = true)
     @XmlElementRef(name = "sourceMD", type = ElementContainer.class)
     private final Object source;
 
-    @XmlAnyElement
+    @XmlAnyElement(lax = true)
     @XmlElementRef(name = "premis", namespace = "info:lc/xmlns/premis-v2", type = JAXBElement.class)
     private final Object provenance;
 
-    @XmlAnyElement
+    @XmlAnyElement(lax = true)
     @XmlElementRefs({
             @XmlElementRef(name = "textMD", type = TextMD.class),
             @XmlElementRef(name = "fits", type = Fits.class),
@@ -48,7 +48,7 @@ public class Representation {
             @XmlElementRef(name = "AUDIOMD", namespace = "http://www.loc.gov/audioMD/", type = JAXBElement.class)})
     private final Object technical;
 
-    @XmlAnyElement
+    @XmlAnyElement(lax = true)
     @XmlElementRef(name = "rights", namespace = "info:lc/xmlns/premis-v2", type = JAXBElement.class)
     private final Object rights;
 

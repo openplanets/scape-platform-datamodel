@@ -21,7 +21,7 @@ public class BitStream {
 
     @XmlElement(name = "type", namespace = "http://scapeproject.eu/model")
     private final Type type;
-    @XmlAnyElement
+    @XmlAnyElement(lax = true)
     @XmlElementRefs({
         @XmlElementRef(name = "textMD", type = TextMD.class),
         @XmlElementRef(name = "fits", type = Fits.class),
