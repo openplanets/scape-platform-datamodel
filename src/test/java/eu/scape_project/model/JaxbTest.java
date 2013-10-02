@@ -11,7 +11,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package eu.scapeproject.model;
+package eu.scape_project.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -36,10 +36,10 @@ import org.purl.dc.elements._1.ElementContainer;
 
 import com.google.books.gbs.GbsType;
 
-import eu.scapeproject.model.LifecycleState.State;
-import eu.scapeproject.model.plan.PlanExecutionState;
-import eu.scapeproject.model.plan.PlanExecutionStateCollection;
-import eu.scapeproject.util.ScapeMarshaller;
+import eu.scape_project.model.LifecycleState.State;
+import eu.scape_project.model.plan.PlanExecutionState;
+import eu.scape_project.model.plan.PlanExecutionStateCollection;
+import eu.scape_project.util.ScapeMarshaller;
 import gov.loc.marc21.slim.RecordType;
 import gov.loc.mets.MetsType;
 
@@ -342,7 +342,7 @@ public class JaxbTest {
 
     @Test
     public void testPlanExecutionStateDeserialization() throws Exception {
-        PlanExecutionState state = new PlanExecutionState(new Date(),eu.scapeproject.model.plan.PlanExecutionState.ExecutionState.EXECUTION_SUCCESS);
+        PlanExecutionState state = new PlanExecutionState(new Date(),eu.scape_project.model.plan.PlanExecutionState.ExecutionState.EXECUTION_SUCCESS);
         ScapeMarshaller m = ScapeMarshaller.newInstance();
         ByteArrayOutputStream sink = new ByteArrayOutputStream();
         m.serialize(state, sink);
@@ -354,9 +354,9 @@ public class JaxbTest {
     @Test
     public void testPlanExecutionStateCollectionDeserialization() throws Exception {
         List<PlanExecutionState> states = new ArrayList<PlanExecutionState>();
-        states.add(new PlanExecutionState(new Date(),eu.scapeproject.model.plan.PlanExecutionState.ExecutionState.EXECUTION_FAIL));
-        states.add(new PlanExecutionState(new Date(),eu.scapeproject.model.plan.PlanExecutionState.ExecutionState.EXECUTION_IN_PROGRESS));
-        states.add(new PlanExecutionState(new Date(),eu.scapeproject.model.plan.PlanExecutionState.ExecutionState.EXECUTION_SUCCESS));
+        states.add(new PlanExecutionState(new Date(),eu.scape_project.model.plan.PlanExecutionState.ExecutionState.EXECUTION_FAIL));
+        states.add(new PlanExecutionState(new Date(),eu.scape_project.model.plan.PlanExecutionState.ExecutionState.EXECUTION_IN_PROGRESS));
+        states.add(new PlanExecutionState(new Date(),eu.scape_project.model.plan.PlanExecutionState.ExecutionState.EXECUTION_SUCCESS));
 
         PlanExecutionStateCollection coll = new PlanExecutionStateCollection("http://localhost:8080/rest/objects/plans/plan-1",states);
 

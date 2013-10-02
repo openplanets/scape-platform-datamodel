@@ -11,7 +11,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package eu.scapeproject.model;
+package eu.scape_project.model;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -23,13 +23,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 * @author frank asseg
 *
 */
-@XmlRootElement(name="identifier",namespace="http://scapeproject.eu/model")
+@XmlRootElement(name="identifier",namespace="http://scape-project.eu/model")
 public class Identifier {
 
 
 	@XmlAttribute(name="type")
     protected final String type;
-	@XmlElement(name="value",namespace="http://scapeproject.eu/model")
+	@XmlElement(name="value",namespace="http://scape-project.eu/model")
     protected final String value;
 
     @SuppressWarnings("unused")

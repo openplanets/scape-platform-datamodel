@@ -11,7 +11,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package eu.scapeproject.model.jaxb;
+package eu.scape_project.model.jaxb;
 
 import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 
@@ -43,7 +43,7 @@ public class ScapeNamespacePrefixMapper extends NamespacePrefixMapper {
             return "vmd";
         } else if (namespaceUri.toLowerCase().equals("http://www.w3.org/2001/xmlschema-instance")) {
             return "xsi";
-        } else if (namespaceUri.toLowerCase().equals("http://scapeproject.eu/model")) {
+        } else if (namespaceUri.toLowerCase().equals("http://scape-project.eu/model")) {
             return "scape";
         } else if (namespaceUri.toLowerCase().equals("http://www.loc.gov/marc21/slim")) {
             return "marc";

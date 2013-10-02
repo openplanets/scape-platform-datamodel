@@ -11,11 +11,11 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package eu.scapeproject.util;
+package eu.scape_project.util;
 
 import javax.xml.bind.JAXBException;
 
-import eu.scapeproject.model.IntellectualEntity;
+import eu.scape_project.model.IntellectualEntity;
 import gov.loc.mets.MetsType;
 
 /**

@@ -11,7 +11,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package eu.scapeproject.model.plan;
+package eu.scape_project.model.plan;
 
 import java.util.Date;
 
@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 * @author frank asseg
 *
 */
-@XmlRootElement(name="plan-execution-state",namespace="http://scapeproject.eu/model")
+@XmlRootElement(name="plan-execution-state",namespace="http://scape-project.eu/model")
 public class PlanExecutionState implements Comparable<PlanExecutionState>{
     public enum ExecutionState {
         EXECUTION_IN_PROGRESS, EXECUTION_SUCCESS, EXECUTION_FAIL;

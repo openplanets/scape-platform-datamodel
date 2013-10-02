@@ -11,7 +11,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package eu.scapeproject.model;
+package eu.scape_project.model;
 
 import gov.loc.mets.Mets;
 
@@ -20,7 +20,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "entity-list", namespace = "http://scapeproject.eu/model")
+@XmlRootElement(name = "entity-list", namespace = "http://scape-project.eu/model")
 /**
  * For internal use. This is needed for mapping in between scape model and mets model
  * should probably done using an XmlAdapter, but time is of the essence atm...

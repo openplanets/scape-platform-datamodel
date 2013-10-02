@@ -12,7 +12,7 @@
    limitations under the License.
  */
 
-package eu.scapeproject.model;
+package eu.scape_project.model;
 
 import info.lc.xmlns.premis_v2.CopyrightInformationComplexType;
 import info.lc.xmlns.premis_v2.EventComplexType;

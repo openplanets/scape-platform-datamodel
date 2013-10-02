@@ -11,7 +11,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package eu.scapeproject.model;
+package eu.scape_project.model;
 
 import java.util.List;
 
@@ -24,12 +24,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 * @author frank asseg
 *
 */
-@XmlRootElement(name = "version-list", namespace = "http://scapeproject.eu/model")
+@XmlRootElement(name = "version-list", namespace = "http://scape-project.eu/model")
 public class VersionList {
 
     @XmlAttribute(name = "id")
     private final String entityId;
-    @XmlElement(name = "version", namespace = "http://scapeproject.eu/model")
+    @XmlElement(name = "version", namespace = "http://scape-project.eu/model")
     private final List<String> versionIdentifiers;
 
     @SuppressWarnings("unused")

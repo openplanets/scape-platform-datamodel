@@ -11,14 +11,14 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package eu.scapeproject.util;
+package eu.scape_project.util;
 
 import edu.harvard.hul.ois.xml.ns.fits.fits_output.Fits;
-import eu.scapeproject.model.File;
-import eu.scapeproject.model.Identifier;
-import eu.scapeproject.model.IntellectualEntity;
-import eu.scapeproject.model.LifecycleState;
-import eu.scapeproject.model.Representation;
+import eu.scape_project.model.File;
+import eu.scape_project.model.Identifier;
+import eu.scape_project.model.IntellectualEntity;
+import eu.scape_project.model.LifecycleState;
+import eu.scape_project.model.Representation;
 import gov.loc.audiomd.AudioType;
 import gov.loc.mets.DivType;
 import gov.loc.mets.DivType.Fptr;

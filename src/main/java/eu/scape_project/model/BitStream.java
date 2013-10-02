@@ -11,7 +11,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package eu.scapeproject.model;
+package eu.scape_project.model;
 
 import gov.loc.mix.v20.Mix;
 import info.lc.xmlns.textmd_v3.TextMD;
@@ -27,17 +27,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.google.books.gbs.GbsType;
 
 import edu.harvard.hul.ois.xml.ns.fits.fits_output.Fits;
-import eu.scapeproject.util.CopyUtil;
+import eu.scape_project.util.CopyUtil;
 
 /**
 *
 * @author frank asseg
 *
 */
-@XmlRootElement(name = "bitstream", namespace = "http://scapeproject.eu/model")
+@XmlRootElement(name = "bitstream", namespace = "http://scape-project.eu/model")
 public class BitStream {
 
-    @XmlElement(name = "type", namespace = "http://scapeproject.eu/model")
+    @XmlElement(name = "type", namespace = "http://scape-project.eu/model")
     private final Type type;
     @XmlAnyElement(lax = true)
     @XmlElementRefs({
@@ -48,7 +48,7 @@ public class BitStream {
         @XmlElementRef(name = "VIDEOMD", namespace = "http://www.loc.gov/videoMD/", type = JAXBElement.class),
         @XmlElementRef(name = "AUDIOMD", namespace = "http://www.loc.gov/audioMD/", type = JAXBElement.class)})
     private final Object technical;
-    @XmlElement(name = "identifier", namespace = "http://scapeproject.eu/model")
+    @XmlElement(name = "identifier", namespace = "http://scape-project.eu/model")
     private final Identifier identifier;
 
     private BitStream() {

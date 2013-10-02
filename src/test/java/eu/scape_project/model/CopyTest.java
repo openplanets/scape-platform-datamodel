@@ -11,7 +11,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package eu.scapeproject.model;
+package eu.scape_project.model;
 
 import static org.junit.Assert.assertTrue;
 
@@ -19,7 +19,7 @@ import java.util.UUID;
 
 import org.junit.Test;
 
-import eu.scapeproject.util.CopyUtil;
+import eu.scape_project.util.CopyUtil;
 
 /**
 *

@@ -11,7 +11,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package eu.scapeproject.util;
+package eu.scape_project.util;
 
 import info.lc.xmlns.premis_v2.Bitstream;
 
@@ -33,14 +33,14 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
-import eu.scapeproject.model.File;
-import eu.scapeproject.model.IntellectualEntity;
-import eu.scapeproject.model.IntellectualEntityCollection;
-import eu.scapeproject.model.Representation;
-import eu.scapeproject.model.__IntellectualEntityCollection;
-import eu.scapeproject.model.jaxb.ScapeNamespacePrefixMapper;
-import eu.scapeproject.model.plan.PlanExecutionState;
-import eu.scapeproject.model.plan.PlanExecutionStateCollection;
+import eu.scape_project.model.File;
+import eu.scape_project.model.IntellectualEntity;
+import eu.scape_project.model.IntellectualEntityCollection;
+import eu.scape_project.model.Representation;
+import eu.scape_project.model.__IntellectualEntityCollection;
+import eu.scape_project.model.jaxb.ScapeNamespacePrefixMapper;
+import eu.scape_project.model.plan.PlanExecutionState;
+import eu.scape_project.model.plan.PlanExecutionStateCollection;
 import gov.loc.mets.Mets;
 import gov.loc.mets.MetsType;
 
@@ -58,7 +58,7 @@ public class ScapeMarshaller {
 
     private ScapeMarshaller(IntellectualEntityConverter[] converter) throws JAXBException {
         this.context = JAXBContext
-                .newInstance("eu.scapeproject.model:eu.scapeproject.model.plan:com.google.books.gbs:edu.harvard.hul.ois.xml.ns.fits.fits_output:info.lc.xmlns.textmd_v3:gov.loc.audiomd:gov.loc.marc21.slim:gov.loc.mets:gov.loc.mix.v20:gov.loc.videomd:info.lc.xmlns.premis_v2:org.purl.dc.elements._1");
+                .newInstance("eu.scape_project.model:eu.scape_project.model.plan:com.google.books.gbs:edu.harvard.hul.ois.xml.ns.fits.fits_output:info.lc.xmlns.textmd_v3:gov.loc.audiomd:gov.loc.marc21.slim:gov.loc.mets:gov.loc.mix.v20:gov.loc.videomd:info.lc.xmlns.premis_v2:org.purl.dc.elements._1");
         this.marshaller = context.createMarshaller();
         this.marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new ScapeNamespacePrefixMapper());
         this.marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);

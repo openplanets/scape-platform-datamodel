@@ -11,20 +11,20 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package eu.scapeproject.model;
+package eu.scape_project.model;
 
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import eu.scapeproject.util.CopyUtil;
+import eu.scape_project.util.CopyUtil;
 
 /**
 *
 * @author frank asseg
 *
 */
-@XmlRootElement(name = "entity", namespace = "http://scapeproject.eu/model")
+@XmlRootElement(name = "entity", namespace = "http://scape-project.eu/model")
 public class IntellectualEntity {
 
     private final int versionNumber;

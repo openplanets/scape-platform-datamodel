@@ -11,41 +11,46 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package eu.scapeproject.model;
+package eu.scape_project.model.plan;
+
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
-
 
 /**
 *
 * @author frank asseg
 *
 */
-@XmlRootElement(name="versionMD", namespace="http://scapeproject.eu/model")
+@XmlRootElement(name = "plan-execution-states", namespace = "http://scape-project.eu/model")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class VersionMetadata {
-    @XmlAttribute(name="version-number")
-    private int versionNumber;
+public class PlanExecutionStateCollection {
+    @XmlAttribute(name = "uri")
+    private final String uri;
+    @XmlElementWrapper(name = "states", namespace = "http://scape-project.eu/model")
+    public final List<PlanExecutionState> executionStates;
 
-    public VersionMetadata() {
+    public PlanExecutionStateCollection() {
+        this.uri = null;
+        this.executionStates = null;
+    }
+
+    public PlanExecutionStateCollection(String uri, List<PlanExecutionState> executionStates) {
         super();
+        this.uri = uri;
+        this.executionStates = executionStates;
     }
 
-    public VersionMetadata(int versionNumber) {
-        super();
-        this.versionNumber = versionNumber;
+    public String getUri() {
+        return uri;
     }
 
-    public void setVersionNumber(int versionNumber) {
-        this.versionNumber = versionNumber;
-    }
-
-
-    public int getVersionNumber() {
-        return versionNumber;
+    public List<PlanExecutionState> getExecutionStates() {
+        return executionStates;
     }
 
 }

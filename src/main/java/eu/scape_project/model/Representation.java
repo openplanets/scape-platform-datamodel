@@ -12,7 +12,7 @@
    limitations under the License.
  */
 
-package eu.scapeproject.model;
+package eu.scape_project.model;
 
 import gov.loc.mix.v20.Mix;
 import info.lc.xmlns.textmd_v3.TextMD;
@@ -34,18 +34,18 @@ import org.purl.dc.elements._1.ElementContainer;
 import com.google.books.gbs.GbsType;
 
 import edu.harvard.hul.ois.xml.ns.fits.fits_output.Fits;
-import eu.scapeproject.util.CopyUtil;
+import eu.scape_project.util.CopyUtil;
 
 /**
 *
 * @author frank asseg
 *
 */
-@XmlRootElement(name = "representation", namespace = "http://scapeproject.eu/model")
+@XmlRootElement(name = "representation", namespace = "http://scape-project.eu/model")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Representation {
 
-    @XmlElement(name = "identifier", namespace = "http://scapeproject.eu/model")
+    @XmlElement(name = "identifier", namespace = "http://scape-project.eu/model")
     private final Identifier identifier;
 
     @XmlAnyElement(lax = true)
@@ -70,10 +70,10 @@ public class Representation {
     @XmlElementRef(name = "rights", namespace = "info:lc/xmlns/premis-v2", type = JAXBElement.class)
     private final Object rights;
 
-    @XmlElement(name = "files", namespace = "http://scapeproject.eu/model")
+    @XmlElement(name = "files", namespace = "http://scape-project.eu/model")
     private final List<File> files;
 
-    @XmlElement(name = "title", namespace = "http://scapeproject.eu/model")
+    @XmlElement(name = "title", namespace = "http://scape-project.eu/model")
     private final String title;
 
     private Representation() {
