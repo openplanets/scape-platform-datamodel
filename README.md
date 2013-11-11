@@ -98,6 +98,7 @@ Updating the ONB converter introduced a dependency to gov.loc.pairtree:1.1.1 Thi
 
 ```bash
 wget http://downloads.sourceforge.net/project/loc-xferutils/loc-pairtree-java-library/pairtree-1.1.1.jar?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Floc-xferutils%2Ffiles%2Floc-pairtree-java-library%2F&ts=1384173580&use_mirror=heanet
+
 mvn install:install-file -Dfile=/path/to/pairtree-1.1.1.jar -DartifactId=pairtree -Dversion=1.1.1 -DgroupId=gov.loc -Dpackaging=jar
 ```
 
