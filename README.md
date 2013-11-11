@@ -29,10 +29,12 @@ Immutability & Builders
 =======================
 All objects are immutable and are constructed using their respective inner Builder classes, and allow for method chaining.
 
-    	IntellectualEntity entity = new IntellectualEntity.Builder()
-    		.identifier(new Identifier("minimal-1"))
-    		.descriptive(TestUtil.createMinimalDC())
-    		.build();
+```Java
+IntellectualEntity entity = new IntellectualEntity.Builder()
+	.identifier(new Identifier("minimal-1"))
+    .descriptive(TestUtil.createMinimalDC())
+    .build();
+```
 
 Deep Copying
 ============
@@ -41,28 +43,55 @@ All copies should be deep copy for thread safety issues.
 In order to get a copy of an Object you can either create a new Builder from it's respective outer class,
 or employ the Utility class CopyUtil to get a plain deep copy without the Builder:
 
-    	IntellectualEntity orig = new IntellectualEntity.Builder()
-    		.identifier(new Identifier("minimal-1"))
-    		.descriptive(TestUtil.createMinimalDC())
-    		.build();
+```Java
+IntellectualEntity orig = new IntellectualEntity.Builder()
+	.identifier(new Identifier("minimal-1"))
+    .descriptive(TestUtil.createMinimalDC())
+    .build();
+```
 
-		IntellectualEntity copy1=new IntellectualEntity.Builder(orig)
-			.identifier(new Identifier("copy-1"))
-			.build();
+```Java
+IntellectualEntity copy1=new IntellectualEntity.Builder(orig)
+	.identifier(new Identifier("copy-1"))
+	.build();
+```
 
-		IntellectualEntity copy2 = CopyUtil.deepCopy(IntellectualEntity.class, orig);			
+```Java
+IntellectualEntity copy2 = CopyUtil.deepCopy(IntellectualEntity.class, orig);			
+```
 
 Serialization/Deserialization
 =============================
 An example for serialization of an Intellectual Entity into it's METS representation looks like this:
 
-        IntellectualEntity entity = TestUtil.createRandomEntity();
-        SCAPEMarshaller.getInstance().serialize(entity, System.out);
-        
+```Java
+IntellectualEntity entity = TestUtil.createRandomEntity();
+SCAPEMarshaller.getInstance().serialize(entity, System.out);
+```        
 
 An example for deseriialization looks like this:
 
-		InputStream in = new FileInputStream("entity-1.xml");
-		IntellectualEntity deserialized=SCAPEMarshaller.getInstance().deserialize(IntellectualEntity.class, in);        
+```Java
+InputStream in = new FileInputStream("entity-1.xml");
+IntellectualEntity deserialized=SCAPEMarshaller.getInstance().deserialize(IntellectualEntity.class, in);
+```
+		
+Base path and encapsulated directory settings for ONBConverter
+==============================================================
+
+Since the file paths at the austrian national library are created using a provided Pairtree parser two additional properties are exposed for parsing files from the ONB:
+
+
+* scape.onb.pairtree.basepath The base path where the files at ONB are located
+```Java
+JAVA_OPTS="%JAVA_OPTS -Dscape.onb.pairtree.basepath=/tmp/scape/onb
+```
+
+* scape.onb.pairtree.encapsulated The encapsulated directory of the path
+```Java
+JAVA_OPTS="%JAVA_OPTS -Dscape.onb.pairtree.basepath=onb
+```
+
+
 
                                               

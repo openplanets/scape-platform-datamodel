@@ -8,7 +8,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>eu.scape-project.model</groupId>
 	<artifactId>scape-platform-datamodel</artifactId>
-	<version>0.1.4-SNAPSHOT</version>
+	<version>0.1.5-SNAPSHOT</version>
 	<name>scape-platform-datamodel</name>
 	<scm>
 		<connection>scm:git:git@github.com:openplanets/scape-platform-datamodel.git</connection>
@@ -30,6 +30,15 @@
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<!-- This is needed in order to generate Path for ONB's METS files -->
+			<!-- Problem is that it's not available on maven central so i e.g. -->
+			<!-- Downloaded it from http://sourceforge.net/projects/loc-xferutils/files/loc-pairtree-java-library/pairtree-1.1.1.jar/download -->
+			<!-- and installed it manually in the local repo using mvn install:install-file ... -->
+			<groupId>gov.loc</groupId>
+			<artifactId>pairtree</artifactId>
+			<version>1.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

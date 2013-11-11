@@ -55,6 +55,9 @@ public class ScapeMarshaller {
     private final Marshaller marshaller;
     private final Unmarshaller unmarshaller;
     private final JAXBContext context;
+    
+    public static String PROPERTY_ONB_PAITREE_BASEPATH="scape.onb.pairtree.basepath";
+    public static String PROPERTY_ONB_PAIRTREE_ENCAPSULATED_DIR="scape.onb.pairtree.encapsulated";
 
     private ScapeMarshaller(IntellectualEntityConverter[] converter) throws JAXBException {
         this.context = JAXBContext
@@ -74,7 +77,10 @@ public class ScapeMarshaller {
         /*
          * create and add the ONB mets converter to convert ONB mets files into IntellectualEntities
          */
-        ONBConverter onb = new ONBConverter();
+        final String basePath = System.getProperty(PROPERTY_ONB_PAITREE_BASEPATH) == null ? "/tmp/scape/aboonb/linktree" : System.getProperty(PROPERTY_ONB_PAITREE_BASEPATH);
+        final String encapsulatedDir = System.getProperty(PROPERTY_ONB_PAIRTREE_ENCAPSULATED_DIR) == null ? "abo" : System.getProperty(PROPERTY_ONB_PAIRTREE_ENCAPSULATED_DIR);
+
+        ONBConverter onb = new ONBConverter(basePath, encapsulatedDir);
         this.converters.put(onb.getProfileName(), onb);
 
         /*

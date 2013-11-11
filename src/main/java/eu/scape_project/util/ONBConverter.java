@@ -27,12 +27,15 @@ import gov.loc.mets.MdSecType;
 import gov.loc.mets.MetsType;
 import gov.loc.mets.StructMapType;
 import gov.loc.mix.v20.Mix;
+import gov.loc.repository.pairtree.Pairtree;
 import gov.loc.videomd.VideoType;
 import info.lc.xmlns.premis_v2.PremisComplexType;
 import info.lc.xmlns.premis_v2.RightsComplexType;
 import info.lc.xmlns.textmd_v3.TextMD;
 
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -55,8 +58,16 @@ import com.google.books.gbs.ProductionNotesType;
 *
 */
 public class ONBConverter extends IntellectualEntityConverter {
-	public ONBConverter() {
+	
+	private final String basePath;
+	
+	private final String encapsulatingDir;
+	
+	
+	public ONBConverter(String basePath, String encapsulatingDir) {
 		super("gbs");
+		this.basePath = basePath;
+		this.encapsulatingDir = encapsulatingDir;
 	}
 
 	@Override
@@ -199,7 +210,17 @@ public class ONBConverter extends IntellectualEntityConverter {
 					}
 				}
 				f.identifier(new Identifier(metsFile.getID()));
-				f.uri(URI.create("file://" + mets.getOBJID() + "/" + metsFile.getFLocat().get(0).getHref()));
+				final int separatorPos = metsFile.getFLocat().get(0).getHref().lastIndexOf('.');
+				if (separatorPos == -1) {
+					throw new RuntimeException("Unable to retrieve file id from filename for Pairtree Path conversion");
+				}
+				final String fileId = metsFile.getFLocat().get(0).getHref().substring(0, separatorPos);
+				final String fileExtension = metsFile.getFLocat().get(0).getHref().substring(separatorPos + 1);
+				try {
+					f.uri(new URI("file",getPathFromBarcodePageId(mets.getOBJID(), fileId, fileExtension), null));
+				} catch (URISyntaxException e) {
+					throw new RuntimeException(e);
+				}
 			}
 		}
 		return f.build();
@@ -296,5 +317,13 @@ public class ONBConverter extends IntellectualEntityConverter {
 		}
 		return null;
 	}
+	
+    public String getPathFromBarcodePageId(String objectId, String fileId,String extension) {
+        Pairtree pt = new Pairtree();
+        String path = pt.mapToPPath(this.basePath, objectId, this.encapsulatingDir);
+        path += java.io.File.separator + fileId+"."+extension;
+        return path;
+    }
+
 
 }
