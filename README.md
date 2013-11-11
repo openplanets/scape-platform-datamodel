@@ -82,16 +82,23 @@ Base path and encapsulated directory settings for ONBConverter
 Since the file paths at the austrian national library are created using a provided Pairtree parser two additional properties are exposed for parsing files from the ONB:
 
 
-* scape.onb.pairtree.basepath The base path where the files at ONB are located
+* _scape.onb.pairtree.basepath_ The base path where the files at ONB are located
 ```Java
 JAVA_OPTS="$JAVA_OPTS -Dscape.onb.pairtree.basepath=/tmp/scape/onb"
 ```
 
-* scape.onb.pairtree.encapsulated The encapsulated directory of the path
+* _scape.onb.pairtree.encapsulated_ The encapsulated directory of the path
 ```Java
 JAVA_OPTS="$JAVA_OPTS -Dscape.onb.pairtree.basepath=onb"
 ```
 
+Dependency to paitree
+=====================
+Updating the ONB converter introduced a dependency to gov.loc.pairtree:1.1.1 This is not available on maven central! So you will have to install it manually in your local maven repository:
 
+```bash
+wget http://downloads.sourceforge.net/project/loc-xferutils/loc-pairtree-java-library/pairtree-1.1.1.jar?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Floc-xferutils%2Ffiles%2Floc-pairtree-java-library%2F&ts=1384173580&use_mirror=heanet
+mvn install:install-file -Dfile=/path/to/pairtree-1.1.1.jar -DartifactId=pairtree -Dversion=1.1.1 -DgroupId=gov.loc -Dpackaging=jar
+```
 
                                               
