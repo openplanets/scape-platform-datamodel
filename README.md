@@ -84,12 +84,12 @@ Since the file paths at the austrian national library are created using a provid
 
 * scape.onb.pairtree.basepath The base path where the files at ONB are located
 ```Java
-JAVA_OPTS="%JAVA_OPTS -Dscape.onb.pairtree.basepath=/tmp/scape/onb
+JAVA_OPTS="$JAVA_OPTS -Dscape.onb.pairtree.basepath=/tmp/scape/onb"
 ```
 
 * scape.onb.pairtree.encapsulated The encapsulated directory of the path
 ```Java
-JAVA_OPTS="%JAVA_OPTS -Dscape.onb.pairtree.basepath=onb
+JAVA_OPTS="$JAVA_OPTS -Dscape.onb.pairtree.basepath=onb"
 ```
 
 
