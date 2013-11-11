@@ -179,7 +179,8 @@ public abstract class TestUtil {
         File f1 = new File.Builder()
                         .bitStreams(Arrays.asList(bs_1))
                         .identifier(new Identifier("file-1"))
-                        .uri(URI.create("http://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Wikipedia_wordmark.svg/174px-Wikipedia_wordmark.svg.png"))
+                        .uri(URI.create(TestUtil.class.getClassLoader().getResource(
+                                "scape_logo.png").toString()))
                         .technical(TestUtil.createMIXRecord()).mimetype(
                                 "image/png").build();
 
@@ -197,7 +198,8 @@ public abstract class TestUtil {
 
         File f2 = new File.Builder().bitStreams(Arrays.asList(bs_2)).identifier(
                         new Identifier("file-2"))
-                                .uri(URI.create("http://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Wikipedia_wordmark.svg/174px-Wikipedia_wordmark.svg.png"))
+                                .uri(URI.create(TestUtil.class.getClassLoader().getResource(
+                                        "scape_logo.png").toString()))
                                 .technical(TestUtil.createMIXRecord()).mimetype(
                                         "image/png").build();
 
@@ -216,7 +218,8 @@ public abstract class TestUtil {
         File f3 = new File.Builder()
                         .bitStreams(Arrays.asList(bs_3))
                         .identifier(new Identifier("file-3"))
-                        .uri(URI.create("http://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Wikipedia_wordmark.svg/174px-Wikipedia_wordmark.svg.png"))
+                        .uri(URI.create(TestUtil.class.getClassLoader().getResource(
+                                "scape_logo.png").toString()))
                         .technical(TestUtil.createMIXRecord())
                         .mimetype("image/png")
                         .build();

@@ -199,7 +199,7 @@ public class ONBConverter extends IntellectualEntityConverter {
 					}
 				}
 				f.identifier(new Identifier(metsFile.getID()));
-				f.uri(URI.create(metsFile.getFLocat().get(0).getHref()));
+				f.uri(URI.create("file://" + mets.getOBJID() + "/" + metsFile.getFLocat().get(0).getHref()));
 			}
 		}
 		return f.build();

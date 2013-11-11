@@ -26,6 +26,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.xml.bind.JAXBElement;
@@ -39,9 +40,13 @@ import com.google.books.gbs.GbsType;
 import eu.scape_project.model.LifecycleState.State;
 import eu.scape_project.model.plan.PlanExecutionState;
 import eu.scape_project.model.plan.PlanExecutionStateCollection;
+import eu.scape_project.util.ONBConverter;
 import eu.scape_project.util.ScapeMarshaller;
 import gov.loc.marc21.slim.RecordType;
+import gov.loc.mets.FileType;
+import gov.loc.mets.FileType.FLocat;
 import gov.loc.mets.MetsType;
+import gov.loc.mets.MetsType.FileSec.FileGrp;
 
 /**
 *
@@ -68,6 +73,16 @@ public class JaxbTest {
     public void testONBMETSDeserialization() throws Exception {
         Object o = ScapeMarshaller.newInstance().deserialize(this.getClass().getClassLoader().getResourceAsStream("ONB_mets_example.xml"));
         assertTrue(o instanceof MetsType);
+    }
+
+    @Test
+    public void testONBMETSDeserializationTransientFiles() throws Exception {
+        IntellectualEntity e = ScapeMarshaller.newInstance().deserialize(IntellectualEntity.class, this.getClass().getClassLoader().getResourceAsStream("ONB_mets_example.xml"));
+        for (Representation r: e.getRepresentations()) {
+        	for (File f: r.getFiles()) {
+        		System.out.println(f.getUri());
+        	}
+        }
     }
 
     @Test
