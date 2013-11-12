@@ -89,7 +89,7 @@ JAVA_OPTS="$JAVA_OPTS -Dscape.onb.pairtree.basepath=/tmp/scape/onb"
 
 * _scape.onb.pairtree.encapsulated_ The encapsulated directory of the path
 ```Java
-JAVA_OPTS="$JAVA_OPTS -Dscape.onb.pairtree.basepath=onb"
+JAVA_OPTS="$JAVA_OPTS -Dscape.onb.pairtree.encapsulated=onb"
 ```
 
 Dependency to paitree
