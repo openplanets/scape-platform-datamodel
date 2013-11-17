@@ -8,7 +8,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>eu.scape-project.model</groupId>
 	<artifactId>scape-platform-datamodel</artifactId>
-	<version>0.1.6-SNAPSHOT</version>
+	<version>0.1.7-SNAPSHOT</version>
 	<name>scape-platform-datamodel</name>
 	<scm>
 		<connection>scm:git:git@github.com:openplanets/scape-platform-datamodel.git</connection>

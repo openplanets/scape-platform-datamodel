@@ -11,6 +11,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
+
 package eu.scape_project.util;
 
 import info.lc.xmlns.premis_v2.Bitstream;
@@ -51,45 +52,90 @@ import gov.loc.mets.MetsType;
 */
 public class ScapeMarshaller {
 
-    private final Map<String, IntellectualEntityConverter> converters = new HashMap<String, IntellectualEntityConverter>();
-    private final Marshaller marshaller;
-    private final Unmarshaller unmarshaller;
-    private final JAXBContext context;
-    
-    public static String PROPERTY_ONB_PAITREE_BASEPATH="scape.onb.pairtree.basepath";
-    public static String PROPERTY_ONB_PAIRTREE_ENCAPSULATED_DIR="scape.onb.pairtree.encapsulated";
+    private final Map<String, IntellectualEntityConverter> converters =
+            new HashMap<String, IntellectualEntityConverter>();
 
-    private ScapeMarshaller(IntellectualEntityConverter[] converter) throws JAXBException {
-        this.context = JAXBContext
-                .newInstance("eu.scape_project.model:eu.scape_project.model.plan:com.google.books.gbs:edu.harvard.hul.ois.xml.ns.fits.fits_output:info.lc.xmlns.textmd_v3:gov.loc.audiomd:gov.loc.marc21.slim:gov.loc.mets:gov.loc.mix.v20:gov.loc.videomd:info.lc.xmlns.premis_v2:org.purl.dc.elements._1");
-        this.marshaller = context.createMarshaller();
-        this.marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new ScapeNamespacePrefixMapper());
-        this.marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
-        this.unmarshaller = context.createUnmarshaller();
+    private final ThreadLocal<Unmarshaller> unmarshaller =
+            new ThreadLocal<Unmarshaller>() {
+
+                @Override
+                protected Unmarshaller initialValue() {
+                    try {
+                        return context.createUnmarshaller();
+                    } catch (JAXBException e) {
+                        throw new RuntimeException(
+                                "Unable to create Unmarshaller from JAXB Context",
+                                e);
+                    }
+                };
+            };
+
+    private final ThreadLocal<Marshaller> marshaller =
+            new ThreadLocal<Marshaller>() {
+
+                @Override
+                protected Marshaller initialValue() {
+                    try {
+                        final Marshaller m = context.createMarshaller();
+                        m.setProperty("com.sun.xml.bind.namespacePrefixMapper", new ScapeNamespacePrefixMapper());
+                        m.setProperty(Marshaller.JAXB_FRAGMENT, true);
+                        return m;
+                    } catch (JAXBException e) {
+                        throw new RuntimeException(
+                                "Unable to create Unmarshaller from JAXB Context",
+                                e);
+                    }
+                };
+            };
+
+    private final JAXBContext context;
+
+    public static String PROPERTY_ONB_PAITREE_BASEPATH =
+            "scape.onb.pairtree.basepath";
+
+    public static String PROPERTY_ONB_PAIRTREE_ENCAPSULATED_DIR =
+            "scape.onb.pairtree.encapsulated";
+
+    private ScapeMarshaller(IntellectualEntityConverter[] converter)
+            throws JAXBException {
+        this.context =
+                JAXBContext
+                        .newInstance("eu.scape_project.model:eu.scape_project.model.plan:com.google.books.gbs:edu.harvard.hul.ois.xml.ns.fits.fits_output:info.lc.xmlns.textmd_v3:gov.loc.audiomd:gov.loc.marc21.slim:gov.loc.mets:gov.loc.mix.v20:gov.loc.videomd:info.lc.xmlns.premis_v2:org.purl.dc.elements._1");
 
         /*
-         * create and add a default converter which is used by the scape marshaller to convert MetsTypes to
+         * create and add a default converter which is used by the scape
+         * marshaller to convert MetsTypes to
          * IntellectualEntities
          */
         DefaultConverter dc = new DefaultConverter();
         this.converters.put(dc.getProfileName(), dc);
 
         /*
-         * create and add the ONB mets converter to convert ONB mets files into IntellectualEntities
+         * create and add the ONB mets converter to convert ONB mets files into
+         * IntellectualEntities
          */
-        final String basePath = System.getProperty(PROPERTY_ONB_PAITREE_BASEPATH) == null ? "/tmp/scape/aboonb/linktree" : System.getProperty(PROPERTY_ONB_PAITREE_BASEPATH);
-        final String encapsulatedDir = System.getProperty(PROPERTY_ONB_PAIRTREE_ENCAPSULATED_DIR) == null ? "abo" : System.getProperty(PROPERTY_ONB_PAIRTREE_ENCAPSULATED_DIR);
+        final String basePath =
+                System.getProperty(PROPERTY_ONB_PAITREE_BASEPATH) == null
+                        ? "/tmp/scape/aboonb/linktree" : System
+                                .getProperty(PROPERTY_ONB_PAITREE_BASEPATH);
+        final String encapsulatedDir =
+                System.getProperty(PROPERTY_ONB_PAIRTREE_ENCAPSULATED_DIR) == null
+                        ? "abo"
+                        : System.getProperty(PROPERTY_ONB_PAIRTREE_ENCAPSULATED_DIR);
 
         ONBConverter onb = new ONBConverter(basePath, encapsulatedDir);
         this.converters.put(onb.getProfileName(), onb);
 
         /*
-         * add the user supplied converters for later availability for the ScapeMarshaller
+         * add the user supplied converters for later availability for the
+         * ScapeMarshaller
          */
         if (converter != null) {
             for (IntellectualEntityConverter c : converter) {
                 if (this.converters.containsKey(c.getProfileName())) {
-                    throw new IllegalArgumentException("The profile " + c.getProfileName() + " already has a converter associated");
+                    throw new IllegalArgumentException("The profile " +
+                            c.getProfileName() +
+                            " already has a converter associated");
                 }
                 this.converters.put(c.getProfileName(), c);
             }
@@ -97,38 +143,44 @@ public class ScapeMarshaller {
     }
 
     public Marshaller getJaxbMarshaller() {
-        return marshaller;
+        return this.marshaller.get();
     }
 
     public Unmarshaller getJaxbUnmarshaller() {
-        return unmarshaller;
+        return this.unmarshaller.get();
     }
 
     public static ScapeMarshaller newInstance() throws JAXBException {
         return new ScapeMarshaller(null);
     }
 
-    public static ScapeMarshaller newInstance(IntellectualEntityConverter... converter) throws JAXBException {
+    public static ScapeMarshaller newInstance(
+            IntellectualEntityConverter... converter) throws JAXBException {
         return new ScapeMarshaller(converter);
     }
 
     public Object deserialize(InputStream src) throws JAXBException {
-        return unmarshaller.unmarshal(src);
+        return this.getJaxbUnmarshaller().unmarshal(src);
     }
 
-    public void serialize(Object obj, OutputStream sink, boolean useMdRef) throws JAXBException{
+    public void serialize(Object obj, OutputStream sink, boolean useMdRef)
+            throws JAXBException {
         if (obj instanceof IntellectualEntity) {
-            marshaller.marshal(this.converters.get("scape").convertEntity((IntellectualEntity) obj, useMdRef), sink);
+            this.getJaxbMarshaller().marshal(this.converters.get("scape").convertEntity(
+                    (IntellectualEntity) obj, useMdRef), sink);
         } else if (obj instanceof IntellectualEntityCollection) {
-            IntellectualEntityCollection coll = (IntellectualEntityCollection) obj;
+            IntellectualEntityCollection coll =
+                    (IntellectualEntityCollection) obj;
             List<Mets> mets = new ArrayList<Mets>();
             for (IntellectualEntity e : coll.getEntities()) {
-                mets.add((Mets) this.converters.get("scape").convertEntity(e, useMdRef));
+                mets.add((Mets) this.converters.get("scape").convertEntity(e,
+                        useMdRef));
             }
-            __IntellectualEntityCollection _int = new __IntellectualEntityCollection(mets);
-            marshaller.marshal(_int, sink);
+            __IntellectualEntityCollection _int =
+                    new __IntellectualEntityCollection(mets);
+            this.getJaxbMarshaller().marshal(_int, sink);
         } else {
-            marshaller.marshal(obj, sink);
+            this.getJaxbMarshaller().marshal(obj, sink);
         }
     }
 
@@ -136,21 +188,25 @@ public class ScapeMarshaller {
         this.serialize(obj, sink, false);
     }
 
-    public void setMarshallerProperty(String property, Object value) throws PropertyException {
-        this.marshaller.setProperty(property, value);
+    public void setMarshallerProperty(String property, Object value)
+            throws PropertyException {
+        this.getJaxbMarshaller().setProperty(property, value);
     }
 
-    public void setUnmarshallerProperty(String property, Object value) throws PropertyException {
-        this.unmarshaller.setProperty(property, value);
+    public void setUnmarshallerProperty(String property, Object value)
+            throws PropertyException {
+        this.getJaxbMarshaller().setProperty(property, value);
     }
 
     @SuppressWarnings("unchecked")
-    public <T> T deserialize(Class<T> type, InputStream src) throws JAXBException {
+    public <T> T deserialize(Class<T> type, InputStream src)
+            throws JAXBException {
         if (type == IntellectualEntity.class) {
-            MetsType mets = (MetsType) unmarshaller.unmarshal(src);
+            MetsType mets = (MetsType) this.getJaxbUnmarshaller().unmarshal(src);
 
             /*
-             * get the corresponding converter for the mets profile which handles the MetsType and returns an entity
+             * get the corresponding converter for the mets profile which
+             * handles the MetsType and returns an entity
              */
             IntellectualEntityConverter conv;
             if (mets.getPROFILE() == null) {
@@ -162,12 +218,17 @@ public class ScapeMarshaller {
 
             /* can not convert the used profile so an exception is thrown */
             if (conv == null) {
-                throw new IllegalArgumentException("Unable to deseriliaze mets profile " + mets.getPROFILE());
+                throw new IllegalArgumentException(
+                        "Unable to deseriliaze mets profile " +
+                                mets.getPROFILE());
             }
             return (T) conv.convertMets(mets);
         } else if (type == IntellectualEntityCollection.class) {
-            __IntellectualEntityCollection coll = (__IntellectualEntityCollection) unmarshaller.unmarshal(src);
-            List<IntellectualEntity> entities = new ArrayList<IntellectualEntity>();
+            __IntellectualEntityCollection coll =
+                    (__IntellectualEntityCollection) this.getJaxbUnmarshaller()
+                            .unmarshal(src);
+            List<IntellectualEntity> entities =
+                    new ArrayList<IntellectualEntity>();
             for (Mets m : coll.getMets()) {
                 IntellectualEntityConverter conv;
                 if (m.getPROFILE() == null) {
@@ -180,40 +241,44 @@ public class ScapeMarshaller {
             }
             return (T) new IntellectualEntityCollection(entities);
         } else if (isScapeObject(type)) {
-            return (T) unmarshaller.unmarshal(src);
-        }
-        else {
-            throw new IllegalArgumentException("Unable to deserilialize type " + type.getName());
+            return (T) this.getJaxbUnmarshaller().unmarshal(src);
+        } else {
+            throw new IllegalArgumentException("Unable to deserilialize type " +
+                    type.getName());
         }
     }
 
     private boolean isScapeObject(final Class type) {
-        return type == Representation.class ||
-                type == File.class ||
-                type == Bitstream.class ||
-                type == PlanExecutionState.class ||
+        return type == Representation.class || type == File.class ||
+                type == Bitstream.class || type == PlanExecutionState.class ||
                 type == PlanExecutionStateCollection.class;
     }
 
     public void addConverter(IntellectualEntityConverter conv) {
-        if (conv.getProfileName() == null || conv.getProfileName().length() == 0) {
-            throw new IllegalArgumentException("Please set a profile name for the custom converter");
+        if (conv.getProfileName() == null ||
+                conv.getProfileName().length() == 0) {
+            throw new IllegalArgumentException(
+                    "Please set a profile name for the custom converter");
         }
         if (converters.containsKey(conv.getProfileName())) {
-            throw new IllegalArgumentException("The profile " + conv.getProfileName() + " has already a converter associated with it");
+            throw new IllegalArgumentException("The profile " +
+                    conv.getProfileName() +
+                    " has already a converter associated with it");
         }
         this.converters.put(conv.getProfileName(), conv);
     }
 
-    public <T> List<T> parseCollection(String xmlString, Class<T> rootClass, String tagName) throws JAXBException, XMLStreamException {
+    public <T> List<T> parseCollection(String xmlString, Class<T> rootClass,
+            String tagName) throws JAXBException, XMLStreamException {
         XMLInputFactory inFac = XMLInputFactory.newFactory();
-        XMLStreamReader reader = inFac.createXMLStreamReader(
-                new StringReader("<" + tagName + ">" + xmlString + "</" + tagName + ">"));
+        XMLStreamReader reader =
+                inFac.createXMLStreamReader(new StringReader("<" + tagName +
+                        ">" + xmlString + "</" + tagName + ">"));
         reader.nextTag(); // move to the <root> tag
         reader.nextTag(); // move to the first child
         List<T> list = new ArrayList<T>();
         while (reader.getEventType() == XMLStreamConstants.START_ELEMENT) {
-            list.add(rootClass.cast(unmarshaller.unmarshal(reader)));
+            list.add(rootClass.cast(this.getJaxbUnmarshaller().unmarshal(reader)));
 
             // unmarshal leaves the reader pointing at the event *after* the
             // closing tag, not the END_ELEMENT event itself, so we can't just
