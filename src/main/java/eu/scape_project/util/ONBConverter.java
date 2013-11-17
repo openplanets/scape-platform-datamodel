@@ -35,7 +35,6 @@ import info.lc.xmlns.textmd_v3.TextMD;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -58,12 +57,12 @@ import com.google.books.gbs.ProductionNotesType;
 *
 */
 public class ONBConverter extends IntellectualEntityConverter {
-	
+
 	private final String basePath;
-	
+
 	private final String encapsulatingDir;
-	
-	
+
+
 	public ONBConverter(String basePath, String encapsulatingDir) {
 		super("gbs");
 		this.basePath = basePath;
@@ -317,8 +316,11 @@ public class ONBConverter extends IntellectualEntityConverter {
 		}
 		return null;
 	}
-	
+
     public String getPathFromBarcodePageId(String objectId, String fileId,String extension) {
+        if (objectId.startsWith("ONB_")) {
+            objectId = objectId.substring(4);
+        }
         Pairtree pt = new Pairtree();
         String path = pt.mapToPPath(this.basePath, objectId, this.encapsulatingDir);
         path += java.io.File.separator + fileId+"."+extension;

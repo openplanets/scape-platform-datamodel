@@ -69,7 +69,8 @@ public abstract class TestUtil {
                         new Identifier("file-1")).uri(
                         URI.create(TestUtil.class.getClassLoader().getResource(
                                 "scape_logo.png").toString())).technical(
-                        TestUtil.createMIXRecord()).build();
+                        TestUtil.createMIXRecord())
+                        .filename("scape_logo.png").build();
 
         Representation rep =
                 new Representation.Builder(new Identifier("representation-1"))
