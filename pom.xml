@@ -28,8 +28,7 @@
                     <snapshots>
                         <enabled>false</enabled>
                     </snapshots>
-                    <id>central</id>
-                    <name>bintray</name>
+                    <id>bintray</id>
                     <url>http://dl.bintray.com/openplanets/scape-maven</url>
                 </repository>
             </repositories>
@@ -38,8 +37,7 @@
                     <snapshots>
                         <enabled>false</enabled>
                     </snapshots>
-                    <id>central</id>
-                    <name>bintray-plugins</name>
+                    <id>bintray</id>
                     <url>http://dl.bintray.com/openplanets/scape-maven</url>
                 </pluginRepository>
             </pluginRepositories>
