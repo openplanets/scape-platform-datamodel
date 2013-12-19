@@ -15,6 +15,37 @@
 		<developerConnection>scm:git:git@github.com:openplanets/scape-platform-datamodel.git</developerConnection>
 		<url>git@github.com:openplanets/scape-platform-datamodel.git</url>
 	</scm>
+	
+	<!-- for pairtree dependency -->
+	<profiles>
+        <profile>
+            <id>bintray</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+            <repositories>
+                <repository>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <id>central</id>
+                    <name>bintray</name>
+                    <url>http://dl.bintray.com/openplanets/scape-maven</url>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <id>central</id>
+                    <name>bintray-plugins</name>
+                    <url>http://dl.bintray.com/openplanets/scape-maven</url>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
