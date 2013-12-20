@@ -16,8 +16,8 @@
 		<url>git@github.com:openplanets/scape-platform-datamodel.git</url>
 	</scm>
 
-	<!-- We need the sonatype snapshot repo for now -->
 	<profiles>
+		<!-- We need the sonatype snapshot repo for now -->
 		<profile>
 			<id>allow-snapshots</id>
 			<activation>
