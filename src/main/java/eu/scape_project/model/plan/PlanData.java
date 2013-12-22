@@ -23,7 +23,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import eu.scape_project.model.Identifier;
-import eu.scape_project.model.LifecycleState;
 
 /**
  * For interaction used by external applications.
@@ -47,7 +46,7 @@ public class PlanData {
     private final SortedSet<PlanExecutionState> executionStates;
 
     @XmlElement(name = "lifecycle-state")
-    private final LifecycleState lifecycleState;
+    private final PlanLifecycleState lifecycleState;
 
     private PlanData() {
         // default constructor for JAX-B
@@ -83,7 +82,7 @@ public class PlanData {
         return executionStates;
     }
 
-    public LifecycleState getLifecycleState() {
+    public PlanLifecycleState getLifecycleState() {
         return lifecycleState;
     }
 
@@ -97,7 +96,7 @@ public class PlanData {
 
         private SortedSet<PlanExecutionState> executionStates;
 
-        private LifecycleState lifecycleState;
+        private PlanLifecycleState lifecycleState;
 
         public Builder title(String title) {
             this.title = title;
@@ -116,7 +115,7 @@ public class PlanData {
             this.executionStates = executionStates;
             return this;
         }
-        public Builder lifecycleState(LifecycleState lifecycleState) {
+        public Builder lifecycleState(PlanLifecycleState lifecycleState) {
             this.lifecycleState = lifecycleState;
             return this;
         }

@@ -43,6 +43,7 @@ import eu.scape_project.model.plan.PlanData;
 import eu.scape_project.model.plan.PlanExecutionState;
 import eu.scape_project.model.plan.PlanExecutionState.ExecutionState;
 import eu.scape_project.model.plan.PlanExecutionStateCollection;
+import eu.scape_project.model.plan.PlanLifecycleState;
 import eu.scape_project.util.ScapeMarshaller;
 import gov.loc.marc21.slim.RecordType;
 import gov.loc.mets.MetsType;
@@ -389,7 +390,7 @@ public class JaxbTest {
             .description("A unit test plan")
             .identifier(new Identifier("plan-1"))
             .title("Unit test plan 1")
-            .lifecycleState(new LifecycleState("created", State.NEW))
+            .lifecycleState(new PlanLifecycleState(eu.scape_project.model.plan.PlanLifecycleState.PlanState.ENABLED, "created"))
             .executionStates(states)
             .build();
         ScapeMarshaller m = ScapeMarshaller.newInstance();
