@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
@@ -37,7 +39,9 @@ import org.purl.dc.elements._1.ElementContainer;
 import com.google.books.gbs.GbsType;
 
 import eu.scape_project.model.LifecycleState.State;
+import eu.scape_project.model.plan.PlanData;
 import eu.scape_project.model.plan.PlanExecutionState;
+import eu.scape_project.model.plan.PlanExecutionState.ExecutionState;
 import eu.scape_project.model.plan.PlanExecutionStateCollection;
 import eu.scape_project.util.ScapeMarshaller;
 import gov.loc.marc21.slim.RecordType;
@@ -375,5 +379,27 @@ public class JaxbTest {
         m.serialize(coll, sink);
         PlanExecutionStateCollection des = m.deserialize(PlanExecutionStateCollection.class, new ByteArrayInputStream(sink.toByteArray()));
         assertEquals(coll.getExecutionStates().size(), des.getExecutionStates().size());
+    }
+    @Test
+    public void testPlanDataSerialization() throws Exception {
+        SortedSet<PlanExecutionState> states = new TreeSet<PlanExecutionState>();
+        states.add(new PlanExecutionState(new Date(), ExecutionState.EXECUTION_SUCCESS));
+        states.add(new PlanExecutionState(new Date(), ExecutionState.EXECUTION_FAIL));
+        PlanData data = new PlanData.Builder()
+            .description("A unit test plan")
+            .identifier(new Identifier("plan-1"))
+            .title("Unit test plan 1")
+            .lifecycleState(new LifecycleState("created", State.NEW))
+            .executionStates(states)
+            .build();
+        ScapeMarshaller m = ScapeMarshaller.newInstance();
+        ByteArrayOutputStream sink = new ByteArrayOutputStream();
+        m.serialize(data, sink);
+        PlanData deserialized = m.deserialize(PlanData.class, new ByteArrayInputStream(sink.toByteArray()));
+        assertEquals(data.getIdentifier().getValue(), deserialized.getIdentifier().getValue());
+        assertEquals(data.getDescription(), deserialized.getDescription());
+        assertEquals(data.getExecutionStates().size(), deserialized.getExecutionStates().size());
+        assertEquals(data.getLifecycleState().getState(), deserialized.getLifecycleState().getState());
+        assertEquals(data.getTitle(), deserialized.getTitle());
     }
 }

@@ -40,6 +40,7 @@ import eu.scape_project.model.IntellectualEntityCollection;
 import eu.scape_project.model.Representation;
 import eu.scape_project.model.__IntellectualEntityCollection;
 import eu.scape_project.model.jaxb.ScapeNamespacePrefixMapper;
+import eu.scape_project.model.plan.PlanData;
 import eu.scape_project.model.plan.PlanExecutionState;
 import eu.scape_project.model.plan.PlanExecutionStateCollection;
 import gov.loc.mets.Mets;
@@ -251,7 +252,7 @@ public class ScapeMarshaller {
     private boolean isScapeObject(final Class type) {
         return type == Representation.class || type == File.class ||
                 type == Bitstream.class || type == PlanExecutionState.class ||
-                type == PlanExecutionStateCollection.class;
+                type == PlanExecutionStateCollection.class || type == PlanData.class;
     }
 
     public void addConverter(IntellectualEntityConverter conv) {
