@@ -41,6 +41,7 @@ import eu.scape_project.model.Representation;
 import eu.scape_project.model.__IntellectualEntityCollection;
 import eu.scape_project.model.jaxb.ScapeNamespacePrefixMapper;
 import eu.scape_project.model.plan.PlanData;
+import eu.scape_project.model.plan.PlanDataCollection;
 import eu.scape_project.model.plan.PlanExecutionState;
 import eu.scape_project.model.plan.PlanExecutionStateCollection;
 import gov.loc.mets.Mets;
@@ -78,7 +79,8 @@ public class ScapeMarshaller {
                 protected Marshaller initialValue() {
                     try {
                         final Marshaller m = context.createMarshaller();
-                        m.setProperty("com.sun.xml.bind.namespacePrefixMapper", new ScapeNamespacePrefixMapper());
+                        m.setProperty("com.sun.xml.bind.namespacePrefixMapper",
+                                new ScapeNamespacePrefixMapper());
                         m.setProperty(Marshaller.JAXB_FRAGMENT, true);
                         return m;
                     } catch (JAXBException e) {
@@ -167,8 +169,9 @@ public class ScapeMarshaller {
     public void serialize(Object obj, OutputStream sink, boolean useMdRef)
             throws JAXBException {
         if (obj instanceof IntellectualEntity) {
-            this.getJaxbMarshaller().marshal(this.converters.get("scape").convertEntity(
-                    (IntellectualEntity) obj, useMdRef), sink);
+            this.getJaxbMarshaller().marshal(
+                    this.converters.get("scape").convertEntity(
+                            (IntellectualEntity) obj, useMdRef), sink);
         } else if (obj instanceof IntellectualEntityCollection) {
             IntellectualEntityCollection coll =
                     (IntellectualEntityCollection) obj;
@@ -203,7 +206,8 @@ public class ScapeMarshaller {
     public <T> T deserialize(Class<T> type, InputStream src)
             throws JAXBException {
         if (type == IntellectualEntity.class) {
-            MetsType mets = (MetsType) this.getJaxbUnmarshaller().unmarshal(src);
+            MetsType mets =
+                    (MetsType) this.getJaxbUnmarshaller().unmarshal(src);
 
             /*
              * get the corresponding converter for the mets profile which
@@ -252,7 +256,8 @@ public class ScapeMarshaller {
     private boolean isScapeObject(final Class type) {
         return type == Representation.class || type == File.class ||
                 type == Bitstream.class || type == PlanExecutionState.class ||
-                type == PlanExecutionStateCollection.class || type == PlanData.class;
+                type == PlanExecutionStateCollection.class ||
+                type == PlanData.class || type == PlanDataCollection.class;
     }
 
     public void addConverter(IntellectualEntityConverter conv) {
@@ -279,7 +284,8 @@ public class ScapeMarshaller {
         reader.nextTag(); // move to the first child
         List<T> list = new ArrayList<T>();
         while (reader.getEventType() == XMLStreamConstants.START_ELEMENT) {
-            list.add(rootClass.cast(this.getJaxbUnmarshaller().unmarshal(reader)));
+            list.add(rootClass.cast(this.getJaxbUnmarshaller()
+                    .unmarshal(reader)));
 
             // unmarshal leaves the reader pointing at the event *after* the
             // closing tag, not the END_ELEMENT event itself, so we can't just

@@ -40,6 +40,7 @@ import com.google.books.gbs.GbsType;
 
 import eu.scape_project.model.LifecycleState.State;
 import eu.scape_project.model.plan.PlanData;
+import eu.scape_project.model.plan.PlanDataCollection;
 import eu.scape_project.model.plan.PlanExecutionState;
 import eu.scape_project.model.plan.PlanExecutionState.ExecutionState;
 import eu.scape_project.model.plan.PlanExecutionStateCollection;
@@ -381,6 +382,7 @@ public class JaxbTest {
         PlanExecutionStateCollection des = m.deserialize(PlanExecutionStateCollection.class, new ByteArrayInputStream(sink.toByteArray()));
         assertEquals(coll.getExecutionStates().size(), des.getExecutionStates().size());
     }
+
     @Test
     public void testPlanDataSerialization() throws Exception {
         SortedSet<PlanExecutionState> states = new TreeSet<PlanExecutionState>();
@@ -402,5 +404,25 @@ public class JaxbTest {
         assertEquals(data.getExecutionStates().size(), deserialized.getExecutionStates().size());
         assertEquals(data.getLifecycleState().getState(), deserialized.getLifecycleState().getState());
         assertEquals(data.getTitle(), deserialized.getTitle());
+    }
+
+    @Test
+    public void testPlanDataCollectionSerialization() throws Exception {
+        SortedSet<PlanExecutionState> states = new TreeSet<PlanExecutionState>();
+        states.add(new PlanExecutionState(new Date(), ExecutionState.EXECUTION_SUCCESS));
+        states.add(new PlanExecutionState(new Date(), ExecutionState.EXECUTION_FAIL));
+        PlanData data = new PlanData.Builder()
+            .description("A unit test plan")
+            .identifier(new Identifier("plan-1"))
+            .title("Unit test plan 1")
+            .lifecycleState(new PlanLifecycleState(eu.scape_project.model.plan.PlanLifecycleState.PlanState.ENABLED, "created"))
+            .executionStates(states)
+            .build();
+        PlanDataCollection coll = new PlanDataCollection(Arrays.asList(data));
+        ScapeMarshaller m = ScapeMarshaller.newInstance();
+        ByteArrayOutputStream sink = new ByteArrayOutputStream();
+        m.serialize(coll, sink);
+        PlanDataCollection deserialized = m.deserialize(PlanDataCollection.class, new ByteArrayInputStream(sink.toByteArray()));
+        assertEquals(1, deserialized.getPlanData().size());
     }
 }
