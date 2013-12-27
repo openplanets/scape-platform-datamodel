@@ -11,6 +11,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
+
 package eu.scape_project.model.plan;
 
 import java.util.Collection;
@@ -20,11 +21,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
-@XmlRootElement(name="plan-data-collection")
+@XmlRootElement(name = "plan-data-collection", namespace = "http://scape-project.eu/model")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PlanDataCollection {
-    @XmlElement
+
+    @XmlElement(name = "plan-data", namespace = "http://scape-project.eu/model")
     private final Collection<PlanData> planData;
 
     public PlanDataCollection(Collection<PlanData> planData) {

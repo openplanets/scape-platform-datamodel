@@ -42,10 +42,10 @@ public class PlanData {
     @XmlElement(name = "description", namespace = "http://scape-project.eu/model")
     private final String description;
 
-    @XmlElement(name = "execution-state")
+    @XmlElement(name = "execution-state", namespace = "http://scape-project.eu/model")
     private final SortedSet<PlanExecutionState> executionStates;
 
-    @XmlElement(name = "lifecycle-state")
+    @XmlElement(name = "lifecycle-state", namespace = "http://scape-project.eu/model")
     private final PlanLifecycleState lifecycleState;
 
     private PlanData() {
