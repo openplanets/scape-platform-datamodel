@@ -28,6 +28,13 @@ bin
 #################
 nbactions.xml
 
+# Intellij Idea Files #
+#######################
+*.ipr
+*.iws
+*.iml
+.idea/
+
 # Maven target directory #
 ##########################
 target
