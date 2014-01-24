@@ -14,15 +14,15 @@
 
 package eu.scape_project.model.plan;
 
-import java.util.SortedSet;
+import eu.scape_project.model.Identified;
+import eu.scape_project.model.Identifier;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import eu.scape_project.model.Identifier;
+import java.util.SortedSet;
 
 /**
  * For interaction used by external applications.
@@ -31,13 +31,10 @@ import eu.scape_project.model.Identifier;
  */
 @XmlRootElement(name = "plan-data", namespace = "http://scape-project.eu/model")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class PlanData {
+public class PlanData extends Identified{
 
     @XmlAttribute(name = "title")
     private final String title;
-
-    @XmlElement(name = "identifier", namespace = "http://scape-project.eu/model")
-    private final Identifier identifier;
 
     @XmlElement(name = "description", namespace = "http://scape-project.eu/model")
     private final String description;
@@ -50,28 +47,23 @@ public class PlanData {
 
     private PlanData() {
         // default constructor for JAX-B
-        super();
+        super(null);
         this.title = null;
-        this.identifier = null;
         this.description = null;
         this.executionStates = null;
         this.lifecycleState = null;
     }
 
     private PlanData(Builder b) {
+        super(b.identifier);
         this.description = b.description;
         this.executionStates = b.executionStates;
-        this.identifier = b.identifier;
         this.lifecycleState = b.lifecycleState;
         this.title = b.title;
     }
 
     public String getTitle() {
         return title;
-    }
-
-    public Identifier getIdentifier() {
-        return identifier;
     }
 
     public String getDescription() {

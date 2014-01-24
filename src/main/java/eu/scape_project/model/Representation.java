@@ -14,11 +14,12 @@
 
 package eu.scape_project.model;
 
+import com.google.books.gbs.GbsType;
+import edu.harvard.hul.ois.xml.ns.fits.fits_output.Fits;
+import eu.scape_project.util.CopyUtil;
 import gov.loc.mix.v20.Mix;
 import info.lc.xmlns.textmd_v3.TextMD;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.purl.dc.elements._1.ElementContainer;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -28,13 +29,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlElementRefs;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import org.purl.dc.elements._1.ElementContainer;
-
-import com.google.books.gbs.GbsType;
-
-import edu.harvard.hul.ois.xml.ns.fits.fits_output.Fits;
-import eu.scape_project.util.CopyUtil;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
 *
@@ -43,10 +39,8 @@ import eu.scape_project.util.CopyUtil;
 */
 @XmlRootElement(name = "representation", namespace = "http://scape-project.eu/model")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Representation {
+public class Representation extends Identified{
 
-    @XmlElement(name = "identifier", namespace = "http://scape-project.eu/model")
-    private final Identifier identifier;
 
     @XmlAnyElement(lax = true)
     @XmlElementRef(name = "sourceMD", type = ElementContainer.class)
@@ -77,32 +71,28 @@ public class Representation {
     private final String title;
 
     private Representation() {
-        super();
+        super(null);
         this.source = null;
         this.provenance = null;
         this.technical = null;
         this.rights = null;
         this.files = null;
-        this.identifier = null;
+
         this.title = null;
     }
 
     private Representation(Builder builder) {
+        super(builder.id);
         this.source = builder.source;
         this.provenance = builder.provenance;
         this.technical = builder.technical;
         this.rights = builder.rights;
         this.files = builder.files;
-        this.identifier = builder.id;
         this.title = builder.title;
     }
 
     public List<File> getFiles() {
         return files;
-    }
-
-    public Identifier getIdentifier() {
-        return identifier;
     }
 
     public Object getProvenance() {

@@ -13,11 +13,10 @@
  */
 package eu.scape_project.model;
 
-import java.util.List;
+import eu.scape_project.util.CopyUtil;
 
 import javax.xml.bind.annotation.XmlRootElement;
-
-import eu.scape_project.util.CopyUtil;
+import java.util.List;
 
 /**
 *
@@ -25,19 +24,18 @@ import eu.scape_project.util.CopyUtil;
 *
 */
 @XmlRootElement(name = "entity", namespace = "http://scape-project.eu/model")
-public class IntellectualEntity {
+public class IntellectualEntity extends Identified {
 
     private final int versionNumber;
     private final List<Identifier> alternativeIdentifiers;
     private final Object descriptive;
     private final List<Representation> representations;
-    private final Identifier identifier;
+
     private final LifecycleState lifeCycleState;
 
     @SuppressWarnings("unused")
     private IntellectualEntity() {
-        super();
-        this.identifier = null;
+        super(null);
         this.alternativeIdentifiers = null;
         this.descriptive = null;
         this.representations = null;
@@ -46,7 +44,7 @@ public class IntellectualEntity {
     }
 
     public IntellectualEntity(Builder builder) {
-        this.identifier = builder.identifier;
+        super(builder.identifier);
         this.alternativeIdentifiers = builder.alternativeIdentifiers;
         this.descriptive = builder.descriptive;
         this.representations = builder.representations;
@@ -60,10 +58,6 @@ public class IntellectualEntity {
 
     public Object getDescriptive() {
         return descriptive;
-    }
-
-    public Identifier getIdentifier() {
-        return identifier;
     }
 
     public LifecycleState getLifecycleState() {
@@ -88,6 +82,8 @@ public class IntellectualEntity {
                 + ", lifeCycleState=" + lifeCycleState
                 + "]";
     }
+
+
 
     public static class Builder {
         private Identifier identifier;

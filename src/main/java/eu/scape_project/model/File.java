@@ -13,11 +13,11 @@
  */
 package eu.scape_project.model;
 
+import com.google.books.gbs.GbsType;
+import edu.harvard.hul.ois.xml.ns.fits.fits_output.Fits;
+import eu.scape_project.util.CopyUtil;
 import gov.loc.mix.v20.Mix;
 import info.lc.xmlns.textmd_v3.TextMD;
-
-import java.net.URI;
-import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAnyElement;
@@ -26,11 +26,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlElementRefs;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import com.google.books.gbs.GbsType;
-
-import edu.harvard.hul.ois.xml.ns.fits.fits_output.Fits;
-import eu.scape_project.util.CopyUtil;
+import java.net.URI;
+import java.util.List;
 
 /**
 *
@@ -38,7 +35,7 @@ import eu.scape_project.util.CopyUtil;
 *
 */
 @XmlRootElement(name = "file", namespace = "http://scape-project.eu/model")
-public class File {
+public class File extends Identified {
 
 	@XmlAttribute(name = "mimetype")
 	private final String mimetype;
@@ -57,33 +54,27 @@ public class File {
 	private final List<BitStream> bitStreams;
 	@XmlElement(name = "uri", namespace = "http://scape-project.eu/model")
 	private final URI uri;
-	@XmlElement(name = "identifier", namespace = "http://scape-project.eu/model")
-	private final Identifier identifier;
 
 	private File() {
+        super(null);
 		this.filename = null;
 		this.mimetype = null;
 		this.technical = null;
 		this.bitStreams = null;
 		this.uri = null;
-		this.identifier = null;
 	}
 
 	private File(Builder builder) {
+        super(builder.identifier);
 		this.filename = builder.filename;
 		this.mimetype = builder.mimetype;
 		this.technical = builder.technical;
 		this.bitStreams = builder.bitStreams;
 		this.uri = builder.uri;
-		this.identifier = builder.identifier;
 	}
 
 	public List<BitStream> getBitStreams() {
 		return bitStreams;
-	}
-
-	public Identifier getIdentifier() {
-		return identifier;
 	}
 
 	public Object getTechnical() {
