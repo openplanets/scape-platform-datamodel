@@ -112,8 +112,7 @@
 				<configuration>
 					<schemaDirectory>${basedir}/src/main/resources/xml-schemas</schemaDirectory>
 					<bindingDirectory>${basedir}/src/main/resources/xml-schemas</bindingDirectory>
-					<outputdirectory>${basedir}/src/main/generated-source</outputdirectory>
-					<explicitAnnotation>true</explicitAnnotation>
+
 					<extension>true</extension>
 					<args>
 						<arg>-Xannotate</arg>
