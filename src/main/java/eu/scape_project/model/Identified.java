@@ -5,6 +5,10 @@ import javax.xml.bind.annotation.XmlElement;
 public class Identified {
 
 
+    public Identified() {
+        identifier = null;
+    }
+
     protected Identified(Identifier identifier) {
         this.identifier = identifier;
     }
