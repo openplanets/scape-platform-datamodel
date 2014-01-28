@@ -39,6 +39,7 @@ public class BitStream extends Identified{
     private final Type type;
     @XmlAnyElement(lax = true)
     @XmlElementRefs({
+        @XmlElementRef(name = "object", namespace = "info:lc/xmlns/premis-v2", type = JAXBElement.class),
         @XmlElementRef(name = "textMD", type = TextMD.class),
         @XmlElementRef(name = "fits", type = Fits.class),
         @XmlElementRef(name = "mix", type = Mix.class),

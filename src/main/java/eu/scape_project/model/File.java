@@ -43,6 +43,7 @@ public class File extends Identified {
 	private final String filename;
 	@XmlAnyElement(lax = true)
     @XmlElementRefs({
+        @XmlElementRef(name = "object", namespace = "info:lc/xmlns/premis-v2", type = JAXBElement.class),
         @XmlElementRef(name = "textMD", type = TextMD.class),
         @XmlElementRef(name = "fits", type = Fits.class),
         @XmlElementRef(name = "mix", type = Mix.class),
