@@ -53,6 +53,7 @@ public class Representation extends Identified{
     @XmlAnyElement(lax = true)
     @XmlElementRefs({
             @XmlElementRef(name = "object", namespace = "info:lc/xmlns/premis-v2", type = JAXBElement.class),
+            //TODO should the data below not be stored inside the premis rather than be alternatives?
             @XmlElementRef(name = "textMD", type = TextMD.class),
             @XmlElementRef(name = "fits", type = Fits.class),
             @XmlElementRef(name = "mix", type = Mix.class),
