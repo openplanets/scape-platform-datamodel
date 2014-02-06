@@ -50,8 +50,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * @author frank asseg
- */
+*
+* @author frank asseg
+*
+*/
 public class JaxbTest {
 
 
@@ -65,11 +67,7 @@ public class JaxbTest {
 
     @Test
     public void testONBMarc21Deserialization() throws Exception {
-        Object o = ScapeMarshaller.newInstance()
-                                  .deserialize(
-                                          this.getClass()
-                                              .getClassLoader()
-                                              .getResourceAsStream("ONB_marc_example.xml"));
+        Object o = ScapeMarshaller.newInstance().deserialize(this.getClass().getClassLoader().getResourceAsStream("ONB_marc_example.xml"));
         assertTrue(o instanceof JAXBElement<?>);
         JAXBElement<RecordType> e = (JAXBElement<RecordType>) o;
         assertTrue(e.getValue() instanceof RecordType);
@@ -77,48 +75,30 @@ public class JaxbTest {
 
     @Test
     public void testONBGoogleBookScanDeserialization() throws Exception {
-        Object o = ScapeMarshaller.newInstance()
-                                  .deserialize(
-                                          this.getClass()
-                                              .getClassLoader()
-                                              .getResourceAsStream("ONB_gbs_example.xml"));
+        Object o = ScapeMarshaller.newInstance().deserialize(this.getClass().getClassLoader().getResourceAsStream("ONB_gbs_example.xml"));
         assertTrue(o instanceof MetsType);
     }
 
     @Test
     public void testONBMETSDeserialization() throws Exception {
-        Object o = ScapeMarshaller.newInstance()
-                                  .deserialize(
-                                          this.getClass()
-                                              .getClassLoader()
-                                              .getResourceAsStream("ONB_mets_example.xml"));
+        Object o = ScapeMarshaller.newInstance().deserialize(this.getClass().getClassLoader().getResourceAsStream("ONB_mets_example.xml"));
         assertTrue(o instanceof MetsType);
     }
 
     @Test
     public void testONBMETSDeserializationTransientFiles() throws Exception {
-        IntellectualEntity e = ScapeMarshaller.newInstance()
-                                              .deserialize(
-                                                      IntellectualEntity.class,
-                                                      this.getClass()
-                                                          .getClassLoader()
-                                                          .getResourceAsStream("ONB_mets_example.xml"));
-        for (Representation r : e.getRepresentations()) {
-            for (File f : r.getFiles()) {
-                assertTrue(
-                        f.getUri()
-                         .toASCIIString()
-                         .startsWith("file:/tmp/scape/aboonb/linktree/%5E2/bZ/35/07/20/01/abo/"));
-            }
+        IntellectualEntity e = ScapeMarshaller.newInstance().deserialize(IntellectualEntity.class, this.getClass().getClassLoader().getResourceAsStream("ONB_mets_example.xml"));
+        for (Representation r: e.getRepresentations()) {
+        	for (File f: r.getFiles()) {
+        		assertTrue(f.getUri().toASCIIString().startsWith("file:/tmp/scape/aboonb/linktree/%5E2/bZ/35/07/20/01/abo/"));
+        	}
         }
     }
 
     @Test
     public void testONBEntityDeserialization() throws Exception {
-        Object o = ScapeMarshaller.newInstance()
-                                  .deserialize(
-                                          IntellectualEntity.class,
-                                          this.getClass().getClassLoader().getResourceAsStream("ONB_mets_example.xml"));
+        Object o = ScapeMarshaller.newInstance().deserialize(IntellectualEntity.class,
+                this.getClass().getClassLoader().getResourceAsStream("ONB_mets_example.xml"));
         assertTrue(o instanceof IntellectualEntity);
         IntellectualEntity ent = (IntellectualEntity) o;
         assertTrue(ent.getDescriptive() instanceof RecordType);
@@ -128,21 +108,14 @@ public class JaxbTest {
         for (Representation r : ent.getRepresentations()) {
             assertTrue(r.getFiles().size() == 924);
             if (r.getTechnical() != null) {
-                assertTrue(
-                        "technical md of representation " + r.getIdentifier()
-                                                             .getValue() + " is of type " + r.getTechnical()
-                                                                                             .getClass()
-                                                                                             .getName(),
-                        r.getTechnical().getContent().get(0).getContents() instanceof GbsType);
+                assertTrue("technical md of representation " + r.getIdentifier().getValue() + " is of type "
+                        + r.getTechnical().getClass().getName(), r.getTechnical().getContent().get(0).getContents() instanceof GbsType);
                 m.getJaxbMarshaller().marshal(r.getTechnical(), new ByteArrayOutputStream());
             }
             assertNotNull(r.getProvenance());
             for (File f : r.getFiles()) {
                 if (f.getTechnical() != null) {
-                    assertTrue(
-                            "technical md of file " + f.getFilename() + " is of type " + f.getTechnical()
-                                                                                          .getClass()
-                                                                                          .getName(),
+                    assertTrue("technical md of file " + f.getFilename() + " is of type " + f.getTechnical().getClass().getName(),
                             f.getTechnical().getContent().get(0).getContents() instanceof GbsType);
                     m.getJaxbMarshaller().marshal(f.getTechnical(), new ByteArrayOutputStream());
                 }
@@ -154,26 +127,29 @@ public class JaxbTest {
 
     @Test
     public void testEntitySerializationNoIds() throws Exception {
-        BitStream bs_1 = new BitStream.Builder().technical("default",TestUtil.createTextMDRecord()).build();
+        BitStream bs_1 = new BitStream.Builder()
+                .technical("default",TestUtil.createTextMDRecord())
+                .build();
 
-        File f = new File.Builder().bitStreams(Arrays.asList(bs_1))
-                                   .uri(URI.create("http://example.com/data"))
-                                   .technical(
-                                                           "default",
-                                                           TestUtil.createTextMDRecord())
-                                   .build();
+        File f = new File.Builder()
+                .bitStreams(Arrays.asList(bs_1))
+                .uri(URI.create("http://example.com/data"))
+                .technical("default",TestUtil.createTextMDRecord())
+                .build();
 
-        Representation rep = new Representation.Builder().files(Arrays.asList(f))
-                                                         .technical(new TechnicalMetadataList(new TechnicalMetadata("default",TestUtil.createTextMDRecord())))
-                                                         .title("Text representation")
-                                                         .provenance(TestUtil.createPremisDigiProvRecord())
-                                                         .rights(TestUtil.createPremisRightsRecord())
-                                                         .source(TestUtil.createDCSourceRecord())
-                                                         .build();
+        Representation rep = new Representation.Builder()
+                .files(Arrays.asList(f))
+                .technical("default",TestUtil.createTextMDRecord())
+                .title("Text representation")
+                .provenance(TestUtil.createPremisDigiProvRecord())
+                .rights(TestUtil.createPremisRightsRecord())
+                .source(TestUtil.createDCSourceRecord())
+                .build();
 
-        IntellectualEntity e = new IntellectualEntity.Builder().representations(Arrays.asList(rep))
-                                                               .descriptive(TestUtil.createDCRecord())
-                                                               .build();
+        IntellectualEntity e = new IntellectualEntity.Builder()
+                .representations(Arrays.asList(rep))
+                .descriptive(TestUtil.createDCRecord())
+                .build();
 
         ScapeMarshaller marshaller = ScapeMarshaller.newInstance();
 
@@ -189,57 +165,53 @@ public class JaxbTest {
 
         ElementContainer dcorig = (ElementContainer) e.getDescriptive();
         ElementContainer dcdes = (ElementContainer) des.getDescriptive();
-        assertTrue(
-                "DC metadata does not match",
+        assertTrue("DC metadata does not match",
                 dcorig.getAny().get(0).getValue().getContent().equals(dcdes.getAny().get(0).getValue().getContent()));
     }
 
     @Test
     public void testEntitySetSerializationDeserialization() throws Exception {
-        IntellectualEntityCollection c = new IntellectualEntityCollection(
-                Arrays.asList(
-                        TestUtil.createTestEntity("entity-1"),
-                        TestUtil.createTestEntity("entity-2"),
-                        TestUtil.createTestEntity("entity-3")));
+        IntellectualEntityCollection c = new IntellectualEntityCollection(Arrays.asList(TestUtil.createTestEntity("entity-1"),
+                TestUtil.createTestEntity("entity-2"), TestUtil.createTestEntity("entity-3")));
         ScapeMarshaller marshaller = ScapeMarshaller.newInstance();
         ByteArrayOutputStream sink = new ByteArrayOutputStream();
         marshaller.serialize(c, sink);
-        __IntellectualEntityCollection internal_coll = (__IntellectualEntityCollection) marshaller.deserialize(
-                new ByteArrayInputStream(
-                        sink.toByteArray()));
+        __IntellectualEntityCollection internal_coll = (__IntellectualEntityCollection) marshaller.deserialize(new ByteArrayInputStream(
+                sink.toByteArray()));
         assertTrue(internal_coll.getMets().size() == 3);
-        IntellectualEntityCollection coll = marshaller.deserialize(
-                IntellectualEntityCollection.class,
+        IntellectualEntityCollection coll = marshaller.deserialize(IntellectualEntityCollection.class,
                 new ByteArrayInputStream(sink.toByteArray()));
         assertTrue(coll.getEntities().size() == 3);
     }
 
     @Test
     public void testEntitySerialization() throws Exception {
-        BitStream bs_1 = new BitStream.Builder().identifier(new Identifier("bitstream:1"))
-                                                .technical("default", TestUtil.createTextMDRecord())
-                                                .build();
+        BitStream bs_1 = new BitStream.Builder()
+                .identifier(new Identifier("bitstream:1"))
+                .technical("default", TestUtil.createTextMDRecord())
+                .build();
 
-        File f = new File.Builder().bitStreams(Arrays.asList(bs_1))
-                                   .identifier(new Identifier("file-1"))
-                                   .uri(URI.create("http://example.com/data"))
-                                   .technical("default",TestUtil.createTextMDRecord())
-                                   .build();
+        File f = new File.Builder()
+                .bitStreams(Arrays.asList(bs_1))
+                .identifier(new Identifier("file-1"))
+                .uri(URI.create("http://example.com/data"))
+                .technical("default",TestUtil.createTextMDRecord())
+                .build();
 
-        Representation rep = new Representation.Builder(new Identifier("representation-1")).files(Arrays.asList(f))
-                                                                                           .technical(
-                                                                                                   new TechnicalMetadataList(new TechnicalMetadata("default",
-                                                                                                           TestUtil.createTextMDRecord())))
-                                                                                           .title("Text representation")
-                                                                                           .provenance(TestUtil.createPremisDigiProvRecord())
-                                                                                           .rights(TestUtil.createPremisRightsRecord())
-                                                                                           .source(TestUtil.createDCSourceRecord())
-                                                                                           .build();
+        Representation rep = new Representation.Builder(new Identifier("representation-1"))
+                .files(Arrays.asList(f))
+                .technical("default",TestUtil.createTextMDRecord())
+                .title("Text representation")
+                .provenance(TestUtil.createPremisDigiProvRecord())
+                .rights(TestUtil.createPremisRightsRecord())
+                .source(TestUtil.createDCSourceRecord())
+                .build();
 
-        IntellectualEntity e = new IntellectualEntity.Builder().identifier(new Identifier("entity-1"))
-                                                               .representations(Arrays.asList(rep))
-                                                               .descriptive(TestUtil.createDCRecord())
-                                                               .build();
+        IntellectualEntity e = new IntellectualEntity.Builder()
+                .identifier(new Identifier("entity-1"))
+                .representations(Arrays.asList(rep))
+                .descriptive(TestUtil.createDCRecord())
+                .build();
 
         ScapeMarshaller marshaller = ScapeMarshaller.newInstance();
 
@@ -257,30 +229,23 @@ public class JaxbTest {
 
         ElementContainer dcorig = (ElementContainer) e.getDescriptive();
         ElementContainer dcdes = (ElementContainer) des.getDescriptive();
-        assertTrue(
-                "DC metadata does not match",
+        assertTrue("DC metadata does not match",
                 dcorig.getAny().get(0).getValue().getContent().equals(dcdes.getAny().get(0).getValue().getContent()));
 
         Representation rorig = e.getRepresentations().get(0);
         Representation rdes = des.getRepresentations().get(0);
-        assertTrue(
-                "Representation identifier does not match",
-                rorig.getIdentifier().getValue().equals(rdes.getIdentifier().getValue()));
+        assertTrue("Representation identifier does not match", rorig.getIdentifier().getValue().equals(rdes.getIdentifier().getValue()));
 
         File forig = rorig.getFiles().get(0);
         File fdes = rdes.getFiles().get(0);
-        assertTrue(
-                "File identifiers do not match",
-                forig.getIdentifier().getValue().equals(fdes.getIdentifier().getValue()));
+        assertTrue("File identifiers do not match", forig.getIdentifier().getValue().equals(fdes.getIdentifier().getValue()));
         assertNotNull("technical md does not match", fdes.getTechnical());
 
         BitStream bsorig = forig.getBitStreams().get(0);
         BitStream bsdes = fdes.getBitStreams().get(0);
-        assertTrue(
-                "BitStream identifiers do not match",
-                bsorig.getIdentifier().getValue().equals(bsdes.getIdentifier().getValue()));
+        assertTrue("BitStream identifiers do not match", bsorig.getIdentifier().getValue().equals(bsdes.getIdentifier().getValue()));
     }
- 
+
     @Test
     public void testEntitySerializationWithMultipeTechnicals() throws Exception {
         BitStream bs_1 = new BitStream.Builder().identifier(new Identifier("bitstream:1"))
@@ -366,38 +331,31 @@ public class JaxbTest {
 
     @Test
     public void testEntityDeserializationTitleAndUsage() throws Exception {
-        Representation rep = new Representation.Builder(new Identifier("representation-1")).technical(
-               "default",
-                        TestUtil.createTextMDRecord())
-                                                                                           .title("Text representation")
-                                                                                           .provenance(TestUtil.createPremisDigiProvRecord())
-                                                                                           .rights(TestUtil.createPremisRightsRecord())
-                                                                                           .source(TestUtil.createDCSourceRecord())
-                                                                                           .build();
+        Representation rep = new Representation.Builder(new Identifier("representation-1"))
+                .technical("default",TestUtil.createTextMDRecord())
+                .title("Text representation")
+                .provenance(TestUtil.createPremisDigiProvRecord())
+                .rights(TestUtil.createPremisRightsRecord())
+                .source(TestUtil.createDCSourceRecord())
+                .build();
 
-        IntellectualEntity e = new IntellectualEntity.Builder().identifier(new Identifier("entity-1"))
-                                                               .representations(Arrays.asList(rep))
-                                                               .descriptive(TestUtil.createDCRecord())
-                                                               .build();
+        IntellectualEntity e = new IntellectualEntity.Builder()
+                .identifier(new Identifier("entity-1"))
+                .representations(Arrays.asList(rep))
+                .descriptive(TestUtil.createDCRecord())
+                .build();
 
         ScapeMarshaller marshaller = ScapeMarshaller.newInstance();
         ByteArrayOutputStream sink = new ByteArrayOutputStream();
         marshaller.serialize(e, sink);
-        IntellectualEntity des = marshaller.deserialize(
-                IntellectualEntity.class,
-                new ByteArrayInputStream(sink.toByteArray()));
-        assertEquals(
-                "Title does not match on representation",
-                rep.getTitle(),
-                des.getRepresentations().get(0).getTitle());
+        IntellectualEntity des = marshaller.deserialize(IntellectualEntity.class, new ByteArrayInputStream(sink.toByteArray()));
+        assertEquals("Title does not match on representation", rep.getTitle(), des.getRepresentations().get(0).getTitle());
     }
 
     @Test
     public void testEntityDeserialization() throws Exception {
-        Object o = ScapeMarshaller.newInstance()
-                                  .deserialize(
-                                          IntellectualEntity.class,
-                                          this.getClass().getClassLoader().getResourceAsStream("entity-minimal.xml"));
+        Object o = ScapeMarshaller.newInstance().deserialize(IntellectualEntity.class,
+                this.getClass().getClassLoader().getResourceAsStream("entity-minimal.xml"));
         assertTrue(o instanceof IntellectualEntity);
         IntellectualEntity e = (IntellectualEntity) o;
         assertTrue(e.getRepresentations().size() == 1);
@@ -427,12 +385,13 @@ public class JaxbTest {
     public void testDeserializeRepresentation() throws Exception {
         ScapeMarshaller m = ScapeMarshaller.newInstance();
 
-        Representation r = new Representation.Builder().identifier(new Identifier("rep-1"))
-                                                       .technical("default",TestUtil.createTextMDRecord())
-                                                       .source(TestUtil.createDCSourceRecord())
-                                                       .provenance(TestUtil.createPremisDigiProvRecord())
-                                                       .rights(TestUtil.createPremisRightsRecord())
-                                                       .build();
+        Representation r = new Representation.Builder()
+            .identifier(new Identifier("rep-1"))
+            .technical("default",TestUtil.createTextMDRecord())
+            .source(TestUtil.createDCSourceRecord())
+            .provenance(TestUtil.createPremisDigiProvRecord())
+            .rights(TestUtil.createPremisRightsRecord())
+            .build();
 
         ByteArrayOutputStream sink = new ByteArrayOutputStream();
         m.serialize(r, sink);
@@ -477,7 +436,9 @@ public class JaxbTest {
         altIds.add(new Identifier("alt-4"));
         altIds.add(new Identifier("alt-5"));
 
-        IntellectualEntity e = new IntellectualEntity.Builder().alternativeIdentifiers(altIds).build();
+        IntellectualEntity e = new IntellectualEntity.Builder()
+                .alternativeIdentifiers(altIds)
+                .build();
 
         ScapeMarshaller m = ScapeMarshaller.newInstance();
         ByteArrayOutputStream sink = new ByteArrayOutputStream();
@@ -489,9 +450,7 @@ public class JaxbTest {
 
     @Test
     public void testPlanExecutionStateDeserialization() throws Exception {
-        PlanExecutionState state = new PlanExecutionState(
-                new Date(),
-                eu.scape_project.model.plan.PlanExecutionState.ExecutionState.EXECUTION_SUCCESS);
+        PlanExecutionState state = new PlanExecutionState(new Date(),eu.scape_project.model.plan.PlanExecutionState.ExecutionState.EXECUTION_SUCCESS);
         ScapeMarshaller m = ScapeMarshaller.newInstance();
         ByteArrayOutputStream sink = new ByteArrayOutputStream();
         m.serialize(state, sink);
@@ -503,29 +462,16 @@ public class JaxbTest {
     @Test
     public void testPlanExecutionStateCollectionDeserialization() throws Exception {
         List<PlanExecutionState> states = new ArrayList<PlanExecutionState>();
-        states.add(
-                new PlanExecutionState(
-                        new Date(),
-                        eu.scape_project.model.plan.PlanExecutionState.ExecutionState.EXECUTION_FAIL));
-        states.add(
-                new PlanExecutionState(
-                        new Date(),
-                        eu.scape_project.model.plan.PlanExecutionState.ExecutionState.EXECUTION_IN_PROGRESS));
-        states.add(
-                new PlanExecutionState(
-                        new Date(),
-                        eu.scape_project.model.plan.PlanExecutionState.ExecutionState.EXECUTION_SUCCESS));
+        states.add(new PlanExecutionState(new Date(),eu.scape_project.model.plan.PlanExecutionState.ExecutionState.EXECUTION_FAIL));
+        states.add(new PlanExecutionState(new Date(),eu.scape_project.model.plan.PlanExecutionState.ExecutionState.EXECUTION_IN_PROGRESS));
+        states.add(new PlanExecutionState(new Date(),eu.scape_project.model.plan.PlanExecutionState.ExecutionState.EXECUTION_SUCCESS));
 
-        PlanExecutionStateCollection coll = new PlanExecutionStateCollection(
-                "http://localhost:8080/rest/objects/plans/plan-1",
-                states);
+        PlanExecutionStateCollection coll = new PlanExecutionStateCollection("http://localhost:8080/rest/objects/plans/plan-1",states);
 
         ScapeMarshaller m = ScapeMarshaller.newInstance();
         ByteArrayOutputStream sink = new ByteArrayOutputStream();
         m.serialize(coll, sink);
-        PlanExecutionStateCollection des = m.deserialize(
-                PlanExecutionStateCollection.class,
-                new ByteArrayInputStream(sink.toByteArray()));
+        PlanExecutionStateCollection des = m.deserialize(PlanExecutionStateCollection.class, new ByteArrayInputStream(sink.toByteArray()));
         assertEquals(coll.getExecutionStates().size(), des.getExecutionStates().size());
     }
 
@@ -534,15 +480,13 @@ public class JaxbTest {
         SortedSet<PlanExecutionState> states = new TreeSet<PlanExecutionState>();
         states.add(new PlanExecutionState(new Date(), ExecutionState.EXECUTION_SUCCESS));
         states.add(new PlanExecutionState(new Date(), ExecutionState.EXECUTION_FAIL));
-        PlanData data = new PlanData.Builder().description("A unit test plan")
-                                              .identifier(new Identifier("plan-1"))
-                                              .title("Unit test plan 1")
-                                              .lifecycleState(
-                                                      new PlanLifecycleState(
-                                                              eu.scape_project.model.plan.PlanLifecycleState.PlanState.ENABLED,
-                                                              "created"))
-                                              .executionStates(states)
-                                              .build();
+        PlanData data = new PlanData.Builder()
+            .description("A unit test plan")
+            .identifier(new Identifier("plan-1"))
+            .title("Unit test plan 1")
+            .lifecycleState(new PlanLifecycleState(eu.scape_project.model.plan.PlanLifecycleState.PlanState.ENABLED, "created"))
+            .executionStates(states)
+            .build();
         ScapeMarshaller m = ScapeMarshaller.newInstance();
         ByteArrayOutputStream sink = new ByteArrayOutputStream();
         m.serialize(data, sink);
@@ -559,22 +503,18 @@ public class JaxbTest {
         SortedSet<PlanExecutionState> states = new TreeSet<PlanExecutionState>();
         states.add(new PlanExecutionState(new Date(), ExecutionState.EXECUTION_SUCCESS));
         states.add(new PlanExecutionState(new Date(), ExecutionState.EXECUTION_FAIL));
-        PlanData data = new PlanData.Builder().description("A unit test plan")
-                                              .identifier(new Identifier("plan-1"))
-                                              .title("Unit test plan 1")
-                                              .lifecycleState(
-                                                      new PlanLifecycleState(
-                                                              eu.scape_project.model.plan.PlanLifecycleState.PlanState.ENABLED,
-                                                              "created"))
-                                              .executionStates(states)
-                                              .build();
+        PlanData data = new PlanData.Builder()
+            .description("A unit test plan")
+            .identifier(new Identifier("plan-1"))
+            .title("Unit test plan 1")
+            .lifecycleState(new PlanLifecycleState(eu.scape_project.model.plan.PlanLifecycleState.PlanState.ENABLED, "created"))
+            .executionStates(states)
+            .build();
         PlanDataCollection coll = new PlanDataCollection(Arrays.asList(data));
         ScapeMarshaller m = ScapeMarshaller.newInstance();
         ByteArrayOutputStream sink = new ByteArrayOutputStream();
         m.serialize(coll, sink);
-        PlanDataCollection deserialized = m.deserialize(
-                PlanDataCollection.class,
-                new ByteArrayInputStream(sink.toByteArray()));
+        PlanDataCollection deserialized = m.deserialize(PlanDataCollection.class, new ByteArrayInputStream(sink.toByteArray()));
         assertEquals(1, deserialized.getPlanData().size());
     }
 }

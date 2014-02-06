@@ -24,8 +24,6 @@ import eu.scape_project.model.Identifier;
 import eu.scape_project.model.IntellectualEntity;
 import eu.scape_project.model.LifecycleState;
 import eu.scape_project.model.Representation;
-import eu.scape_project.model.TechnicalMetadata;
-import eu.scape_project.model.TechnicalMetadataList;
 import gov.loc.audiomd.AudioType;
 import gov.loc.mets.DivType;
 import gov.loc.mets.DivType.Fptr;
@@ -136,9 +134,9 @@ public class ONBConverter extends IntellectualEntityConverter {
 				if (md.getID().startsWith("TMD")) {
 					Element el = (Element) o;
 					Object tech = deserializeElement(el);
-					text.technical(new TechnicalMetadataList(new TechnicalMetadata(k,tech)));
-					image.technical(new TechnicalMetadataList(new TechnicalMetadata(k,tech)));
-					html.technical(new TechnicalMetadataList(new TechnicalMetadata(k,tech)));
+					text.technical(k,tech);
+					image.technical(k,tech);
+					html.technical(k,tech);
 				}else if (md.getID().startsWith("PD")) {
 					/* TODO: Dont know! */
 				}else if (md.getID().startsWith("S")){
@@ -155,9 +153,9 @@ public class ONBConverter extends IntellectualEntityConverter {
 				html.source(o);
 			}
 			if (o instanceof Fits || o instanceof Mix || o instanceof VideoType || o instanceof AudioType || o instanceof TextMD) {
-				text.technical(new TechnicalMetadataList(new TechnicalMetadata(k,o)));
-				image.technical(new TechnicalMetadataList(new TechnicalMetadata(k,o)));
-				html.technical(new TechnicalMetadataList(new TechnicalMetadata(k,o)));
+				text.technical(k,o);
+				image.technical(k,o);
+				html.technical(k,o);
 			}
 			if (o instanceof PremisComplexType) {
 				text.provenance(o);

@@ -24,12 +24,14 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author frank asseg
- */
+*
+* @author frank asseg
+*
+*/
 public abstract class CopyUtil {
     @SuppressWarnings("unchecked")
     public static <T> T deepCopy(Class<?> type, T obj) {
-        if (obj == null) {
+        if (obj==null){
             return null;
         }
         if (type == String.class) {
@@ -86,14 +88,14 @@ public abstract class CopyUtil {
         if (type.isEnum()) {
             return obj;
         }
-        if (obj instanceof JAXBElement) {
+        if (obj instanceof JAXBElement){
             JAXBElement orig = (JAXBElement) obj;
-            copy = (T) new JAXBElement(orig.getName(), orig.getDeclaredType(), orig.getValue());
-        } else if (obj instanceof QName) {
+            copy = (T) new JAXBElement(orig.getName(),orig.getDeclaredType(),orig.getValue());
+        }else if (obj instanceof QName){
             return obj;
-        } else if (obj instanceof Class) {
+        }else if (obj instanceof Class){
             return obj;
-        } else {
+        }else {
             for (Constructor<?> c : type.getDeclaredConstructors()) {
                 if (c.getParameterTypes().length == 0) {
                     if (!c.isAccessible()) {
@@ -109,8 +111,8 @@ public abstract class CopyUtil {
             }
         }
         if (copy == null) {
-            throw new RuntimeException(
-                    "Unable to instantaiate copy of type " + type.getName());
+            throw new RuntimeException("Unable to instantaiate copy of type "
+                    + type.getName());
         }
         List<Class> classes = new ArrayList<Class>();
         Class<? extends Object> temp = obj.getClass();
