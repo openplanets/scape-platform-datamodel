@@ -13,12 +13,19 @@
  */
 package eu.scape_project.util;
 
+import com.google.books.gbs.FocusParametersType;
+import com.google.books.gbs.GbsType;
+import com.google.books.gbs.ImageMethodType;
+import com.google.books.gbs.ObjectFactory;
+import com.google.books.gbs.ProductionNotesType;
 import edu.harvard.hul.ois.xml.ns.fits.fits_output.Fits;
 import eu.scape_project.model.File;
 import eu.scape_project.model.Identifier;
 import eu.scape_project.model.IntellectualEntity;
 import eu.scape_project.model.LifecycleState;
 import eu.scape_project.model.Representation;
+import eu.scape_project.model.TechnicalMetadata;
+import eu.scape_project.model.TechnicalMetadataList;
 import gov.loc.audiomd.AudioType;
 import gov.loc.mets.DivType;
 import gov.loc.mets.DivType.Fptr;
@@ -32,24 +39,16 @@ import gov.loc.videomd.VideoType;
 import info.lc.xmlns.premis_v2.PremisComplexType;
 import info.lc.xmlns.premis_v2.RightsComplexType;
 import info.lc.xmlns.textmd_v3.TextMD;
+import org.purl.dc.elements._1.ElementContainer;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
+import javax.xml.bind.JAXBElement;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import javax.xml.bind.JAXBElement;
-
-import org.purl.dc.elements._1.ElementContainer;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
-import com.google.books.gbs.FocusParametersType;
-import com.google.books.gbs.GbsType;
-import com.google.books.gbs.ImageMethodType;
-import com.google.books.gbs.ObjectFactory;
-import com.google.books.gbs.ProductionNotesType;
 
 /**
 *
@@ -132,13 +131,14 @@ public class ONBConverter extends IntellectualEntityConverter {
 		for (Object mdSec : div.getADMID()) {
 			MdSecType md = (MdSecType) mdSec;
 			Object o = md.getMdWrap().getXmlData().getAny().get(0);
+            String k = md.getID();
 			if (o instanceof Element) {
 				if (md.getID().startsWith("TMD")) {
 					Element el = (Element) o;
 					Object tech = deserializeElement(el);
-					text.technical(tech);
-					image.technical(tech);
-					html.technical(tech);
+					text.technical(new TechnicalMetadataList(new TechnicalMetadata(k,tech)));
+					image.technical(new TechnicalMetadataList(new TechnicalMetadata(k,tech)));
+					html.technical(new TechnicalMetadataList(new TechnicalMetadata(k,tech)));
 				}else if (md.getID().startsWith("PD")) {
 					/* TODO: Dont know! */
 				}else if (md.getID().startsWith("S")){
@@ -155,9 +155,9 @@ public class ONBConverter extends IntellectualEntityConverter {
 				html.source(o);
 			}
 			if (o instanceof Fits || o instanceof Mix || o instanceof VideoType || o instanceof AudioType || o instanceof TextMD) {
-				text.technical(o);
-				image.technical(o);
-				html.technical(o);
+				text.technical(new TechnicalMetadataList(new TechnicalMetadata(k,o)));
+				image.technical(new TechnicalMetadataList(new TechnicalMetadata(k,o)));
+				html.technical(new TechnicalMetadataList(new TechnicalMetadata(k,o)));
 			}
 			if (o instanceof PremisComplexType) {
 				text.provenance(o);
@@ -202,10 +202,12 @@ public class ONBConverter extends IntellectualEntityConverter {
 				if (admIds != null && admIds.size() > 0) {
 					MdSecType mdSec = (MdSecType) metsFile.getADMID().get(0);
 					Object o = mdSec.getMdWrap().getXmlData().getAny().get(0);
+                    String mdId = mdSec.getID();
+
 					if (o instanceof Element) {
-						f.technical(deserializeElement((Element) o));
+						f.technical(mdId,deserializeElement((Element) o));
 					} else {
-						f.technical(o);
+						f.technical(mdId,o);
 					}
 				}
 				f.identifier(new Identifier(metsFile.getID()));

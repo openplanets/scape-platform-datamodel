@@ -14,6 +14,7 @@
 
 package eu.scape_project.util;
 
+import com.google.books.gbs.GbsType;
 import edu.harvard.hul.ois.xml.ns.fits.fits_output.Fits;
 import eu.scape_project.model.BitStream;
 import eu.scape_project.model.File;
@@ -21,6 +22,8 @@ import eu.scape_project.model.Identifier;
 import eu.scape_project.model.IntellectualEntity;
 import eu.scape_project.model.LifecycleState;
 import eu.scape_project.model.Representation;
+import eu.scape_project.model.TechnicalMetadata;
+import eu.scape_project.model.TechnicalMetadataList;
 import eu.scape_project.model.VersionMetadata;
 import gov.loc.audiomd.AudioType;
 import gov.loc.mets.AmdSecType;
@@ -45,22 +48,19 @@ import gov.loc.videomd.VideoType;
 import info.lc.xmlns.premis_v2.PremisComplexType;
 import info.lc.xmlns.premis_v2.RightsComplexType;
 import info.lc.xmlns.textmd_v3.TextMD;
+import org.purl.dc.elements._1.ElementContainer;
 
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-
-import org.purl.dc.elements._1.ElementContainer;
+import java.util.regex.Pattern;
 
 /**
-*
-* @author frank asseg
-*
-*/
+ * @author frank asseg
+ */
 public class DefaultConverter extends IntellectualEntityConverter {
 
     public DefaultConverter() {
@@ -95,10 +95,8 @@ public class DefaultConverter extends IntellectualEntityConverter {
         /* handle all representations of the intellectual entity */
         if (entity.getRepresentations() != null) {
             for (Representation r : entity.getRepresentations()) {
-                String repId =
-                        (r.getIdentifier() != null) ? r.getIdentifier()
-                                .getValue() : "METS_ID:" +
-                                UUID.randomUUID().toString();
+                String repId = (r.getIdentifier() != null) ? r.getIdentifier().getValue() :
+                               "METS_ID:" + UUID.randomUUID().toString();
                 DivType repDiv = new DivType();
                 repDiv.setTYPE("Representation");
                 repDiv.setID(repId);
@@ -108,33 +106,36 @@ public class DefaultConverter extends IntellectualEntityConverter {
 
                 /* convert the technical metadata of this representation */
                 if (r.getTechnical() != null) {
-                    addMetadata(repDiv.getADMID(), amdSec.getTechMD(), r
-                            .getTechnical(), useMdRef);
+                    for (TechnicalMetadata techMetadata : r.getTechnical().getContent()) {
+                        addTechnicalMetadata(
+                                repDiv.getADMID(), amdSec.getTechMD(), techMetadata, useMdRef, repId);
+                    }
+
                 }
 
                 if (r.getProvenance() != null) {
                     /* convert the provenance metadata of this representation */
-                    addMetadata(repDiv.getADMID(), amdSec.getDigiprovMD(), r
-                            .getProvenance(), useMdRef);
+                    String mdId = "PMD-" + UUID.randomUUID().toString();
+                    addMetadata(mdId, repDiv.getADMID(), amdSec.getDigiprovMD(), r.getProvenance(), useMdRef);
                 }
 
                 if (r.getSource() != null) {
                     /* convert the source metadata of this representation */
-                    addMetadata(repDiv.getADMID(), amdSec.getSourceMD(), r
-                            .getSource(), useMdRef);
+                    String mdId = "SMD-" + UUID.randomUUID().toString();
+                    addMetadata(mdId, repDiv.getADMID(), amdSec.getSourceMD(), r.getSource(), useMdRef);
                 }
 
                 if (r.getRights() != null) {
                     /* convert the rights metadata of this representation */
-                    addMetadata(repDiv.getADMID(), amdSec.getRightsMD(), r
-                            .getRights(), useMdRef);
+                    String mdId = "RMD-" + UUID.randomUUID().toString();
+                    addMetadata(mdId, repDiv.getADMID(), amdSec.getRightsMD(), r.getRights(), useMdRef);
                 }
 
                 /* handle all files of this representation */
                 for (File f : r.getFiles()) {
                     /* add each file to the file and Fptr sets */
-                    addFile(amdSec, repDiv.getFptr(), fileGrp.getFile(), f,
-                            useMdRef);
+                    addFile(
+                            repId, amdSec, repDiv.getFptr(), fileGrp.getFile(), f, useMdRef);
                 }
                 mainDiv.getDiv().add(repDiv);
             }
@@ -147,13 +148,12 @@ public class DefaultConverter extends IntellectualEntityConverter {
         return mets;
     }
 
-    private void addFile(AmdSecType amdSec, List<Fptr> pointerList,
-            List<FileType> fileList, File f, boolean useMdRef) {
+    private void addFile(String repId, AmdSecType amdSec, List<Fptr> pointerList, List<FileType> fileList, File f,
+                         boolean useMdRef) {
         Fptr ptr = new Fptr();
         FileType metsFile = new FileType();
-        String fileId =
-                (f.getIdentifier() != null) ? f.getIdentifier().getValue()
-                        : "FILE-" + UUID.randomUUID().toString();
+        String fileId = (f.getIdentifier() != null) ? f.getIdentifier().getValue() :
+                        "FILE-" + repId + "-" + UUID.randomUUID().toString();
         metsFile.setID(fileId);
         metsFile.setSEQ(0);
         metsFile.setMIMETYPE(f.getMimetype());
@@ -163,11 +163,13 @@ public class DefaultConverter extends IntellectualEntityConverter {
             locat.setLOCTYPE("URL");
             locat.setHref(f.getUri().toASCIIString());
         }
-        Object filemd = f.getTechnical();
+        TechnicalMetadataList filemd = f.getTechnical();
         if (filemd != null) {
-            MdSecType filemdsec = createMdSec(filemd, useMdRef);
-            amdSec.getTechMD().add(filemdsec);
-            metsFile.getADMID().add(filemdsec);
+            for (TechnicalMetadata technicalMetadata : filemd.getContent()) {
+                addTechnicalMetadata(
+                        metsFile.getADMID(), amdSec.getTechMD(), technicalMetadata, useMdRef, repId, fileId);
+            }
+
         }
         metsFile.getFLocat().add(locat);
 
@@ -177,17 +179,23 @@ public class DefaultConverter extends IntellectualEntityConverter {
          */
         if (f.getBitStreams() != null) {
             for (BitStream bs : f.getBitStreams()) {
-                Object md = bs.getTechnical();
+                TechnicalMetadataList md = bs.getTechnical();
+                String bsId = (bs.getIdentifier() != null) ? bs.getIdentifier().getValue() :
+                              "BITSTREAM-" + UUID.randomUUID().toString();
                 FileType.Stream stream = new FileType.Stream();
                 if (md != null) {
-                    MdSecType mdsec = createMdSec(md, useMdRef);
-                    amdSec.getTechMD().add(mdsec);
-                    stream.getADMID().add(mdsec);
+                    for (TechnicalMetadata technicalMetadata : md.getContent()) {
+                        addTechnicalMetadata(
+                                stream.getADMID(),
+                                amdSec.getTechMD(),
+                                technicalMetadata,
+                                useMdRef,
+                                repId,
+                                fileId,
+                                bsId);
+
+                    }
                 }
-                String bsId =
-                        (bs.getIdentifier() != null) ? bs.getIdentifier()
-                                .getValue() : "BITSTREAM-" +
-                                UUID.randomUUID().toString();
                 stream.setID(bsId);
                 metsFile.getStream().add(stream);
             }
@@ -197,27 +205,75 @@ public class DefaultConverter extends IntellectualEntityConverter {
         fileList.add(metsFile);
     }
 
-    private MdSecType createMdSec(Object metadata, boolean useMdRef) {
-        MdSecType mdSec = new MdSecType();
-        mdSec.setID("MD-" + UUID.randomUUID().toString());
-        if (useMdRef) {
-            MdRef ref = new MdRef();
-            ref.setType(metadata.getClass().getSimpleName());
-            mdSec.setMdRef(ref);
-        } else {
 
-            MdWrap wrap = new MdWrap();
-            XmlData data = new XmlData();
-            data.getAny().add(metadata);
-            wrap.setXmlData(data);
-            mdSec.setMdWrap(wrap);
+    private String getType(Object object) {
+        if (object instanceof TextMD) {
+            return "TEXTMD";
         }
-        return mdSec;
+        if (object instanceof ElementContainer) {
+            return "DC";
+        }
+        if (object instanceof JAXBElement) {
+            JAXBElement jaxbElement = (JAXBElement) object;
+            if (jaxbElement.getValue() instanceof PremisComplexType) {
+                return "PREMIS";
+            }
+            if (jaxbElement.getValue() instanceof RightsComplexType) {
+                return "PREMIS:RIGHTS";
+            }
+
+        }
+        if (object instanceof Mix) {
+            return "NISOIMG";
+        }
+        if (object instanceof Fits) {
+            return "OTHER";
+        }
+        if (object instanceof GbsType) {
+            return "OTHER";
+        }
+        if (object instanceof VideoType) {
+            return "OTHER";
+        }
+        if (object instanceof AudioType) {
+            return "OTHER";
+        }
+        if (object instanceof VersionMetadata) {
+            return "OTHER";
+        }
+
+        return "OTHER";
     }
 
-    private void addMetadata(List<Object> adm, List<MdSecType> mdSet,
-            Object metadata, boolean useMdRef) {
-        String mdId = "MD-" + UUID.randomUUID().toString();
+    private void addTechnicalMetadata(List<Object> adm, List<MdSecType> mdSet, TechnicalMetadata metadata,
+                                      boolean useMdRef, String... Ids) {
+        String mdId = "TMD-";
+        for (String id : Ids) {
+            mdId = mdId + id + "-";
+        }
+        mdId = mdId + metadata.getId();
+        MdSecType mdSec = new MdSecType();
+        mdSec.setID(mdId);
+        if (useMdRef) {
+            MdRef ref = new MdRef();
+            ref.setType(metadata.getContents().getClass().getSimpleName());
+            mdSec.setMdRef(ref);
+            adm.add(mdSec);
+            mdSet.add(mdSec);
+        } else {
+            MdWrap mdWrap = new MdWrap();
+            XmlData data = new XmlData();
+            data.getAny().add(metadata.getContents());
+            mdWrap.setMDTYPE(getType(metadata.getContents()));
+            mdWrap.setXmlData(data);
+            mdSec.setMdWrap(mdWrap);
+            adm.add(mdSec);
+            mdSet.add(mdSec);
+        }
+    }
+
+    private void addMetadata(String mdId, List<Object> adm, List<MdSecType> mdSet, Object metadata, boolean useMdRef) {
+
         MdSecType mdSec = new MdSecType();
         mdSec.setID(mdId);
         if (useMdRef) {
@@ -231,6 +287,7 @@ public class DefaultConverter extends IntellectualEntityConverter {
             XmlData data = new XmlData();
             data.getAny().add(metadata);
             mdWrap.setXmlData(data);
+            mdWrap.setMDTYPE(getType(metadata));
             mdSec.setMdWrap(mdWrap);
             adm.add(mdSec);
             mdSet.add(mdSec);
@@ -239,29 +296,33 @@ public class DefaultConverter extends IntellectualEntityConverter {
 
     private void addVersionDmdSec(Mets mets, int versionNumber) {
         MdSecType dmdSec = new MdSecType();
+        String mdId = "DMD-" + UUID.randomUUID().toString();
+        dmdSec.setID(mdId);
         MdWrap wrap = new MdWrap();
         XmlData data = new XmlData();
-        data.getAny().add(new VersionMetadata(versionNumber));
+        VersionMetadata versionMetadata = new VersionMetadata(versionNumber);
+        data.getAny().add(versionMetadata);
         wrap.setXmlData(data);
+        wrap.setMDTYPE(getType(versionMetadata));
         dmdSec.setMdWrap(wrap);
         mets.getDmdSec().add(dmdSec);
     }
 
-    private void addDmdSec(Mets mets, IntellectualEntity entity,
-            boolean useMdRef) {
+    private void addDmdSec(Mets mets, IntellectualEntity entity, boolean useMdRef) {
         MdSecType dmdSec = new MdSecType();
+        String mdId = "DMD-" + UUID.randomUUID().toString();
+        dmdSec.setID(mdId);
         if (useMdRef) {
-            String mdId = "MD-" + UUID.randomUUID().toString();
             MdRef ref = new MdRef();
-            ref.setID(mdId);;
+            ref.setID(mdId);
             ref.setType(entity.getDescriptive().getClass().getSimpleName());
             dmdSec.setMdRef(ref);
         } else {
             MdWrap wrap = new MdWrap();
             XmlData data = new XmlData();
-            Object md = entity.getDescriptive();
             data.getAny().add(entity.getDescriptive());
             wrap.setXmlData(data);
+            wrap.setMDTYPE(getType(entity.getDescriptive()));
             dmdSec.setMdWrap(wrap);
         }
         mets.getDmdSec().add(dmdSec);
@@ -285,8 +346,8 @@ public class DefaultConverter extends IntellectualEntityConverter {
         if (entity.getLifecycleState() == null) {
             header.setRECORDSTATUS(LifecycleState.State.NEW.toString());
         } else {
-            header.setRECORDSTATUS(entity.getLifecycleState().getState()
-                    .toString());
+            header.setRECORDSTATUS(
+                    entity.getLifecycleState().getState().toString());
         }
         mets.setMetsHdr(header);
     }
@@ -296,12 +357,10 @@ public class DefaultConverter extends IntellectualEntityConverter {
         /* create a SCAPE entity */
         List<Representation> reps = createScapeRepresentations(mets);
         LifecycleState lifecycle = createLifecycleState(mets);
-        IntellectualEntity.Builder entity =
-                new IntellectualEntity.Builder().identifier(
-                        new Identifier(mets.getOBJID())).descriptive(
-                        createDC(mets)).lifecycleState(lifecycle)
-                        .representations(reps).versionNumber(
-                                getVersionNumber(mets));
+        IntellectualEntity.Builder entity = new IntellectualEntity.Builder().identifier(
+                new Identifier(mets.getOBJID())).descriptive(
+                createDC(mets)).lifecycleState(lifecycle).representations(reps).versionNumber(
+                getVersionNumber(mets));
 
         /* read the alt IDs from the MetsHeader if they exist */
         if (mets.getMetsHdr().getAltRecordID().size() > 0) {
@@ -318,11 +377,8 @@ public class DefaultConverter extends IntellectualEntityConverter {
     private int getVersionNumber(MetsType mets) {
         for (MdSecType dmd : mets.getDmdSec()) {
             final List<Object> mds = dmd.getMdWrap().getXmlData().getAny();
-            if (!mds.isEmpty() &&
-                    mds.get(0).getClass() == VersionMetadata.class) {
-                VersionMetadata data =
-                        (VersionMetadata) dmd.getMdWrap().getXmlData().getAny()
-                                .get(0);
+            if (!mds.isEmpty() && mds.get(0).getClass() == VersionMetadata.class) {
+                VersionMetadata data = (VersionMetadata) dmd.getMdWrap().getXmlData().getAny().get(0);
                 return data.getVersionNumber();
             }
         }
@@ -346,8 +402,7 @@ public class DefaultConverter extends IntellectualEntityConverter {
         return null;
     }
 
-    private List<Representation> createScapeRepresentations(MetsType mets)
-            throws JAXBException {
+    private List<Representation> createScapeRepresentations(MetsType mets) throws JAXBException {
         List<Representation> reps = new ArrayList<Representation>();
         for (StructMapType structmap : mets.getStructMap()) {
             DivType div = structmap.getDiv();
@@ -360,14 +415,9 @@ public class DefaultConverter extends IntellectualEntityConverter {
         return reps;
     }
 
-    private Representation
-            createScapeRepresentation(DivType div, MetsType mets)
-                    throws JAXBException {
-        String repId =
-                (div.getID() != null) ? div.getID() : "rep" +
-                        UUID.randomUUID().toString();
-        Representation.Builder rep =
-                new Representation.Builder(new Identifier(repId));
+    private Representation createScapeRepresentation(DivType div, MetsType mets) throws JAXBException {
+        String repId = (div.getID() != null) ? div.getID() : "rep" + UUID.randomUUID().toString();
+        Representation.Builder rep = new Representation.Builder(new Identifier(repId));
         if (div.getLabel() != null) {
             rep.title(div.getLabel());
         }
@@ -375,20 +425,21 @@ public class DefaultConverter extends IntellectualEntityConverter {
             if (o instanceof AmdSecType) {
                 AmdSecType amdSec = (AmdSecType) o;
                 if (amdSec.getTechMD().size() > 0) {
-                    rep.technical(amdSec.getTechMD().get(0).getMdWrap()
-                            .getXmlData().getAny().get(0));
+                    rep.technical(
+                            strip(amdSec.getTechMD().get(0).getID(), repId),
+                            amdSec.getTechMD().get(0).getMdWrap().getXmlData().getAny().get(0));
                 }
                 if (amdSec.getSourceMD().size() > 0) {
-                    rep.source(amdSec.getSourceMD().get(0).getMdWrap()
-                            .getXmlData().getAny().get(0));
+                    rep.source(
+                            amdSec.getSourceMD().get(0).getMdWrap().getXmlData().getAny().get(0));
                 }
                 if (amdSec.getRightsMD().size() > 0) {
-                    rep.rights(amdSec.getRightsMD().get(0).getMdWrap()
-                            .getXmlData().getAny().get(0));
+                    rep.rights(
+                            amdSec.getRightsMD().get(0).getMdWrap().getXmlData().getAny().get(0));
                 }
                 if (amdSec.getDigiprovMD().size() > 0) {
-                    rep.provenance(amdSec.getDigiprovMD().get(0).getMdWrap()
-                            .getXmlData().getAny().get(0));
+                    rep.provenance(
+                            amdSec.getDigiprovMD().get(0).getMdWrap().getXmlData().getAny().get(0));
                 }
             } else if (o instanceof MdSecType) {
                 MdSecType mdSec = (MdSecType) o;
@@ -396,11 +447,12 @@ public class DefaultConverter extends IntellectualEntityConverter {
                     continue;
                 }
                 Object mdObj = mdSec.getMdWrap().getXmlData().getAny().get(0);
+                String mdObjID = strip(mdSec.getID(), repId);
                 if (mdObj instanceof TextMD || mdObj instanceof Fits ||
-                        mdObj instanceof Mix || mdObj instanceof VideoType ||
-                        mdObj instanceof AudioType) {
+                    mdObj instanceof Mix || mdObj instanceof VideoType ||
+                    mdObj instanceof AudioType) {
                     /* it's tech md */
-                    rep.technical(mdObj);
+                    rep.technical(mdObjID, mdObj);
                 } else if (mdObj instanceof JAXBElement<?>) {
                     JAXBElement<?> jaxb = (JAXBElement<?>) mdObj;
                     if (jaxb.getDeclaredType() == PremisComplexType.class) {
@@ -418,9 +470,8 @@ public class DefaultConverter extends IntellectualEntityConverter {
                     rep.source(mdObj);
                 } else {
                     throw new JAXBException(
-                            "Unable to deserialize objects of type " +
-                                    ((JAXBElement<?>) mdObj).getDeclaredType()
-                                            .getName());
+                            "Unable to deserialize objects of type " + ((JAXBElement<?>) mdObj).getDeclaredType()
+                                                                                               .getName());
                 }
             }
         }
@@ -429,27 +480,43 @@ public class DefaultConverter extends IntellectualEntityConverter {
             File.Builder f = new File.Builder();
             FileType metsFile = (FileType) ptr.getFILEID();
             f.identifier(new Identifier(metsFile.getID()));
-            if (metsFile.getADMID() != null && metsFile.getADMID().size() > 0) {
-                Object o = metsFile.getADMID().get(0);
-                if (o instanceof MdSecType) {
-                    MdSecType mdSec = (MdSecType) o;
-                    if (mdSec.getMdWrap().getXmlData().getAny().size() > 0) {
-                        f.technical(mdSec.getMdWrap().getXmlData().getAny()
-                                .get(0));
+            if (metsFile.getADMID() != null) {
+                for (Object o : metsFile.getADMID()) {
+                    MdSecType mdSec;
+                    if (o instanceof MdSecType) {
+                        mdSec = (MdSecType) o;
+                    } else if (o instanceof AmdSecType) {
+                        mdSec = ((AmdSecType) o).getTechMD().get(0);
+                    } else {
+                        continue;
                     }
-                } else if (o instanceof AmdSecType) {
-                    MdSecType mdsec = ((AmdSecType) o).getTechMD().get(0);
-                    f.technical(mdsec);
+                    String id = strip(mdSec.getID(), repId, metsFile.getID());
+
+                    if (mdSec.getMdWrap().getXmlData().getAny().size() > 0) {
+                        f.technical(
+                                id, mdSec.getMdWrap().getXmlData().getAny().get(0));
+                    }
                 }
             }
             List<BitStream> bitstreams = new ArrayList<BitStream>();
             for (Stream stream : metsFile.getStream()) {
-                MdSecType mdSec = (MdSecType) stream.getADMID().get(0);
-                BitStream.Builder bs =
-                        new BitStream.Builder().identifier(new Identifier(
+
+                BitStream.Builder bs = new BitStream.Builder().identifier(
+                        new Identifier(
                                 stream.getID()));
-                if (mdSec.getMdWrap().getXmlData().getAny().size() > 0) {
-                    bs.technical(mdSec.getMdWrap().getXmlData().getAny().get(0));
+                for (Object o : stream.getADMID()) {
+                    MdSecType mdSec;
+                    if (o instanceof MdSecType) {
+                        mdSec = (MdSecType) o;
+                    } else if (o instanceof AmdSecType) {
+                        mdSec = ((AmdSecType) o).getTechMD().get(0);
+                    } else {
+                        continue;
+                    }
+                    bs.technical(
+                            strip(mdSec.getID(), repId, metsFile.getID(), stream.getID()),
+                            mdSec.getMdWrap().getXmlData().getAny().get(0));
+
                 }
                 bitstreams.add(bs.build());
             }
@@ -463,7 +530,21 @@ public class DefaultConverter extends IntellectualEntityConverter {
             f.mimetype(metsFile.getMIMETYPE());
             files.add(f.build());
         }
+
         rep.files(files);
         return rep.build();
+    }
+
+    private String strip(String id, String... prefixIds) {
+        id = id.replaceFirst("^.?MD-", "");
+        for (String prefixId : prefixIds) {
+            String changed = id.replaceFirst("^" + Pattern.quote(prefixId + "-"), "");
+            if (changed.equals(id)) {
+                break;
+            } else {
+                id = changed;
+            }
+        }
+        return id;
     }
 }

@@ -14,11 +14,7 @@
 
 package eu.scape_project.model;
 
-import com.google.books.gbs.GbsType;
-import edu.harvard.hul.ois.xml.ns.fits.fits_output.Fits;
 import eu.scape_project.util.CopyUtil;
-import gov.loc.mix.v20.Mix;
-import info.lc.xmlns.textmd_v3.TextMD;
 import org.purl.dc.elements._1.ElementContainer;
 
 import javax.xml.bind.JAXBElement;
@@ -27,19 +23,16 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementRef;
-import javax.xml.bind.annotation.XmlElementRefs;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
-*
-* @author frank asseg
-*
-*/
+ * @author frank asseg
+ */
 @XmlRootElement(name = "representation", namespace = "http://scape-project.eu/model")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Representation extends Identified{
+public class Representation extends Identified {
 
 
     @XmlAnyElement(lax = true)
@@ -50,17 +43,8 @@ public class Representation extends Identified{
     @XmlElementRef(name = "premis", namespace = "info:lc/xmlns/premis-v2", type = JAXBElement.class)
     private final Object provenance;
 
-    @XmlAnyElement(lax = true)
-    @XmlElementRefs({
-            @XmlElementRef(name = "object", namespace = "info:lc/xmlns/premis-v2", type = JAXBElement.class),
-            //TODO should the data below not be stored inside the premis rather than be alternatives?
-            @XmlElementRef(name = "textMD", type = TextMD.class),
-            @XmlElementRef(name = "fits", type = Fits.class),
-            @XmlElementRef(name = "mix", type = Mix.class),
-            @XmlElementRef(name = "gbs", type = GbsType.class),
-            @XmlElementRef(name = "VIDEOMD", namespace = "http://www.loc.gov/videoMD/", type = JAXBElement.class),
-            @XmlElementRef(name = "AUDIOMD", namespace = "http://www.loc.gov/audioMD/", type = JAXBElement.class)})
-    private final Object technical;
+    @XmlElement(name = "technicals", namespace = "http://scape-project.eu/model")
+    private final TechnicalMetadataList technical;
 
     @XmlAnyElement(lax = true)
     @XmlElementRef(name = "rights", namespace = "info:lc/xmlns/premis-v2", type = JAXBElement.class)
@@ -109,7 +93,7 @@ public class Representation extends Identified{
         return source;
     }
 
-    public Object getTechnical() {
+    public TechnicalMetadataList getTechnical() {
         return technical;
     }
 
@@ -120,9 +104,9 @@ public class Representation extends Identified{
     @Override
     public String toString() {
         return "Representation [" + "identifier=" + identifier + ", source=" +
-                source + ", provenance=" + provenance + ", technical=" +
-                technical + ", rights=" + rights + ", files=" + files +
-                ", title=" + title + "]";
+               source + ", provenance=" + provenance + ", technical=" +
+               technical + ", rights=" + rights + ", files=" + files +
+               ", title=" + title + "]";
     }
 
     public static class Builder {
@@ -131,7 +115,7 @@ public class Representation extends Identified{
 
         private Object provenance;
 
-        private Object technical;
+        private TechnicalMetadataList technical;
 
         private Object rights;
 
@@ -190,7 +174,19 @@ public class Representation extends Identified{
             return this;
         }
 
-        public Builder technical(Object technical) {
+        public Builder technical(String id, Object content) {
+            return technical(new TechnicalMetadata(id, content));
+        }
+
+        public Builder technical(TechnicalMetadata technical) {
+            if (this.technical == null) {
+                this.technical = new TechnicalMetadataList();
+            }
+            this.technical.getContent().add(technical);
+            return this;
+        }
+
+        public Builder technical(TechnicalMetadataList technical) {
             this.technical = technical;
             return this;
         }

@@ -14,6 +14,11 @@
 
 package eu.scape_project.model;
 
+import edu.harvard.hul.ois.xml.ns.fits.fits_output.Fits;
+import gov.loc.mix.v20.ImageCaptureMetadataType;
+import gov.loc.mix.v20.ImageCaptureMetadataType.DigitalCameraCapture;
+import gov.loc.mix.v20.Mix;
+import gov.loc.mix.v20.StringType;
 import info.lc.xmlns.premis_v2.CopyrightInformationComplexType;
 import info.lc.xmlns.premis_v2.EventComplexType;
 import info.lc.xmlns.premis_v2.LinkingAgentIdentifierComplexType;
@@ -24,25 +29,17 @@ import info.lc.xmlns.premis_v2.RightsStatementComplexType;
 import info.lc.xmlns.textmd_v3.TextMD;
 import info.lc.xmlns.textmd_v3.TextMD.Encoding;
 import info.lc.xmlns.textmd_v3.TextMD.Encoding.EncodingPlatform;
+import org.purl.dc.elements._1.ElementContainer;
+import org.purl.dc.elements._1.SimpleLiteral;
 
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
 import java.net.URI;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Random;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-
-import org.purl.dc.elements._1.ElementContainer;
-import org.purl.dc.elements._1.SimpleLiteral;
-
-import edu.harvard.hul.ois.xml.ns.fits.fits_output.Fits;
-import gov.loc.mix.v20.ImageCaptureMetadataType;
-import gov.loc.mix.v20.ImageCaptureMetadataType.DigitalCameraCapture;
-import gov.loc.mix.v20.Mix;
-import gov.loc.mix.v20.StringType;
 
 /**
 *
@@ -60,7 +57,7 @@ public abstract class TestUtil {
             throws JAXBException {
         BitStream bs_1 =
                 new BitStream.Builder().identifier(
-                        new Identifier("bitstream-1")).technical(
+                        new Identifier("bitstream-1")).technical("default",
                         TestUtil.createFITSRecord()).build();
 
         File f =
@@ -68,17 +65,17 @@ public abstract class TestUtil {
                         Arrays.asList(bs_1)).identifier(
                         new Identifier("file-1")).uri(
                         URI.create(TestUtil.class.getClassLoader().getResource(
-                                "scape_logo.png").toString())).technical(
+                                "scape_logo.png").toString())).technical("default",
                         TestUtil.createMIXRecord())
                         .filename("scape_logo.png").build();
 
         Representation rep =
                 new Representation.Builder(new Identifier("representation-1"))
                         .files(Arrays.asList(f)).title("Text representation")
-                        .technical(TestUtil.createTextMDRecord()).provenance(
+                        .technical(new TechnicalMetadataList(new TechnicalMetadata("default",TestUtil.createTextMDRecord()))).provenance(
                                 TestUtil.createPremisDigiProvRecord()).rights(
-                                TestUtil.createPremisRightsRecord()).source(
-                                TestUtil.createDCSourceRecord()).build();
+                        TestUtil.createPremisRightsRecord()).source(
+                        TestUtil.createDCSourceRecord()).build();
 
         IntellectualEntity e =
                 new IntellectualEntity.Builder().identifier(
@@ -120,6 +117,7 @@ public abstract class TestUtil {
     public static JAXBElement<PremisComplexType> createPremisDigiProvRecord() {
         ObjectFactory premisFac = new ObjectFactory();
         PremisComplexType premis = premisFac.createPremisComplexType();
+        premis.setVersion("2.2");
         EventComplexType e = premisFac.createEventComplexType();
         e.setEventDetail("inital ingest");
         e.setEventType("INGEST");
@@ -174,7 +172,7 @@ public abstract class TestUtil {
             createTestEntityWithMultipleRepresentations(String entityId) {
         BitStream bs_1 =
                 new BitStream.Builder().identifier(
-                        new Identifier("bitstream-1")).technical(
+                        new Identifier("bitstream-1")).technical("default",
                         TestUtil.createFITSRecord()).build();
 
         File f1 = new File.Builder()
@@ -182,38 +180,37 @@ public abstract class TestUtil {
                         .identifier(new Identifier("file-1"))
                         .uri(URI.create(TestUtil.class.getClassLoader().getResource(
                                 "scape_logo.png").toString()))
-                        .technical(TestUtil.createMIXRecord()).mimetype(
+                        .technical("default",TestUtil.createMIXRecord()).mimetype(
                                 "image/png").build();
 
         Representation rep1 = new Representation.Builder(new Identifier("representation-1"))
-                        .files(Arrays.asList(f1)).technical(
+                        .files(Arrays.asList(f1)).technical("default",
                                 TestUtil.createTextMDRecord()).title(
                                 "Text representation").provenance(
                                 TestUtil.createPremisDigiProvRecord()).rights(
                                 TestUtil.createPremisRightsRecord()).source(
-                                TestUtil.createDCSourceRecord()).build();
+                        TestUtil.createDCSourceRecord()).build();
 
         BitStream bs_2 = new BitStream.Builder().identifier(
-                        new Identifier("bitstream-2")).technical(
+                        new Identifier("bitstream-2")).technical("default",
                         TestUtil.createFITSRecord()).build();
 
         File f2 = new File.Builder().bitStreams(Arrays.asList(bs_2)).identifier(
                         new Identifier("file-2"))
                                 .uri(URI.create(TestUtil.class.getClassLoader().getResource(
                                         "scape_logo.png").toString()))
-                                .technical(TestUtil.createMIXRecord()).mimetype(
+                                .technical("default",TestUtil.createMIXRecord()).mimetype(
                                         "image/png").build();
 
         Representation rep2 = new Representation.Builder(new Identifier("representation-2"))
-                        .files(Arrays.asList(f2)).technical(
-                                TestUtil.createTextMDRecord()).title(
+                        .files(Arrays.asList(f2)).technical("default",TestUtil.createTextMDRecord()).title(
                                 "Text representation").provenance(
                                 TestUtil.createPremisDigiProvRecord()).rights(
                                 TestUtil.createPremisRightsRecord()).source(
-                                TestUtil.createDCSourceRecord()).build();
+                        TestUtil.createDCSourceRecord()).build();
 
         BitStream bs_3 = new BitStream.Builder().identifier(
-                        new Identifier("bitstream-3")).technical(
+                        new Identifier("bitstream-3")).technical("default",
                         TestUtil.createFITSRecord()).build();
 
         File f3 = new File.Builder()
@@ -221,17 +218,16 @@ public abstract class TestUtil {
                         .identifier(new Identifier("file-3"))
                         .uri(URI.create(TestUtil.class.getClassLoader().getResource(
                                 "scape_logo.png").toString()))
-                        .technical(TestUtil.createMIXRecord())
+                        .technical("default",TestUtil.createMIXRecord())
                         .mimetype("image/png")
                         .build();
 
         Representation rep3 = new Representation.Builder(new Identifier("representation-3"))
-                        .files(Arrays.asList(f3)).technical(
-                                TestUtil.createTextMDRecord()).title(
+                        .files(Arrays.asList(f3)).technical("default",TestUtil.createTextMDRecord()).title(
                                 "Text representation").provenance(
                                 TestUtil.createPremisDigiProvRecord()).rights(
                                 TestUtil.createPremisRightsRecord()).source(
-                                TestUtil.createDCSourceRecord()).build();
+                        TestUtil.createDCSourceRecord()).build();
 
         IntellectualEntity e = new IntellectualEntity.Builder().identifier(
                         new Identifier(entityId)).representations(

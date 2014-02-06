@@ -14,26 +14,6 @@
 
 package eu.scape_project.util;
 
-import info.lc.xmlns.premis_v2.Bitstream;
-
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.PropertyException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
 import eu.scape_project.model.File;
 import eu.scape_project.model.IntellectualEntity;
 import eu.scape_project.model.IntellectualEntityCollection;
@@ -46,6 +26,24 @@ import eu.scape_project.model.plan.PlanExecutionState;
 import eu.scape_project.model.plan.PlanExecutionStateCollection;
 import gov.loc.mets.Mets;
 import gov.loc.mets.MetsType;
+import info.lc.xmlns.premis_v2.Bitstream;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.PropertyException;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
 *
@@ -82,6 +80,8 @@ public class ScapeMarshaller {
                         m.setProperty("com.sun.xml.bind.namespacePrefixMapper",
                                 new ScapeNamespacePrefixMapper());
                         m.setProperty(Marshaller.JAXB_FRAGMENT, true);
+                        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,true);
+
                         return m;
                     } catch (JAXBException e) {
                         throw new RuntimeException(
@@ -156,6 +156,7 @@ public class ScapeMarshaller {
     public static ScapeMarshaller newInstance() throws JAXBException {
         return new ScapeMarshaller(null);
     }
+
 
     public static ScapeMarshaller newInstance(
             IntellectualEntityConverter... converter) throws JAXBException {
