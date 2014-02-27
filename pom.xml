@@ -3,11 +3,11 @@
 	<parent>
 		<groupId>eu.scape-project</groupId>
 		<artifactId>scape-parent</artifactId>
-		<version>1.0.0</version>
+		<version>1.1.0</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>eu.scape-project.model</groupId>
-	<artifactId>scape-platform-datamodel</artifactId>
+	<artifactId>scape-platform-datamodel-SB</artifactId>
 	<version>0.1.8-SNAPSHOT</version>
 	<name>scape-platform-datamodel</name>
 	<scm>
@@ -15,6 +15,14 @@
 		<developerConnection>scm:git:git@github.com:openplanets/scape-platform-datamodel.git</developerConnection>
 		<url>git@github.com:openplanets/scape-platform-datamodel.git</url>
 	</scm>
+
+    <distributionManagement>
+        <repository>
+            <id>bintray</id>
+            <url>https://api.bintray.com/maven/openplanets/maven/scape-platform-datamodel</url>
+        </repository>
+    </distributionManagement>
+
 
 	<profiles>
 		<!-- We need the sonatype snapshot repo for now -->
