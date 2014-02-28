@@ -5,6 +5,7 @@ import edu.harvard.hul.ois.xml.ns.fits.fits_output.Fits;
 import generated.Jpylyzer;
 import gov.loc.mix.v20.Mix;
 import info.lc.xmlns.textmd_v3.TextMD;
+import org.ffmpeg.schema.ffprobe.FfprobeType;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -28,8 +29,8 @@ public class TechnicalMetadata {
                      @XmlElementRef(name = "fits", type = Fits.class),
                      @XmlElementRef(name = "mix", type = Mix.class),
                      @XmlElementRef(name = "gbs", type = GbsType.class),
-
                      @XmlElementRef(name = "jpylyzer", type = Jpylyzer.class),
+                     @XmlElementRef(name = "ffprobe", type = FfprobeType.class),
                      @XmlElementRef(name = "VIDEOMD", namespace = "http://www.loc.gov/videoMD/", type = JAXBElement.class),
                      @XmlElementRef(name = "AUDIOMD", namespace = "http://www.loc.gov/audioMD/", type = JAXBElement.class)})
     private Object contents;

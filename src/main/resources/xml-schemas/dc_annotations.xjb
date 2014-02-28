@@ -40,4 +40,12 @@
 	  </annox:annotate>  		
   	</jaxb:bindings>
   </jaxb:bindings>
+    <jaxb:bindings schemaLocation="ffprobe.xsd" node="/xs:schema">
+    	<jaxb:bindings node="xs:complexType[@name='ffprobeType']">
+        <annox:annotate>
+    	    <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="gbs" namespace="http://www.ffmpeg.org/schema/ffprobe" />
+  	  </annox:annotate>
+    	</jaxb:bindings>
+    </jaxb:bindings>
+
 </jaxb:bindings>
