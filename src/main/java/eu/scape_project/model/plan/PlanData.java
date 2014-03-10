@@ -67,7 +67,7 @@ public class PlanData {
     }
 
     public String getTitle() {
-        return title;
+    	return title == null ? "" : title;
     }
 
     public Identifier getIdentifier() {
@@ -75,7 +75,7 @@ public class PlanData {
     }
 
     public String getDescription() {
-        return description;
+    	return description == null ? "" : description;
     }
 
     public SortedSet<PlanExecutionState> getExecutionStates() {
