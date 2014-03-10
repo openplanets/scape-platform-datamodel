@@ -61,7 +61,8 @@ public abstract class TestUtil {
         BitStream bs_1 =
                 new BitStream.Builder().identifier(
                         new Identifier("bitstream-1")).technical(
-                        TestUtil.createFITSRecord()).build();
+                        new TechnicalMetadataList.Builder().record(TestUtil.createFITSRecord()).build()
+                        ).build();
 
         File f =
                 new File.Builder().mimetype("image/png").bitStreams(
@@ -69,13 +70,14 @@ public abstract class TestUtil {
                         new Identifier("file-1")).uri(
                         URI.create(TestUtil.class.getClassLoader().getResource(
                                 "scape_logo.png").toString())).technical(
-                        TestUtil.createMIXRecord())
+                         new TechnicalMetadataList.Builder().record(TestUtil.createMIXRecord()).build())
                         .filename("scape_logo.png").build();
 
         Representation rep =
                 new Representation.Builder(new Identifier("representation-1"))
                         .files(Arrays.asList(f)).title("Text representation")
-                        .technical(TestUtil.createTextMDRecord()).provenance(
+                        .technical(new TechnicalMetadataList.Builder().record(TestUtil.createTextMDRecord()).build())
+                        .provenance(
                                 TestUtil.createPremisDigiProvRecord()).rights(
                                 TestUtil.createPremisRightsRecord()).source(
                                 TestUtil.createDCSourceRecord()).build();
@@ -175,22 +177,23 @@ public abstract class TestUtil {
         BitStream bs_1 =
                 new BitStream.Builder().identifier(
                         new Identifier("bitstream-1")).technical(
-                        TestUtil.createFITSRecord()).build();
+                        		new TechnicalMetadataList.Builder().record(TestUtil.createFITSRecord()).build()).build();
 
         BitStream bs_2 = new BitStream.Builder().identifier(
                 new Identifier("bitstream-2")).technical(
-                TestUtil.createFITSRecord()).build();
+                		new TechnicalMetadataList.Builder().record(TestUtil.createFITSRecord()).build()).build();
 
         BitStream bs_3 = new BitStream.Builder().identifier(
                 new Identifier("bitstream-3")).technical(
-                TestUtil.createFITSRecord()).build();
+                		new TechnicalMetadataList.Builder().record(TestUtil.createFITSRecord()).build()).build();
         
         File f1 = new File.Builder()
                         .bitStreams(Arrays.asList(bs_1,bs_2,bs_3))
                         .identifier(new Identifier("file-1"))
                         .uri(URI.create(TestUtil.class.getClassLoader().getResource(
                                 "scape_logo.png").toString()))
-                        .technical(TestUtil.createMIXRecord()).mimetype(
+                        .technical(new TechnicalMetadataList.Builder().record(TestUtil.createMIXRecord()).build())
+                        .mimetype(
                                 "image/png").build();
 
 
@@ -198,43 +201,46 @@ public abstract class TestUtil {
                         new Identifier("file-2"))
                                 .uri(URI.create(TestUtil.class.getClassLoader().getResource(
                                         "scape_logo.png").toString()))
-                                .technical(TestUtil.createMIXRecord()).mimetype(
-                                        "image/png").build();
+                                .technical(new TechnicalMetadataList.Builder().record(TestUtil.createMIXRecord()).build())
+                                .mimetype("image/png")
+                                .build();
         
         File f3 = new File.Builder()
                 .bitStreams(Arrays.asList(bs_3,bs_2,bs_1))
                 .identifier(new Identifier("file-3"))
                 .uri(URI.create(TestUtil.class.getClassLoader().getResource(
                         "scape_logo.png").toString()))
-                .technical(TestUtil.createMIXRecord())
+                .technical(new TechnicalMetadataList.Builder().record(TestUtil.createMIXRecord()).build())
                 .mimetype("image/png")
                 .build();
 
         Representation rep1 = new Representation.Builder(new Identifier("representation-1"))
                         .files(Arrays.asList(f1,f2,f3)).technical(
-                                TestUtil.createTextMDRecord()).title(
-                                "Text representation").provenance(
-                                TestUtil.createPremisDigiProvRecord()).rights(
-                                TestUtil.createPremisRightsRecord()).source(
-                                TestUtil.createDCSourceRecord()).build();
+                        		new TechnicalMetadataList.Builder().record(TestUtil.createTextMDRecord()).build())
+                        		.title("Text representation")
+                        		.provenance(TestUtil.createPremisDigiProvRecord())
+                        		.rights(TestUtil.createPremisRightsRecord())
+                        		.source(TestUtil.createDCSourceRecord()).build();
 
 
         Representation rep2 = new Representation.Builder(new Identifier("representation-2"))
                         .files(Arrays.asList(f2,f3,f1)).technical(
-                                TestUtil.createTextMDRecord()).title(
-                                "Text representation").provenance(
-                                TestUtil.createPremisDigiProvRecord()).rights(
-                                TestUtil.createPremisRightsRecord()).source(
-                                TestUtil.createDCSourceRecord()).build();
+                        		new TechnicalMetadataList.Builder().record(TestUtil.createTextMDRecord()).build())
+                        		.title("Text representation")
+                        		.provenance(TestUtil.createPremisDigiProvRecord())
+                                .rights(TestUtil.createPremisRightsRecord())
+                                .source(TestUtil.createDCSourceRecord())
+                                .build();
 
 
         Representation rep3 = new Representation.Builder(new Identifier("representation-3"))
                         .files(Arrays.asList(f3,f1,f2)).technical(
-                                TestUtil.createTextMDRecord()).title(
-                                "Text representation").provenance(
-                                TestUtil.createPremisDigiProvRecord()).rights(
-                                TestUtil.createPremisRightsRecord()).source(
-                                TestUtil.createDCSourceRecord()).build();
+                        		new TechnicalMetadataList.Builder().record(TestUtil.createTextMDRecord()).build())
+                        		.title("Text representation")
+                        		.provenance(TestUtil.createPremisDigiProvRecord())
+                        		.rights(TestUtil.createPremisRightsRecord())
+                        		.source(TestUtil.createDCSourceRecord())
+                        		.build();
 
         IntellectualEntity e = new IntellectualEntity.Builder().identifier(
                         new Identifier(entityId)).representations(

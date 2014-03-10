@@ -56,15 +56,8 @@ public class Representation {
     @XmlElementRef(name = "premis", namespace = "info:lc/xmlns/premis-v2", type = JAXBElement.class)
     private final Object provenance;
 
-    @XmlAnyElement(lax = true)
-    @XmlElementRefs({
-            @XmlElementRef(name = "textMD", type = TextMD.class),
-            @XmlElementRef(name = "fits", type = Fits.class),
-            @XmlElementRef(name = "mix", type = Mix.class),
-            @XmlElementRef(name = "gbs", type = GbsType.class),
-            @XmlElementRef(name = "VIDEOMD", namespace = "http://www.loc.gov/videoMD/", type = JAXBElement.class),
-            @XmlElementRef(name = "AUDIOMD", namespace = "http://www.loc.gov/audioMD/", type = JAXBElement.class)})
-    private final Object technical;
+    @XmlElement(name="technical")
+    private final TechnicalMetadataList technical;
 
     @XmlAnyElement(lax = true)
     @XmlElementRef(name = "rights", namespace = "info:lc/xmlns/premis-v2", type = JAXBElement.class)
@@ -117,7 +110,7 @@ public class Representation {
         return source;
     }
 
-    public Object getTechnical() {
+    public TechnicalMetadataList getTechnical() {
         return technical;
     }
 
@@ -139,7 +132,7 @@ public class Representation {
 
         private Object provenance;
 
-        private Object technical;
+        private TechnicalMetadataList technical;
 
         private Object rights;
 
@@ -198,8 +191,8 @@ public class Representation {
             return this;
         }
 
-        public Builder technical(Object technical) {
-            this.technical = technical;
+        public Builder technical(TechnicalMetadataList technical) {
+            this.technical=technical;
             return this;
         }
 

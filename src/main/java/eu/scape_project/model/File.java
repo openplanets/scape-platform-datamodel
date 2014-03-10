@@ -13,6 +13,7 @@
  */
 package eu.scape_project.model;
 
+import generated.Jpylyzer;
 import gov.loc.mix.v20.Mix;
 import info.lc.xmlns.textmd_v3.TextMD;
 
@@ -26,6 +27,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlElementRefs;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.ffmpeg.schema.ffprobe.FfprobeType;
 
 import com.google.books.gbs.GbsType;
 
@@ -50,9 +53,11 @@ public class File {
         @XmlElementRef(name = "fits", type = Fits.class),
         @XmlElementRef(name = "mix", type = Mix.class),
         @XmlElementRef(name = "gbs", type = GbsType.class),
+        @XmlElementRef(name = "jpylyzer", type = Jpylyzer.class),
+        @XmlElementRef(name = "ffprobe", type = FfprobeType.class),
         @XmlElementRef(name = "VIDEOMD", namespace = "http://www.loc.gov/videoMD/", type = JAXBElement.class),
         @XmlElementRef(name = "AUDIOMD", namespace = "http://www.loc.gov/audioMD/", type = JAXBElement.class)})
-	private final Object technical;
+	private final TechnicalMetadataList technical;
 	@XmlElement(name = "bitstream", namespace = "http://scape-project.eu/model")
 	private final List<BitStream> bitStreams;
 	@XmlElement(name = "uri", namespace = "http://scape-project.eu/model")
@@ -86,7 +91,7 @@ public class File {
 		return identifier;
 	}
 
-	public Object getTechnical() {
+	public TechnicalMetadataList getTechnical() {
 		return technical;
 	}
 
@@ -114,7 +119,7 @@ public class File {
 	}
 
 	public static class Builder {
-		private Object technical;
+		private TechnicalMetadataList technical;
 		private List<BitStream> bitStreams;
 		private URI uri;
 		private Identifier identifier;
@@ -152,7 +157,7 @@ public class File {
 			return this;
 		}
 
-		public Builder technical(Object technical) {
+		public Builder technical(TechnicalMetadataList technical) {
 			this.technical = technical;
 			return this;
 		}

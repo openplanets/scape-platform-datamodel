@@ -24,6 +24,8 @@ import java.util.List;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
+import eu.scape_project.model.TechnicalMetadataList;
+
 /**
 *
 * @author frank asseg
@@ -96,7 +98,11 @@ public abstract class CopyUtil {
             return obj;
         }else if (obj instanceof Class){
             return obj;
-        }else {
+        }else if (obj instanceof TechnicalMetadataList) {
+        	copy = (T) new TechnicalMetadataList.Builder()
+        		.records(((TechnicalMetadataList) obj).getRecords())
+        		.build();
+    	}else {
             for (Constructor<?> c : type.getDeclaredConstructors()) {
                 if (c.getParameterTypes().length == 0) {
                     if (!c.isAccessible()) {

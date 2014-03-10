@@ -18,10 +18,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import info.lc.xmlns.textmd_v3.TextMD;
 
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -100,14 +102,14 @@ public class JaxbTest {
             assertTrue(r.getFiles().size() == 924);
             if (r.getTechnical() != null) {
                 assertTrue("technical md of representation " + r.getIdentifier().getValue() + " is of type "
-                        + r.getTechnical().getClass().getName(), r.getTechnical() instanceof GbsType);
+                        + r.getTechnical().getClass().getName(), r.getTechnical().getRecords().get(0) instanceof GbsType);
                 m.getJaxbMarshaller().marshal(r.getTechnical(), new ByteArrayOutputStream());
             }
             assertNotNull(r.getProvenance());
             for (File f : r.getFiles()) {
                 if (f.getTechnical() != null) {
                     assertTrue("technical md of file " + f.getFilename() + " is of type " + f.getTechnical().getClass().getName(),
-                            f.getTechnical() instanceof GbsType);
+                            f.getTechnical().getRecords().get(0) instanceof GbsType);
                     m.getJaxbMarshaller().marshal(f.getTechnical(), new ByteArrayOutputStream());
                 }
                 assertNotNull(f.getUri());
@@ -119,18 +121,18 @@ public class JaxbTest {
     @Test
     public void testEntitySerializationNoIds() throws Exception {
         BitStream bs_1 = new BitStream.Builder()
-                .technical(TestUtil.createTextMDRecord())
+                .technical(new TechnicalMetadataList.Builder().record(TestUtil.createTextMDRecord()).build())
                 .build();
 
         File f = new File.Builder()
                 .bitStreams(Arrays.asList(bs_1))
                 .uri(URI.create("http://example.com/data"))
-                .technical(TestUtil.createTextMDRecord())
+                .technical(new TechnicalMetadataList.Builder().record(TestUtil.createTextMDRecord()).build())
                 .build();
 
         Representation rep = new Representation.Builder()
                 .files(Arrays.asList(f))
-                .technical(TestUtil.createTextMDRecord())
+                .technical(new TechnicalMetadataList.Builder().record(TestUtil.createTextMDRecord()).build())
                 .title("Text representation")
                 .provenance(TestUtil.createPremisDigiProvRecord())
                 .rights(TestUtil.createPremisRightsRecord())
@@ -179,19 +181,19 @@ public class JaxbTest {
     public void testEntitySerialization() throws Exception {
         BitStream bs_1 = new BitStream.Builder()
                 .identifier(new Identifier("bitstream:1"))
-                .technical(TestUtil.createTextMDRecord())
+                .technical(new TechnicalMetadataList.Builder().record(TestUtil.createTextMDRecord()).build())
                 .build();
 
         File f = new File.Builder()
                 .bitStreams(Arrays.asList(bs_1))
                 .identifier(new Identifier("file-1"))
                 .uri(URI.create("http://example.com/data"))
-                .technical(TestUtil.createTextMDRecord())
+                .technical(new TechnicalMetadataList.Builder().record(TestUtil.createTextMDRecord()).build())
                 .build();
 
         Representation rep = new Representation.Builder(new Identifier("representation-1"))
                 .files(Arrays.asList(f))
-                .technical(TestUtil.createTextMDRecord())
+                .technical(new TechnicalMetadataList.Builder().record(TestUtil.createTextMDRecord()).build())
                 .title("Text representation")
                 .provenance(TestUtil.createPremisDigiProvRecord())
                 .rights(TestUtil.createPremisRightsRecord())
@@ -240,7 +242,7 @@ public class JaxbTest {
     @Test
     public void testEntityDeserializationTitleAndUsage() throws Exception {
         Representation rep = new Representation.Builder(new Identifier("representation-1"))
-                .technical(TestUtil.createTextMDRecord())
+                .technical(new TechnicalMetadataList.Builder().record(TestUtil.createTextMDRecord()).build())
                 .title("Text representation")
                 .provenance(TestUtil.createPremisDigiProvRecord())
                 .rights(TestUtil.createPremisRightsRecord())
@@ -295,7 +297,7 @@ public class JaxbTest {
 
         Representation r = new Representation.Builder()
             .identifier(new Identifier("rep-1"))
-            .technical(TestUtil.createTextMDRecord())
+            .technical(new TechnicalMetadataList.Builder().record(TestUtil.createTextMDRecord()).build())
             .source(TestUtil.createDCSourceRecord())
             .provenance(TestUtil.createPremisDigiProvRecord())
             .rights(TestUtil.createPremisRightsRecord())
@@ -311,7 +313,7 @@ public class JaxbTest {
         assertNotNull(deserialized.getRights());
         assertNotNull(deserialized.getProvenance());
 
-        assertEquals(TextMD.class, deserialized.getTechnical().getClass());
+        assertEquals(TextMD.class, deserialized.getTechnical().getRecords().get(0).getClass());
         assertEquals(ElementContainer.class, deserialized.getSource().getClass());
         assertEquals(JAXBElement.class, deserialized.getRights().getClass());
         assertEquals(JAXBElement.class, deserialized.getProvenance().getClass());

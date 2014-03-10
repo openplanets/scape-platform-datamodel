@@ -19,6 +19,8 @@ import eu.scape_project.model.Identifier;
 import eu.scape_project.model.IntellectualEntity;
 import eu.scape_project.model.LifecycleState;
 import eu.scape_project.model.Representation;
+import eu.scape_project.model.TechnicalMetadataList;
+import generated.Jpylyzer;
 import gov.loc.audiomd.AudioType;
 import gov.loc.mets.DivType;
 import gov.loc.mets.DivType.Fptr;
@@ -41,6 +43,7 @@ import java.util.UUID;
 
 import javax.xml.bind.JAXBElement;
 
+import org.ffmpeg.schema.ffprobe.FfprobeType;
 import org.purl.dc.elements._1.ElementContainer;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -136,9 +139,9 @@ public class ONBConverter extends IntellectualEntityConverter {
 				if (md.getID().startsWith("TMD")) {
 					Element el = (Element) o;
 					Object tech = deserializeElement(el);
-					text.technical(tech);
-					image.technical(tech);
-					html.technical(tech);
+					text.technical(new TechnicalMetadataList.Builder().record(tech).build());
+					image.technical(new TechnicalMetadataList.Builder().record(tech).build());
+					html.technical(new TechnicalMetadataList.Builder().record(tech).build());
 				}else if (md.getID().startsWith("PD")) {
 					/* TODO: Dont know! */
 				}else if (md.getID().startsWith("S")){
@@ -154,10 +157,12 @@ public class ONBConverter extends IntellectualEntityConverter {
 				image.source(o);
 				html.source(o);
 			}
-			if (o instanceof Fits || o instanceof Mix || o instanceof VideoType || o instanceof AudioType || o instanceof TextMD) {
-				text.technical(o);
-				image.technical(o);
-				html.technical(o);
+			if (o instanceof Fits || o instanceof Mix || o instanceof VideoType ||
+					o instanceof AudioType || o instanceof TextMD || o instanceof Jpylyzer ||
+					o instanceof FfprobeType) {
+				text.technical(new TechnicalMetadataList.Builder().record(o).build());
+				image.technical(new TechnicalMetadataList.Builder().record(o).build());
+				html.technical(new TechnicalMetadataList.Builder().record(o).build());
 			}
 			if (o instanceof PremisComplexType) {
 				text.provenance(o);
@@ -203,9 +208,9 @@ public class ONBConverter extends IntellectualEntityConverter {
 					MdSecType mdSec = (MdSecType) metsFile.getADMID().get(0);
 					Object o = mdSec.getMdWrap().getXmlData().getAny().get(0);
 					if (o instanceof Element) {
-						f.technical(deserializeElement((Element) o));
+						f.technical(new TechnicalMetadataList.Builder().record(deserializeElement((Element) o)).build());
 					} else {
-						f.technical(o);
+						f.technical(new TechnicalMetadataList.Builder().record(o).build());
 					}
 				}
 				f.identifier(new Identifier(metsFile.getID()));

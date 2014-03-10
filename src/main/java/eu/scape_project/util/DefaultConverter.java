@@ -21,7 +21,9 @@ import eu.scape_project.model.Identifier;
 import eu.scape_project.model.IntellectualEntity;
 import eu.scape_project.model.LifecycleState;
 import eu.scape_project.model.Representation;
+import eu.scape_project.model.TechnicalMetadataList;
 import eu.scape_project.model.VersionMetadata;
+import generated.Jpylyzer;
 import gov.loc.audiomd.AudioType;
 import gov.loc.mets.AmdSecType;
 import gov.loc.mets.DivType;
@@ -54,6 +56,7 @@ import java.util.UUID;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 
+import org.ffmpeg.schema.ffprobe.FfprobeType;
 import org.purl.dc.elements._1.ElementContainer;
 
 /**
@@ -375,8 +378,9 @@ public class DefaultConverter extends IntellectualEntityConverter {
             if (o instanceof AmdSecType) {
                 AmdSecType amdSec = (AmdSecType) o;
                 if (amdSec.getTechMD().size() > 0) {
-                    rep.technical(amdSec.getTechMD().get(0).getMdWrap()
-                            .getXmlData().getAny().get(0));
+                	rep.technical(new TechnicalMetadataList.Builder()
+                		.record(amdSec.getTechMD().get(0).getMdWrap()
+                                .getXmlData().getAny()).build());
                 }
                 if (amdSec.getSourceMD().size() > 0) {
                     rep.source(amdSec.getSourceMD().get(0).getMdWrap()
@@ -396,11 +400,14 @@ public class DefaultConverter extends IntellectualEntityConverter {
                     continue;
                 }
                 Object mdObj = mdSec.getMdWrap().getXmlData().getAny().get(0);
-                if (mdObj instanceof TextMD || mdObj instanceof Fits ||
-                        mdObj instanceof Mix || mdObj instanceof VideoType ||
-                        mdObj instanceof AudioType) {
+                if (mdObj instanceof TechnicalMetadataList) {
+                	rep.technical((TechnicalMetadataList) mdObj);
+                }else if (mdObj  instanceof TextMD || mdObj instanceof  Fits || 
+                		mdObj instanceof Mix || mdObj instanceof VideoType || 
+                		mdObj instanceof AudioType || mdObj instanceof Jpylyzer || 
+                		mdObj instanceof FfprobeType){
                     /* it's tech md */
-                    rep.technical(mdObj);
+                    rep.technical(new TechnicalMetadataList.Builder().records(mdSec.getMdWrap().getXmlData().getAny()).build());
                 } else if (mdObj instanceof JAXBElement<?>) {
                     JAXBElement<?> jaxb = (JAXBElement<?>) mdObj;
                     if (jaxb.getDeclaredType() == PremisComplexType.class) {
@@ -434,12 +441,15 @@ public class DefaultConverter extends IntellectualEntityConverter {
                 if (o instanceof MdSecType) {
                     MdSecType mdSec = (MdSecType) o;
                     if (mdSec.getMdWrap().getXmlData().getAny().size() > 0) {
-                        f.technical(mdSec.getMdWrap().getXmlData().getAny()
-                                .get(0));
+                        f.technical(new TechnicalMetadataList.Builder().records(
+                        		mdSec.getMdWrap().getXmlData().getAny()).build());
                     }
                 } else if (o instanceof AmdSecType) {
-                    MdSecType mdsec = ((AmdSecType) o).getTechMD().get(0);
-                    f.technical(mdsec);
+                    TechnicalMetadataList.Builder ls = new TechnicalMetadataList.Builder();
+                    for (MdSecType md: ((AmdSecType) o).getTechMD()) {
+                    	ls.record(md);
+                    }
+                    f.technical(ls.build());
                 }
             }
             List<BitStream> bitstreams = new ArrayList<BitStream>();
@@ -449,7 +459,8 @@ public class DefaultConverter extends IntellectualEntityConverter {
                         new BitStream.Builder().identifier(new Identifier(
                                 stream.getID()));
                 if (mdSec.getMdWrap().getXmlData().getAny().size() > 0) {
-                    bs.technical(mdSec.getMdWrap().getXmlData().getAny().get(0));
+                    bs.technical(new TechnicalMetadataList.Builder()
+                    	.records(mdSec.getMdWrap().getXmlData().getAny()).build());
                 }
                 bitstreams.add(bs.build());
             }

@@ -17,7 +17,7 @@ This is the implementation of the Scape Digital Object Model, for exchanging dat
      +--------------+            +------------------+
                                  1/                \1
                                  /                  \
-                               1/                    \*
+                               */                    \*
                        +-----------------+      +----------+
                        |  Adm. Metadata  |      |   File   |
                        +-----------------+      +----------+
