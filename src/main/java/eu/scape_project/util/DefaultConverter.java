@@ -131,10 +131,12 @@ public class DefaultConverter extends IntellectualEntityConverter {
                 }
 
                 /* handle all files of this representation */
-                for (File f : r.getFiles()) {
-                    /* add each file to the file and Fptr sets */
-                    addFile(amdSec, repDiv.getFptr(), fileGrp.getFile(), f,
-                            useMdRef);
+                if (r.getFiles() != null) {
+                	for (File f : r.getFiles()) {
+                		/* add each file to the file and Fptr sets */
+                		addFile(amdSec, repDiv.getFptr(), fileGrp.getFile(), f,
+                				useMdRef);
+                	}
                 }
                 mainDiv.getDiv().add(repDiv);
             }

@@ -17,6 +17,7 @@ import gov.loc.mix.v20.Mix;
 import info.lc.xmlns.textmd_v3.TextMD;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBElement;
@@ -73,7 +74,8 @@ public class File {
 		this.filename = builder.filename;
 		this.mimetype = builder.mimetype;
 		this.technical = builder.technical;
-		this.bitStreams = builder.bitStreams;
+		this.bitStreams = (builder.bitStreams.isEmpty() ? null
+				: new ArrayList<BitStream>(builder.bitStreams));
 		this.uri = builder.uri;
 		this.identifier = builder.identifier;
 	}
@@ -123,13 +125,15 @@ public class File {
 
 		public Builder() {
 			super();
+			bitStreams = new ArrayList<BitStream>();
 		}
 
 		public Builder(File orig) {
 			File copy = CopyUtil.deepCopy(File.class, orig);
 			this.mimetype = copy.mimetype;
 			this.technical = copy.technical;
-			this.bitStreams = copy.bitStreams;
+			this.bitStreams = (copy.bitStreams == null ? new ArrayList<BitStream>()
+					: copy.bitStreams);
 			this.uri = copy.uri;
 			this.identifier = copy.identifier;
 			this.filename = copy.filename;
@@ -140,10 +144,12 @@ public class File {
 			return this;
 		}
 
+		public Builder bitStream(BitStream bitStream) {
+			bitStreams.add(bitStream);
+			return this;
+		}
+
 		public File build() {
-			if (bitStreams != null && bitStreams.size() == 0) {
-				bitStreams = null;
-			}
 			return new File(this);
 		}
 
