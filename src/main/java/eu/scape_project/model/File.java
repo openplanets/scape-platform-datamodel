@@ -125,6 +125,7 @@ public class File {
 
 		public Builder() {
 			super();
+			bitStreams = new ArrayList<BitStream>();
 		}
 
 		public Builder(File orig) {

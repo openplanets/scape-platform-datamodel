@@ -102,6 +102,8 @@ public class IntellectualEntity {
 
         public Builder() {
             super();
+            this.alternativeIdentifiers = new ArrayList<Identifier>();
+            this.representations = new ArrayList<Representation>();
         }
 
         public Builder(IntellectualEntity orig){
