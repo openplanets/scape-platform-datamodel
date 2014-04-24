@@ -13,6 +13,7 @@
  */
 package eu.scape_project.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -38,9 +39,9 @@ public class IntellectualEntity {
     private IntellectualEntity() {
         super();
         this.identifier = null;
-        this.alternativeIdentifiers = null;
+        this.alternativeIdentifiers = new ArrayList<Identifier>();
         this.descriptive = null;
-        this.representations = null;
+        this.representations = new ArrayList<Representation>();
         this.lifeCycleState = null;
         this.versionNumber = 1;
     }
@@ -112,7 +113,12 @@ public class IntellectualEntity {
         }
 
         public Builder alternativeIdentifiers(List<Identifier> alternativeIdentifiers) {
-            this.alternativeIdentifiers = alternativeIdentifiers;
+            this.alternativeIdentifiers = new ArrayList<Identifier>(alternativeIdentifiers);
+            return this;
+        }
+
+        public Builder alternativeIdentifier(Identifier alternativeIdentifier) {
+            alternativeIdentifiers.add(alternativeIdentifier);
             return this;
         }
 
@@ -137,8 +143,13 @@ public class IntellectualEntity {
         }
 
         public Builder representations(List<Representation> representations) {
-            this.representations = representations;
+            this.representations = new ArrayList<Representation>(representations);
             return this;
+        }
+
+        public Builder representation(Representation representation) {
+        	representations.add(representation);
+        	return this;
         }
 
         public Builder versionNumber(int versionNumber) {
