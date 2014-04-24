@@ -39,18 +39,20 @@ public class IntellectualEntity {
     private IntellectualEntity() {
         super();
         this.identifier = null;
-        this.alternativeIdentifiers = new ArrayList<Identifier>();
+        this.alternativeIdentifiers = null;
         this.descriptive = null;
-        this.representations = new ArrayList<Representation>();
+        this.representations = null;
         this.lifeCycleState = null;
         this.versionNumber = 1;
     }
 
     public IntellectualEntity(Builder builder) {
         this.identifier = builder.identifier;
-        this.alternativeIdentifiers = builder.alternativeIdentifiers;
+		this.alternativeIdentifiers = builder.alternativeIdentifiers.isEmpty() ? null
+				: new ArrayList<Identifier>(builder.alternativeIdentifiers);
         this.descriptive = builder.descriptive;
-        this.representations = builder.representations;
+		this.representations = builder.representations.isEmpty() ? null
+				: new ArrayList<Representation>(builder.representations);
         this.lifeCycleState = builder.lifecycleState;
         this.versionNumber = builder.versionNumber;
     }
@@ -107,8 +109,10 @@ public class IntellectualEntity {
             this.identifier = copy.identifier;
             this.descriptive = copy.descriptive;
             this.versionNumber = copy.versionNumber;
-            this.alternativeIdentifiers = copy.alternativeIdentifiers;
-            this.representations = copy.representations;
+			this.alternativeIdentifiers = (copy.alternativeIdentifiers == null ? new ArrayList<Identifier>()
+					: new ArrayList<Identifier>(copy.alternativeIdentifiers));
+			this.representations = (copy.representations == null ? new ArrayList<Representation>()
+					: new ArrayList<Representation>(copy.representations));
             this.lifecycleState = copy.lifeCycleState;
         }
 

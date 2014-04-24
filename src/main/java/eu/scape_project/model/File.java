@@ -74,7 +74,8 @@ public class File {
 		this.filename = builder.filename;
 		this.mimetype = builder.mimetype;
 		this.technical = builder.technical;
-		this.bitStreams = builder.bitStreams;
+		this.bitStreams = (builder.bitStreams.isEmpty() ? null
+				: new ArrayList<BitStream>(builder.bitStreams));
 		this.uri = builder.uri;
 		this.identifier = builder.identifier;
 	}
@@ -148,9 +149,6 @@ public class File {
 		}
 
 		public File build() {
-			if (bitStreams != null && bitStreams.size() == 0) {
-				bitStreams = null;
-			}
 			return new File(this);
 		}
 

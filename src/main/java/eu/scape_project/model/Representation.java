@@ -82,7 +82,7 @@ public class Representation {
         this.provenance = null;
         this.technical = null;
         this.rights = null;
-        this.files = new ArrayList<File>();
+        this.files = null;
         this.identifier = null;
         this.title = null;
     }
@@ -92,7 +92,8 @@ public class Representation {
         this.provenance = builder.provenance;
         this.technical = builder.technical;
         this.rights = builder.rights;
-        this.files = builder.files;
+		this.files = builder.files.isEmpty() ? null : new ArrayList<File>(
+				builder.files);
         this.identifier = builder.id;
         this.title = builder.title;
     }
@@ -164,7 +165,8 @@ public class Representation {
             this.provenance = copy.provenance;
             this.technical = copy.technical;
             this.rights = copy.rights;
-            this.files = copy.files;
+			this.files = copy.files == null ? new ArrayList<File>()
+					: new ArrayList<File>(copy.files);
             this.id = copy.identifier;
             this.title = copy.title;
         }
