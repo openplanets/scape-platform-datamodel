@@ -61,6 +61,35 @@ public class BitStream extends Identified{
                 + "]";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof BitStream)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        BitStream bitStream = (BitStream) o;
+        if (technical != null ? !technical.equals(bitStream.technical) : bitStream.technical != null) {
+            return false;
+        }
+        if (type != bitStream.type) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (technical != null ? technical.hashCode() : 0);
+        return result;
+    }
+
     public static class Builder {
         private Type type;
         private TechnicalMetadataList technical;

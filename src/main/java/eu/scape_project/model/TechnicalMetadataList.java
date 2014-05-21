@@ -38,19 +38,16 @@ public class TechnicalMetadataList {
         if (!(o instanceof TechnicalMetadataList)) {
             return false;
         }
-
         TechnicalMetadataList that = (TechnicalMetadataList) o;
-
-        if (!Arrays.deepEquals(this.getContent().toArray(), that.getContent().toArray())) {
+        if (content != null ? !content.equals(that.content) : that.content != null) {
             return false;
         }
-
         return true;
     }
 
     @Override
     public int hashCode() {
-        return content.hashCode();
+        return content != null ? content.hashCode() : 0;
     }
 
     @Override

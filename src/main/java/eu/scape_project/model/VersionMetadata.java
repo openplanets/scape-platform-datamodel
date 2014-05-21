@@ -48,4 +48,23 @@ public class VersionMetadata {
         return versionNumber;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof VersionMetadata)) {
+            return false;
+        }
+        VersionMetadata that = (VersionMetadata) o;
+        if (versionNumber != that.versionNumber) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return versionNumber;
+    }
 }

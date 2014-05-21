@@ -63,7 +63,7 @@ public class TechnicalMetadata {
 
         TechnicalMetadata that = (TechnicalMetadata) o;
 
-        if (!contents.equals(that.contents)) {
+        if (!Utils.getValue(contents).equals(Utils.getValue(that.contents))) {
             return false;
         }
         if (!id.equals(that.id)) {
@@ -76,7 +76,16 @@ public class TechnicalMetadata {
     @Override
     public int hashCode() {
         int result = id.hashCode();
-        result = 31 * result + contents.hashCode();
+        result = 31 * result + Utils.getValue(contents).hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "TechnicalMetadata{" +
+               "id='" + id + '\'' +
+               ", contents=" + Utils.getValue(contents) +
+               '}';
+    }
+
 }

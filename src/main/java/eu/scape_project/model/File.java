@@ -81,6 +81,47 @@ public class File extends Identified {
         return "File [technical=" + technical + ", name=" + filename + ", bitStreams=" + bitStreams + ", uri=" + uri + ", identifier=" + identifier + ", mimetype=" + mimetype + "]";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof File)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        File file = (File) o;
+        if (bitStreams != null ? !bitStreams.equals(file.bitStreams) : file.bitStreams != null) {
+            return false;
+        }
+        if (filename != null ? !filename.equals(file.filename) : file.filename != null) {
+            return false;
+        }
+        if (mimetype != null ? !mimetype.equals(file.mimetype) : file.mimetype != null) {
+            return false;
+        }
+        if (technical != null ? !technical.equals(file.technical) : file.technical != null) {
+            return false;
+        }
+        if (uri != null ? !uri.equals(file.uri) : file.uri != null) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (mimetype != null ? mimetype.hashCode() : 0);
+        result = 31 * result + (filename != null ? filename.hashCode() : 0);
+        result = 31 * result + (technical != null ? technical.hashCode() : 0);
+        result = 31 * result + (bitStreams != null ? bitStreams.hashCode() : 0);
+        result = 31 * result + (uri != null ? uri.hashCode() : 0);
+        return result;
+    }
+
     public static class Builder {
         private TechnicalMetadataList technical;
         private List<BitStream> bitStreams;

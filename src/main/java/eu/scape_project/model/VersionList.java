@@ -13,11 +13,10 @@
  */
 package eu.scape_project.model;
 
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
 /**
 *
@@ -59,4 +58,29 @@ public class VersionList {
                 + "]";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof VersionList)) {
+            return false;
+        }
+        VersionList that = (VersionList) o;
+        if (entityId != null ? !entityId.equals(that.entityId) : that.entityId != null) {
+            return false;
+        }
+        if (versionIdentifiers != null ? !versionIdentifiers.equals(that.versionIdentifiers) :
+            that.versionIdentifiers != null) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = entityId != null ? entityId.hashCode() : 0;
+        result = 31 * result + (versionIdentifiers != null ? versionIdentifiers.hashCode() : 0);
+        return result;
+    }
 }

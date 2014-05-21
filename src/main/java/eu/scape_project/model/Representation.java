@@ -27,6 +27,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
+import static eu.scape_project.model.Utils.*;
+
 /**
  * @author frank asseg
  */
@@ -104,9 +106,54 @@ public class Representation extends Identified {
     @Override
     public String toString() {
         return "Representation [" + "identifier=" + identifier + ", source=" +
-               source + ", provenance=" + provenance + ", technical=" +
-               technical + ", rights=" + rights + ", files=" + files +
+               getValue(source) + ", provenance=" + getValue(provenance) + ", technical=" +
+               getValue(technical) + ", rights=" + getValue(rights) + ", files=" + files +
                ", title=" + title + "]";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Representation)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        Representation that = (Representation) o;
+        if (files != null ? !files.equals(that.files) : that.files != null) {
+            return false;
+        }
+        if (provenance != null ? !getValue(provenance).equals(getValue(that.provenance)) : that.provenance != null) {
+            return false;
+        }
+        if (rights != null ? !getValue(rights).equals(getValue(that.rights)) : that.rights != null) {
+            return false;
+        }
+        if (source != null ? !getValue(source).equals(getValue(that.source)) : that.source != null) {
+            return false;
+        }
+        if (technical != null ? !getValue(technical).equals(getValue(that.technical)) : that.technical != null) {
+            return false;
+        }
+        if (title != null ? !title.equals(that.title) : that.title != null) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (source != null ? getValue(source).hashCode() : 0);
+        result = 31 * result + (provenance != null ? getValue(provenance).hashCode() : 0);
+        result = 31 * result + (technical != null ? getValue(technical).hashCode() : 0);
+        result = 31 * result + (rights != null ? getValue(rights).hashCode() : 0);
+        result = 31 * result + (files != null ? files.hashCode() : 0);
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        return result;
     }
 
     public static class Builder {

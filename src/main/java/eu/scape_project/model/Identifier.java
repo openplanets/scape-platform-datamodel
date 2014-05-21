@@ -50,25 +50,6 @@ public class Identifier {
         this.value = value;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        Identifier other = (Identifier) obj;
-        if (type == null) {
-            if (other.type != null)
-                return false;
-        } else if (!type.equals(other.type))
-            return false;
-        if (value == null) {
-            if (other.value != null)
-                return false;
-        } else if (!value.equals(other.value))
-            return false;
-        return true;
-    }
 
     public String getType() {
         return type;
@@ -79,11 +60,27 @@ public class Identifier {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Identifier)) {
+            return false;
+        }
+        Identifier that = (Identifier) o;
+        if (type != null ? !type.equals(that.type) : that.type != null) {
+            return false;
+        }
+        if (!value.equals(that.value)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((type == null) ? 0 : type.hashCode());
-        result = prime * result + ((value == null) ? 0 : value.hashCode());
+        int result = type != null ? type.hashCode() : 0;
+        result = 31 * result + value.hashCode();
         return result;
     }
 
