@@ -14,6 +14,8 @@
 package eu.scape_project.model;
 
 import eu.scape_project.util.CopyUtil;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
@@ -43,9 +45,11 @@ public class IntellectualEntity extends Identified {
 
     public IntellectualEntity(Builder builder) {
         super(builder.identifier);
-        this.alternativeIdentifiers = builder.alternativeIdentifiers;
+		this.alternativeIdentifiers = builder.alternativeIdentifiers.isEmpty() ? null
+				: new ArrayList<Identifier>(builder.alternativeIdentifiers);
         this.descriptive = builder.descriptive;
-        this.representations = builder.representations;
+		this.representations = builder.representations.isEmpty() ? null
+				: new ArrayList<Representation>(builder.representations);
         this.lifeCycleState = builder.lifecycleState;
         this.versionNumber = builder.versionNumber;
     }
@@ -128,6 +132,8 @@ public class IntellectualEntity extends Identified {
 
         public Builder() {
             super();
+            this.alternativeIdentifiers = new ArrayList<Identifier>();
+            this.representations = new ArrayList<Representation>();
         }
 
         public Builder(IntellectualEntity orig) {
@@ -135,13 +141,20 @@ public class IntellectualEntity extends Identified {
             this.identifier = copy.identifier;
             this.descriptive = copy.descriptive;
             this.versionNumber = copy.versionNumber;
-            this.alternativeIdentifiers = copy.alternativeIdentifiers;
-            this.representations = copy.representations;
+			this.alternativeIdentifiers = (copy.alternativeIdentifiers == null ? new ArrayList<Identifier>()
+					: new ArrayList<Identifier>(copy.alternativeIdentifiers));
+			this.representations = (copy.representations == null ? new ArrayList<Representation>()
+					: new ArrayList<Representation>(copy.representations));
             this.lifecycleState = copy.lifeCycleState;
         }
 
         public Builder alternativeIdentifiers(List<Identifier> alternativeIdentifiers) {
-            this.alternativeIdentifiers = alternativeIdentifiers;
+            this.alternativeIdentifiers = new ArrayList<Identifier>(alternativeIdentifiers);
+            return this;
+        }
+
+        public Builder alternativeIdentifier(Identifier alternativeIdentifier) {
+            alternativeIdentifiers.add(alternativeIdentifier);
             return this;
         }
 
@@ -166,8 +179,13 @@ public class IntellectualEntity extends Identified {
         }
 
         public Builder representations(List<Representation> representations) {
-            this.representations = representations;
+            this.representations = new ArrayList<Representation>(representations);
             return this;
+        }
+
+        public Builder representation(Representation representation) {
+        	representations.add(representation);
+        	return this;
         }
 
         public Builder versionNumber(int versionNumber) {

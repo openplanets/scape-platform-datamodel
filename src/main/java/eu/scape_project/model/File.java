@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,14 +48,16 @@ public class File extends Identified {
         this.uri = null;
     }
 
-    private File(Builder builder) {
+   
+	private File(Builder builder) {
         super(builder.identifier);
-        this.filename = builder.filename;
-        this.mimetype = builder.mimetype;
-        this.technical = builder.technical;
-        this.bitStreams = builder.bitStreams;
-        this.uri = builder.uri;
-    }
+		this.filename = builder.filename;
+		this.mimetype = builder.mimetype;
+		this.technical = builder.technical;
+		this.bitStreams = (builder.bitStreams.isEmpty() ? null
+				: new ArrayList<BitStream>(builder.bitStreams));
+		this.uri = builder.uri;
+	}
 
     public List<BitStream> getBitStreams() {
         return bitStreams;
@@ -129,30 +132,31 @@ public class File extends Identified {
         private Identifier identifier;
         private String mimetype;
         private String filename;
-
-        public Builder() {
-            super();
-        }
-
-        public Builder(File orig) {
-            File copy = CopyUtil.deepCopy(File.class, orig);
-            this.mimetype = copy.mimetype;
-            this.technical = copy.technical;
-            this.bitStreams = copy.bitStreams;
-            this.uri = copy.uri;
-            this.identifier = copy.identifier;
-            this.filename = copy.filename;
-        }
+		public Builder() {
+			super();
+			bitStreams = new ArrayList<BitStream>();
+		}
+       
+		public Builder(File orig) {
+			File copy = CopyUtil.deepCopy(File.class, orig);
+			this.mimetype = copy.mimetype;
+			this.technical = copy.technical;
+			this.bitStreams = (copy.bitStreams == null ? new ArrayList<BitStream>()
+					: copy.bitStreams);
+			this.uri = copy.uri;
+			this.filename = copy.filename;
+		}
 
         public Builder bitStreams(List<BitStream> bitStreams) {
             this.bitStreams = bitStreams;
             return this;
         }
+		public Builder bitStream(BitStream bitStream) {
+			bitStreams.add(bitStream);
+			return this;
+		}
 
         public File build() {
-            if (bitStreams != null && bitStreams.size() == 0) {
-                bitStreams = null;
-            }
             return new File(this);
         }
 

@@ -36,7 +36,7 @@ import static eu.scape_project.model.Utils.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Representation extends Identified {
 
-
+ 
     @XmlAnyElement(lax = true)
     @XmlElementRef(name = "sourceMD", type = ElementContainer.class)
     private final Object source;
@@ -75,7 +75,8 @@ public class Representation extends Identified {
         this.provenance = builder.provenance;
         this.technical = builder.technical;
         this.rights = builder.rights;
-        this.files = builder.files;
+		this.files = builder.files.isEmpty() ? null : new ArrayList<File>(
+				builder.files);
         this.title = builder.title;
     }
 
@@ -187,7 +188,8 @@ public class Representation extends Identified {
             this.provenance = copy.provenance;
             this.technical = copy.technical;
             this.rights = copy.rights;
-            this.files = copy.files;
+			this.files = copy.files == null ? new ArrayList<File>()
+					: new ArrayList<File>(copy.files);
             this.id = copy.identifier;
             this.title = copy.title;
         }
@@ -197,7 +199,12 @@ public class Representation extends Identified {
         }
 
         public Builder files(List<File> files) {
-            this.files = files;
+            this.files = new ArrayList<File>(files);
+            return this;
+        }
+
+        public Builder file(File file) {
+            files.add(file);
             return this;
         }
 

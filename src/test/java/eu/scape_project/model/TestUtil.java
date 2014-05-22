@@ -175,55 +175,61 @@ public abstract class TestUtil {
                         new Identifier("bitstream-1")).technical("default",
                         TestUtil.createFITSRecord()).build();
 
+        BitStream bs_2 = new BitStream.Builder().identifier(
+                new Identifier("bitstream-2")).technical("default",
+                TestUtil.createFITSRecord()).build();
+
+        BitStream bs_3 = new BitStream.Builder().identifier(
+                new Identifier("bitstream-3")).technical("default",
+                TestUtil.createFITSRecord()).build();
+        
         File f1 = new File.Builder()
-                        .bitStreams(Arrays.asList(bs_1))
+                        .bitStreams(Arrays.asList(bs_1,bs_2,bs_3))
                         .identifier(new Identifier("file-1"))
                         .uri(URI.create(TestUtil.class.getClassLoader().getResource(
                                 "scape_logo.png").toString()))
                         .technical("default",TestUtil.createMIXRecord()).mimetype(
                                 "image/png").build();
 
+
+        File f2 = new File.Builder().bitStreams(Arrays.asList(bs_2,bs_3,bs_1)).identifier(
+                        new Identifier("file-2"))
+                                .uri(URI.create(TestUtil.class.getClassLoader().getResource(
+                                        "scape_logo.png").toString()))
+                                .technical("default",TestUtil.createMIXRecord()).mimetype(
+                                        "image/png").build();
+        
+        File f3 = new File.Builder()
+                .bitStreams(Arrays.asList(bs_3,bs_2,bs_1))
+                .identifier(new Identifier("file-3"))
+                .uri(URI.create(TestUtil.class.getClassLoader().getResource(
+                        "scape_logo.png").toString()))
+                .technical("default",TestUtil.createMIXRecord())
+                .mimetype("image/png")
+                .build();
+
         Representation rep1 = new Representation.Builder(new Identifier("representation-1"))
-                        .files(Arrays.asList(f1)).technical("default",
+                        .files(Arrays.asList(f1,f2,f3)).technical("default",
                                 TestUtil.createTextMDRecord()).title(
                                 "Text representation").provenance(
                                 TestUtil.createPremisDigiProvRecord()).rights(
                                 TestUtil.createPremisRightsRecord()).source(
                         TestUtil.createDCSourceRecord()).build();
 
-        BitStream bs_2 = new BitStream.Builder().identifier(
-                        new Identifier("bitstream-2")).technical("default",
-                        TestUtil.createFITSRecord()).build();
 
-        File f2 = new File.Builder().bitStreams(Arrays.asList(bs_2)).identifier(
-                        new Identifier("file-2"))
-                                .uri(URI.create(TestUtil.class.getClassLoader().getResource(
-                                        "scape_logo.png").toString()))
-                                .technical("default",TestUtil.createMIXRecord()).mimetype(
-                                        "image/png").build();
 
         Representation rep2 = new Representation.Builder(new Identifier("representation-2"))
-                        .files(Arrays.asList(f2)).technical("default",TestUtil.createTextMDRecord()).title(
+                        .files(Arrays.asList(f2,f3,f1)).technical("default",
+                                TestUtil.createTextMDRecord()).title(
                                 "Text representation").provenance(
                                 TestUtil.createPremisDigiProvRecord()).rights(
                                 TestUtil.createPremisRightsRecord()).source(
                         TestUtil.createDCSourceRecord()).build();
 
-        BitStream bs_3 = new BitStream.Builder().identifier(
-                        new Identifier("bitstream-3")).technical("default",
-                        TestUtil.createFITSRecord()).build();
-
-        File f3 = new File.Builder()
-                        .bitStreams(Arrays.asList(bs_3))
-                        .identifier(new Identifier("file-3"))
-                        .uri(URI.create(TestUtil.class.getClassLoader().getResource(
-                                "scape_logo.png").toString()))
-                        .technical("default",TestUtil.createMIXRecord())
-                        .mimetype("image/png")
-                        .build();
 
         Representation rep3 = new Representation.Builder(new Identifier("representation-3"))
-                        .files(Arrays.asList(f3)).technical("default",TestUtil.createTextMDRecord()).title(
+                        .files(Arrays.asList(f3,f1,f2)).technical("default",
+                                TestUtil.createTextMDRecord()).title(
                                 "Text representation").provenance(
                                 TestUtil.createPremisDigiProvRecord()).rights(
                                 TestUtil.createPremisRightsRecord()).source(

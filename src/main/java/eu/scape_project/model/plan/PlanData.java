@@ -63,11 +63,11 @@ public class PlanData extends Identified{
     }
 
     public String getTitle() {
-        return title;
+    	return title == null ? "" : title;
     }
 
     public String getDescription() {
-        return description;
+    	return description == null ? "" : description;
     }
 
     public SortedSet<PlanExecutionState> getExecutionStates() {
