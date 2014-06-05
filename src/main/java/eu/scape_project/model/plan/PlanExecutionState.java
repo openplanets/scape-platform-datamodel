@@ -15,6 +15,7 @@ package eu.scape_project.model.plan;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -25,33 +26,40 @@ import javax.xml.bind.annotation.XmlRootElement;
 */
 @XmlRootElement(name="plan-execution-state",namespace="http://scape-project.eu/model")
 public class PlanExecutionState implements Comparable<PlanExecutionState>{
+	
     public enum ExecutionState {
         EXECUTION_IN_PROGRESS, EXECUTION_SUCCESS, EXECUTION_FAIL;
     }
 
-    @XmlAttribute(name="timestamp")
-    private final Date timeStamp;
-    @XmlAttribute(name="state")
-    private final ExecutionState state;
-
-    public PlanExecutionState(Date timeStamp, ExecutionState state) {
-        super();
-        this.timeStamp = timeStamp;
-        this.state = state;
-    }
+    private Date timeStamp;
+    private ExecutionState state;
 
     public PlanExecutionState() {
         this.timeStamp = null;
         this.state = null;
+    }
+    
+	public PlanExecutionState(Date timeStamp, ExecutionState state) {
+        super();
+        this.timeStamp = timeStamp;
+        this.state = state;
     }
 
     public Date getTimeStamp() {
         return timeStamp;
     }
 
+    public void setTimeStamp(Date timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+    
     public ExecutionState getState() {
         return state;
     }
+
+	public void setState(ExecutionState state) {
+		this.state = state;
+	}
 
     /* (non-Javadoc)
      * @see java.lang.Comparable#compareTo(java.lang.Object)
