@@ -101,7 +101,7 @@
 			<plugin>
 				<groupId>org.jvnet.jaxb2.maven2</groupId>
 				<artifactId>maven-jaxb2-plugin</artifactId>
-				<version>0.8.3</version>
+				<version>0.9.0</version>
 				<executions>
 					<execution>
 						<goals>
@@ -112,6 +112,7 @@
 				<configuration>
 					<schemaDirectory>${basedir}/src/main/resources/xml-schemas</schemaDirectory>
 					<bindingDirectory>${basedir}/src/main/resources/xml-schemas</bindingDirectory>
+                    <accessExternalSchema>true</accessExternalSchema>
 					<outputdirectory>${basedir}/src/main/generated-source</outputdirectory>
 					<explicitAnnotation>true</explicitAnnotation>
 					<extension>true</extension>
@@ -122,12 +123,12 @@
 						<plugin>
 							<groupId>org.jvnet.jaxb2_commons</groupId>
 							<artifactId>jaxb2-basics-annotate</artifactId>
-							<version>0.6.4</version>
+							<version>0.6.5</version>
 						</plugin>
 						<plugin>
 							<groupId>org.jvnet.jaxb2_commons</groupId>
 							<artifactId>jaxb2-basics</artifactId>
-							<version>0.6.4</version>
+							<version>0.6.5</version>
 						</plugin>
 					</plugins>
 				</configuration>
