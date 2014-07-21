@@ -15,6 +15,7 @@ package eu.scape_project.model.plan;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -25,13 +26,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 *
 */
 @XmlRootElement(name="plan-execution-state",namespace="http://scape-project.eu/model")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PlanExecutionState implements Comparable<PlanExecutionState>{
 	
     public enum ExecutionState {
         EXECUTION_IN_PROGRESS, EXECUTION_SUCCESS, EXECUTION_FAIL;
     }
 
+    @XmlAttribute(name="timestamp")
     private Date timeStamp;
+    @XmlAttribute(name="state")
     private ExecutionState state;
 
     public PlanExecutionState() {
