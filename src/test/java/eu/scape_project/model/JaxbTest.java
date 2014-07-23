@@ -48,6 +48,7 @@ import eu.scape_project.model.plan.PlanLifecycleState;
 import eu.scape_project.util.ScapeMarshaller;
 import gov.loc.marc21.slim.RecordType;
 import gov.loc.mets.MetsType;
+import uk.org.taverna.ns._2014.scape.Measures;
 
 /**
 *
@@ -68,6 +69,12 @@ public class JaxbTest {
     public void testONBGoogleBookScanDeserialization() throws Exception {
         Object o = ScapeMarshaller.newInstance().deserialize(this.getClass().getClassLoader().getResourceAsStream("ONB_gbs_example.xml"));
         assertTrue(o instanceof MetsType);
+    }
+
+    @Test
+    public void testTavernaMaesuresDeserialization() throws Exception {
+        Object o = ScapeMarshaller.newInstance().deserialize(this.getClass().getClassLoader().getResourceAsStream("taverna_measures_example.xml"));
+        assertTrue(o instanceof Measures);
     }
 
     @Test
@@ -323,6 +330,16 @@ public class JaxbTest {
         Object o = TestUtil.createTextMDRecord();
         ByteArrayOutputStream sink = new ByteArrayOutputStream();
         m.serialize(o, sink);
+        assertTrue(sink.toString().length() > 0);
+    }
+
+    @Test
+    public void testSerializeTavernaMeasures() throws Exception {
+        ScapeMarshaller m = ScapeMarshaller.newInstance();
+        Object o = ScapeMarshaller.newInstance().deserialize(this.getClass().getClassLoader().getResourceAsStream("taverna_measures_example.xml"));
+        Measures e = (Measures) o;
+        ByteArrayOutputStream sink = new ByteArrayOutputStream();
+        m.serialize(e, sink);
         assertTrue(sink.toString().length() > 0);
     }
 

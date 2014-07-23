@@ -49,6 +49,8 @@ public class ScapeNamespacePrefixMapper extends NamespacePrefixMapper {
             return "marc";
         } else if (namespaceUri.toLowerCase().equals("http://books.google.com/gbs")) {
             return "gbs";
+        } else if (namespaceUri.toLowerCase().equals("http://ns.taverna.org.uk/2014/scape")) {
+            return "tvn";
         } else {
             return suggestion;
         }

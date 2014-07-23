@@ -29,11 +29,6 @@ import com.google.books.gbs.GbsType;
 import edu.harvard.hul.ois.xml.ns.fits.fits_output.Fits;
 import eu.scape_project.util.CopyUtil;
 
-/**
-*
-* @author frank asseg
-*
-*/
 @XmlRootElement(name = "bitstream", namespace = "http://scape-project.eu/model")
 public class BitStream {
 

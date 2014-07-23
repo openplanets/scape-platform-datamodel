@@ -103,7 +103,7 @@ public class ScapeMarshaller {
             throws JAXBException {
         this.context =
                 JAXBContext
-                        .newInstance("eu.scape_project.model:eu.scape_project.model.plan:com.google.books.gbs:edu.harvard.hul.ois.xml.ns.fits.fits_output:info.lc.xmlns.textmd_v3:gov.loc.audiomd:gov.loc.marc21.slim:gov.loc.mets:gov.loc.mix.v20:gov.loc.videomd:info.lc.xmlns.premis_v2:org.purl.dc.elements._1");
+                        .newInstance("eu.scape_project.model:eu.scape_project.model.plan:com.google.books.gbs:edu.harvard.hul.ois.xml.ns.fits.fits_output:info.lc.xmlns.textmd_v3:gov.loc.audiomd:gov.loc.marc21.slim:gov.loc.mets:gov.loc.mix.v20:gov.loc.videomd:info.lc.xmlns.premis_v2:org.purl.dc.elements._1:uk.org.taverna.ns._2014.scape");
 
         /*
          * create and add a default converter which is used by the scape

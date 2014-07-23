@@ -55,6 +55,7 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 
 import org.purl.dc.elements._1.ElementContainer;
+import uk.org.taverna.ns._2014.scape.Measures;
 
 /**
 *
@@ -400,7 +401,7 @@ public class DefaultConverter extends IntellectualEntityConverter {
                 Object mdObj = mdSec.getMdWrap().getXmlData().getAny().get(0);
                 if (mdObj instanceof TextMD || mdObj instanceof Fits ||
                         mdObj instanceof Mix || mdObj instanceof VideoType ||
-                        mdObj instanceof AudioType) {
+                        mdObj instanceof AudioType || mdObj instanceof Measures) {
                     /* it's tech md */
                     rep.technical(mdObj);
                 } else if (mdObj instanceof JAXBElement<?>) {

@@ -103,7 +103,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.9.1</version>
                 <configuration>
-                    <excludePackageNames>gov.loc.videomd:org.purl.dc.elements._1:com.google.books.gbs:gov.loc.marc21.slim:info.lc.xmlns.premis_v2:info.lc.xmlns.textmd_v3:gov.loc.audiomd:gov.loc.mets:gov.loc.mix.v20:edu.harvard.hul.ois.xml.ns.fits.fits_output</excludePackageNames>
+                    <excludePackageNames>uk.org.taverna.ns._2014.scape:gov.loc.videomd:org.purl.dc.elements._1:com.google.books.gbs:gov.loc.marc21.slim:info.lc.xmlns.premis_v2:info.lc.xmlns.textmd_v3:gov.loc.audiomd:gov.loc.mets:gov.loc.mix.v20:edu.harvard.hul.ois.xml.ns.fits.fits_output</excludePackageNames>
                 </configuration>
                 <executions>
                     <execution>

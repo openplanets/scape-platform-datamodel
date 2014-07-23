@@ -30,6 +30,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import javax.xml.bind.JAXBElement;
@@ -43,6 +44,7 @@ import gov.loc.mix.v20.ImageCaptureMetadataType;
 import gov.loc.mix.v20.ImageCaptureMetadataType.DigitalCameraCapture;
 import gov.loc.mix.v20.Mix;
 import gov.loc.mix.v20.StringType;
+import uk.org.taverna.ns._2014.scape.Measure;
 
 /**
 *
@@ -242,5 +244,4 @@ public abstract class TestUtil {
                         TestUtil.createDCRecord()).build();
         return e;
     }
-
 }
