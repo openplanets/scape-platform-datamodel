@@ -129,6 +129,7 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <specVersion>2.1</specVersion>
                     <disableXmlSecurity>true</disableXmlSecurity>
                     <!--<accessExternalSchema>all</accessExternalSchema>-->
                     <accessExternalDTD>all</accessExternalDTD>
