@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	xmlns:annox="http://annox.dev.java.net"
+	version="2.0">
+  <jaxb:bindings schemaLocation="dc.xsd" node="/xs:schema">
+    <jaxb:schemaBindings>
+        <jaxb:package name="scape.dc" />
+    </jaxb:schemaBindings>
+  	<jaxb:bindings node="xs:complexType[@name='elementContainer']">
+      <annox:annotate>
+  	    <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="dublin-core" namespace="http://purl.org/dc/elements/1.1/" />
+	  </annox:annotate>  		
+  	</jaxb:bindings>
+  </jaxb:bindings>
+ <jaxb:bindings schemaLocation="ead-c.xsd" node="/xs:schema">
+  	<jaxb:schemaBindings>
+        <jaxb:package name="scape.eadc" />
+    </jaxb:schemaBindings>
+    <jaxb:bindings node="xs:complexType[@name='ead-c']">
+      <annox:annotate>
+  	    <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="ead-c" namespace="http://roda.dgarq.gov.pt/2008/EADCSchema" />
+	  </annox:annotate>  		
+  	</jaxb:bindings>
+    </jaxb:bindings> 
+  <jaxb:bindings schemaLocation="premis.xsd" node="/xs:schema">
+    <jaxb:schemaBindings>
+        <jaxb:package name="scape.premis" />
+    </jaxb:schemaBindings>
+  	<jaxb:bindings node="xs:complexType[@name='premisComplexType']">
+      <annox:annotate>
+  	    <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="premis" namespace="info:lc/xmlns/premis-v2" />
+	  </annox:annotate>  		
+  	</jaxb:bindings>
+  	<jaxb:bindings node="xs:complexType[@name='rightsComplexType']">
+      <annox:annotate>
+  	    <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="rights" namespace="info:lc/xmlns/premis-v2" />
+	  </annox:annotate>  		
+  	</jaxb:bindings>
+  </jaxb:bindings>
+  
+  <jaxb:bindings schemaLocation="MARC21slim.xsd" node="/xs:schema">
+  	<jaxb:schemaBindings>
+        <jaxb:package name="scape.marc21" />
+    </jaxb:schemaBindings>
+  	<jaxb:bindings node="xs:complexType[@name='recordType']">
+      <annox:annotate>
+  	    <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="record" namespace="http://www.loc.gov/MARC21/slim" />
+	  </annox:annotate>  		
+  	</jaxb:bindings>
+  </jaxb:bindings>
+
+<jaxb:bindings schemaLocation="audioMD.xsd" node="/xs:schema">
+  	<jaxb:schemaBindings>
+        <jaxb:package name="scape.audio" />
+    </jaxb:schemaBindings>
+    
+    </jaxb:bindings>
+    
+    
+    
+    
+   
+ <jaxb:bindings schemaLocation="fits_output.xsd" node="/xs:schema">
+  	<jaxb:schemaBindings>
+        <jaxb:package name="scape.fits" />
+    </jaxb:schemaBindings>
+    
+    </jaxb:bindings> 
+      
+    <jaxb:bindings schemaLocation="mets.xsd" node="/xs:schema">
+  	<jaxb:schemaBindings>
+        <jaxb:package name="scape.mets" />
+    </jaxb:schemaBindings>
+    
+    </jaxb:bindings>
+    
+    <jaxb:bindings schemaLocation="mix20.xsd" node="/xs:schema">
+  	<jaxb:schemaBindings>
+        <jaxb:package name="scape.mix20" />
+    </jaxb:schemaBindings>
+    
+    </jaxb:bindings>
+    
+    <jaxb:bindings schemaLocation="textMD.xsd" node="/xs:schema">
+  	<jaxb:schemaBindings>
+        <jaxb:package name="scape.text" />
+    </jaxb:schemaBindings>
+    
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="videoMD.xsd" node="/xs:schema">
+  	<jaxb:schemaBindings>
+        <jaxb:package name="scape.video" />
+    </jaxb:schemaBindings>
+    
+    </jaxb:bindings>
+  <jaxb:bindings schemaLocation="gbs.xsd" node="/xs:schema">
+  	<jaxb:schemaBindings>
+        <jaxb:package name="scape.gbs" />
+    </jaxb:schemaBindings>
+  	<jaxb:bindings node="xs:complexType[@name='gbsType']">
+      <annox:annotate>
+  	    <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="gbs" namespace="http://books.google.com/gbs" />
+	  </annox:annotate>  		
+  	</jaxb:bindings>
+  </jaxb:bindings>
+</jaxb:bindings>
