@@ -42,7 +42,7 @@ A list of benefits X brings to the end user:
 
 ### Who is intended audience?
 
-* Developers implementing SCAPE festures
+* Developers implementing SCAPE features
 
 ## Features and roadmap
 
