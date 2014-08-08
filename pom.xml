@@ -48,6 +48,7 @@
 							</execution>
 						</executions>
 						<configuration>
+							<specVersion>2.1</specVersion>
 							<schemaDirectory>${basedir}/src/main/resources/xml-schemas</schemaDirectory>
 							<schemaExcludes>
 								<exclude>ead-c.xsd</exclude>
@@ -242,6 +243,7 @@
 							</execution>
 						</executions>
 						<configuration>
+							<specVersion>2.1</specVersion>
 							<schemaDirectory>${basedir}/src/main/resources/xml-schemas</schemaDirectory>
 							<bindingDirectory>${basedir}/src/main/resources/xml-schemas</bindingDirectory>
 							<bindingIncludes>
