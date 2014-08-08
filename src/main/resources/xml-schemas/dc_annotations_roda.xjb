@@ -14,7 +14,7 @@
 	  </annox:annotate>  		
   	</jaxb:bindings>
   </jaxb:bindings>
- <jaxb:bindings schemaLocation="ead-c.xsd" node="/xs:schema">
+ <jaxb:bindings schemaLocation="ead-c_roda.xsd" node="/xs:schema">
   	<jaxb:schemaBindings>
         <jaxb:package name="scape.eadc" />
     </jaxb:schemaBindings>
