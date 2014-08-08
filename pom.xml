@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
 		<groupId>eu.scape-project</groupId>
 		<artifactId>scape-parent</artifactId>
@@ -15,7 +15,6 @@
 		<developerConnection>scm:git:git@github.com:openplanets/scape-platform-datamodel.git</developerConnection>
 		<url>git@github.com:openplanets/scape-platform-datamodel.git</url>
 	</scm>
-
 	<profiles>
 		<!-- We need the sonatype snapshot repo for now -->
 		<profile>
@@ -35,6 +34,52 @@
 					</snapshots>
 				</repository>
 			</repositories>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jvnet.jaxb2.maven2</groupId>
+						<artifactId>maven-jaxb2-plugin</artifactId>
+						<version>0.9.0</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<specVersion>2.1</specVersion>
+							<schemaDirectory>${basedir}/src/main/resources/xml-schemas</schemaDirectory>
+							<schemaExcludes>
+								<exclude>ead-c.xsd</exclude>
+							</schemaExcludes>
+							<bindingDirectory>${basedir}/src/main/resources/xml-schemas</bindingDirectory>
+							<bindingIncludes>
+								<bindingInclude>dc_annotations.xjb</bindingInclude>
+							</bindingIncludes>
+							<accessExternalSchema>true</accessExternalSchema>
+							<outputdirectory>${basedir}/src/main/generated-source</outputdirectory>
+							<explicitAnnotation>true</explicitAnnotation>
+							<extension>true</extension>
+							<args>
+								<arg>-Xannotate</arg>
+							</args>
+							<plugins>
+								<plugin>
+									<groupId>org.jvnet.jaxb2_commons</groupId>
+									<artifactId>jaxb2-basics-annotate</artifactId>
+									<version>0.6.5</version>
+								</plugin>
+								<plugin>
+									<groupId>org.jvnet.jaxb2_commons</groupId>
+									<artifactId>jaxb2-basics</artifactId>
+									<version>0.6.5</version>
+								</plugin>
+							</plugins>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 		<!-- For Maven site publication on OPF Jenkins server -->
 		<profile>
@@ -47,8 +92,188 @@
 				</site>
 			</distributionManagement>
 		</profile>
+		<profile>
+			<id>roda</id>
+			<repositories>
+				<repository>
+					<id>snapshots-repo</id>
+					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.google.code.maven-replacer-plugin</groupId>
+						<artifactId>replacer</artifactId>
+						<version>1.5.3</version>
+						<executions>
+							<execution>
+								<id>initial_replace</id>
+								<phase>process-resources</phase>
+								<goals>
+									<goal>replace</goal>
+								</goals>
+								<configuration>
+									<includes>
+										<include>${basedir}/**/*.java</include>
+									</includes>
+									<replacements>
+										<replacement>
+											<token>info.lc.xmlns.premis_v2</token>
+											<value>scape.premis</value>
+										</replacement>
+										<replacement>
+											<token>gov.loc.mets</token>
+											<value>scape.mets</value>
+										</replacement>
+										<replacement>
+											<token>edu.harvard.hul.ois.xml.ns.fits.fits_output</token>
+											<value>scape.fits</value>
+										</replacement>
+										<replacement>
+											<token>gov.loc.audiomd</token>
+											<value>scape.audio</value>
+										</replacement>
+										<replacement>
+											<token>gov.loc.mix.v20</token>
+											<value>scape.mix20</value>
+										</replacement>
+										<replacement>
+											<token>gov.loc.videomd</token>
+											<value>scape.video</value>
+										</replacement>
+										<replacement>
+											<token>info.lc.xmlns.textmd_v3</token>
+											<value>scape.text</value>
+										</replacement>
+										<replacement>
+											<token>org.purl.dc.elements._1</token>
+											<value>scape.dc</value>
+										</replacement>
+										<replacement>
+											<token>com.google.books.gbs</token>
+											<value>scape.gbs</value>
+										</replacement>
+										<replacement>
+											<token>gov.loc.marc21.slim</token>
+											<value>scape.marc21</value>
+										</replacement>
+									</replacements>
+									<regexFlags>
+										<regexFlag>CASE_INSENSITIVE</regexFlag>
+										<regexFlag>MULTILINE</regexFlag>
+									</regexFlags>
+								</configuration>
+							</execution>
+							<execution>
+								<id>final_replace</id>
+								<phase>package</phase>
+								<goals>
+									<goal>replace</goal>
+								</goals>
+								<configuration>
+									<includes>
+										<include>${basedir}/**/*.java</include>
+									</includes>
+									<replacements>
+										<replacement>
+											<value>info.lc.xmlns.premis_v2</value>
+											<token>scape.premis</token>
+										</replacement>
+										<replacement>
+											<value>gov.loc.mets</value>
+											<token>scape.mets</token>
+										</replacement>
+										<replacement>
+											<value>edu.harvard.hul.ois.xml.ns.fits.fits_output</value>
+											<token>scape.fits</token>
+										</replacement>
+										<replacement>
+											<value>gov.loc.audiomd</value>
+											<token>scape.audio</token>
+										</replacement>
+										<replacement>
+											<value>gov.loc.mix.v20</value>
+											<token>scape.mix20</token>
+										</replacement>
+										<replacement>
+											<value>gov.loc.videomd</value>
+											<token>scape.video</token>
+										</replacement>
+										<replacement>
+											<value>info.lc.xmlns.textmd_v3</value>
+											<token>scape.text</token>
+										</replacement>
+										<replacement>
+											<value>org.purl.dc.elements._1</value>
+											<token>scape.dc</token>
+										</replacement>
+										<replacement>
+											<value>com.google.books.gbs</value>
+											<token>scape.gbs</token>
+										</replacement>
+										<replacement>
+											<value>gov.loc.marc21.slim</value>
+											<token>scape.marc21</token>
+										</replacement>
+									</replacements>
+									<regexFlags>
+										<regexFlag>CASE_INSENSITIVE</regexFlag>
+										<regexFlag>MULTILINE</regexFlag>
+									</regexFlags>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.jvnet.jaxb2.maven2</groupId>
+						<artifactId>maven-jaxb2-plugin</artifactId>
+						<version>0.9.0</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<specVersion>2.1</specVersion>
+							<schemaDirectory>${basedir}/src/main/resources/xml-schemas</schemaDirectory>
+							<bindingDirectory>${basedir}/src/main/resources/xml-schemas</bindingDirectory>
+							<bindingIncludes>
+								<bindingInclude>dc_annotations_roda.xjb</bindingInclude>
+							</bindingIncludes>
+							<accessExternalSchema>true</accessExternalSchema>
+							<outputdirectory>${basedir}/src/main/generated-source</outputdirectory>
+							<explicitAnnotation>true</explicitAnnotation>
+							<extension>true</extension>
+							<args>
+								<arg>-Xannotate</arg>
+							</args>
+							<plugins>
+								<plugin>
+									<groupId>org.jvnet.jaxb2_commons</groupId>
+									<artifactId>jaxb2-basics-annotate</artifactId>
+									<version>0.6.5</version>
+								</plugin>
+								<plugin>
+									<groupId>org.jvnet.jaxb2_commons</groupId>
+									<artifactId>jaxb2-basics</artifactId>
+									<version>0.6.5</version>
+								</plugin>
+							</plugins>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -98,61 +323,26 @@
 			</resource>
 		</resources>
 		<plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
-                <configuration>
-                    <excludePackageNames>uk.org.taverna.ns._2014.scape:gov.loc.videomd:org.purl.dc.elements._1:com.google.books.gbs:gov.loc.marc21.slim:info.lc.xmlns.premis_v2:info.lc.xmlns.textmd_v3:gov.loc.audiomd:gov.loc.mets:gov.loc.mix.v20:edu.harvard.hul.ois.xml.ns.fits.fits_output</excludePackageNames>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-				<groupId>org.jvnet.jaxb2.maven2</groupId>
-				<artifactId>maven-jaxb2-plugin</artifactId>
-				<version>0.9.0</version>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<configuration>
+					<excludePackageNames>uk.org.taverna.ns._2014.scape:gov.loc.videomd:org.purl.dc.elements._1:com.google.books.gbs:gov.loc.marc21.slim:info.lc.xmlns.premis_v2:info.lc.xmlns.textmd_v3:gov.loc.audiomd:gov.loc.mets:gov.loc.mix.v20:edu.harvard.hul.ois.xml.ns.fits.fits_output</excludePackageNames>
+				</configuration>
 				<executions>
 					<execution>
+						<id>attach-javadocs</id>
 						<goals>
-							<goal>generate</goal>
+							<goal>jar</goal>
 						</goals>
 					</execution>
 				</executions>
-				<configuration>
-					<schemaDirectory>${basedir}/src/main/resources/xml-schemas</schemaDirectory>
-					<bindingDirectory>${basedir}/src/main/resources/xml-schemas</bindingDirectory>
-                    <accessExternalSchema>true</accessExternalSchema>
-					<outputdirectory>${basedir}/src/main/generated-source</outputdirectory>
-					<explicitAnnotation>true</explicitAnnotation>
-					<extension>true</extension>
-					<args>
-						<arg>-Xannotate</arg>
-					</args>
-					<plugins>
-						<plugin>
-							<groupId>org.jvnet.jaxb2_commons</groupId>
-							<artifactId>jaxb2-basics-annotate</artifactId>
-							<version>0.6.5</version>
-						</plugin>
-						<plugin>
-							<groupId>org.jvnet.jaxb2_commons</groupId>
-							<artifactId>jaxb2-basics</artifactId>
-							<version>0.6.5</version>
-						</plugin>
-					</plugins>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+				<version>3.1</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
@@ -161,7 +351,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version>
+				<version>2.4</version>
 				<executions>
 					<execution>
 						<goals>
