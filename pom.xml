@@ -54,7 +54,7 @@
 			<id>roda</id>
 			<properties>
 			<jaxb.include>dc_annotations_roda.xjb</jaxb.include>
-			<jaxb.exclude></jaxb.exclude>
+			<jaxb.exclude>THIS_FILE_DOES_NOT_EXIST</jaxb.exclude>
 			</properties>
 			<repositories>
 				<repository>
