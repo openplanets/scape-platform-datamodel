@@ -15,6 +15,18 @@
 		<developerConnection>scm:git:git@github.com:openplanets/scape-platform-datamodel.git</developerConnection>
 		<url>git@github.com:openplanets/scape-platform-datamodel.git</url>
 	</scm>
+	<repositories>
+		<repository>
+			<id>snapshots-repo</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 	<profiles>
 		<!-- We need the sonatype snapshot repo for now -->
 		<profile>
@@ -26,18 +38,6 @@
 			<jaxb.include>dc_annotations.xjb</jaxb.include>
 			<jaxb.exclude>ead-c.xsd</jaxb.exclude>
 			</properties>
-			<repositories>
-				<repository>
-					<id>snapshots-repo</id>
-					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-					<releases>
-						<enabled>false</enabled>
-					</releases>
-					<snapshots>
-						<enabled>true</enabled>
-					</snapshots>
-				</repository>
-			</repositories>
 		</profile>
 		<!-- For Maven site publication on OPF Jenkins server -->
 		<profile>
@@ -56,18 +56,6 @@
 			<jaxb.include>dc_annotations_roda.xjb</jaxb.include>
 			<jaxb.exclude>THIS_FILE_DOES_NOT_EXIST</jaxb.exclude>
 			</properties>
-			<repositories>
-				<repository>
-					<id>snapshots-repo</id>
-					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-					<releases>
-						<enabled>false</enabled>
-					</releases>
-					<snapshots>
-						<enabled>true</enabled>
-					</snapshots>
-				</repository>
-			</repositories>
 			<build>
 				<plugins>
 					<plugin>
